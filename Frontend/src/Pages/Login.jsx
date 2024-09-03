@@ -1,4 +1,5 @@
 import React from 'react';
+import LoginButton from "../../public/Components/loginButton/loginButton";
 import { useNavigate } from 'react-router-dom';
 import "../styles/Login.css";
 
@@ -10,8 +11,9 @@ function Login() {
   };
 
   return (
+    <>
+    <h1 className="h1_patagon">Pata<span>gón</span></h1>
     <div className="login-container">
-      <h1 className="h1_patagon">Pata<span>gón</span></h1>
       <div className="div_login">
         <h1 className="h1_login">Login</h1>
         <div className="form-group1">
@@ -23,11 +25,12 @@ function Login() {
           <input type="password" id="password" name="password" required />
         </div>
         <div className='form-group3'>
-          <button type="submit">Submit</button>
-          <button type="sign_-in">Sign in</button>
+          <LoginButton onClick={handleLogin}>Ingreso</LoginButton>
+          <LoginButton onClick={handleLogin}>Registrarse</LoginButton> 
         </div>
       </div>
     </div>
+  </>
   );
 }
 
