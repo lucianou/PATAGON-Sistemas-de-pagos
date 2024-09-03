@@ -1,12 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario y Notificaciones en Tiempo Real</title>
+</head>
+<body>
+    <h1>Formulario de Solicitud de Horas</h1>
+    <form id="solicitudForm">
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+        
+        <label for="rut">RUT:</label><br>
+        <input type="text" id="rut" name="rut" required><br><br>
+        
+        <label for="empresa">Empresa:</label><br>
+        <input type="text" id="empresa" name="empresa" required><br><br>
+        
+        <label for="horas">Horas Pedidas:</label><br>
+        <input type="number" id="horas" name="horas" required><br><br>
+        
+        <input type="submit" value="Enviar">
+    </form>
+
+    <h1>Panel de Notificaciones</h1>
+    <div id="notifications"></div>
+
+    <!-- Incluir la biblioteca de Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Conectar con el servidor Socket.io
+        const socket = io();
+
+        // Escuchar las notificaciones del servidor y mostrarlas en el panel
+        socket.on('newNotification', function(message) {
+            const notificationsDiv = document.getElementById('notifications');
+            const notificationElement = document.createElement('div');
+            notificationElement.innerText = message;
+            notificationElement.style.border = "1px solid black";
+            notificationElement.style.margin = "5px";
+            notificationElement.style.padding = "10px";
+            notificationsDiv.appendChild(notificationElement);
+        });
+
+        // Manejar el envío del formulario
+        document.getElementById('solicitudForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Capturar los datos del formulario
+            const nombre = document.getElementById('nombre').value;
+            const rut = document.getElementById('rut').value;
+            const empresa = document.getElementById('empresa').value;
+            const horas = document.getElementById('horas').value;
+
+            // Crear un objeto JSON con los datos
+            const solicitud = {
+                nombre: nombre,
+                rut: rut,
+                empresa: empresa,
+                horas: parseInt(horas)
+            };
+
+            // Enviar los datos al servidor como JSON usando fetch
+            fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'user-rut': rut  // Se envía el RUT en la cabecera para la identificación
+                },
+                body: JSON.stringify(solicitud)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
 </html>
