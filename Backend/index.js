@@ -3,7 +3,7 @@ import cors from 'cors'
 import {interactionRouter} from './routes/interactionRoute.js'
 
 const app = express();
-const port = 3001;
+const port = 3002;
 
 
 app.use(cors());
