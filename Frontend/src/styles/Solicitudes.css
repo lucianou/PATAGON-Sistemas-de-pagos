@@ -1,0 +1,78 @@
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 240px;
+    background-color: #1a1a2e;
+    color: #ffffff;
+    padding: 20px;
+  }
+  
+  .profile {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .profile-pic {
+    width: 80px;
+    height: 80px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu ul li {
+    padding: 10px 0;
+    cursor: pointer;
+  }
+  
+  .menu ul li.active {
+    color: #007bff;
+  }
+  
+  .content {
+    flex-grow: 1;
+    background-color: #162447;
+    color: #ffffff;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .page-count {
+    font-size: 14px;
+    color: #999999;
+  }
+  
+  .solicitudes-list {
+    background-color: #1f4068;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .solicitud-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: #000000;
+  }
+  
+  .solicitud-item .icon {
+    cursor: pointer;
+  }
+  
