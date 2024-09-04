@@ -1,12 +1,83 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  height: 100vh;
+  padding: 0;
+  font-family: 'popins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: black;
 }
 
-.h1_patagon {
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  background: linear-gradient(to bottom, #0D1F39, #176290);
+  color: #ffffff;
+  border: 1px solid #114a6e;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 0px #03e9f4,
+              0 5px 10px #03e9f4,
+              0 25px 60px #03e9f4;
+  form{
+    width: 90%;
+  }
+  h1 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .input-group {
+    position: relative;
+    margin: 40px 0;    
+  }
+  .input-group input{
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid #ffffff;
+    outline: none;
+    padding: 0 5px;
+    margin-top: 5px;
+    color: #ffffff;
+  }
+  .input-group input:focus~label,
+  .input-group input:valid~label {
+    top: 0;
+    font-size: 12px;
+    background: transparent;
+    color: #04FFF2;
+  }
+  .input-group label {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #ffffff;
+    transition: all 0.5s;
+  }
+  .login-group label{
+  }
+
+  .login-group{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 0  30px 0;
+  }
+}
+
+/* .h1_patagon {
   justify-content: center;
   font-weight: bold;
   color: #ffffff;
@@ -14,45 +85,5 @@ body {
   span {
     color: #04FFF2;
   }
-}
-
-.login-containter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.div_login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 400px;
-  height: 300px;
-  background: linear-gradient(to bottom, #0D1F39, #176290);
-  color: #ffffff;
-  border: 1px solid #114a6e;
-  padding: 20px;
-  input {
-    background-color: #1a1919;
-    border: 1px solid #04FFF2;
-    border-radius: 10px;
-    color: #ffffff;
-  }
-  div, h1 {
-    width: 100%;
-    height: 30px;
-  }
-}
-
-
-
-button {
-  color: #ffffff;
-  
-  &:hover {
-    color: #000000;
-  }
-}
+} */
 

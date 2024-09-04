@@ -1,7 +1,7 @@
 import React from 'react';
-import LoginButton from "../../public/Components/loginButton/loginButton";
 import { useNavigate } from 'react-router-dom';
 import "../styles/Login.css";
+import LoginButton from '../../public/Components/loginButton/loginButton';
 
 function Login() {
   const navigate = useNavigate();
@@ -11,26 +11,29 @@ function Login() {
   };
 
   return (
-    <>
-    <h1 className="h1_patagon">Pata<span>gón</span></h1>
-    <div className="login-container">
-      <div className="div_login">
-        <h1 className="h1_login">Login</h1>
-        <div className="form-group1">
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" required />
-        </div>
-        <div className="form-group2">
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <div className='form-group3'>
-          <LoginButton onClick={handleLogin}>Ingreso</LoginButton>
-          <LoginButton onClick={handleLogin}>Registrarse</LoginButton> 
-        </div>
-      </div>
-    </div>
-  </>
+    <div className="login">
+        <form>
+          <h1>Login</h1>
+          <div className='input-group'>
+            <input type="text" id='name'required autoComplete='off'/>
+            <label htmlFor="name">Nombre</label>
+          </div>
+          
+          <div className='input-group'>
+            <input type="password" id='pass'required autoComplete='off'/>
+            <label htmlFor="pass">Contraseña</label>
+          </div>
+
+          <div className='login-group'>
+            <div>
+              <input id='check' type="checkbox"/>
+              <label htmlFor='check'> Recordarme</label>
+            </div>
+            <a href='#'>¿Olvidaste tu contraseña?</a>
+          </div>
+          <LoginButton onClick={handleLogin}>Ingresar</LoginButton>
+        </form>
+    </div>    
   );
 }
 
