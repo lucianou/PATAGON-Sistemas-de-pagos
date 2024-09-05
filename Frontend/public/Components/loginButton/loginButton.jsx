@@ -1,13 +1,14 @@
 import React from 'react';
-import './loginButton.css';
-const LoginButton = (props) => {
+import styles from './loginButton.module.css';
+
+const LoginButton = ({ text, onClick }) => {
   return (
-    <a className="text-button" href="#">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      {props.children}
+    <a className={styles.textButton} onClick={onClick} href="#">
+      <span className={styles.span}></span>
+      <span className={styles.span}></span>
+      <span className={styles.span}></span>
+      <span className={styles.span}></span>
+      {text}
     </a>
   );
 };

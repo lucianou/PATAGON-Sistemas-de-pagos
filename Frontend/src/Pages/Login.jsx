@@ -2,7 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/Login.css";
 import LoginButton from '../../public/Components/loginButton/loginButton';
-
+import InputPassword from '../../public/Components/InputPassword/inputPassword';
+import InputText from '../../public/Components/InputText/inputText';
 function Login() {
   const navigate = useNavigate();
 
@@ -11,29 +12,26 @@ function Login() {
   };
 
   return (
+    <>
+    {/* <h1 className='h1-patagon'>Pata<span>gon</span></h1> */}
+    <img src="https://patagon.uach.cl/user/themes/darkquark/images/logo/patagon-logo-text-color.svg" alt="patagon" className='logo'/>
     <div className="login">
         <form>
           <h1>Login</h1>
-          <div className='input-group'>
-            <input type="text" id='name'required autoComplete='off'/>
-            <label htmlFor="name">Nombre</label>
-          </div>
-          
-          <div className='input-group'>
-            <input type="password" id='pass'required autoComplete='off'/>
-            <label htmlFor="pass">Contraseña</label>
-          </div>
-
+          <InputText id='name' label='Nombre de usuario' />
+          <InputPassword id='pass' label='Contraseña' />
           <div className='login-group'>
             <div>
-              <input id='check' type="checkbox"/>
+              <input id='check' type="checkbox" />
               <label htmlFor='check'> Recordarme</label>
             </div>
-            <a href='#'>¿Olvidaste tu contraseña?</a>
+              <a href='#' className='forg-pass'>¿Olvidaste tu contraseña?</a>
           </div>
-          <LoginButton onClick={handleLogin}>Ingresar</LoginButton>
+          <LoginButton onClick={handleLogin} text="Ingresar" />
+          <p className='registro'>¿No tienes cuenta? <a href='/registro'>Regístrate</a></p>
         </form>
-    </div>    
+    </div>   
+    </> 
   );
 }
 
