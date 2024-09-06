@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Pages/Login';
+import Registro from './Pages/Registro';
 import Dashboard from './Pages/Dashboard';
 import Dashboard_solicitudes from './Pages/Dashboard_solicitudes';
 import Dashboard_user from './Pages/Dashboard_user'; // Importa el nuevo componente
@@ -12,6 +13,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard-solicitudes" element={<Dashboard_solicitudes />} />
         <Route path="/dashboard-profit" element={<Dashboard_profit />} />

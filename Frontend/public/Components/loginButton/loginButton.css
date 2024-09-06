@@ -1,25 +1,30 @@
 .textButton {
-  display: block;
   position: relative;
+  width: 100%;
   padding: 10px 20px;
-  color: #fff;
-  text-decoration: none;
+  color: #03e9f4;
   text-transform: uppercase;
   overflow: hidden;
+  font-weight: bold;
   transition: 0.5s;
   text-align: center;
-  margin: 20px;
   letter-spacing: 4px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
 }
 
 .textButton:hover {
   background: #03e9f4;
-  color: #010108;
+  color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 5px #03e9f4,
               0 0 25px #03e9f4,
               0 0 50px #03e9f4,
               0 0 65px #03e9f4;
+  span {
+    display: none;
+  }
 }
 
 .textButton span {
