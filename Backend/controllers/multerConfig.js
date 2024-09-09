@@ -7,7 +7,7 @@ const uploadDir = path.resolve('data/uploads');
 
 // Asegúrate de que la carpeta exista o créala
 if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true }); // Crea la carpeta y cualquier carpeta padre necesaria
+  fs.mkdirSync(uploadDir, { recursive: true }); 
 }
 
 // Configuración de almacenamiento de archivos
