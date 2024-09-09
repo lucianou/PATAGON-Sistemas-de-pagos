@@ -5,31 +5,28 @@ import LoginButton from '../../public/Components/loginButton/loginButton';
 import InputPassword from '../../public/Components/InputPassword/inputPassword';
 import InputText from '../../public/Components/InputText/inputText';
 import patagonImg from '../assets/patagon-logo-text-color.png';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+
 
 function Login() {
   
   const initialData = {
-    gmail: '',
+    email: '',
     password: ''
   }
 
-  const onValidate = (form) => { 
-    let isError = false;
-    let error ={};
-    
-  };
-
-  const [form, errors, loading, handleChange, handleSubmit] = useForm(initialData, onValidate);
+  const [form, errors, handleChange, handleSubmit] = useForm(initialData);
 
 
   return (
     <>
-    <img src={patagonImg} alt="patagon" className='logo'/>
+    {/* <img src={patagonImg} alt="patagon" className='logo'/> */}
     <div className="login">
         <form onSubmit={handleSubmit} >
           <h1>Login</h1>
-          <InputText id='gmail' label='Gmail' value={form.gmail} handleChange={handleChange} />
-          <InputPassword id='password' label='Contraseña' value={form.password} handleChange={handleChange} />
+          {errors.server && <p style={{ color: 'red' }}>{errors.server}</p>}
+          <InputText icon={faEnvelope} id='email' label='Gmail' value={form.email} handleChange={handleChange} />
+          <InputPassword icon={faLock} id='password' label='Contraseña' value={form.password} handleChange={handleChange} />
           <div className='login-group'>
             <div>
               <input id='check' type="checkbox" />

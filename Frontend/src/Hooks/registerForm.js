@@ -7,6 +7,8 @@ const useForm = (initialData, onValidate) => {
   const [serverMessage, setServerMessage] = useState(''); // Para almacenar el mensaje del servidor
   const navigate = useNavigate();
 
+  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -14,10 +16,26 @@ const useForm = (initialData, onValidate) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const jsonString = JSON.stringify(form);
-    console.log(jsonString); // {"username":"usuario","password":"contraseña"}
+    const err = onValidate(form);
+    
+    console.log("perro");
+    if(err == null){
+      console.log("gato");
+    } else {
+      console.log("gato");
 
-    fetch('http://localhost:3004/api/command/userLog', {
+      setErrors(err);
+      return;
+    }
+
+    // Excluir repPass del objeto initialData
+    const { repPass, ...dataWithoutRepPass } = form;
+
+    // Convertir el objeto sin repPass a una cadena JSON
+    const jsonString = JSON.stringify(dataWithoutRepPass);
+    console.log(jsonString); 
+
+    fetch('http://localhost:3004/api/command/userReg', {
       headers: {
         'Content-Type': 'application/json',
       },

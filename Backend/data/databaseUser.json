@@ -2,5 +2,13 @@
   {
     "email": "correo@gmail.com",
     "password": "$2b$10$ktZMHbcxeUvknIeGaUXNDe9IMIEz0yTi2Z5m7/w4YRMcr6GreEOc."
+  },
+  {
+    "email": "correo123@gmail.com",
+    "password": "$2b$10$w56iFdAEkv6OzTLvc/52SOeWU0UMgHXgtS.ppX8W08gWWjZ5GN3IK"
+  },
+  {
+    "email": "correo@gmail.com",
+    "password": "$2b$10$0rbNJi2Mjp2zeLT7TbS9QOP.K9ae7NF/.ieW7OOHYx0Y0kuZpoECq"
   }
 ]
