@@ -1,11 +1,12 @@
 import bcrypt from 'bcrypt';
 import fs from 'fs';
 
+// Función para registrar usuario
 export async function registerUser(req, res) {
-  const { email, password } = req.body;
+  const { email, password, username } = req.body;
 
-  if (!email || !password) {
-      return res.status(400).json({ error: 'Email y contraseña son requeridos' });
+  if (!email || !password || !username) {
+      return res.status(400).json({ error: 'Email, usuario y contraseña son requeridos' });
   }
 
   try {
@@ -35,6 +36,7 @@ export async function registerUser(req, res) {
       // Crear el nuevo usuario
       const user = {
           email: email,
+          username: username,
           password: hashedPassword
       };
 
@@ -51,7 +53,7 @@ export async function registerUser(req, res) {
   }
 }
 
-// Función para iniciar sesión (login)
+// Función para iniciar sesión 
 export async function loginUser(req, res) {
     const { email, password } = req.body;
 
