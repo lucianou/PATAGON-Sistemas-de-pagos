@@ -17,13 +17,21 @@ const useForm = (initialData, onValidate) => {
     e.preventDefault();
     const err = onValidate(form);
 
-    if (err === null) {
-      console.log(form);
-    } else {
-      setErrors(err);
-    }
+    fetch('http://localhost:3002', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(form),
+      
+    }).then((response) => {
+      if (response.ok) {
+        navigate('/dashboard');
+      }
+      throw response;
+    });  
+    
     console.log(form);
-    navigate('/dashboard');
   }
 
   return [form, errors, loading, handleChange, handleSubmit];

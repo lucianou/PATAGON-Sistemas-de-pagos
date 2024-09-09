@@ -8,6 +8,11 @@ import InputText from '../../public/Components/InputText/inputText';
 const Registro = () => {
   const history = useNavigate();
 
+  const onValidate = () => {
+
+    let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
+    
+  }
 
 
   return (
