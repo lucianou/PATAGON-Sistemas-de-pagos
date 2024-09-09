@@ -1,30 +1,6 @@
 [
   {
-    "name": "Fernando Inzulza",
-    "password": "1234"
-  },
-  {
-    "name": "Patagon Admin",
-    "password": "1234"
-  },
-  {
-    "name": "Vicente Alves",
-    "password": "1234"
-  },
-  {
-    "name": "Luciano Espinoza",
-    "password": "1234"
-  },
-  {
-    "name": "Miguel Ormeño",
-    "password": "1234"
-  },
-  {
-    "name": "Sebastian Pangue",
-    "password": "1234"
-  },
-  {
-    "name": "Fernando Castillo",
-    "password": "1234"
+    "email": "correo@gmail.com",
+    "password": "$2b$10$ktZMHbcxeUvknIeGaUXNDe9IMIEz0yTi2Z5m7/w4YRMcr6GreEOc."
   }
 ]
