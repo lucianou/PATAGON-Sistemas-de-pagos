@@ -16,8 +16,9 @@ body{
 }
 
 .logo {
-  height: 100px;
   position: absolute;
+  width: 250px;
+  height: 100px;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
