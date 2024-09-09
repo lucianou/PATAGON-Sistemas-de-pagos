@@ -10,7 +10,7 @@ from "../controllers/authControllers.js";
 const router = express.Router();
 
 
-router.get("/user", loginUser);
-router.post("/user", registerUser);
+router.post("/userLog", loginUser);
+router.post("/userReg", registerUser);
 
 export {router as AuthRouter}
