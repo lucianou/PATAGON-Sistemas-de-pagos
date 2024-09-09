@@ -22,7 +22,8 @@ const useForm = (initialData, onValidate) => {
     } else {
       setErrors(err);
     }
-
+    console.log(form);
+    navigate('/dashboard');
   }
 
   return [form, errors, loading, handleChange, handleSubmit];
