@@ -4,7 +4,7 @@ import "../styles/Login.css";
 import LoginButton from '../../public/Components/loginButton/loginButton';
 import InputPassword from '../../public/Components/InputPassword/inputPassword';
 import InputText from '../../public/Components/InputText/inputText';
-import patagonImg from '../assets/patagon-logo-text-color.png';
+import patagonImg from '/assets/patagon-logo-text-color.png';
 
 function Login() {
   

@@ -43,6 +43,23 @@
   .menu li:hover {
   color: #6574cd;
   }
+
+  /* color de los enlaces del menu*/
+  .sidebar .menu ul li a {
+    color: #b0b0b0;
+    text-decoration: none; 
+  }
+
+  /* Opcional: Cambia el color cuando el enlace esté activo */
+  .sidebar .menu ul li a:hover {
+    color: #6574cd; /* Cambia el color al pasar el ratón */
+  }
+
+  /* Opcional: Estilo para el enlace activo (enlace seleccionado) */
+  .sidebar .menu ul li.active a {
+    color: #007bff; /* El color que prefieras para el enlace activo */
+    font-weight: bold; /* Opcional: resaltar el enlace activo */
+  }
   
   .content {
   flex: 1;

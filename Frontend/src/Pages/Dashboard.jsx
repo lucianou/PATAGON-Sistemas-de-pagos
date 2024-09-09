@@ -11,11 +11,11 @@ const Dashboard = () => {
         </div>
         <nav className="menu">
           <ul>
-            <li>Dashboard</li>
-            <li>Solicitudes</li>
-            <li>Usuarios</li>
-            <li>Ganancias</li>
-            <li>Configuración</li>
+            <li className='active'><a href='/dashboard'>Dashboard</a></li>
+            <li><a href='/dashboard-solicitudes'>Solicitudes</a></li>
+            <li><a href='/dashboard-user'>Usuarios</a></li>
+            <li><a href='/dashboard-profit'>Ganancias</a></li>
+            <li><a href='/dashboard-config'>Configuración</a></li>
             <li>Cerrar sesión</li>
           </ul>
         </nav>
