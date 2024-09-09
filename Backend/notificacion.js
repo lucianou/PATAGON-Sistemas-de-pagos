@@ -11,8 +11,8 @@ const db = new sqlite3.Database('./usuarios.db');
 
 const port = 3000;
 
-// Middleware para manejar solicitudes y enviar notificaciones
-app.use(express.json()); // Para manejar JSON en las solicitudes
+// Middleware para manejar JSON en las solicitudes
+app.use(express.json());
 
 function getUserData(rut, callback) {
     const query = 'SELECT * FROM usuarios WHERE rut = ?';
@@ -27,6 +27,24 @@ function getUserData(rut, callback) {
     });
 }
 
+// Configurar Socket.io para manejar las conexiones de los administradores
+io.on('connection', (socket) => {
+    console.log('Nuevo cliente conectado');
+
+    // Evento para unir a un administrador a la sala "admin"
+    socket.on('joinAdmin', (rol) => {
+        if (rol === 'admin') {
+            socket.join('admin'); // Unir al cliente a la sala "admin"
+            console.log('Un administrador se ha conectado');
+        }
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Cliente desconectado');
+    });
+});
+
+// Middleware para procesar las solicitudes y enviar notificaciones
 app.use((req, res, next) => {
     const rut = req.headers['user-rut'];
     const requestedHours = req.body.horas; // Horas requeridas en la solicitud
@@ -44,12 +62,11 @@ app.use((req, res, next) => {
                     Horas solicitadas: ${requestedHours}
                 `;
 
-                // Enviar notificación a todos los clientes conectados
-                io.emit('newNotification', notificationMessage);
+                io.to('admin').emit('newNotification', notificationMessage);
 
-                // Aquí puedes descontar las horas solicitadas de las horas restantes, si es necesario
                 db.run('UPDATE usuarios SET horas_restantes = horas_restantes - ? WHERE rut = ?', [requestedHours, rut]);
-                
+
+                console.log(`Solicitud procesada. Usuario ${user.nombre}, horas restantes actualizadas.`);
             } else {
                 console.log(`Usuario ${user.nombre} no tiene horas suficientes. Horas restantes: ${user.horas_restantes}, Horas solicitadas: ${requestedHours}`);
             }
@@ -61,12 +78,10 @@ app.use((req, res, next) => {
     });
 });
 
-// Ruta para servir el archivo HTML
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-// Iniciar el servidor
 server.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
 });

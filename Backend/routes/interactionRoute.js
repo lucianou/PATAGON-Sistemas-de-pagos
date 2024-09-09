@@ -10,10 +10,10 @@ import{
 const router = express.Router();
 
 router.get("/", getPatagonData);
-router.get("/solicitudes", getSolicitudes)
+router.get("/solicitudes", getSolicitudes);
 
 
 //ruta de solicitudes de usuarios
-router.post("/addRequest", addRequest)
+router.post("/addRequest", addRequest);
 
 export {router as interactionRouter}
