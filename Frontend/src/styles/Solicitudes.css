@@ -141,10 +141,15 @@ html, body {
 .pdf-container {
   background-color: white;
   border-radius: 8px;
+  scale: 1;
+  transition: scale .3s ease-in-out;
+  @starting-style {
+    scale: 0;
+  }
   padding: 20px;
   width: 50%;
   max-width: 900px;
-  max-height: 90%;
+  max-height: 95%;
   overflow: auto;
 }
 
@@ -176,4 +181,7 @@ button {
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
+
 }

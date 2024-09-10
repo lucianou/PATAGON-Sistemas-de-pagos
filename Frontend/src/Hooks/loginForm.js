@@ -17,7 +17,7 @@ const useForm = (initialData, onValidate) => {
     const jsonString = JSON.stringify(form);
     console.log(jsonString); // {"username":"usuario","password":"contraseña"}
 
-    fetch('http://localhost:3004/api/command/userLog', {
+    fetch('http://localhost:3006/api/command/userLog', {
       headers: {
         'Content-Type': 'application/json',
       },
