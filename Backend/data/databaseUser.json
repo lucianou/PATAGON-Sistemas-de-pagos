@@ -3,5 +3,10 @@
     "email": "correo4@gmail.com",
     "username": "User1",
     "password": "$2b$10$ERTf8svwvUdUev1TrXdWCuypYwJnJNX8MTwGJLi2UfU7TCzhaZRPm"
+  },
+  {
+    "email": "correo7@gmail.com",
+    "username": "Fernando Inzulza",
+    "password": "$2b$10$TmO2fIGA.ycvDm678MNiq.RbV9Rijnu2k3w5h0xo8S13cuo1Pq.3O" //123gatof
   }
 ]

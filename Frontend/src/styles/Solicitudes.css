@@ -141,6 +141,11 @@ html, body {
 .pdf-container {
   background-color: white;
   border-radius: 8px;
+  scale: 1;
+  transition: scale .3s ease-in-out;
+  @starting-style {
+    scale: 0;
+  }
   padding: 20px;
   width: 50%;
   max-width: 900px;
