@@ -22,7 +22,6 @@ const Dashboard_solicitudes = () => {
     { username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
     { username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
     { username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
-    // Añade más solicitudes aquí
   ];
 
   const [solicitudes, setSolicitudes] = useState(initialSolicitudes);
@@ -31,7 +30,6 @@ const Dashboard_solicitudes = () => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
-  // Control de la paginación de solicitudes
   const [currentPage, setCurrentPage] = useState(1);
   const solicitudesPerPage = 7; // Número de solicitudes por página
   const totalPages = Math.ceil(solicitudes.length / solicitudesPerPage);
