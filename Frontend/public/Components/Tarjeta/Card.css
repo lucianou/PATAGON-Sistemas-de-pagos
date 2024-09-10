@@ -1,0 +1,79 @@
+.bolsa-card {
+    background-color: #2f3b50;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+    width: calc(33.33% - 20px); /* 3 tarjetas por línea */
+  }
+  
+  .bolsa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: right; /* Alinea verticalmente el nombre y el header-right */
+  }
+  
+  .bolsa-header .nombre {
+    font-weight: bold;
+    border-bottom: 1px solid white;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+    flex-grow: 0;
+  }
+  
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .bolsa-details {
+    list-style: none;
+    margin: 10px 0;
+    padding-left: 0;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0; /* Empuja el footer hacia abajo si hay suficiente contenido */
+  }
+  
+.boton{
+    background-color: #4CAF50;
+}
+.Boton_Compra {
+    background-color: #4CAF50;
+    color: white;
+    border: auto;
+    padding: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center; /* Aligns the text in the center */
+    margin: 0 auto; /* Centers the button horizontally */
+}
+  
+  .Boton_Compra:hover {
+    background-color: #45a049;
+
+  }
+
+
+  /* Responsividad */
+  @media (max-width: 1200px) {
+    .bolsa-card {
+      width: calc(50% - 20px); /* 2 tarjetas por fila en pantallas medianas */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .bolsa-card {
+      width: 100%; /* 1 tarjeta por fila en pantallas pequeñas */
+    }
+  }
+  

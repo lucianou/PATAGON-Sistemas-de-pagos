@@ -2,30 +2,19 @@ import React from 'react';
 import '../styles/Dashboard.css'; // Para estilos personalizados
 
 const Dashboard = () => {
+  const adminName = "Admin_name";
+  const profilePic = "/path/to/profile-picture.jpg"; // Cambia esto a la ruta correcta de la imagen
+
   return (
     <div className="dashboard-container">
-      <aside className="sidebar">
-        <div className="profile">
-          <div className="profile-pic"></div>
-          <h2>Admin_name</h2>
-        </div>
-        <nav className="menu">
-          <ul>
-            <li className='active'><a href='/dashboard'>Dashboard</a></li>
-            <li><a href='/dashboard-solicitudes'>Solicitudes</a></li>
-            <li><a href='/dashboard-user'>Usuarios</a></li>
-            <li><a href='/dashboard-profit'>Ganancias</a></li>
-            <li><a href='/dashboard-config'>Configuración</a></li>
-            <li>Cerrar sesión</li>
-          </ul>
-        </nav>
-      </aside>
+      <MenuDashboard profilePic={profilePic} adminName={adminName} />{" "}
+      {/* Pasa las props */}
       <main className="content">
         <div className="dashboard-header">
           <h1>Dashboard</h1>
         </div>
         <div className="dashboard-widgets">
-          <div className="widget small-widget"></div>  
+          <div className="widget small-widget"></div>
           <div className="widget small-widget"></div>
           <div className="widget large-widget"></div>
 
@@ -43,14 +32,13 @@ const Dashboard = () => {
               <div className="footer">
                 <p className="price">Precio</p>
                 <button className="Boton_Compra">¡Lo quiero!</button>
-                </div>
-              </div>     
+              </div>
             </div>
+          </div>
         </div>
       </main>
     </div>
   );
 };
-
 
 export default Dashboard;

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import '../styles/Solicitudes.css';
+import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente del menú
 
 // Configuración del worker para pdfjs
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const Dashboard_solicitudes = () => {
-  const solicitudes = [
-    // Lista de solicitudes (como en tu código anterior)
+  const initialSolicitudes = [
     {
       username: 'user1',
       email: 'user1@gmail.com',
@@ -23,16 +23,14 @@ const Dashboard_solicitudes = () => {
     { username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
     { username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
     { username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
-
-    
-    // Añade más solicitudes aquí
   ];
 
+  const [solicitudes, setSolicitudes] = useState(initialSolicitudes);
   const [selectedPdf, setSelectedPdf] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  
-  // Control de la paginación de solicitudes
+
   const [currentPage, setCurrentPage] = useState(1);
   const solicitudesPerPage = 7; // Número de solicitudes por página
   const totalPages = Math.ceil(solicitudes.length / solicitudesPerPage);
@@ -42,8 +40,9 @@ const Dashboard_solicitudes = () => {
   const indexOfFirstSolicitud = indexOfLastSolicitud - solicitudesPerPage;
   const currentSolicitudes = solicitudes.slice(indexOfFirstSolicitud, indexOfLastSolicitud);
 
-  const mostrarPDF = (pdfUrl) => {
+  const mostrarPDF = (pdfUrl, index) => {
     setSelectedPdf(pdfUrl);
+    setSelectedIndex(index);
     setPageNumber(1); // Reinicia la página al abrir un nuevo PDF
   };
 
@@ -65,6 +64,7 @@ const Dashboard_solicitudes = () => {
 
   const closePdfModal = () => {
     setSelectedPdf(null);
+    setSelectedIndex(null);
   };
 
   const goToNextSolicitudesPage = () => {
@@ -79,30 +79,21 @@ const Dashboard_solicitudes = () => {
     }
   };
 
+  // Función para rechazar la solicitud
+  const rechazarSolicitud = () => {
+    const updatedSolicitudes = solicitudes.filter((_, index) => index !== selectedIndex);
+    setSolicitudes(updatedSolicitudes);
+    closePdfModal(); // Cerrar el modal después de rechazar
+  };
+
   return (
     <div className="dashboard-container">
-      <aside className="sidebar">
-        {/* Menú lateral */}
-        <div className="profile">
-          <div className="profile-pic"></div>
-          <h2>Admin_name</h2>
-        </div>
-        <nav className="menu">
-          <ul>
-            <li><a href='/dashboard'>Dashboard</a></li>
-            <li className="active"><a href='/dashboard-solicitudes'>Solicitudes</a></li>
-            <li><a href='/dashboard-user'>Usuarios</a></li>
-            <li><a href='/dashboard-profit'>Ganancias</a></li>
-            <li><a href='/dashboard-config'>Configuración</a></li>
-            <li>Cerrar sesión</li>
-          </ul>
-        </nav>
-      </aside>
+      <MenuDashboard /> {/* Incluye el componente MenuDashboard aquí */}
 
       <main className="content">
         <div className="header">
           <h1>Solicitudes</h1>
-          <span className="page-count">{solicitudesPerPage*pageNumber} de {solicitudes.length}</span>
+          <span className="page-count"> total: {solicitudes.length}</span>
         </div>
 
         {/* Lista de solicitudes con paginación */}
@@ -115,7 +106,7 @@ const Dashboard_solicitudes = () => {
               <span>{solicitud.fecha}</span>
               <button
                 className="ver-pdf-btn"
-                onClick={() => mostrarPDF(solicitud.pdfUrl)}
+                onClick={() => mostrarPDF(solicitud.pdfUrl, index)}
               >
                 Ver Solicitud
               </button>
@@ -131,7 +122,6 @@ const Dashboard_solicitudes = () => {
           >
             -
           </button>
-              
           <button
             onClick={goToNextSolicitudesPage}
             disabled={currentPage === totalPages}
@@ -153,14 +143,18 @@ const Dashboard_solicitudes = () => {
               </div>
               <div className="pdf-controls">
                 <button onClick={goToPreviousPage} disabled={pageNumber <= 1}>
-                  Anterior
+                  -
                 </button>
                 <button onClick={goToNextPage} disabled={pageNumber >= numPages}>
-                  Siguiente
+                  +
                 </button>
-                <span>Página {pageNumber} de {numPages}</span>
+                <span className="page-count">{pageNumber} de {numPages}</span>
               </div>
-              <button onClick={closePdfModal}>Cerrar Solicitud</button>
+              <div className="pdf-actions">
+                <button onClick={rechazarSolicitud}>Rechazar</button>
+                <button>Aceptar</button>
+                <button onClick={closePdfModal}>Cerrar</button>
+              </div>
             </div>
           </div>
         )}
