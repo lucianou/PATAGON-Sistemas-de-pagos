@@ -1,3 +1,4 @@
+
 .dashboard-container {
   display: flex;
   flex-wrap: wrap;
@@ -143,28 +144,48 @@ h2 {
   background-color: #2f3b50;
   border-radius: 10px;
   padding: 20px;
-  width: 250px;
+  width: calc(33.33% - 20px); /* Aproximadamente 3 tarjetas por línea, ajusta según el espacio */
+  box-sizing: border-box; /* Incluye el padding y el border en el ancho total */
+  height: 215px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   color: white;
 }
-
 .bolsa-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  align-items: flex-start;
 }
 
 .bolsa-header .nombre {
   font-weight: bold;
   border-bottom: 1px solid white;
   margin-bottom: 5px;
+  font-size: 1.5rem; /* Ajusta el tamaño de fuente aquí */
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Alinea la fecha y el precio a la derecha */
+}
+
+.header-right .time {
+  margin-bottom: 5px;
+  font-size: 1.2rem; /* Ajusta el tamaño de fuente aquí */
+}
+
+.header-right .price {
+  background-color: #c6a15b;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .bolsa-details {
   list-style: none;
-  margin-bottom: 20px;
+  margin: 10px 0;
+  padding-left: 0;
 }
 
 .bolsa-details li {
@@ -173,14 +194,7 @@ h2 {
 
 .footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.price {
-  background-color: #c6a15b;
-  padding: 5px 10px;
-  border-radius: 5px;
+  justify-content: flex-end;
 }
 
 .Boton_Compra {
