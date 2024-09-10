@@ -149,12 +149,13 @@ html, body {
   padding: 20px;
   width: 50%;
   max-width: 900px;
-  max-height: 95%;
+  max-height: 98%;
   overflow: auto;
 }
 
 /* Contenedor del documento PDF para permitir el scroll interno */
 .pdf-document {
+  position: relative;
   flex: 1; /* Ocupa el espacio restante en el contenedor */
   overflow: hidden; /* Permite el scroll interno */
   max-height: 70vh;

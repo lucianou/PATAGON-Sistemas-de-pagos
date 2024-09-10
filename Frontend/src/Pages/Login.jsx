@@ -4,7 +4,7 @@ import "../styles/Login.css";
 import LoginButton from "../../public/Components/loginButton/loginButton";
 import InputPassword from "../../public/Components/InputPassword/inputPassword";
 import InputText from "../../public/Components/InputText/inputText";
-import patagonImg from "../assets/patagon-logo-text-color.png";
+import patagonImg from "/assets/patagon-logo-text-color.png";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
@@ -17,7 +17,7 @@ function Login() {
 
   return (
     <>
-      {/* <img src={patagonImg} alt="patagon" className='logo'/> */}
+      {<img src={patagonImg} alt="patagon" className='logo'/> }
       <div className="login">
         <form onSubmit={handleSubmit}>
           <h1>Login</h1>
