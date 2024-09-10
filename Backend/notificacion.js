@@ -1,13 +1,27 @@
+// npm install express socket.io mysql2
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-const sqlite3 = require('sqlite3').verbose();
+const mysql = require('mysql2');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const db = new sqlite3.Database('./usuarios.db');
+const db = mysql.createConnection({
+    host: 'localhost',    // Cambia por tu host
+    user: 'root',         // Cambia por tu usuario MySQL
+    password: 'password', // Cambia por tu contraseña MySQL
+    database: 'pagos_patagon' // Cambia por el nombre de tu base de datos
+});
+
+db.connect((err) => {
+    if (err) {
+        console.error('Error al conectar a la base de datos MySQL:', err);
+    } else {
+        console.log('Conectado a la base de datos MySQL.');
+    }
+});
 
 const port = 3000;
 
@@ -17,28 +31,24 @@ app.use(express.json());
 function getUserData(rut, callback) {
     const query = 'SELECT * FROM usuarios WHERE rut = ?';
 
-    db.get(query, [rut], (err, row) => {
+    db.query(query, [rut], (err, result) => {
         if (err) {
             console.error(err);
             callback(null);
         } else {
-            callback(row);
+            callback(result[0]); // El RUT es unico asi que se devuelve el primer resultado
         }
     });
 }
 
-// Configurar Socket.io para manejar las conexiones de los administradores
 io.on('connection', (socket) => {
     console.log('Nuevo cliente conectado');
-
-    // Evento para unir a un administrador a la sala "admin"
     socket.on('joinAdmin', (rol) => {
         if (rol === 'admin') {
-            socket.join('admin'); // Unir al cliente a la sala "admin"
+            socket.join('admin');
             console.log('Un administrador se ha conectado');
         }
     });
-
     socket.on('disconnect', () => {
         console.log('Cliente desconectado');
     });
@@ -47,7 +57,7 @@ io.on('connection', (socket) => {
 // Middleware para procesar las solicitudes y enviar notificaciones
 app.use((req, res, next) => {
     const rut = req.headers['user-rut'];
-    const requestedHours = req.body.horas; // Horas requeridas en la solicitud
+    const requestedHours = req.body.horas;
 
     getUserData(rut, (user) => {
         if (user) {
@@ -63,10 +73,13 @@ app.use((req, res, next) => {
                 `;
 
                 io.to('admin').emit('newNotification', notificationMessage);
-
-                db.run('UPDATE usuarios SET horas_restantes = horas_restantes - ? WHERE rut = ?', [requestedHours, rut]);
-
-                console.log(`Solicitud procesada. Usuario ${user.nombre}, horas restantes actualizadas.`);
+                db.query('UPDATE usuarios SET horas_restantes = horas_restantes - ? WHERE rut = ?', [requestedHours, rut], (err, result) => {
+                    if (err) {
+                        console.error('Error al actualizar las horas restantes:', err);
+                    } else {
+                        console.log(`Horas restantes actualizadas para el usuario ${user.nombre}.`);
+                    }
+                });
             } else {
                 console.log(`Usuario ${user.nombre} no tiene horas suficientes. Horas restantes: ${user.horas_restantes}, Horas solicitadas: ${requestedHours}`);
             }
@@ -74,7 +87,7 @@ app.use((req, res, next) => {
             console.log(`Usuario con RUT ${rut} no encontrado.`);
         }
 
-        next();
+        next(); // Continuar con el procesamiento de la solicitud
     });
 });
 
