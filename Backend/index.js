@@ -4,7 +4,7 @@ import {interactionRouter} from './routes/interactionRoute.js'
 import {AuthRouter} from './routes/auth.js'
 
 const app = express();
-const port = 3004;
+const port = 3006;
 
 
 app.use(cors());
