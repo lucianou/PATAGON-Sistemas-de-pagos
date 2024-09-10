@@ -35,7 +35,7 @@ const useForm = (initialData, onValidate) => {
     const jsonString = JSON.stringify(dataWithoutRepPass);
     console.log(jsonString); 
 
-    fetch('http://localhost:3004/api/command/userReg', {
+    fetch('http://localhost:3006/api/command/userReg', {
       headers: {
         'Content-Type': 'application/json',
       },
