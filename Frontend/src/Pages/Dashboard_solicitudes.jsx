@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import '../styles/Solicitudes.css';
+import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente del menú
 
 // Configuración del worker para pdfjs
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -55,22 +56,7 @@ const Dashboard_solicitudes = () => {
 
   return (
     <div className="dashboard-container">
-      <aside className="sidebar">
-        <div className="profile">
-          <div className="profile-pic"></div>
-          <h2>Admin_name</h2>
-        </div>
-        <nav className="menu">
-          <ul>
-            <li><a href='/dashboard'>Dashboard</a></li>
-            <li className="active"><a href='/dashboard-solicitudes'>Solicitudes</a></li>
-            <li><a href='/dashboard-user'>Usuarios</a></li>
-            <li><a href='/dashboard-profit'>Ganancias</a></li>
-            <li><a href='/dashboard-config'>Configuración</a></li>
-            <li>Cerrar sesión</li>
-          </ul>
-        </nav>
-      </aside>
+      <MenuDashboard /> {/* Incluye el componente MenuDashboard aquí */}
 
       <main className="content">
         <div className="header">
@@ -101,9 +87,9 @@ const Dashboard_solicitudes = () => {
             <div className="pdf-container">
               <h2>Solicitud</h2>
               <div className="pdf-document">
-              <Document file={selectedPdf} onLoadSuccess={onDocumentLoadSuccess}>
-                <Page pageNumber={pageNumber} />
-              </Document>
+                <Document file={selectedPdf} onLoadSuccess={onDocumentLoadSuccess}>
+                  <Page pageNumber={pageNumber} />
+                </Document>
               </div>
               <div className="pdf-controls">
                 <button onClick={goToPreviousPage} disabled={pageNumber <= 1}>
