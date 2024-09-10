@@ -38,7 +38,7 @@
   width: 100%;
   height: 2px;
   background: linear-gradient(90deg, transparent, #03e9f4);
-  animation: btn-anim1 1s linear infinite;
+  animation: btn-anim1 1.5s linear infinite;
 }
 
 .textButton span:nth-child(2) {
@@ -47,8 +47,8 @@
   width: 2px;
   height: 100%;
   background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: 0.25s;
+  animation: btn-anim2 1.5s linear infinite;
+  animation-delay: 0.375s;
 }
 
 .textButton span:nth-child(3) {
@@ -57,8 +57,8 @@
   width: 100%;
   height: 2px;
   background: linear-gradient(270deg, transparent, #03e9f4);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: 0.5s;
+  animation: btn-anim3 1.5s linear infinite;
+  animation-delay: 0.75s;
 }
 
 .textButton span:nth-child(4) {
@@ -67,8 +67,8 @@
   width: 2px;
   height: 100%;
   background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: 0.75s;
+  animation: btn-anim4 1.5s linear infinite;
+  animation-delay: 1.125s;
 }
 
 @keyframes btn-anim1 {
