@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import '../styles/Solicitudes.css';
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+// Configuración del worker para pdfjs
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const Dashboard_solicitudes = () => {
-
   const solicitudes = [
     {
       username: 'user1',
@@ -25,13 +25,32 @@ const Dashboard_solicitudes = () => {
   ];
 
   const [selectedPdf, setSelectedPdf] = useState(null);
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const mostrarPDF = (pdfUrl) => {
     setSelectedPdf(pdfUrl);
+    setPageNumber(1); // Reinicia la página al abrir un nuevo PDF
   };
 
   const onDocumentLoadSuccess = ({ numPages }) => {
-    console.log(`Número de páginas: ${numPages}`);
+    setNumPages(numPages);
+  };
+
+  const goToNextPage = () => {
+    if (pageNumber < numPages) {
+      setPageNumber(pageNumber + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (pageNumber > 1) {
+      setPageNumber(pageNumber - 1);
+    }
+  };
+
+  const closePdfModal = () => {
+    setSelectedPdf(null);
   };
 
   return (
@@ -43,11 +62,11 @@ const Dashboard_solicitudes = () => {
         </div>
         <nav className="menu">
           <ul>
-            <li>Dashboard</li>
-            <li className="active">Solicitudes</li>
-            <li>Usuarios</li>
-            <li>Ganancias</li>
-            <li>Configuración</li>
+            <li><a href='/dashboard'>Dashboard</a></li>
+            <li className="active"><a href='/dashboard-solicitudes'>Solicitudes</a></li>
+            <li><a href='/dashboard-user'>Usuarios</a></li>
+            <li><a href='/dashboard-profit'>Ganancias</a></li>
+            <li><a href='/dashboard-config'>Configuración</a></li>
             <li>Cerrar sesión</li>
           </ul>
         </nav>
@@ -76,14 +95,27 @@ const Dashboard_solicitudes = () => {
           ))}
         </div>
 
-        {/* Renderizar el PDF en un contenedor si está seleccionado */}
+        {/* Renderizar el PDF en un modal si está seleccionado */}
         {selectedPdf && (
-          <div className="pdf-container">
-            <h2>Solicitud</h2>
-            <Document file={selectedPdf} onLoadSuccess={onDocumentLoadSuccess}>
-              <Page pageNumber={1} />
-            </Document>
-            <button onClick={() => setSelectedPdf(null)}>Cerrar Solicitud</button>
+          <div className="pdf-modal">
+            <div className="pdf-container">
+              <h2>Solicitud</h2>
+              <div className="pdf-document">
+              <Document file={selectedPdf} onLoadSuccess={onDocumentLoadSuccess}>
+                <Page pageNumber={pageNumber} />
+              </Document>
+              </div>
+              <div className="pdf-controls">
+                <button onClick={goToPreviousPage} disabled={pageNumber <= 1}>
+                  Anterior
+                </button>
+                <span>Página {pageNumber} de {numPages}</span>
+                <button onClick={goToNextPage} disabled={pageNumber >= numPages}>
+                  Siguiente
+                </button>
+              </div>
+              <button onClick={closePdfModal}>Cerrar Solicitud</button>
+            </div>
           </div>
         )}
       </main>
