@@ -1,4 +1,4 @@
-html, body {
+.html, .body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -31,37 +31,6 @@ html, body {
   margin: 0 auto;
 }
 
-.menu ul {
-  list-style: none;
-  padding: 0;
-}
-
-.menu ul li {
-  padding: 10px 0;
-  cursor: pointer;
-  color: #b0b0b0;
-}
-
-.menu ul li.active {
-  color: #007bff; /* Color azul para el enlace activo */
-}
-
-/* color de los enlaces del menu*/
-.sidebar .menu ul li a {
-  color: #b0b0b0;
-  text-decoration: none; 
-}
-
-/* Opcional: Cambia el color cuando el enlace esté activo */
-.sidebar .menu ul li a:hover {
-  color: #6574cd; /* Cambia el color al pasar el ratón */
-}
-
-/* Opcional: Estilo para el enlace activo (enlace seleccionado) */
-.sidebar .menu ul li.active a {
-  color: #007bff; /* El color que prefieras para el enlace activo */
-  font-weight: bold; /* Opcional: resaltar el enlace activo */
-}
 
 .content {
   flex-grow: 1;
