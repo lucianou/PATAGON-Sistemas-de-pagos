@@ -40,7 +40,7 @@ const useForm = (initialData, onValidate) => {
     
   }
 
-  return [form, errors, handleChange, handleSubmit];
+  return { form, errors, handleChange, handleSubmit };
 }
 
 export default useForm;

@@ -15,9 +15,6 @@ const useForm = (initialData, onValidate) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const err = onValidate(form);
-    console.log(err);
-    console.log("perro");
-    console.log(form);
 
     if (err === null) {
       // Excluir repPass del objeto initialData

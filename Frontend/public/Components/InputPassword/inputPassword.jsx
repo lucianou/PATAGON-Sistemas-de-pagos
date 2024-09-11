@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
-import './inputPassword.css';
+import { faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import style from './inputPassword.module.css';
 
-const inputPassword = ({ id, label, handleChange, value }) => {
-  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+const InputPassword = ({ id, label, value, handleChange }) => {
+  const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
-    <div className='input-group'>
-      <input type={isPasswordVisible ? 'text' : 'password'} id={id} name={id} required autoComplete='off' value={value} onChange={handleChange} />
+    <div className={style.inputGroup}>
+      <input
+        type={showPassword ? 'text' : 'password'}
+        id={id}
+        name={id}
+        value={value}
+        onChange={handleChange}
+        required
+        autoComplete='off'
+      />
       <label htmlFor={id}>{label}</label>
-      <FontAwesomeIcon icon={faLock} className="fa-icon"/>
-      <button type="button" onClick={togglePasswordVisibility} className="eye-button">
-        <FontAwesomeIcon className='ojo' icon={isPasswordVisible ? faEyeSlash : faEye} />
+      <FontAwesomeIcon icon={faLock} className={style.faIcon} />
+      <button type="button" onClick={toggleShowPassword}>
+        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className={style.ojo} />
       </button>
     </div>
   );
 };
 
-export default inputPassword;
+export default InputPassword;

@@ -1,10 +1,11 @@
 import React from "react";
 import useForm from "../Hooks/loginForm";
-import "../styles/Login.css";
+import style from "../styles/LoginGeneral.module.css";
+import style2 from "../styles/Login.module.css";
 import LoginButton from "../../public/Components/loginButton/loginButton";
 import InputPassword from "../../public/Components/InputPassword/inputPassword";
 import InputText from "../../public/Components/InputText/inputText";
-import patagonImg from "/assets/patagon-logo-text-color.png";
+import patagonImg from "../assets/patagon-logo-text-color.png";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
@@ -13,39 +14,26 @@ function Login() {
     password: "",
   };
 
-  const [form, errors, handleChange, handleSubmit] = useForm(initialData);
+  const { form, errors, handleChange, handleSubmit } = useForm(initialData);
 
   return (
     <>
-      {<img src={patagonImg} alt="patagon" className='logo'/> }
-      <div className="login">
+      <div className={style.contenedor}>
+        {/* <img src={patagonImg} alt="patagon" className={style.logo} /> */}
         <form onSubmit={handleSubmit}>
-          <h1>Login</h1>
+          <h1>Iniciar Sesión</h1>
           {errors.server && <p style={{ color: "red" }}>{errors.server}</p>}
-          <InputText
-            icon={faEnvelope}
-            id="email"
-            label="Gmail"
-            value={form.email}
-            handleChange={handleChange}
-          />
-          <InputPassword
-            id="password"
-            label="Contraseña"
-            value={form.password}
-            handleChange={handleChange}
-          />
-          <div className="login-group">
+          <InputText icon={faEnvelope} id="email" label="Gmail" value={form.email} handleChange={handleChange} />
+          <InputPassword id="password" label="Contraseña" value={form.password} handleChange={handleChange} />
+          <div className={style2.loginGroup}>
             <div>
               <input id="check" type="checkbox" />
               <label htmlFor="check"> Recordarme</label>
             </div>
-            <a href="#" className="forg-pass">
-              ¿Olvidaste tu contraseña?
-            </a>
+            <a href="#" className={style.forgPass}>¿Olvidaste tu contraseña?</a>
           </div>
           <LoginButton text="Ingresar" />
-          <p className="registro">
+          <p className={style.cuentaText}>
             ¿No tienes cuenta? <a href="/registro">Regístrate</a>
           </p>
         </form>
