@@ -1,4 +1,5 @@
 import express from "express";
+import authenticateToken from "../middleware/authenticateToken.js"
 
 import{
     getPatagonData,
@@ -9,8 +10,9 @@ import{
 
 const router = express.Router();
 
-router.get("/", getPatagonData);
-router.get("/solicitudes", getSolicitudes);
+//rutas protegidas
+router.get("/",authenticateToken, getPatagonData);
+router.get("/solicitudes",getSolicitudes);
 
 
 //ruta de solicitudes de usuarios

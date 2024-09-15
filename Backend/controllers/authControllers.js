@@ -4,7 +4,7 @@ import fs from "fs";
 import jwt from "jsonwebtoken"; 
 
 dotenv.config();
-const SECRET_KEY = process.env.SECRET_KEY;
+const SECRET_KEY = process.env.SECRET_KEY;  //SECRET_KEY = "sdf8w4rfs!D@342sw4fSDF43fser!sdfw34df#%D" poner en .env
 
 // Función para registrar usuario
 export async function registerUser(req, res) {
