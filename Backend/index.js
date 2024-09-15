@@ -5,7 +5,7 @@ import {AuthRouter} from './routes/auth.js'
 // import {pool} from './controllers/db.js'
 
 const app = express();
-const port = 3006;
+const port = 3002;
 
 
 app.use(cors());

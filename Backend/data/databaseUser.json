@@ -7,6 +7,16 @@
   {
     "email": "correo7@gmail.com",
     "username": "Fernando Inzulza",
-    "password": "$2b$10$TmO2fIGA.ycvDm678MNiq.RbV9Rijnu2k3w5h0xo8S13cuo1Pq.3O" //123gatof
+    "password": "$2b$10$TmO2fIGA.ycvDm678MNiq.RbV9Rijnu2k3w5h0xo8S13cuo1Pq.3O"
+  },
+  {
+    "email": "correo",
+    "username": "user",
+    "password": "$2b$10$uBjp6qiIdW7D0D5oJuzsyeSgmnegiml2pvG62ztBCqOa88nt4eF5W"
+  },
+  {
+    "email": "correo1@gmail.com",
+    "username": "username1",
+    "password": "$2b$10$lMbePdoU27cEuKUCS0Evj.2IYMfQBV.yoWWrIKJZ0ElnhZSJTI3gC"
   }
 ]
