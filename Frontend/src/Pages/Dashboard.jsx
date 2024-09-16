@@ -1,4 +1,5 @@
 import React from 'react';
+import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente del menú
 import '../styles/Dashboard.css'; // Para estilos personalizados
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente MenuDashboard
 
@@ -12,7 +13,7 @@ const Dashboard = () => {
       {/* Pasa las props */}
       <main className="content">
         <div className="dashboard-header">
-          <h1>Dashboard</h1>
+          <h1>Dashboard</h1>  
         </div>
         <div className="dashboard-widgets">
           <div className="widget small-widget"></div>

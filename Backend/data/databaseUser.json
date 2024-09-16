@@ -2,7 +2,7 @@
   {
     "email": "correo4@gmail.com",
     "username": "User1",
-    "password": "$2b$10$ERTf8svwvUdUev1TrXdWCuypYwJnJNX8MTwGJLi2UfU7TCzhaZRPm"
+    "rol": "Administrador"
   },
   {
     "email": "correo7@gmail.com",
@@ -18,5 +18,10 @@
     "email": "correo1@gmail.com",
     "username": "username1",
     "password": "$2b$10$lMbePdoU27cEuKUCS0Evj.2IYMfQBV.yoWWrIKJZ0ElnhZSJTI3gC"
+  },
+  {
+    "email": "AdminPatagon2024.uach.cl",
+    "username": "Admin",
+    "password": "$2b$10$x9N846XubffrDFXtHlvvSunVeI4k/DdpNgc6X4.dDvX1r.MnpLSnO"
   }
 ]

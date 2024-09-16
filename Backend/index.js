@@ -4,8 +4,9 @@ import {interactionRouter} from './routes/interactionRoute.js'
 import {AuthRouter} from './routes/auth.js'
 import { pool } from './middleware/authenticateDB.js';
 
+
 const app = express();
-const port = 3002;
+const port = 3006;
 
 
 app.use(cors());
@@ -25,7 +26,6 @@ app.get('/test-db', async (req, res) => {
     res.status(500).json({error: "error de conexion"});
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}/`);
