@@ -1,5 +1,10 @@
 import bcrypt from "bcrypt";
+import dotenv from 'dotenv';
 import fs from "fs";
+import jwt from "jsonwebtoken"; 
+
+dotenv.config();
+const SECRET_KEY = process.env.SECRET_KEY;  //SECRET_KEY = "sdf8w4rfs!D@342sw4fSDF43fser!sdfw34df#%D" poner en .env
 
 // Función para registrar usuario
 export async function registerUser(req, res) {
@@ -58,11 +63,9 @@ export async function registerUser(req, res) {
 // Función para iniciar sesión
 export async function loginUser(req, res) {
   const { email, password } = req.body;
-
   if (!email || !password) {
     return res.status(400).json({ error: "Email y contraseña son requeridos" });
   }
-
   try {
     const usersFile = "data/databaseUser.json";
     let users = [];
@@ -75,20 +78,26 @@ export async function loginUser(req, res) {
     }
 
     const user = users.find((user) => user.email === email);
-
     if (!user) {
       return res.status(400).json({ error: "Email o contraseña incorrectos" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-
     if (!isPasswordValid) {
       return res.status(400).json({ error: "Email o contraseña incorrectos" });
     }
 
+    // Crear el token JWT
+    const token = jwt.sign(
+      { email: user.email, username: user.username}, // Información que se guarda en el token
+      SECRET_KEY, // Llave secreta
+      { expiresIn: "1h" } // Duración del token
+    );
+
+    // Devolver el token en la respuesta
     res.status(200).json({
       message: "Inicio de sesión exitoso",
-      user: { email: user.email },
+      token: token, // Aquí enviamos el token al frontend
     });
   } catch (error) {
     console.error(error);

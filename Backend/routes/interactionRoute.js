@@ -1,19 +1,24 @@
 import express from "express";
+import authenticateToken from "../middleware/authenticateToken.js"
 
 import{
     getPatagonData,
     getSolicitudes,
-    addRequest
+    addRequest,
 } from "../controllers/interactionControllers.js"
+
+import { sendEmail } from "../controllers/nodeMailer.js";
 
 
 const router = express.Router();
 
-router.get("/", getPatagonData);
-router.get("/solicitudes", getSolicitudes);
+//rutas protegidas
+router.get("/",authenticateToken, getPatagonData);
 
 
-//ruta de solicitudes de usuarios
+router.get("/solicitudes",getSolicitudes);
 router.post("/addRequest", addRequest);
+
+router.post("/send-email",sendEmail);
 
 export {router as interactionRouter}
