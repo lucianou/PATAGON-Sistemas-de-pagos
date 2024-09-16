@@ -89,7 +89,7 @@ export async function loginUser(req, res) {
 
     // Crear el token JWT
     const token = jwt.sign(
-      { email: user.email, username: user.username }, // Información que se guarda en el token
+      { email: user.email, username: user.username}, // Información que se guarda en el token
       SECRET_KEY, // Llave secreta
       { expiresIn: "1h" } // Duración del token
     );
