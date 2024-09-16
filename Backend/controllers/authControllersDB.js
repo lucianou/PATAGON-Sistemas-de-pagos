@@ -66,7 +66,7 @@ export async function register(req, res) {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         //INSERTAR NUEVO USUARIO
-        const insertUserQuery = ` INSERT INTO users (email, password, username) VALUES ($1, $2, $3) RETURNING id, email, username; `;
+        const insertUserQuery = ` INSERT INTO public."Users" (email, password, username) VALUES ($1, $2, $3) RETURNING email, username; `;
         const insertUserValues = [email, hashedPassword, username];
 
 
