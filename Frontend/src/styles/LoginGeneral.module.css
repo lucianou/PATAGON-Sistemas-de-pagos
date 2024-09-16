@@ -33,7 +33,7 @@ a {
   padding: 30px 20px;
   box-shadow: 0 0 0px #03e9f4,
               0 5px 10px #03e9f4,
-              0 25px 60px #03e9f4;
+              0 25px 60px #03e9f4; 
   form{
     width: 90%;
     > *{
