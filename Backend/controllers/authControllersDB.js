@@ -7,6 +7,7 @@ import {pool} from '../middleware/authenticateDB.js'
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
+//INICIO DE SESIÓN EN BASE DE DATOS
 export async function loginUserDB(req, res) {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -15,11 +16,9 @@ export async function loginUserDB(req, res) {
 
     try {
         const queryText = 'SELECT * FROM public."Users" WHERE email = $1';
-
         const { rows } = await pool.query(queryText, [email]);
 
         const user = rows[0];
-
         if (!user) {
             return res.status(400).json({ error: "Email o contraseña incorrectos" });
         }

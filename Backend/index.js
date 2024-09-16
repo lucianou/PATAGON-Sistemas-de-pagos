@@ -6,7 +6,7 @@ import { pool } from './middleware/authenticateDB.js';
 
 
 const app = express();
-const port = 3006;
+const port = 3004;
 
 
 app.use(cors());
