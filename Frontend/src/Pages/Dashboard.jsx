@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Dashboard.css'; // Para estilos personalizados
+import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente MenuDashboard
 
 const Dashboard = () => {
   const adminName = "Admin_name";

@@ -11,3 +11,12 @@
     }
   }
 }
+
+.errorMessage {
+  color: rgb(221, 21, 21);
+  background: rgb(219, 156, 145);
+  padding: 10px 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-top: 0 !important;
+}

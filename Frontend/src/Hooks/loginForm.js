@@ -17,7 +17,7 @@ const useForm = (initialData, onValidate) => {
     const jsonString = JSON.stringify(form);
     console.log(jsonString); // {"username":"usuario","password":"contraseña"}
 
-    fetch('http://localhost:3006/api/command/userLog', {
+    fetch('http://localhost:3002/api/command/userLog', {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -29,6 +29,10 @@ const useForm = (initialData, onValidate) => {
       if (data.error) {
         setErrors({ server: data.error });
       } else {
+        if (data.token) {
+          // Guardar el token en localStorage
+          localStorage.setItem('token', data.token);
+        }
         setServerMessage(data.message);
         navigate('/dashboard');
       }
