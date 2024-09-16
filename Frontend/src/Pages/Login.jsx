@@ -22,7 +22,7 @@ function Login() {
         {/* <img src={patagonImg} alt="patagon" className={style.logo} /> */}
         <form onSubmit={handleSubmit}>
           <h1>Iniciar Sesión</h1>
-          {errors.server && <p style={{ color: "red" }}>{errors.server}</p>}
+          {errors.server && <p className={style2.errorMessage}  >{errors.server}</p>}
           <InputText icon={faEnvelope} id="email" label="Gmail" value={form.email} handleChange={handleChange} />
           <InputPassword id="password" label="Contraseña" value={form.password} handleChange={handleChange} />
           <div className={style2.loginGroup}>

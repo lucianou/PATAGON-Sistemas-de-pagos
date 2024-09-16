@@ -21,6 +21,7 @@
 
 .sidebar {
   position: fixed;
+  margin-left: 0;
   width: 200px;
   left: -220px; /* Oculto por defecto */
   top: 0;
@@ -30,7 +31,9 @@
 }
 
 .sidebar.open {
+  position: relative;
   left: 0; /* Despliega la sidebar */
+
 }
 
 .profile {
