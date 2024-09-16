@@ -1,0 +1,3 @@
+SECRET_KEY=  //aqui va la llave secreta 
+URL= // la contraseña de conexion a la base de datos
+PORT= // puerto de la base de datos
