@@ -9,12 +9,12 @@ from "../controllers/authControllers.js";
 import{loginUserDB, register} from '../controllers/authControllersDB.js'
 const router = express.Router();
 
-
+//LOGIN Y REGISTRO CON JSON
 router.post("/userLog", loginUser);
 router.post("/userReg", registerUser);
 
-//LOGIN Y REGISTRO EN BASE DE DATOS
-router.post("/userLogDB", loginUserDB);
+//LOGIN Y REGISTRO CON BASE DE DATOS
+router.post("/login", loginUserDB);
 router.post("/register", register);
 
 export {router as AuthRouter}
