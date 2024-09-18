@@ -1,0 +1,94 @@
+.dashboardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  height: 100vh;
+  background-color: #1e1e2d;
+  color: white;
+    
+  .sidebar {
+    width: 20%;
+    background-color: #2c3e50;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile {
+  text-align: center;
+  margin-bottom: 30px;
+  }
+  
+  .profilePic {
+  width: 80px;
+  height: 80px;
+  background-color: #c4c4c4;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  }
+  
+  .menu ul {
+  list-style: none;
+  padding: 0;
+  }
+  
+  .menu li {
+  margin: 20px 0;
+  cursor: pointer;
+  }
+  
+  .menu li:hover {
+  color: #6574cd;
+  }
+
+  /* color de los enlaces del menu*/
+  .sidebar .menu ul li a {
+    color: #b0b0b0;
+    text-decoration: none; 
+  }
+
+  /* Opcional: Cambia el color cuando el enlace esté activo */
+  .sidebar .menu ul li a:hover {
+    color: #6574cd; /* Cambia el color al pasar el ratón */
+  }
+
+  /* Opcional: Estilo para el enlace activo (enlace seleccionado) */
+  .sidebar .menu ul li.active a {
+    color: #007bff; /* El color que prefieras para el enlace activo */
+    font-weight: bold; /* Opcional: resaltar el enlace activo */
+  }
+  
+  .content {
+  flex: 1;
+  padding: 20px;
+  }
+  
+  .dashboardHeader {
+  margin-bottom: 20px;
+  }
+  
+  .dashboardWidgets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  }
+  
+  .widget {
+  background-color: #353545;
+  border-radius: 10px;
+  padding: 20px;
+  }
+  
+  .smallWidget {
+  width: 300px;
+  height: 150px;
+  }
+  
+  .largeWidget {
+  flex: 1;
+  height: 150px;
+  }
+
+}
