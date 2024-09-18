@@ -18,6 +18,16 @@ export async function newUserCreation(req, res) {
             `INSERT INTO public."Users" (email, rol) VALUES ($1, $2) RETURNING *`,
             [email, rol]
         );
+        // Obtener el ID del nuevo usuario
+        const newUserId = newUser.rows[0].ID;
+
+        // Actualizar la solicitud correspondiente con el nuevo usuario_id
+        const updateRequestQuery = `
+            UPDATE public."Requests"
+            SET user_id = $1
+            WHERE email = $2
+        `;
+        await pool.query(updateRequestQuery, [newUserId, email]);
 
         res.json({ message: "Usuario creado exitosamente", user: newUser.rows[0] });
     } catch (err) {
