@@ -50,7 +50,7 @@ const Registro = () => {
   const { form, errors, handleChange, handleSubmit } = useForm(initialData, onValidate);
 
   return (
-    <>
+    <div className={style.body}>
       {/* <img src="https://patagon.uach.cl/user/themes/darkquark/images/logo/patagon-logo-text-color.svg" alt="patagon" className={style.logo}/> */}
       <div className={style.contenedor}>
         <form onSubmit={handleSubmit}>
@@ -71,7 +71,7 @@ const Registro = () => {
           <p className={style.registro}>¿Ya tienes cuenta? <a href='/'>Ingresa</a></p>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
