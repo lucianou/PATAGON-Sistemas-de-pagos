@@ -1,11 +1,12 @@
 import express from 'express';
 import cors from 'cors'
+import dotenv from 'dotenv';
 import {interactionRouter} from './routes/userControlRoute.js'
 import {AuthRouter} from './routes/authRoute.js'
 import { pool } from './middleware/authenticateDB.js';
 import { RequestsRouter } from './routes/requestsRoute.js';
 
-
+dotenv.config();
 const app = express();
 const port = 3004;
 
