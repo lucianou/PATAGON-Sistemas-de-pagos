@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import '../styles/Solicitudes.css';
+// import '../styles/Solicitudes.css';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente del menú
 
 // Configuración del worker para pdfjs

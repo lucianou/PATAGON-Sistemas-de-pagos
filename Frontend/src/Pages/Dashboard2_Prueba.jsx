@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Dashboard2_prueba.css';
-import Card from '../../public/Components/Tarjeta/Card.tsx';
+import Card from '../../public/Components/Tarjeta/Card.jsx';
 
 const Dashboard = () => {
     return (

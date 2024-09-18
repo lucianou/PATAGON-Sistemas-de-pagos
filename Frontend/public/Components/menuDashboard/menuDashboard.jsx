@@ -1,51 +1,62 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom'; // Importa useLocation para obtener la URL actual
-import './MenuDashboard.css'; // Importa tu archivo de estilos
+import styles from './MenuDashboard.module.css'; // Importa tu archivo de estilos como módulo
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt, faClipboard, faUsers, faDollarSign, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-const MenuDashboard = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation(); // Obtén la URL actual
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen); // Cambia el estado para abrir o cerrar el menú
-  };
+const MenuDashboard = ({ toggleMenu, isOpen }) => {
+  const location = useLocation(); // Obtén la URL actual  
 
   // Verifica si la ruta actual es la misma que la ruta del enlace
   const isActive = (path) => location.pathname === path;
 
   return (
     <div>
-      <button 
-        className={`hamburger ${isOpen ? 'open' : ''}`} 
-        onClick={toggleMenu}
-      >
-        &#9776;
-      </button>
-
-      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-        <div className="profile">
-          <div className="profile-pic"></div>
+      <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
+        <button className={`${styles.hamburger} ${isOpen ? styles.open : ''}`} onClick={toggleMenu}>
+          &#9776;
+        </button>
+        <div className={styles.profile}>
+          <img className={styles.profilePic} src='../../src/assets/perro.png' alt='Profile'></img>
           <h2>Admin_name</h2>
         </div>
-        <nav className="menu">
+        <nav className={styles.menu}>
           <ul>
-            <li className={isActive('/dashboard') ? 'active' : ''}>
-              <a href='/dashboard'>Dashboard</a>
+            <li className={isActive('/dashboard') ? styles.active : ''}>
+              <FontAwesomeIcon icon={faTachometerAlt} className={styles.faIcon}/> 
+              <a href='/dashboard'>
+                Dashboard
+              </a>
             </li>
-            <li className={isActive('/dashboard-solicitudes') ? 'active' : ''}>
-              <a href='/dashboard-solicitudes'>Solicitudes</a>
+            <li className={isActive('/dashboard-solicitudes') ? styles.active : ''}>
+              <FontAwesomeIcon icon={faClipboard} className={styles.faIcon}/>
+              <a href='/dashboard-solicitudes'>
+                Solicitudes
+              </a>
             </li>
-            <li className={isActive('/dashboard-user') ? 'active' : ''}>
-              <a href='/dashboard-user'>Usuarios</a>
+            <li className={isActive('/dashboard-user') ? styles.active : ''}>
+              <FontAwesomeIcon icon={faUsers} className={styles.faIcon}/> 
+              <a href='/dashboard-user'>
+                Usuarios
+              </a>
             </li>
-            <li className={isActive('/dashboard-profit') ? 'active' : ''}>
-              <a href='/dashboard-profit'>Ganancias</a>
+            <li className={isActive('/dashboard-profit') ? styles.active : ''}>
+              <FontAwesomeIcon icon={faDollarSign} className={styles.faIcon}/> 
+              <a href='/dashboard-profit'>
+                Ganancias
+              </a>
             </li>
-            <li className={isActive('/dashboard-config') ? 'active' : ''}>
-              <a href='/dashboard-config'>Configuración</a>
+            <li className={isActive('/dashboard-config') ? styles.active : ''}>
+              <FontAwesomeIcon icon={faCog} className={styles.faIcon}/>
+              <a href='/dashboard-config'>
+                Configuración
+              </a>
             </li>
-            <li className={isActive('/') ? 'active' : ''}>
-              <a href='/'>Cerrar sesión</a>
+            <li className={isActive('/') ? styles.active : ''}>
+              <FontAwesomeIcon icon={faSignOutAlt} className={styles.faIcon}/>
+              <a href='/'>
+                Cerrar sesión
+              </a>
             </li>
           </ul>
         </nav>

@@ -1,42 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente del menú
-import '../styles/Dashboard.css'; // Para estilos personalizados
-import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente MenuDashboard
+import Card from '../../public/Components/Tarjeta/Card.jsx';
+import style from '../styles/Dashboard.module.css'; // Para estilos personalizados
 
 const Dashboard = () => {
-  const adminName = "Admin_name";
-  const profilePic = "/path/to/profile-picture.jpg"; // Cambia esto a la ruta correcta de la imagen
+  const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen); // Cambia el estado para abrir o cerrar el menú
+  };
+  
   return (
-    <div className="dashboard-container">
-      <MenuDashboard profilePic={profilePic} adminName={adminName} />{" "}
+    <div className={style.dashboardContainer}>
+      <MenuDashboard  toggleMenu={toggleMenu} isOpen={isOpen}/>{" "}
       {/* Pasa las props */}
-      <main className="content">
-        <div className="dashboard-header">
+      <main className={`${style.content} ${isOpen ? style.open : ''}`}>
+        <div className={style.dashboardHeader}>
           <h1>Dashboard</h1>  
         </div>
-        <div className="dashboard-widgets">
-          <div className="widget small-widget"></div>
-          <div className="widget small-widget"></div>
-          <div className="widget large-widget"></div>
 
-          <div className="bolsas-container">
-            <div className="bolsa-card">
-              <div className="bolsa-header">
-                <p className="nombre">Nombre Bolsa</p>
-                <p className="time">DD/HH/SS</p>
-              </div>
-              <ul className="bolsa-details">
-                <li>Tarjeta Gráfica</li>
-                <li>Vram</li>
-                <li>Ram</li>
-              </ul>
-              <div className="footer">
-                <p className="price">Precio</p>
-                <button className="Boton_Compra">¡Lo quiero!</button>
-              </div>
-            </div>
-          </div>
+        <div className={style.dashboardWidgets}>
+          <div className={`${style.widget} ${style.smallWidget}`}></div>
+          <div className={`${style.widget} ${style.smallWidget}`}></div>
+          <div className={`${style.widget} ${style.smallWidget}`}></div>
+
+          <Card
+            nombre="Bolsa Economica"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+          />
+          
         </div>
       </main>
     </div>
