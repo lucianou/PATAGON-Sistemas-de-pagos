@@ -36,7 +36,7 @@ export async function loginUserDB(req, res) {
 
         // Generar token JWT si el login es exitoso
         const token = jwt.sign(
-            { email: user.email, username: user.username },
+            { email: user.email, username: user.username, rol: user.rol},
             SECRET_KEY,
             { expiresIn: "1h" }
         );
