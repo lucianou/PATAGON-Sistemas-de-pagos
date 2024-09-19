@@ -60,7 +60,7 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
               </a>
             </li>
             <li className={isActive('/') ? styles.active : ''}>
-              <a href='/' onClick={logout }>
+              <a href='/' onClick={logout}>
                 <FontAwesomeIcon icon={faSignOutAlt} className={styles.faIcon}/>
                 <span>Cerrar</span>
               </a>

@@ -20,6 +20,11 @@
   background: linear-gradient(-45deg, #213c58, #131d2a);
   transition: 0.3s all ease;
   box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2); /* Sombra a la derecha del div */
+  
+  .active a{
+    color: rgb(48, 175, 171) !important;
+    font-weight: bold !important;    
+  }
   &:after {
     content: "";
     position: absolute;
@@ -32,7 +37,7 @@
     transition: 0.3s all ease;
     border-radius: 50%;
   }
-  &::before{
+  &:before{
     content: "";
     position: absolute;
     width: 200px;
@@ -41,21 +46,21 @@
     z-index: -1;
     top: -130px;
     left: -200px;
-    transition: 0.3s all ease, background 0.3s;
+    transition: 0.3s all ease;
     border-radius: 50%;
   }
   .profile {
     opacity: 0;
     max-height: 0;
-    text-align: center;
     margin: 10px 0;
+    text-align: center;
     transition: opacity 0.16s ease, max-height 0.35s ease; /* Transición para mostrar/ocultar */
     /* background: #ffffff1e; */
     .profilePic {
       width: 80px;
       height: 80px;
-      border-radius: 50%;
       overflow: hidden;
+      border-radius: 50%;
       margin-bottom: 10px;
     }
   }
@@ -66,18 +71,18 @@
       li {
         position: relative;
         padding: 20px 20px;
-        cursor: pointer;
         a {
-          font-size: 20px;
           text-decoration: none;
-          color: #b0b0b0;
-          display: flex;
+          pointer-events: none;
           align-items: center;
-
+          color: #b0b0b0;
+          cursor: default;
+          font-size: 20px;
+          display: flex;
           span {
             opacity: 0;
-            margin-left: 20px;
             max-height: 0;
+            margin-left: 20px;
             overflow: hidden; /* Evitar contenido visible cuando está oculto */
             transition: opacity 0.4s ease, max-height 0.1s ease; /* Transición suave */
           }
@@ -91,6 +96,9 @@
   left: 0; /* Despliega la sidebar */
   width: 290px;
 
+  .active:hover a{
+    color: rgb(13, 228, 221) !important;
+  }
   .profile {
     opacity: 1;
     max-height: 200px; /* Valor suficiente para mostrar todo el contenido */
@@ -106,7 +114,7 @@
     right: -150px;
     border-radius: 50%;
   }
-  &::before{
+  &:before{
     content: "";
     position: absolute;
     width: 200px;
@@ -121,6 +129,11 @@
   ul li a span {
     opacity: 1;
     max-height: 50px; /* Valor ajustado para mostrar el texto */
+  }
+
+  ul li a {
+    cursor: pointer;
+    pointer-events: all ;
   }
 
   ul li:hover {
@@ -168,7 +181,3 @@
   max-width: 25px;
 }
 
-.active a{
-  color: rgb(48, 175, 171) !important;
-  font-weight: bold !important;
-}
