@@ -9,6 +9,11 @@
   margin-top: 20px;
 }
 
+.hamburger:hover{
+  transition: all 0.1s ease;
+  scale: 1.2;
+}
+
 .sidebar {
   position: fixed;
   margin-left: 0;
@@ -56,12 +61,16 @@
     text-align: center;
     transition: opacity 0.16s ease, max-height 0.35s ease; /* Transición para mostrar/ocultar */
     /* background: #ffffff1e; */
+    h2 {
+      color: #fff;
+    }
     .profilePic {
       width: 80px;
       height: 80px;
       overflow: hidden;
       border-radius: 50%;
       margin-bottom: 10px;
+      border: 2px solid #fff;
     }
   }
 
@@ -126,22 +135,24 @@
     transition: 0.3s all ease;
     border-radius: 50%;
   }
-  ul li a span {
-    opacity: 1;
-    max-height: 50px; /* Valor ajustado para mostrar el texto */
-  }
 
   ul li a {
     cursor: pointer;
-    pointer-events: all ;
+    pointer-events: all;
+
+    span {
+      opacity: 1;
+      max-height: 50px; /* Valor ajustado para mostrar el texto */
+    }
   }
 
   ul li:hover {
+    cursor: pointer;
     padding-left: 40px;
     transition: all 0.3s ease;
     background-color: rgba(0, 0, 0, 0.379);
     z-index: 1;
-    &::after {
+    &:after {
       content: "";
       position: absolute;
       width: 10px;
@@ -159,7 +170,7 @@
   ul li:not(:hover) {
     padding-left: 20px;
     transition: all 0.3s ease;
-    &::after {
+    &:after {
       content: "";
       position: absolute;
       width: 0;

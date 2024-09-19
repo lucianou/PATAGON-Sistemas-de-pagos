@@ -3,9 +3,12 @@ import { useLocation } from 'react-router-dom'; // Importa useLocation para obte
 import styles from './MenuDashboard.module.css'; // Importa tu archivo de estilos como módulo
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faClipboard, faUsers, faDollarSign, faCog, faSignOutAlt, faTimes, faBars } from '@fortawesome/free-solid-svg-icons';
+import { jwtDecode } from 'jwt-decode';
 
 const MenuDashboard = ({ toggleMenu, isOpen }) => {
   const location = useLocation(); // Obtén la URL actual  
+  const token = localStorage.getItem('token'); // Obtiene el token del localStorage
+  const decodedToken = jwtDecode(token); // Decodifica el token
 
   // Verifica si la ruta actual es la misma que la ruta del enlace
   const isActive = (path) => location.pathname === path;
@@ -25,41 +28,41 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
         </button>
         <div className={styles.profile}>
           <img className={styles.profilePic} src='../../src/assets/perro.png' alt='Profile'></img>
-          <h2>Admin_name</h2>
+          <h2>{decodedToken.username != '' ? decodedToken.username : 'Administrador' }</h2>
         </div>
         <nav className={styles.menu}>
           <ul>
-            <li className={isActive('/dashboard') ? styles.active : ''}>
+            <li className={isActive('/dashboard') ? styles.active : '' } onClick={() => isOpen ? window.location.href = '/dashboard' : ''}>
               <a href='/dashboard'>
                 <FontAwesomeIcon icon={faTachometerAlt} className={styles.faIcon}/> 
                 <span>Dashboard</span>
               </a>
             </li>
-            <li className={isActive('/dashboard-solicitudes') ? styles.active : ''}>
+            <li className={isActive('/dashboard-solicitudes') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/dashboard-solicitudes' : ''}>
               <a href='/dashboard-solicitudes'>
                 <FontAwesomeIcon icon={faClipboard} className={styles.faIcon}/>
                 <span>Solicitudes</span>
               </a>
             </li>
-            <li className={isActive('/dashboard-user') ? styles.active : ''}>
+            <li className={isActive('/dashboard-user') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/dashboard-user' : ''}>
               <a href='/dashboard-user'>
                 <FontAwesomeIcon icon={faUsers} className={styles.faIcon}/> 
                 <span>Usuarios</span>
               </a>
             </li>
-            <li className={isActive('/dashboard-profit') ? styles.active : ''}>
+            <li className={isActive('/dashboard-profit') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/dashboard-profit' : ''}>
               <a href='/dashboard-profit'>
                 <FontAwesomeIcon icon={faDollarSign} className={styles.faIcon}/> 
                 <span>Ganancias</span>
               </a>
             </li>
-            <li className={isActive('/dashboard-config') ? styles.active : ''}>
+            <li className={isActive('/dashboard-config') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/dashboard-config' : ''}>
               <a href='/dashboard-config'>
                 <FontAwesomeIcon icon={faCog} className={styles.faIcon}/>
                 <span>Configuración</span>
               </a>
             </li>
-            <li className={isActive('/') ? styles.active : ''}>
+            <li className={isActive('/') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/' : ''}>
               <a href='/' onClick={logout}>
                 <FontAwesomeIcon icon={faSignOutAlt} className={styles.faIcon}/>
                 <span>Cerrar</span>

@@ -1,12 +1,12 @@
 .dashboardContainer {
   height: 100vh;
   background-color: rgb(20, 27, 45);
-  color: white;
 
   .content {
     flex: 1;
     padding: 20px;
     transition: all .3s ease;
+    color: white;
     margin-left: 65px;
     .dashboardHeader {
       margin-bottom: 20px;

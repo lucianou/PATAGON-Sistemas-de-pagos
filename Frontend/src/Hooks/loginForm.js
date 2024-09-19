@@ -36,6 +36,7 @@ const useForm = (initialData) => {
           console.log(decodedToken);
           if(decodedToken.rol === 'Administrador'){
             localStorage.setItem('rol', 'Administrador');
+            localStorage.setItem('username', decodedToken.username);
             navigate('/dashboard');
           } else if (decodedToken.rol === 'Cliente'){
             localStorage.setItem('rol', 'Cliente');

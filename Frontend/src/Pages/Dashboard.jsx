@@ -12,8 +12,8 @@ const Dashboard = () => {
   
   return (
     <div className={style.dashboardContainer}>
-      <MenuDashboard  toggleMenu={toggleMenu} isOpen={isOpen}/>{" "}
-      {/* Pasa las props */}
+      <MenuDashboard  toggleMenu={toggleMenu} isOpen={isOpen}/>
+      
       <main className={`${style.content} ${isOpen ? style.open : ''}`}>
         <div className={style.dashboardHeader}>
           <h1>Dashboard</h1>  
