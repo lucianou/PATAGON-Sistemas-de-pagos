@@ -10,6 +10,13 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
   // Verifica si la ruta actual es la misma que la ruta del enlace
   const isActive = (path) => location.pathname === path;
 
+  const logout = (event) => {
+    event.preventDefault();
+    localStorage.removeItem('token'); // Elimina el token del localStorage
+    localStorage.removeItem('rol'); // Elimina el rol del localStorage
+    window.location.href = event.target.href; // Redirige al usuario a la ruta especificada en el enlace
+  };
+
   return (
     <div>
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
@@ -54,7 +61,7 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
             </li>
             <li className={isActive('/') ? styles.active : ''}>
               <FontAwesomeIcon icon={faSignOutAlt} className={styles.faIcon}/>
-              <a href='/'>
+              <a href='/' onClick={logout}>
                 Cerrar sesión
               </a>
             </li>

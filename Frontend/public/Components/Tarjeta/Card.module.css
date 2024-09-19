@@ -1,66 +1,88 @@
 .bolsaCard {
-  background-color: #2f3b50;
+  background-color: rgb(36, 37, 43);
   border-radius: 20px;
   padding: 20px;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
   color: white;
   width: calc(33.33% - 20px); /* 3 tarjetas por línea */
-}
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5), /* Sombra principal */
+              inset 0px 1px 4px rgba(255, 255, 255, 0.1); /* Sombra interna */
 
-.bolsaHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: right; /* Alinea verticalmente el nombre y el header-right */
-}
+  .bolsaHeader {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+    .nombre {
+      font-weight: bold;
+      border-bottom: 2px solid white;
+      margin-bottom: 5px;
+      font-size: 1.2rem;
+    }
 
-.bolsaHeader .nombre {
-  font-weight: bold;
-  border-bottom: 1px solid white;
-  margin-bottom: 5px;
-  font-size: 1.5rem;
-  flex-grow: 0;
-}
+    .bolsaDetails {
+      list-style: none;
+      text-align: center;
+      width: 100%;
 
-.headerRight {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+      li{
+        font-size: 17px;
+      }
+    }
+  }
+  
+  .bottomDetails{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
 
-.bolsaDetails {
-  list-style: none;
-  margin: 10px 0;
-  padding-left: 0;
-}
+    .headerRight {
+      display: flex;
+      width: fit-content;
+      flex-direction: column;
+      align-items: center;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
 
-.footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 0; /* Empuja el footer hacia abajo si hay suficiente contenido */
-}
+      .price {
+        background-color: rgb(148, 121, 72);
+        padding: 0px 30px;
+        border-radius: 7px;
+      }
+    }
 
-.boton {
-  background-color: #4CAF50;
-}
-
-.botonCompra {
-  background-color: #4CAF50;
-  color: white;
-  border: auto;
-  padding: auto;
-  border-radius: 10px;
-  cursor: pointer;
-  text-align: center; /* Aligns the text in the center */
-  margin: 0 auto; /* Centers the button horizontally */
-}
-
-.botonCompra:hover {
-  background-color: #45a049;
+    .botonCompra {
+      background-color: #4CAF50;
+      color: white;
+      border: auto;
+      padding: auto;
+      border: none;
+      width: 150px;
+      height: 23px;
+      border-radius: 7px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center; /* Aligns the text in the center */
+      margin: 0; /* Centers the button horizontally */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+                  0 6px 20px rgba(0, 0, 0, 0.19)
+      ; /* Añadir sombra para efecto de flotación */
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */  
+      &:hover {
+        background-color: #45a049;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2)
+                  , 0 12px 40px rgba(0, 0, 0, 0.23)
+        ; /* Aumentar la sombra al pasar el ratón */
+      }
+    }
+  }
 }
 
 /* Responsividad */

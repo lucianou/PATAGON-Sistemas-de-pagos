@@ -22,13 +22,13 @@ const Dashboard = () => {
         <div className={style.dashboardWidgets}>
           <div className={`${style.widget} ${style.smallWidget}`}></div>
           <div className={`${style.widget} ${style.smallWidget}`}></div>
-          <div className={`${style.widget} ${style.smallWidget}`}></div>
 
           <Card
             nombre="Bolsa Economica"
             tiempo="25 horas"
             precio="$25.000"
             detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+            ram="64 gb"
           />
           
         </div>

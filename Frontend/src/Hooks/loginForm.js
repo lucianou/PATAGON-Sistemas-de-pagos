@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
-
-const useForm = (initialData, onValidate) => {
+import { jwtDecode } from 'jwt-decode';
+const useForm = (initialData) => {
   const [form, setForm] = useState(initialData);
   const [errors, setErrors] = useState({});
   const [serverMessage, setServerMessage] = useState(''); // Para almacenar el mensaje del servidor
@@ -32,9 +32,17 @@ const useForm = (initialData, onValidate) => {
         if (data.token) {
           // Guardar el token en localStorage
           localStorage.setItem('token', data.token);
+          const decodedToken = jwtDecode(data.token);
+          console.log(decodedToken);
+          if(decodedToken.rol === 'Administrador'){
+            localStorage.setItem('rol', 'Administrador');
+            navigate('/dashboard');
+          } else if (decodedToken.rol === 'Cliente'){
+            localStorage.setItem('rol', 'Cliente');
+            navigate('/userDashboard');
+          }
         }
         setServerMessage(data.message);
-        navigate('/dashboard');
       }
     })
     .catch((error) => {
