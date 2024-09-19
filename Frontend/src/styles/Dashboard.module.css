@@ -7,11 +7,11 @@
     flex: 1;
     padding: 20px;
     transition: all .3s ease;
-
+    margin-left: 65px;
     .dashboardHeader {
       margin-bottom: 20px;
+      padding-left: 50px;
       width: 100%;
-      margin-left: 50px;
     }
 
     .dashboardWidgets {
@@ -38,6 +38,6 @@
   }
 
   .content.open {
-    margin-left: 200px;
+    margin-left: 290px;
   }
 }
