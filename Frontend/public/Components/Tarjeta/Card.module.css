@@ -10,7 +10,7 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5), /* Sombra principal */
               inset 0px 1px 4px rgba(255, 255, 255, 0.1); /* Sombra interna */
 
-  .bolsaHeader {
+  .bolsaLeft {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@
     }
   }
   
-  .bottomDetails{
+  .bolsaRight{
     width: 50%;
     height: 100%;
     display: flex;
