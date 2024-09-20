@@ -10,7 +10,7 @@ import { pool } from './middleware/authenticateDB.js';
 
 dotenv.config();
 const app = express();
-const port = 3004;
+const port = 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -30,7 +30,6 @@ app.get('/test-db', async (req, res) => {
     res.status(500).json({error: "error de conexion"});
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}/`);

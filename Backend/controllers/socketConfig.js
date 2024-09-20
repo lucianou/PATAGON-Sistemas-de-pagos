@@ -1,23 +1,24 @@
+// controllers/socketConfig.js
 import { Server } from 'socket.io';
 
-export function configureSocket(server) {
-  const io = new Server(server, {
-    cors: {
-      origin: "*",  // Puedes especificar los orígenes permitidos
-    }
-  });
+export const configureSocket = (server) => {
+  const io = new Server(server);
 
   io.on('connection', (socket) => {
-    console.log('Cliente conectado:', socket.id);
+    console.log('Nuevo cliente conectado:', socket.id);
 
-    // Desconexión del cliente
+    // Escucha un evento
+    socket.on('testEvent', (data) => {
+      console.log('Datos recibidos:', data);
+      // Emitir un evento de vuelta al cliente
+      socket.emit('responseEvent', { message: '¡Conexión exitosa!' });
+    });
+
+    // Manejar desconexiones
     socket.on('disconnect', () => {
       console.log('Cliente desconectado:', socket.id);
     });
-
-    // Aquí puedes agregar más lógica de eventos si es necesario
-    // socket.on('algúnEvento', (data) => { ... });
   });
 
-  return io;  
-}
+  return io;
+};
