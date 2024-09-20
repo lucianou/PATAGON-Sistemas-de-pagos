@@ -36,10 +36,7 @@ export async function addRequest(req, res) {
       const values = [nombre, email, institucion, documento_pdf, documento_pub, user_id, requestDate];
       const result = await pool.query(query, values);
 
-      // Enviar la solicitud recién insertada como respuesta
-      console.log('Emitiendo nueva solicitud:', result.rows[0]);
-      req.io.emit('newRequest', result.rows[0]);
-      
+      // Enviar la solicitud recién insertada como respuesta 
       res.status(201).json(result.rows[0]);
 
   } catch (err) {

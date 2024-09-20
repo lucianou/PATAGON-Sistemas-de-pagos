@@ -10,7 +10,7 @@ import { pool } from './middleware/authenticateDB.js';
 
 dotenv.config();
 const app = express();
-const port = 3000;
+const port = 3004;
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +20,7 @@ app.use(express.json());
 app.use("/api/command", AuthRouter);
 app.use("/api/command", RequestsRouter);
 app.use("/api/command", UserControlRouter);
+
 
 // prueba de conexión base de datos
 app.get('/test-db', async (req, res) => {
