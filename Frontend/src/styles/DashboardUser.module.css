@@ -6,6 +6,9 @@
   margin-bottom: 30px;
   /* background: red; */
   div {
+    label{
+      font-size: 18px;
+    }
     input {
       height: 40px;
       width: 400px;
@@ -24,7 +27,8 @@
     font-size: 18px;
     font-weight: bold;
     color: #fff;
-    background-color: rgb(154, 154, 235);
+    border-radius: 5px;
+    background: linear-gradient(to left, rgb(51, 51, 136), rgb(103, 103, 204));
     border: none;
   }
 }
@@ -47,13 +51,14 @@
     height: fit-content;
     /* background-color: #fff; */
     .item {
-      background-color: rgb(67, 85, 123);
+      background: linear-gradient(to left, rgb(79, 23, 90), rgb(115, 51, 129));
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-radius: 10px;
       padding: 20px 40px;
       margin-bottom: 20px;
+      box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.192);
       .itemUser{
         display: flex;
         flex-direction: column;
@@ -86,7 +91,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: rgb(19, 224, 29);
+        border: 2px white solid;
+        background: linear-gradient(-45deg, rgb(19, 224, 29), rgb(172, 241, 175));
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.192);
         .statusIcon{
           width: 30px;
           height: 30px;

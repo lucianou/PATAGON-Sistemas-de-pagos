@@ -13,5 +13,17 @@
   .header{
     margin-bottom: 20px;
     padding: 0 30px;
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+
+  }
+  @supports (-webkit-background-clip: text) {
+    .header {
+      background: linear-gradient(to bottom, #ffffff,#03e9f4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 }
