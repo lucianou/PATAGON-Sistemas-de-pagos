@@ -1,6 +1,6 @@
 .dashboardContainer {
   background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ;
-  height: 100vh;
+  min-height: 100vh;
   .content {
     padding: 20px;
     color: white;
@@ -13,5 +13,17 @@
   .header{
     margin-bottom: 20px;
     padding: 0 30px;
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+
+  }
+  @supports (-webkit-background-clip: text) {
+    .header {
+      background: linear-gradient(to bottom, #ffffff,#03e9f4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 }

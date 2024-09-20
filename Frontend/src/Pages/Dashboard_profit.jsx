@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useState } from 'react';
 import MenuDashboard from "../../public/Components/menuDashboard/menuDashboard"; // Importa el componente del menú
-// import "../styles/Dashboard.css"; // Para estilos personalizados
+import styles1 from "../styles/DashboardGeneral.module.css"; // Para estilos personalizados
+import styles from "../styles/DashboardProfit.module.css"; // Para estilos personalizados
 
 const Dashboard_profit = () => {
-  const adminName = "Admin_name";
-  const profilePic = "/path/to/profile-picture.jpg"; // Cambia esto a la ruta correcta de la imagen
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="dashboard-container">
-      <MenuDashboard profilePic={profilePic} adminName={adminName} />{" "}
-      {/* Pasa las props */}
-      <main className="content">
-        <div className="dashboard-header">
+    <div className={styles1.dashboardContainer}>
+      <MenuDashboard toggleMenu={ () => {setIsOpen(!isOpen)} } isOpen={isOpen}/>
+      <main className={`${styles1.content} ${isOpen  ? styles1.open : ''} `}>
+        <div className={styles1.header}>
           <h1>Ganancias</h1>
           <div></div>
           <div></div>
@@ -20,6 +19,6 @@ const Dashboard_profit = () => {
       </main>
     </div>
   );
-};
+};  
 
 export default Dashboard_profit;

@@ -23,7 +23,7 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
   return (
     <div>
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
-        <button className={`${styles.hamburger} ${isOpen ? styles.open : ''}`} onClick={toggleMenu}>
+        <button className={`${styles.hamburger} ${isOpen ? styles.open : ''}`} onClick={toggleMenu} tabIndex='-1'>
           <FontAwesomeIcon icon={isOpen ? faTimes : faBars} className={styles.faIcon}/>
         </button>
         <div className={styles.profile}>
@@ -34,37 +34,37 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
         <nav className={styles.menu}>
           <ul>
             <li className={isActive('/dashboard') ? styles.active : '' } onClick={() => isOpen ? window.location.href = '/dashboard' : ''}>
-              <a href='/dashboard'>
-                <FontAwesomeIcon icon={faTachometerAlt} className={styles.faIcon}/> 
+              <a href='/dashboard' tabIndex='-1'>
+                <FontAwesomeIcon icon={faTachometerAlt} className={styles.faIcon} /> 
                 <span>Dashboard</span>
               </a>
             </li>
             <li className={isActive('/dashboard-solicitudes') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/dashboard-solicitudes' : ''}>
-              <a href='/dashboard-solicitudes'>
+              <a href='/dashboard-solicitudes' tabIndex='-1'>
                 <FontAwesomeIcon icon={faClipboard} className={styles.faIcon}/>
                 <span>Solicitudes</span>
               </a>
             </li>
             <li className={isActive('/dashboard-user') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/dashboard-user' : ''}>
-              <a href='/dashboard-user'>
+              <a href='/dashboard-user' tabIndex='-1'>
                 <FontAwesomeIcon icon={faUsers} className={styles.faIcon}/> 
                 <span>Usuarios</span>
               </a>
             </li>
             <li className={isActive('/dashboard-profit') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/dashboard-profit' : ''}>
-              <a href='/dashboard-profit'>
+              <a href='/dashboard-profit' tabIndex='-1'>
                 <FontAwesomeIcon icon={faDollarSign} className={styles.faIcon}/> 
                 <span>Ganancias</span>
               </a>
             </li>
             <li className={isActive('/dashboard-config') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/dashboard-config' : ''}>
-              <a href='/dashboard-config'>
+              <a href='/dashboard-config' tabIndex='-1'>
                 <FontAwesomeIcon icon={faCog} className={styles.faIcon}/>
                 <span>Configuración</span>
               </a>
             </li>
             <li className={isActive('/') ? styles.active : ''} onClick={() => isOpen ? window.location.href = '/' : ''}>
-              <a href='/' onClick={logout}>
+              <a href='/' onClick={logout} tabIndex='-1'>
                 <FontAwesomeIcon icon={faSignOutAlt} className={styles.faIcon}/>
                 <span>Cerrar</span>
               </a>
