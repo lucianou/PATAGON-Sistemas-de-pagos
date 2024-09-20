@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/",authenticateToken, getPatagonData);
 
 router.post("/new-user-creation", newUserCreation);
-router.get("/users", authenticateToken, authorizeRoles('Administrador'), AllUsers);
+router.get("/users", AllUsers);
 
 
 export {router as UserControlRouter}

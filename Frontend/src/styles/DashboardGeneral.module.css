@@ -1,6 +1,6 @@
 .dashboardContainer {
   background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ;
-  height: 100vh;
+  min-height: 100vh;
   .content {
     padding: 20px;
     color: white;

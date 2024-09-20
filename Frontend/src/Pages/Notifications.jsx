@@ -11,6 +11,10 @@ function Notifications() {
       Notification.requestPermission();
     }
 
+    socket.on('connect_error', (error) => {
+      console.error('Error de conexión:', error);
+    });
+    
     // Escuchar notificaciones del servidor
     socket.on('newNotification', (message) => {
       // Verificar si las notificaciones están permitidas
@@ -27,6 +31,7 @@ function Notifications() {
     // Limpiar el evento socket cuando el componente se desmonte
     return () => {
       socket.off('newNotification');
+      socket.disconnect();
     };
   }, []);
 
