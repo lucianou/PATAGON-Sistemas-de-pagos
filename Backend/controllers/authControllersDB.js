@@ -34,6 +34,11 @@ export async function loginUserDB(req, res) {
             return res.status(400).json({ error: "Email o contraseña incorrectos" });
         }
 
+        const currentDate = new Date();
+        const updateDateQuery  = `UPDATE public."Users" SET fecha_ingreso = $1 WHERE email = $2`;
+        await pool.query(updateDateQuery, [currentDate, email]);
+
+
         // Generar token JWT si el login es exitoso
         const token = jwt.sign(
             { email: user.email, username: user.username, rol: user.rol},
