@@ -4,7 +4,6 @@ import { authenticateToken, authorizeRoles } from "../middleware/authenticateTok
 import{ getPatagonData} from "../controllers/interactionControllers.js"
 import { newUserCreation , AllUsers} from "../controllers/newUserController.js";
 
-
 const router = express.Router();
 
 //rutas protegidas
