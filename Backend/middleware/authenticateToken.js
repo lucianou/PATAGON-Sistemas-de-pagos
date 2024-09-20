@@ -15,4 +15,13 @@ function authenticateToken(req, res, next) {
   });
 }
 
-export default authenticateToken;
+function authorizeRoles(...allowedRoles) {
+  return (req, res, next) => {
+    if (!req.user || !allowedRoles.includes(req.user.rol)) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+    next(); // El usuario tiene acceso
+  };
+}
+
+export {authenticateToken, authorizeRoles};
