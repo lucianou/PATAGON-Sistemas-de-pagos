@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors'
 import dotenv from 'dotenv';
-import {interactionRouter} from './routes/userControlRoute.js'
+
+import {UserControlRouter} from './routes/userControlRoute.js'
 import {AuthRouter} from './routes/authRoute.js'
-import { pool } from './middleware/authenticateDB.js';
 import { RequestsRouter } from './routes/requestsRoute.js';
+import { pool } from './middleware/authenticateDB.js';
+
 
 dotenv.config();
 const app = express();
@@ -18,7 +20,7 @@ app.use(express.json());
 //aplicación
 app.use("/api/command", AuthRouter);
 app.use("/api/command", RequestsRouter)
-app.use("/api/command", interactionRouter);
+app.use("/api/command", UserControlRouter);
 
 // prueba de conexión base de datos
 app.get('/test-db', async (req, res) => {

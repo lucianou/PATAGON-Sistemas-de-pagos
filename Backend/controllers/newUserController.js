@@ -35,11 +35,17 @@ export async function newUserCreation(req, res) {
             // Contenido del correo en caso de aceptación
             const mailOptions = {
                 to: email,
-                subject: 'Tu solicitud ha sido aceptada - Bienvenido a Patagón',
+                subject: `[Patagón] Respuesta solicitud de uso ${nombre}, Universidad Austral de Chile`,
                 message: `Estimad@ ${nombre},
 
-Tu solicitud fue aceptada y ya puedes usar Patagón.
-Puedes ingresar al servidor por ssh utilizando el comando:
+Tu solicitud fue aceptada y ya puedes usar el servicio de arriendo Patagón.
+
+Puedes ingresar a la pagína de arriendo, para registarte: 
+http://localhost:3004/api/command/register
+
+Luego podras seleccionar la bolsa disponible de tiempo y proceder al pago.
+
+Podrás ingresar al servidor por ssh utilizando el comando:
 
 ssh -p 2237 lordpenguin@patagon.uach.cl
 
@@ -104,4 +110,23 @@ Discord: https://discord.gg/WvFTPvvWXh`
         console.error(err.message);
         res.status(500).json({ error: "Error al procesar la solicitud" });
     }
+}
+
+export async function AllUsers(req, res) {
+    try {
+        // Consulta para obtener todos los usuarios
+        const query = `
+            SELECT email, username, rol, fecha_ingreso
+            FROM public."Users";
+        `;
+        
+        // Ejecuta la consulta
+        const result = await pool.query(query);
+        
+        // Enviar la lista de usuarios como respuesta
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Error al obtener los usuarios' });
+    }   
 }

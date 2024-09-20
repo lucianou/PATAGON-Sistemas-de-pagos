@@ -16,24 +16,30 @@ export async function requests(req, res) {
       }   
 }
 
-export async function addRequest(req, res){
-    const { nombre, email, institucion, documento_pdf, documento_pub, user_id} = req.body;
+export async function addRequest(req, res) {
+  const { nombre, email, institucion, user_id } = req.body;
 
-    try {
-    // Insertar la nueva solicitud en la base de datos
-    const query = `
-    INSERT INTO public."Requests" ("nombre", "email", "institucion", "documento_pdf", "documento_pub", "user_id")
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING *;
-    `;
+  // Accede a los archivos PDF y PUB subidos
+  const documento_pdf = req.files['documento_pdf'] ? req.files['documento_pdf'][0].buffer : null;
+  const documento_pub = req.files['documento_pub'] ? req.files['documento_pub'][0].buffer : null;
 
-    const values = [nombre, email, institucion , documento_pdf, documento_pub, null];
-    const result = await pool.query(query, values);
+  try {
+      // Inserta la nueva solicitud en la base de datos
+      const query = `
+          INSERT INTO public."Requests" ("nombre", "email", "institucion", "documento_pdf", "documento_pub", "user_id", "fecha")
+          VALUES ($1, $2, $3, $4, $5, $6, $7)
+          RETURNING *;
+      `;
 
-    // Enviar la solicitud recién insertada como respuesta
-    res.status(201).json(result.rows[0]);
+      const requestDate = new Date();
+
+      const values = [nombre, email, institucion, documento_pdf, documento_pub, user_id, requestDate];
+      const result = await pool.query(query, values);
+
+      // Enviar la solicitud recién insertada como respuesta
+      res.status(201).json(result.rows[0]);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ error: 'Error al guardar la solicitud' });
+      console.error(err.message);
+      res.status(500).json({ error: 'Error al guardar la solicitud' });
   }
 }
