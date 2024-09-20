@@ -1,0 +1,109 @@
+
+#content {
+  #header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .pageCount {
+      font-size: 14px;
+      color: #cccccc;
+    }
+  }
+
+  .solicitudesList {
+    margin-top: 20px;
+    display: flex;  
+    flex-direction: column;
+    
+    .solicitudItem {
+      background-color: #113f5ed6;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      color: white;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.463);
+  
+      .verPdfBtn {
+        background-color: #27ae60 !important;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .verPdfBtn:hover {
+        background-color: #2ecc71;
+      }
+    }
+  }
+  
+  .pagination button,
+  .pdfModal button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    background-color: #e74c3c;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.519);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+
+
+
+/* Estilos para el contenedor del modal */
+.pdfModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+  
+  /* Estilos para el contenido del modal */
+  .pdfContainer {
+    background-color: white;
+    border-radius: 8px;
+    scale: 1;
+    transition: scale .3s ease-in-out;
+    @starting-style {
+      scale: 0;
+    }
+    padding: 20px;
+    width: 50%;
+    max-width: 900px;
+    max-height: 98%;
+    overflow: auto;
+    
+    h2{
+      color: #565555;
+    }
+    
+    /* Contenedor del documento PDF para permitir el scroll interno */
+    .pdfDocument {
+      position: relative;
+      flex: 1; /* Ocupa el espacio restante en el contenedor */
+      overflow: hidden; /* Permite el scroll interno */
+      max-height: 70vh;
+    }
+    
+    .pdfControls {
+      margin-top: 10px;
+      text-align: center;
+    }
+    /* .pdfControls button {
+      margin: 0 10px;
+    } */
+  }
+}
+
+

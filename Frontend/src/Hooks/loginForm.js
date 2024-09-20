@@ -24,7 +24,8 @@ const useForm = (initialData) => {
       method: 'POST',
       body: jsonString,
       
-    }).then((response) => response.json())
+    })
+    .then((response) => response.json())
     .then((data) => {
       if (data.error) {
         setErrors({ server: data.error });

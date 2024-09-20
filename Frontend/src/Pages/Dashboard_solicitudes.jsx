@@ -1,12 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import styles from '../styles/Solicitudes.module.css';
+import styles1 from '../styles/DashboardGeneral.module.css';
+import styles from '../styles/DashboardSolicitudes.module.css';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente del menú
 
 // Configuración del worker para pdfjs
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const Dashboard_solicitudes = () => {
+  const [error, setErrors] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect (() => {
+    fetch('http://localhost:3004/api/command/requests', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(data => {
+        if(!data.error) {
+          console.log(data);
+        } else {
+          setErrors({ server: data.error });
+        }
+      })
+      .catch(error => {
+        console.log('Error:',error);
+        setErrors({ server: 'Error en la soliditud: ' + error.message });
+      });
+
+  });
+
+
   const initialSolicitudes = [
     {
       username: 'user1',
@@ -25,7 +52,6 @@ const Dashboard_solicitudes = () => {
     { username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
   ];
 
-  const [isOpen, setIsOpen] = useState(false);
   const [solicitudes, setSolicitudes] = useState(initialSolicitudes);
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -40,10 +66,6 @@ const Dashboard_solicitudes = () => {
   const indexOfLastSolicitud = currentPage * solicitudesPerPage;
   const indexOfFirstSolicitud = indexOfLastSolicitud - solicitudesPerPage;
   const currentSolicitudes = solicitudes.slice(indexOfFirstSolicitud, indexOfLastSolicitud);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen); // Cambia el estado para abrir o cerrar el menú
-  };
   
   const mostrarPDF = (pdfUrl, index) => {
     setSelectedPdf(pdfUrl);
@@ -92,27 +114,25 @@ const Dashboard_solicitudes = () => {
   };
 
   return (
-    <div className={styles.dashboardContainer}>
-      <MenuDashboard toggleMenu={toggleMenu} isOpen={isOpen}/> {/* Incluye el componente MenuDashboard aquí */}
+    <div className={styles1.dashboardContainer}>
+      <MenuDashboard toggleMenu={ () => {setIsOpen(!isOpen)} } isOpen={isOpen}/> {/* Incluye el componente MenuDashboard aquí */}
 
-      <main className={`${styles.content} ${isOpen ? styles.open : ''} `}>
-        <div className={styles.header}>
+      <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`} id={styles.content}>
+        <div className={styles1.header} id={styles.header}>
           <h1>Solicitudes</h1>
           <span className={styles.pageCount}> total: {solicitudes.length}</span>
         </div>
 
         {/* Lista de solicitudes con paginación */}
         <div className={styles.solicitudesList}>
+        
           {currentSolicitudes.map((solicitud, index) => (
             <div className={styles.solicitudItem} key={index}>
               <span>{solicitud.username}</span>
               <span>{solicitud.email}</span>
               <span>{solicitud.archivo}</span>
               <span>{solicitud.fecha}</span>
-              <button
-                className={styles.verPdfBtn}
-                onClick={() => mostrarPDF(solicitud.pdfUrl, index)}
-              >
+              <button className={styles.verPdfBtn} onClick={() => mostrarPDF(solicitud.pdfUrl, index)}>
                 Ver Solicitud
               </button>
             </div>

@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente del menú
 import Card from '../../public/Components/Tarjeta/Card.jsx';
+import style1 from '../styles/DashboardGeneral.module.css'; // Para estilos personalizados
 import style from '../styles/Dashboard.module.css'; // Para estilos personalizados
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen); // Cambia el estado para abrir o cerrar el menú
-  };
   
   return (
-    <div className={style.dashboardContainer}>
-      <MenuDashboard  toggleMenu={toggleMenu} isOpen={isOpen}/>
+    <div className={style1.dashboardContainer}>
+      <MenuDashboard  toggleMenu={ () => {setIsOpen(!isOpen)} } isOpen={isOpen}/>
       
-      <main className={`${style.content} ${isOpen ? style.open : ''}`}>
-        <div className={style.dashboardHeader}>
+      <main className={`${style1.content} ${isOpen ? style1.open : ''}`}>
+        <div className={style1.header}>
           <h1>Dashboard</h1>  
         </div>
 

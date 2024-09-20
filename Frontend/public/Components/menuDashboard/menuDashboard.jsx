@@ -28,7 +28,8 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
         </button>
         <div className={styles.profile}>
           <img className={styles.profilePic} src='../../src/assets/perro.png' alt='Profile'></img>
-          <h2>{decodedToken.username != '' ? decodedToken.username : 'Administrador' }</h2>
+          <h2>{decodedToken.username != '' ? decodedToken.username 
+          : 'Administrador' }</h2>
         </div>
         <nav className={styles.menu}>
           <ul>

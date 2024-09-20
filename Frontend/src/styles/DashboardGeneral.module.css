@@ -1,0 +1,17 @@
+.dashboardContainer {
+  background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ;
+  height: 100vh;
+  .content {
+    padding: 20px;
+    color: white;
+    margin-left: 65px;
+    transition: all .3s ease;
+  }
+  .content.open {
+    margin-left: 290px;
+  }
+  .header{
+    margin-bottom: 20px;
+    padding: 0 30px;
+  }
+}

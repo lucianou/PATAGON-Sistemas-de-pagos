@@ -1,43 +1,16 @@
-.dashboardContainer {
-  height: 100vh;
-  background-color: rgb(20, 27, 45);
+.dashboardWidgets {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 20px;
 
-  .content {
-    flex: 1;
+  .widget {
+    background-color: #353545;
+    border-radius: 10px;
     padding: 20px;
-    transition: all .3s ease;
-    color: white;
-    margin-left: 65px;
-    .dashboardHeader {
-      margin-bottom: 20px;
-      padding-left: 50px;
-      width: 100%;
-    }
-
-    .dashboardWidgets {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-
-      .widget {
-        background-color: #353545;
-        border-radius: 10px;
-        padding: 20px;
-      }
-
-      .smallWidget {
-        width: 300px;
-        height: 150px;
-      }
-
-      /* .largeWidget {
-        flex: 1;
-        height: 150px;
-      } */
-    }
   }
 
-  .content.open {
-    margin-left: 290px;
+  .smallWidget {
+    height: 150px;
+    width: 300px;
   }
 }
