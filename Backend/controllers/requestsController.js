@@ -3,7 +3,7 @@ import { pool } from "../middleware/authenticateDB.js";
 export async function requests(req, res) {
     try {
         // Consulta para obtener todas las solicitudes
-        const query = 'SELECT * FROM public."Solicitudes";';
+        const query = 'SELECT * FROM public."Requests";';
         
         // Ejecuta la consulta
         const result = await pool.query(query);

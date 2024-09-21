@@ -117,7 +117,9 @@ export async function AllUsers(req, res) {
         // Consulta para obtener todos los usuarios
         const query = `
             SELECT email, username, rol, fecha_ingreso
-            FROM public."Users";
+            FROM public."Users"
+            WHERE "rol" != 'Administrador'
+            ORDER BY "fecha_ingreso" DESC NULLS LAST;
         `;
         
         // Ejecuta la consulta
