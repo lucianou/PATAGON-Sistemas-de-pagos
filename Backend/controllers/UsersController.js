@@ -1,5 +1,5 @@
 import { pool } from "../middleware/authenticateDB.js";
-import { sendEmail } from "../controllers/nodeMailer.js";
+import { sendEmail } from "./nodeMailer.js";
 
 export async function newUserCreation(req, res) {
     const { email, rol, nombre, accion } = req.body;  // Agregar campo 'accion' para indicar si se acepta o rechaza
