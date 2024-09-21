@@ -24,12 +24,12 @@ export async function newUserCreation(req, res) {
             // Obtener el ID del nuevo usuario
             const newUserId = newUser.rows[0].ID;
 
-            // Actualizar la solicitud correspondiente con el nuevo user_id y cambiar estado a 'aceptado'
             const updateRequestQuery = `
-                UPDATE public."Requests"
-                SET user_id = $1, estado = 'aceptado'
-                WHERE email = $2
+            UPDATE public."Requests"
+            SET user_id = $1, estado = 'aceptado'
+            WHERE email = $2 AND estado = 'pendiente'
             `;
+
             await pool.query(updateRequestQuery, [newUserId, email]);
 
             // Contenido del correo en caso de aceptación
@@ -47,7 +47,7 @@ Luego podras seleccionar la bolsa disponible de tiempo y proceder al pago.
 
 Podrás ingresar al servidor por ssh utilizando el comando:
 
-ssh -p 2237 lordpenguin@patagon.uach.cl
+ssh -p 
 
 Te recomendamos revisar https://patagon.uach.cl donde encontrarás:
 
@@ -131,4 +131,48 @@ export async function AllUsers(req, res) {
         console.error(err.message);
         res.status(500).json({ error: 'Error al obtener los usuarios' });
     }   
+}
+
+export async function deletedUser(req, res) {
+    const { username, email, motivo } = req.body;
+  
+    if (!username || !email || !motivo) {
+      return res.status(400).json({ message: 'Faltan campos obligatorios' });
+    }
+  
+    const client = await pool.connect();
+  
+    try {
+        await client.query('BEGIN'); // Inicia la transacción
+  
+        // Primero eliminar las solicitudes asociadas al usuario por el email
+        const deleteRequestQuery = 'DELETE FROM public."Requests" WHERE "user_id" = (SELECT "ID" FROM public."Users" WHERE "email" = $1)';
+        await client.query(deleteRequestQuery, [email]);
+  
+        // Eliminar el usuario de la tabla "Users"
+        const deleteQuery = 'DELETE FROM public."Users" WHERE "username" = $1 AND "email" = $2';
+        const deleteResult = await client.query(deleteQuery, [username, email]);
+  
+        if (deleteResult.rowCount === 0) {
+            await client.query('ROLLBACK'); // Revertir transacción si no se encuentra el usuario
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }   
+  
+        // Insertar los datos en la tabla "Delete_users"
+        const insertQuery = `
+        INSERT INTO public."Deleted_users" ("username", "email", "motivo")
+        VALUES ($1, $2, $3)
+        `;
+        await client.query(insertQuery, [username, email, motivo]);
+  
+        await client.query('COMMIT'); // Confirmar la transacción
+  
+        return res.status(200).json({ message: 'Usuario eliminado y registrado en Delete_users' });
+        } catch (error) {
+            await client.query('ROLLBACK'); // Revertir la transacción en caso de error
+            console.error('Error al eliminar el usuario:', error);
+            return res.status(500).json({ message: 'Error del servidor' });
+        } finally {
+            client.release(); // Liberar el cliente
+        }
 }
