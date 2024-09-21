@@ -3,6 +3,7 @@ import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import Card from '../../public/Components/Tarjeta/Card.jsx';
 import style1 from '../styles/DashboardGeneral.module.css'; // Para estilos personalizados
 import style from '../styles/Dashboard.module.css'; // Para estilos personalizados
+import Notifications from './Notifications.jsx';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,7 @@ const Dashboard = () => {
   return (
     <div className={style1.dashboardContainer}>
       <MenuDashboard  toggleMenu={ () => {setIsOpen(!isOpen)} } isOpen={isOpen}/>
+      <Notifications/>
       
       <main className={`${style1.content} ${isOpen ? style1.open : ''}`}>
         <div className={style1.header}>

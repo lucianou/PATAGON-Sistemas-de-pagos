@@ -13,7 +13,7 @@ import Notifications from './Pages/Notifications';
 function App() {
   return (
     <Router>
-      <Notifications /> {/* Incluye el componente de notificaciones */}
+      
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />

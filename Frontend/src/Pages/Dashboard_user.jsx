@@ -6,6 +6,7 @@ import styles from '../styles/DashboardUser.module.css';
 import ItemUser from '../../public/Components/itemUser/itemUser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
+import Notifications from './Notifications';
 
 const Dashboard_user = () => {
   const [filterState, setFilterState] = useState("all"); // Estado para el filtro
@@ -84,6 +85,7 @@ const Dashboard_user = () => {
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen}/>
+      <Notifications/>
       
       <main className={`${styles1.content} ${isOpen ? styles1.open : ''} }` } id={styles.content} >
         <div className={styles1.header}>

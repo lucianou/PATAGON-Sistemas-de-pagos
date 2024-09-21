@@ -3,6 +3,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import styles1 from '../styles/DashboardGeneral.module.css';
 import styles from '../styles/DashboardSolicitudes.module.css';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente del menú
+import Notifications from './Notifications';
 
 // Configuración del worker para pdfjs
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -116,7 +117,7 @@ const Dashboard_solicitudes = () => {
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={ () => {setIsOpen(!isOpen)} } isOpen={isOpen}/> {/* Incluye el componente MenuDashboard aquí */}
-
+      <Notifications/>
       <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`} id={styles.content}>
         <div className={styles1.header} id={styles.header}>
           <h1>Solicitudes</h1>

@@ -1,41 +1,40 @@
-import React, { useEffect } from 'react';
-import { io } from 'socket.io-client';
+import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
+import styles from '../styles/Notifications.module.css';
 
-// Conectar con el servidor Socket.io
-const socket = io();
+const Notifications = () => {
+    const [notifications, setNotifications] = useState([]);
 
-function Notifications() {
-  useEffect(() => {
-    // Solicitar permiso para mostrar notificaciones cuando se carga el componente
-    if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
-      Notification.requestPermission();
-    }
+    useEffect(() => {
+        const socket = io('http://localhost:3004');
 
-    socket.on('connect_error', (error) => {
-      console.error('Error de conexión:', error);
-    });
-    
-    // Escuchar notificaciones del servidor
-    socket.on('newNotification', (message) => {
-      // Verificar si las notificaciones están permitidas
-      if (Notification.permission === 'granted') {
-        // Mostrar notificación con la Notification API
-        new Notification('Nueva Solicitud Recibida', {
-          body: message,
+        socket.on('newRequest', (data) => {
+            const newNotification = {
+                id: Date.now(), // Identificador único basado en la hora actual
+                nombre: data.nombre
+            };
+            setNotifications((prev) => [...prev, newNotification]);
+
+            // Elimina la notificación después de 5 segundos
+            setTimeout(() => {
+                setNotifications((prev) => prev.filter(notification => notification.id !== newNotification.id));
+            }, 5000);
         });
-      } else {
-        console.log('Permiso de notificación no concedido.');
-      }
-    });
 
-    // Limpiar el evento socket cuando el componente se desmonte
-    return () => {
-      socket.off('newNotification');
-      socket.disconnect();
-    };
-  }, []);
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
 
-  return null; // Este componente no necesita renderizar nada en el DOM
-}
+    return (
+        <div>
+            {notifications.map((notification) => (
+                <div key={notification.id} className={styles.notification}>
+                    Nueva solicitud: {notification.nombre}
+                </div>
+            ))}
+        </div>
+    );
+};
 
 export default Notifications;

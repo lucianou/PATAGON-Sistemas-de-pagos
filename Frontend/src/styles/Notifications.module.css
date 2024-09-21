@@ -1,0 +1,33 @@
+.notification {
+    position: fixed; /* Posicionamiento fijo */
+    top: 20px; /* Aparece desde la parte superior */
+    right: 20px; /* Desde el lado derecho de la pantalla */
+    background-color: #333; /* Fondo oscuro */
+    color: #fff; /* Texto blanco */
+    padding: 10px 20px; /* Padding adecuado */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra suave */
+    z-index: 1000; /* Asegura que esté sobre otros elementos */
+    animation: slideIn 0.5s, fadeOut 2.5s 2.5s; /* Animaciones de entrada y salida */
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
