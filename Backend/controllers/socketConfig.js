@@ -1,24 +1,18 @@
-// controllers/socketConfig.js
+// socket.js
 import { Server } from 'socket.io';
 
-export const configureSocket = (server) => {
-  const io = new Server(server);
+export function setupSocket(server) {
+  const io = new Server(server, {
+    cors: {
+      origin: "*", // Cambiar en producción, va la ip del dominio del front
+      methods: ["GET", "POST"],
+      credentials: true
+    }
+  });
 
   io.on('connection', (socket) => {
-    console.log('Nuevo cliente conectado:', socket.id);
-
-    // Escucha un evento
-    socket.on('testEvent', (data) => {
-      console.log('Datos recibidos:', data);
-      // Emitir un evento de vuelta al cliente
-      socket.emit('responseEvent', { message: '¡Conexión exitosa!' });
-    });
-
-    // Manejar desconexiones
-    socket.on('disconnect', () => {
-      console.log('Cliente desconectado:', socket.id);
-    });
+    console.log('Nuevo cliente conectado');
   });
 
   return io;
-};
+}
