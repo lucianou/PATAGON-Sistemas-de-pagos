@@ -1,0 +1,115 @@
+.item {
+  background: linear-gradient(to left, rgb(79, 23, 90), rgb(115, 51, 129));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 20px 40px;
+  margin-bottom: 20px;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.192);
+  opacity: 0;
+  animation: fadeInUp 0.3s  ease forwards;
+  animation-delay: var(--animationDelay); /* Soporta un retraso en la animación */
+  .itemUser{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    min-width: 100px;
+    .faIcon{
+      height: 40px;
+      width: 40px;
+      color: white;
+      margin-bottom: 5px;
+    }
+
+  }
+  .itemTime{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: bold;
+    div span:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  .itemStatus{
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px white solid;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.192);
+    transition: all .3s ease;
+    .statusIcon{
+      width: 30px;
+      height: 30px;
+      transition: opacity 0.2s ease;
+    }
+    span {
+      opacity: 0;
+      position: absolute;
+    }
+    &::after {
+      content: ' ';
+      position: absolute;
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transform: scale(1); /* Inicia con escala normal */
+    }
+    &:hover {
+      scale: 1.2;
+      .statusIcon {
+        transition: all .3s ease;
+        opacity: 0;
+      }
+      &::after {
+        content: ' ';
+        position: absolute;
+        background: #4141414b;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        transition: background 0.3s ease; 
+      }
+      span {
+        opacity: 1;
+        display: block;
+        font-weight: bold;
+        text-align: center;
+        position: absolute;
+        color: rgba(0, 0, 0, 0.836);
+        transition: opacity .2s ease; /* Añade transición al span */
+      }
+
+    }
+  }
+
+  #activo{
+    background: linear-gradient(-45deg, rgb(19, 224, 29), rgb(172, 241, 175));
+  }
+  #inactivo{
+    background: linear-gradient(-45deg, rgb(224, 224, 19), rgb(241, 241, 175));
+  } 
+  #bloqueado{
+    background: linear-gradient(-45deg, rgb(224, 19, 19), rgb(241, 175, 175));
+  }
+}
+
+/* Animación */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

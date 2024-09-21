@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom'; // Importa useLocation para obtener la URL actual
 import styles from './MenuDashboard.module.css'; // Importa tu archivo de estilos como módulo
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

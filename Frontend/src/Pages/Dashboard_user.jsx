@@ -1,15 +1,14 @@
 // Pages/Dashboard_user.jsx
 import React , { useState, useEffect }from 'react';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCheck, faTimes, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import styles1 from '../styles/DashboardGeneral.module.css';
 import styles from '../styles/DashboardUser.module.css';
+import ItemUser from '../../public/Components/itemUser/itemUser';
 
 const Dashboard_user = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]);
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState({});
   const [filtredUsers, setFiltredUsers] = useState([]);
   const [searchText, setSearchText] = useState('');
 
@@ -36,18 +35,19 @@ const Dashboard_user = () => {
 
   }, []);
 
-const handleSearchChange = (e) => {
-  const value = e.target.value.toLowerCase();
-  setSearchText(value);
+  
+  const handleSearchChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearchText(value);
 
-  // Filtrar usuarios en tiempo real
-  if (value === '') {
-    setFiltredUsers(users); // Si el campo está vacío, mostrar todos los usuarios
-  } else {
-    const filtered = users.filter((user) => user.username.toLowerCase().startsWith(value));
-    setFiltredUsers(filtered);
-  }
-};
+    // Filtrar usuarios en tiempo real
+    if (value === '') {
+      setFiltredUsers(users); // Si el campo está vacío, mostrar todos los usuarios
+    } else {
+      const filtered = users.filter((user) => user.username.toLowerCase().startsWith(value));
+      setFiltredUsers(filtered);
+    }
+  };
 
 
   return (
@@ -76,31 +76,18 @@ const handleSearchChange = (e) => {
             <span>Activo</span>
           </div>
 
+            {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
           <div className={styles.itemSection}>
             {/* Contenido Item */}
-            {filtredUsers.map((user, index) => (
-              <div className={styles.item} key={index}>
-                <div className={styles.itemUser}>
-                  <FontAwesomeIcon icon={faUser} className={styles.faIcon}/>
-                  <span>{user.username}</span>
-                </div>
 
-                <div className={styles.itemTime}>
-                  <div>
-                    <span>Utilizado:</span>
-                    <span>00:00:00:00</span>
-                  </div>
-                  <div>
-                    <span>Restante:</span>
-                    <span>00:00:00:00</span>
-                  </div>
-                </div>
-
-                <div className={styles.itemStatus}>
-                  <FontAwesomeIcon icon={faCheck} className={styles.statusIcon}/>
-                </div>
-              </div>
-            ))}            
+            {filtredUsers.map((user, index) => {
+              if(user.rol === 'Cliente' && user.fecha_ingreso){   
+                const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
+                return (
+                  <ItemUser user={user} delay={delay} />
+                );
+              }
+            })}            
           </div>
         </section>
       </main>
