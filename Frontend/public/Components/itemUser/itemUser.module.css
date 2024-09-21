@@ -2,6 +2,7 @@
   background: linear-gradient(to left, rgb(79, 23, 90), rgb(115, 51, 129));
   display: flex;
   align-items: center;
+  width: 900px;
   justify-content: space-between;
   border-radius: 10px;
   padding: 20px 40px;
@@ -53,38 +54,33 @@
     span {
       opacity: 0;
       position: absolute;
+      color: white;
+      text-align: center;
+      z-index: 1;
+      font-size: 18px;
     }
     &::after {
       content: ' ';
       position: absolute;
       background: transparent;
-      width: 100%;
-      height: 100%;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      transform: scale(1); /* Inicia con escala normal */
     }
     &:hover {
       scale: 1.2;
       .statusIcon {
-        transition: all .3s ease;
+        transition: opacity .2s ease;
         opacity: 0;
       }
       &::after {
         content: ' ';
-        position: absolute;
-        background: #4141414b;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
+        background: #0c0c0c54;
         transition: background 0.3s ease; 
       }
       span {
         opacity: 1;
         display: block;
-        font-weight: bold;
-        text-align: center;
-        position: absolute;
-        color: rgba(0, 0, 0, 0.836);
         transition: opacity .2s ease; /* Añade transición al span */
       }
 
@@ -100,7 +96,14 @@
   #bloqueado{
     background: linear-gradient(-45deg, rgb(224, 19, 19), rgb(241, 175, 175));
   }
+  #pendiente{
+    background: linear-gradient(-45deg, rgb(56, 30, 204), rgb(138, 161, 209));
+  }
+  #muerto{
+    background: linear-gradient(-45deg, rgb(0, 0, 0), rgb(116, 116, 116));
+  }
 }
+
 
 /* Animación */
 @keyframes fadeInUp {

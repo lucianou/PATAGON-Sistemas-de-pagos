@@ -4,8 +4,11 @@ import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import styles1 from '../styles/DashboardGeneral.module.css';
 import styles from '../styles/DashboardUser.module.css';
 import ItemUser from '../../public/Components/itemUser/itemUser';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard_user = () => {
+  const [filterState, setFilterState] = useState("all"); // Estado para el filtro
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]);
   const [errors, setErrors] = useState({});
@@ -35,7 +38,36 @@ const Dashboard_user = () => {
 
   }, []);
 
+  // Función para manejar el cambio del filtro
+  const handleFilterChange = (event) => {
+    setFilterState(event.target.value);
+  };
+
+  // Función para filtrar usuarios según el estado seleccionado
+  const filterUsersByState = (user) => {
+    const dias = user.fecha_ingreso !== null 
+      ? calcularDiasDesdeIngreso(user.fecha_ingreso)
+      : -1;
+
+    if (filterState === "all") return true; // No filtrar si la opción es "all"
+    
+    if (filterState === "pendiente" && dias === -1) return true;
+    if (filterState === "activo" && dias >= 0 && dias < 60) return true;
+    if (filterState === "inactivo" && dias >= 60 && dias < 120) return true;
+    if (filterState === "bloqueado" && dias >= 120) return true;
+
+    return false;
+  };
   
+  // Calcular días desde el ingreso del usuario
+  const calcularDiasDesdeIngreso = (fechaIngreso) => {
+    const fechaActual = new Date();
+    const fechaUsuario = new Date(fechaIngreso);
+    const difMilisegundos = fechaActual - fechaUsuario;
+    const milisegundosPorDia = 1000 * 60 * 60 * 24;
+    return Math.floor(difMilisegundos / milisegundosPorDia);
+  };
+
   const handleSearchChange = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchText(value);
@@ -49,7 +81,6 @@ const Dashboard_user = () => {
     }
   };
 
-
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen}/>
@@ -59,13 +90,20 @@ const Dashboard_user = () => {
           <h1>Dashboard User</h1>
         </div>
 
+  
         {/* Sección búsqueda */}
         <div className={styles.searchSection}>
           <div>
-            <label htmlFor='search'>Busqueda: </label>
-            <input type='text' id='search' placeholder='Ingrese nombre de usuario: ' value={searchText} onChange={handleSearchChange}/>
+            <input type='text' placeholder='Buscar usuario... ' name='search' value={searchText} onChange={handleSearchChange}/>
           </div>
-          <button>Filtro</button>
+          <label htmlFor="filter" className={styles.labelFill}>Filtrar por estado:</label>
+          <select className={styles.filter} value={filterState} onChange={handleFilterChange}>
+            <option value="all">Todos</option>
+            <option value="pendiente">Pendientes</option>
+            <option value="activo">Activos</option>
+            <option value="inactivo">Inactivos</option>
+            <option value="bloqueado">Bloqueados</option>
+          </select>
         </div>
 
         <section className={styles.userSection}>
@@ -80,11 +118,11 @@ const Dashboard_user = () => {
           <div className={styles.itemSection}>
             {/* Contenido Item */}
 
-            {filtredUsers.map((user, index) => {
-              if(user.rol === 'Cliente' && user.fecha_ingreso){   
+            {filtredUsers.filter(filterUsersByState).map((user, index) => {
+              if(user.rol === 'Cliente'){   
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
-                  <ItemUser user={user} delay={delay} />
+                  <ItemUser user={user} key={index} delay={delay} />
                 );
               }
             })}            

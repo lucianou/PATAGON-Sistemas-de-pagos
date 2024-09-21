@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faCheck, faTimes, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faCheck, faTimes, faExclamationTriangle, faSkull, faQuestion, faFill, faSearch } from "@fortawesome/free-solid-svg-icons";
 import styles from "./itemUser.module.css";
 
 const ItemUser = ({ user, delay }) => {
@@ -16,7 +16,9 @@ const ItemUser = ({ user, delay }) => {
 
   // Función para determinar el estado y el ícono según los días
   const obtenerEstadoUsuario = (dias, styles) => {
-    if (dias < 60) {
+    if(dias === -1){
+      return { stateUser: styles.pendiente, icon: faQuestion };
+    } else if (dias >= 0 && dias < 60) {
       return { stateUser: styles.activo, icon: faCheck };
     } else if (dias >= 60 && dias < 120) {
       return { stateUser: styles.inactivo, icon: faExclamationTriangle };
@@ -25,8 +27,11 @@ const ItemUser = ({ user, delay }) => {
     }
   };
 
-  // Calcular días desde el ingreso del usuario
-  const dias = calcularDiasDesdeIngreso(user.fecha_ingreso);
+  let dias = -1;
+  if(user.fecha_ingreso !== null) {
+    // Calcular días desde el ingreso del usuario
+    dias = calcularDiasDesdeIngreso(user.fecha_ingreso);
+  } 
 
   // Obtener el estado del usuario y el ícono correspondiente
   const { stateUser, icon } = obtenerEstadoUsuario(dias, styles);
@@ -51,7 +56,7 @@ const ItemUser = ({ user, delay }) => {
 
       <div className={styles.itemStatus} id={stateUser}>
         <FontAwesomeIcon icon={icon} className={styles.statusIcon}/>
-          <span>{dias} days</span>
+        <span>{dias}</span>
       </div>
     </div>
   );
