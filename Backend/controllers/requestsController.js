@@ -8,6 +8,8 @@ export async function requests(req, res) {
         // Ejecuta la consulta
         const result = await pool.query(query);
         
+       
+
         // Enviar la lista de solicitudes como respuesta
         res.status(200).json(result.rows);
       } catch (err) {
@@ -17,11 +19,11 @@ export async function requests(req, res) {
 }
 
 export async function addRequest(req, res) {
-  const { nombre, email, institucion, user_id } = req.body;
+  const { nombre, email, institucion, user_id ,documento_pdf,documento_pub } = req.body;
 
   // Accede a los archivos PDF y PUB subidos
-  const documento_pdf = req.files['documento_pdf'] ? req.files['documento_pdf'][0].buffer : null;
-  const documento_pub = req.files['documento_pub'] ? req.files['documento_pub'][0].buffer : null;
+  // const documento_pdf = req.files['documento_pdf'] ? req.files['documento_pdf'][0].buffer : null;
+  // const documento_pub = req.files['documento_pub'] ? req.files['documento_pub'][0].buffer : null;
 
   try {
       // Inserta la nueva solicitud en la base de datos
@@ -36,8 +38,10 @@ export async function addRequest(req, res) {
       const values = [nombre, email, institucion, documento_pdf, documento_pub, user_id, requestDate];
       const result = await pool.query(query, values);
 
-      // Enviar la solicitud recién insertada como respuesta
+      // Enviar la solicitud recién insertada como respuesta 
+      req.app.get('io').emit('newRequest', result.rows[0]);
       res.status(201).json(result.rows[0]);
+
   } catch (err) {
       console.error(err.message);
       res.status(500).json({ error: 'Error al guardar la solicitud' });
