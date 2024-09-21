@@ -50,55 +50,15 @@
     flex-direction: column;
     height: fit-content;
     /* background-color: #fff; */
-    .item {
-      background: linear-gradient(to left, rgb(79, 23, 90), rgb(115, 51, 129));
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-radius: 10px;
-      padding: 20px 40px;
-      margin-bottom: 20px;
-      box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.192);
-      .itemUser{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: white;
-        font-weight: bold;
-        min-width: 100px;
-        .faIcon{
-          height: 40px;
-          width: 40px;
-          color: white;
-          margin-bottom: 5px;
-        }
-
-      }
-      .itemTime{
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        font-weight: bold;
-        div span:first-child {
-          margin-right: 20px;
-        }
-      }
-
-      .itemStatus{
-        border-radius: 50%;
-        height: 60px;
-        width: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 2px white solid;
-        background: linear-gradient(-45deg, rgb(19, 224, 29), rgb(172, 241, 175));
-        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.192);
-        .statusIcon{
-          width: 30px;
-          height: 30px;
-        }
-      }
-    }
   }
+}
+
+.errorMessage {
+  color: rgb(221, 21, 21);
+  background: rgb(219, 156, 145);
+  padding: 10px 45px;
+  font-size: 18px;
+  width: fit-content;
+  border-radius: 5px;
+  margin-top: 0 !important;
 }
