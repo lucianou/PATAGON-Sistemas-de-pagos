@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Socket.io Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Example</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
 </head>
 <body>
-  <h1>Prueba de Socket.io</h1>
+    <h1>Socket.IO Notification Example</h1>
+    <div id="notifications"></div>
 
-  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-  <script>
-    const socket = io('http://localhost:3001/'); // URL de tu servidor backend
-    
+    <script>
+        // Conectar al servidor de Socket.IO
+        const socket = io('http://localhost:3004');
 
-    socket.on('newRequest', (data) => {
-      console.log('Nueva solicitud recibida:', data);
-    });
-  </script>
+        // Escuchar el evento 'newRequest'
+        socket.on('newRequest', (data) => {
+            console.log('Nueva solicitud recibida:', data);
+            const notificationsDiv = document.getElementById('notifications');
+            notificationsDiv.innerHTML += `<p>Nueva solicitud: ${data.nombre}</p>`;
+        });
+    </script>
 </body>
 </html>

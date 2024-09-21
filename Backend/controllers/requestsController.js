@@ -8,6 +8,8 @@ export async function requests(req, res) {
         // Ejecuta la consulta
         const result = await pool.query(query);
         
+       
+
         // Enviar la lista de solicitudes como respuesta
         res.status(200).json(result.rows);
       } catch (err) {
@@ -37,6 +39,7 @@ export async function addRequest(req, res) {
       const result = await pool.query(query, values);
 
       // Enviar la solicitud recién insertada como respuesta 
+      req.app.get('io').emit('newRequest', result.rows[0]);
       res.status(201).json(result.rows[0]);
 
   } catch (err) {
