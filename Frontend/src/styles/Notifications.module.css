@@ -1,37 +1,69 @@
 .notification {
-    position: fixed; /* Posicionamiento fijo */
-    top: 20px; /* Aparece desde la parte superior */
-    right: 20px; /* Desde el lado derecho de la pantalla */
-    background-color: #333; /* Fondo oscuro */
+    position: fixed; /* Mantiene la notificación fija */
+    top: 20px; /* A 20px de la parte superior */
+    right: 20px; /* A 20px del borde derecho */
+    background-color: #444; /* Fondo más suave */
     color: #fff; /* Texto blanco */
-    padding: 10px 20px; /* Padding adecuado */
-    border-radius: 5px; /* Bordes redondeados */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra suave */
-    z-index: 1000; /* Asegura que esté sobre otros elementos */
-    animation: slideIn 0.5s, fadeOut 2.5s 2.5s; /* Animaciones de entrada y salida */
+    padding: 15px 25px; /* Más espacio interno */
+    border-radius: 10px; /* Bordes más redondeados */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* Sombra más suave y extendida */
+    z-index: 1000; /* Sobre otros elementos */
+    display: flex; /* Alineación en fila */
+    align-items: center; /* Centra el contenido verticalmente */
+    gap: 15px; /* Espacio entre el icono y el texto */
+    animation: slideIn 0.5s ease-out; /* Animación de entrada y salida */
 }
-.email{
-    margin-top: 5px;
-    font-size: 14px;
-    color: #fff
+
+.notification-icon {
+    width: 40px; /* Tamaño del icono */
+    height: 40px; /* Tamaño del icono */
+    background-color: #f39c12; /* Color de fondo del icono */
+    border-radius: 50%; /* Icono circular */
+    display: flex; /* Centrar el icono */
+    align-items: center; /* Centrar el icono verticalmente */
+    justify-content: center; /* Centrar el icono horizontalmente */
+    font-size: 20px; /* Tamaño de la fuente para el icono */
+    color: white; /* Color del icono */
 }
+
+.notification-content {
+    display: flex;
+    flex-direction: column; /* Texto en dos líneas */
+}
+
+.notification-content .title {
+    font-weight: bold; /* Texto más prominente */
+    font-size: 16px; /* Tamaño de texto adecuado */
+    margin-bottom: 5px; /* Espacio entre el título y el correo */
+}
+
+.notification-content .email {
+    font-size: 14px; /* Tamaño del texto del correo */
+    color: #ddd; /* Color más claro para el correo */
+}
+
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(50px);
+        transform: translateX(100px); /* Empieza desde más lejos */
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0); /* Llega a la posición inicial */
     }
 }
 
 @keyframes fadeOut {
-    from {
+    0% {
         opacity: 1;
     }
-    to {
+    80% {
+        opacity: 1; /* Mantener la opacidad durante la mayoría del tiempo */
+    }
+    100% {
         opacity: 0;
+        transform: translateX(100px); /* Se desplaza hacia la derecha mientras se desvanece */
         display: none;
     }
 }
+
