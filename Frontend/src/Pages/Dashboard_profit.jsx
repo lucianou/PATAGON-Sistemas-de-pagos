@@ -15,26 +15,23 @@ const Dashboard_profit = () => {
 
   return (
     <div className={styles1.dashboardContainer}>
-      <MenuDashboard
-        toggleMenu={() => {
-          setIsOpen(!isOpen);
-        }}
-        isOpen={isOpen}
-      />
-      <main className={`${styles1.content} ${isOpen ? styles1.open : ""} `}>
-        <div className={styles1.header}>
+      <MenuDashboard toggleMenu={ () => { setIsOpen(!isOpen)} } isOpen={ isOpen } />
+      <main className={`${styles1.content} ${isOpen ? styles1.open : ""} `} id={styles.main}>
+        <header className={styles1.header} id={styles.uwu}>
           <h1>Ganancias</h1>
-        </div>
-        <div className={styles.graphContent}>
-          
-          <div className={`${styles.graph} ${activeDiv === 1 ? styles.expanded : ''}`} onClick={() => handleDivClick(1)}>
+        </header>
+        <div className={styles.contenedor}>
+          <div className={`${styles.div1} ${activeDiv === 1 ? styles.expanded : ''}`} 
+          onClick={() => handleDivClick(1)}>
             <LinearGraphic />
           </div>
 
-          <div className={`${styles.graph} ${activeDiv === 2 ? styles.expanded : ''}`} onClick={() => handleDivClick(2)}>
+          <div className={`${styles.div2} ${activeDiv === 2 ? styles.expanded : ''}`} 
+          onClick={() => handleDivClick(2)}>
             <BarGraphic />
           </div>
-          <div className={`${styles.graph} ${activeDiv === 3 ? styles.expanded : ''}`} onClick={() => handleDivClick(3)}>
+          <div className={`${styles.div3} ${activeDiv === 3 ? styles.expanded : ''}`} 
+          onClick={() => handleDivClick(3)}>
             <BarGraphic />  
           </div>
         </div>
