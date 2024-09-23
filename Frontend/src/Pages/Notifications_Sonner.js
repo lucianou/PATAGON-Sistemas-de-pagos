@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { toast, Toaster } from 'sonner';
 import { io } from 'socket.io-client';
-import styles from './Notifications.module.css'; // Importar los estilos modulares
+import styles from './Notifications_Sonner.module.css'; // Importar los estilos modulares
 //npm install sonner
 const Notifications = () => {
   useEffect(() => {
