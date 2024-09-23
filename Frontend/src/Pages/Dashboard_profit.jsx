@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import MenuDashboard from "../../public/Components/menuDashboard/menuDashboard"; // Importa el componente del menú
 import styles1 from "../styles/DashboardGeneral.module.css"; // Para estilos personalizados
 import styles from "../styles/DashboardProfit.module.css"; // Para estilos personalizados
+import LinearGraphic from '../../public/Components/Graphics/LinearGraphic';
+import BarGraphic from '../../public/Components/Graphics/BarGraphic';
 
 const Dashboard_profit = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,8 +14,13 @@ const Dashboard_profit = () => {
       <main className={`${styles1.content} ${isOpen  ? styles1.open : ''} `}>
         <div className={styles1.header}>
           <h1>Ganancias</h1>
-          <div></div>
-          <div></div>
+          <div>
+            <LinearGraphic></LinearGraphic>
+          </div>
+
+          <div>
+             <BarGraphic></BarGraphic>
+          </div>
           <div></div>
           </div>
       </main>

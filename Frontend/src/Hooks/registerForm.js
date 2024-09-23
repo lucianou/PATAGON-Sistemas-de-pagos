@@ -7,6 +7,8 @@ const useForm = (initialData, onValidate) => {
   const [serverMessage, setServerMessage] = useState(""); // Para almacenar el mensaje del servidor
   const navigate = useNavigate();
 
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -27,6 +29,7 @@ const useForm = (initialData, onValidate) => {
       fetch("http://localhost:3004/api/command/register", {
         headers: {
           "Content-Type": "application/json",
+          'x-api-key': apiKey,
         },
         method: "POST",
         body: jsonString,
