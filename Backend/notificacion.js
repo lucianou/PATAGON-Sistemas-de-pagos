@@ -23,7 +23,7 @@ db.connect((err) => {
     }
 });
 
-const port = 3000;
+const port = 3004;
 
 // Middleware para manejar JSON en las solicitudes
 app.use(express.json());

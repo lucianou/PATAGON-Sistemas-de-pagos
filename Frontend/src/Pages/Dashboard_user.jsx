@@ -1,17 +1,15 @@
-// Pages/Dashboard_user.jsx
-import React , { useState, useEffect }from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import styles1 from '../styles/DashboardGeneral.module.css';
 import styles from '../styles/DashboardUser.module.css';
 import ItemUser from '../../public/Components/itemUser/itemUser';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 import Notifications from './Notifications';
 
 const Dashboard_user = () => {
-  const [filterState, setFilterState] = useState("all"); // Estado para el filtro
+  const [filterState, setFilterState] = useState("all"); 
   const [isOpen, setIsOpen] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]); // Usuarios activos
+  const [deletedUsers, setDeletedUsers] = useState([]); // Usuarios eliminados
   const [errors, setErrors] = useState({});
   const [filtredUsers, setFiltredUsers] = useState([]);
   const [searchText, setSearchText] = useState('');
@@ -25,16 +23,18 @@ const Dashboard_user = () => {
     })
       .then((response) => response.json())
       .then(data => {
-        if(data.error){
+        if (data.error) {
           setErrors({ server: data.error });
         } else {
-          setUsers(data);
-          setFiltredUsers(data);
+          // Actualizar usuarios activos y eliminados
+          setUsers(data.users);
+          setDeletedUsers(data.deletedUsers);
+          setFiltredUsers(data.users); // Inicialmente mostrar todos los usuarios activos
         }
       })
       .catch(error => {
-        console.log('Error:',error);
-        setErrors({ server: 'Error en la soliditud: ' + error.message });
+        console.log('Error:', error);
+        setErrors({ server: 'Error en la solicitud: ' + error.message });
       });
 
   }, []);
@@ -73,9 +73,8 @@ const Dashboard_user = () => {
     const value = e.target.value.toLowerCase();
     setSearchText(value);
 
-    // Filtrar usuarios en tiempo real
     if (value === '') {
-      setFiltredUsers(users); // Si el campo está vacío, mostrar todos los usuarios
+      setFiltredUsers(users); 
     } else {
       const filtered = users.filter((user) => user.username.toLowerCase().startsWith(value));
       setFiltredUsers(filtered);
@@ -84,19 +83,24 @@ const Dashboard_user = () => {
 
   return (
     <div className={styles1.dashboardContainer}>
-      <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen}/>
-      <Notifications/>
-      
-      <main className={`${styles1.content} ${isOpen ? styles1.open : ''} }` } id={styles.content} >
+      <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
+      <Notifications />
+
+      <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`} id={styles.content}>
         <div className={styles1.header}>
           <h1>Dashboard User</h1>
         </div>
 
-  
         {/* Sección búsqueda */}
         <div className={styles.searchSection}>
           <div>
-            <input type='text' placeholder='Buscar usuario... ' name='search' value={searchText} onChange={handleSearchChange}/>
+            <input
+              type='text'
+              placeholder='Buscar usuario... '
+              name='search'
+              value={searchText}
+              onChange={handleSearchChange}
+            />
           </div>
           <label htmlFor="filter" className={styles.labelFill}>Filtrar por estado:</label>
           <select className={styles.filter} value={filterState} onChange={handleFilterChange}>
@@ -109,25 +113,25 @@ const Dashboard_user = () => {
         </div>
 
         <section className={styles.userSection}>
-          {/* Sección titulos */}
+          {/* Sección títulos */}
           <div className={styles.titleSections}>
-            <span>Usuario   </span>
+            <span>Usuario</span>
             <span>Tiempo</span>
             <span>Activo</span>
           </div>
 
-            {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
-          <div className={styles.itemSection}>
-            {/* Contenido Item */}
+          {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
 
+          <div className={styles.itemSection}>
+            {/* Mostrar usuarios activos filtrados */}
             {filtredUsers.filter(filterUsersByState).map((user, index) => {
-              if(user.rol === 'Cliente'){   
+              if (user.rol === 'Cliente') {
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
                   <ItemUser user={user} key={index} delay={delay} />
                 );
               }
-            })}            
+            })}
           </div>
         </section>
       </main>
