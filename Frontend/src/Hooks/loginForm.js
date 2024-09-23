@@ -14,8 +14,9 @@ const useForm = (initialData) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    form.email = form.email.toLowerCase();
     const jsonString = JSON.stringify(form);
-    console.log(jsonString); // {"username":"usuario","password":"contraseña"}
+    console.log(jsonString); // {"email":"ejemplo@gmail.com","password":"contraseña"}
 
     fetch('http://localhost:3004/api/command/login', {
       headers: {

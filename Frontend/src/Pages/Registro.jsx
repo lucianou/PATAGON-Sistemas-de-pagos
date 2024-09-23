@@ -55,6 +55,7 @@ const Registro = () => {
       <div className={style.contenedor}>
         <form onSubmit={handleSubmit}>
           <h1>Registrarse</h1>
+          {errors.server && <div className={style2.errorMessage} >{errors.server}</div>}
           <InputText icon={faUser} id='username' value={form.username} label='Nombre de usuario' handleChange={handleChange}/>  
           {errors.username && <div className={style2.errorMessage} >{errors.username}</div>}
           
