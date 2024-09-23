@@ -76,6 +76,7 @@
                   0 6px 20px rgba(0, 0, 0, 0.19)
       ; /* Añadir sombra para efecto de flotación */
       transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */  
+
       &:hover {
         background-color: #45a049;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2)
@@ -84,6 +85,12 @@
       }
     }
   }
+}
+
+.bolsaCard:hover {
+  transform: scale(1.03); /* Aumenta ligeramente el tamaño */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5), 
+              inset 0px 1px 4px rgba(255, 255, 255, 0.1); /* Aumenta la sombra al hacer hover */
 }
 
 /* Responsividad */
