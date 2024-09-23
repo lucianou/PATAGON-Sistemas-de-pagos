@@ -17,7 +17,7 @@
     text-align: center;
     
     .nombre {
-      font-weight: bold;
+      font-weight: normal;
       border-bottom: 2px solid white;
       margin-bottom: 5px;
       font-size: 1.2rem;
@@ -53,7 +53,7 @@
 
       .price {
         background-color: rgb(148, 121, 72);
-        padding: 0px 30px;
+        padding: 5px 25px;
         border-radius: 7px;
       }
     }
@@ -65,7 +65,7 @@
       padding: auto;
       border: none;
       width: 150px;
-      height: 23px;
+      height: 50px;
       border-radius: 7px;
       font-weight: bold;
       cursor: pointer;

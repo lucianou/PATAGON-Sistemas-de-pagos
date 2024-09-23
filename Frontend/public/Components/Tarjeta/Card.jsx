@@ -21,7 +21,7 @@ const Card = ({ nombre, tiempo, detalles, precio, onBuyClick, ram }) => {
           <p className={styles.price}>{precio}</p>
         </div>
         <button className={styles.botonCompra} onClick={onBuyClick}>
-          ¡ Lo quiero !
+          Comprar
         </button>
       </div>
     </div>
