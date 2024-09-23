@@ -121,12 +121,14 @@ export async function AllUsers(req, res) {
             WHERE "rol" != 'Administrador'
             ORDER BY "fecha_ingreso" DESC NULLS LAST;
         `;
-        
+        const query2 = `SELECT * FROM public."Deleted_users"`;
         // Ejecuta la consulta
         const result = await pool.query(query);
+        const result2 = await pool.query(query2);
+
         
         // Enviar la lista de usuarios como respuesta
-        res.status(200).json(result.rows);
+        res.status(200).json({users: result.rows, deletedUsers: result2.rows});
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ error: 'Error al obtener los usuarios' });
