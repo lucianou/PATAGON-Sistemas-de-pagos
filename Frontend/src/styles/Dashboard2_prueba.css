@@ -1,5 +1,29 @@
 .bolsas-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 20px; 
+}
+
+.bolsas-container > div {
+  flex: 1 1 calc(33.33% - 20px); /* 3 tarjetas por fila */
+  box-sizing: border-box; 
+}
+
+
+
+
+
+
+/* Responsividad */
+
+@media (max-width: 768px) {
+  .bolsas-container > div {
+    flex: 1 1 calc(50% - 20px); /* 2 tarjetas por fila en pantallas más pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .bolsas-container > div {
+    flex: 1 1 100%; /* 1 tarjeta por fila en pantallas muy pequeñas */
+  }
 }

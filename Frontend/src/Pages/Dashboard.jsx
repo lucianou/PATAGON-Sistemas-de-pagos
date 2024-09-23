@@ -19,17 +19,72 @@ const Dashboard = () => {
         </div>
 
         <div className={style.dashboardWidgets}>
-          <div className={`${style.widget} ${style.smallWidget}`}></div>
-          <div className={`${style.widget} ${style.smallWidget}`}></div>
-
-          <Card
-            nombre="Bolsa Economica"
+        <Card
+            nombre="Bolsa 1"
             tiempo="25 horas"
             precio="$25.000"
             detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-            ram="64 gb"
-          />
-          
+        />
+        <Card
+            nombre="Bolsa 2"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
+        <Card
+            nombre="Bolsa 3"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
+        <Card
+            nombre="Bolsa 4"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
+        <Card
+            nombre="Bolsa 5"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
+        <Card
+            nombre="Bolsa 6"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
+        <Card
+            nombre="Bolsa 7"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
+        <Card
+            nombre="Bolsa 8"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
+        <Card
+            nombre="Bolsa 9"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
+        <Card
+            nombre="Bolsa 10"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
+        <Card
+            nombre="Bolsa 11"
+            tiempo="25 horas"
+            precio="$25.000"
+            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
+        />
         </div>
       </main>
     </div>
