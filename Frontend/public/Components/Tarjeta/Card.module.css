@@ -1,5 +1,6 @@
 .bolsaCard {
-  background-color: rgb(36, 37, 43);
+  background: linear-gradient(5deg, rgb(18, 11, 55), rgb(36, 37, 43));
+
   border-radius: 20px;
   padding: 20px;
   box-sizing: border-box;
@@ -18,7 +19,7 @@
     
     .nombre {
       font-weight: normal;
-      border-bottom: 2px solid white;
+      border-bottom: 2px solid rgb(90, 81, 81);
       margin-bottom: 5px;
       font-size: 1.2rem;
     }
@@ -52,14 +53,14 @@
       text-align: center;
 
       .price {
-        background-color: rgb(148, 121, 72);
+        background: linear-gradient(145deg, rgb(148, 121, 72), rgb(36, 37, 43));
         padding: 5px 25px;
         border-radius: 7px;
       }
     }
 
     .botonCompra {
-      background-color: #4CAF50;
+      background: linear-gradient(145deg, #4CAF50, rgb(36, 37, 43));
       color: white;
       border: auto;
       padding: auto;
