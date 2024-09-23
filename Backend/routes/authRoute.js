@@ -1,10 +1,7 @@
 import express from "express";
 
-import { 
-  loginUser,
-  registerUser,
-} 
-from "../controllers/authControllers.js";
+import { loginUser, registerUser,} from "../controllers/authControllers.js";
+import { validateApiKey} from "../middleware/validateApiKey.js"
 
 import{loginUserDB, register} from '../controllers/authControllersDB.js'
 const router = express.Router();
