@@ -11,7 +11,8 @@ const Notifications = () => {
         socket.on('newRequest', (data) => {
             const newNotification = {
                 id: Date.now(), // Identificador único basado en la hora actual
-                nombre: data.nombre
+                nombre: data.nombre,
+                email: data.email
             };
             setNotifications((prev) => [...prev, newNotification]);
 
@@ -30,7 +31,9 @@ const Notifications = () => {
         <div>
             {notifications.map((notification) => (
                 <div key={notification.id} className={styles.notification}>
-                    Nueva solicitud: {notification.nombre}
+                    <div>Nueva solicitud: {notification.nombre}</div>
+                    <div className={styles.email}>Correo: {notification.email}</div>
+                   
                 </div>
             ))}
         </div>

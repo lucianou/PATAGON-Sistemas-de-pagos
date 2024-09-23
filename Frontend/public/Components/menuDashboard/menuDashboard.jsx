@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom'; // Importa useLocation para obtener la URL actual
-import styles from './MenuDashboard.module.css'; // Importa tu archivo de estilos como módulo
+import styles from '../menuDashboard/menuDashboard.module.css'; // Importa tu archivo de estilos como módulo
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faClipboard, faUsers, faDollarSign, faCog, faSignOutAlt, faTimes, faBars } from '@fortawesome/free-solid-svg-icons';
 import { jwtDecode } from 'jwt-decode';

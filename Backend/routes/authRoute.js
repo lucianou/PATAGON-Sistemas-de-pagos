@@ -12,6 +12,6 @@ router.post("/userReg", registerUser);
 
 //LOGIN Y REGISTRO CON BASE DE DATOS
 router.post("/login", validateApiKey, loginUserDB);
-router.post("/register", register);
+router.post("/register",validateApiKey, register);
 
 export {router as AuthRouter}

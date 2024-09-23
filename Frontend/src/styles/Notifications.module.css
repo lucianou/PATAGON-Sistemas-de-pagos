@@ -10,7 +10,11 @@
     z-index: 1000; /* Asegura que esté sobre otros elementos */
     animation: slideIn 0.5s, fadeOut 2.5s 2.5s; /* Animaciones de entrada y salida */
 }
-
+.email{
+    margin-top: 5px;
+    font-size: 14px;
+    color: #fff
+}
 @keyframes slideIn {
     from {
         opacity: 0;
