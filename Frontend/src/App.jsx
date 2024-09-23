@@ -8,12 +8,13 @@ import Dashboard_solicitudes from './Pages/Dashboard_solicitudes';
 import Dashboard_user from './Pages/Dashboard_user'; // Importa el nuevo componente
 import Dashboard_profit from './Pages/Dashboard_profit';
 import Dashboard_config from './Pages/Dashboard_config';
-import Notifications from './Pages/Notifications';
+import Notifications from './Pages/Notifications_Sonner';
 
 function App() {
   return (
     <Router>
-      
+      {/* Incluye el componente de notificaciones en toda la aplicación */}
+      <Notifications />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
