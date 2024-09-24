@@ -23,7 +23,6 @@ Este proyecto implementa un sistema básico de pagos, que incluye la autenticaci
     ```
     bash
     git clone https://github.com/CreativeSelf1/PATAGON-Sistemas-de-pagos.git
-
     ```
 2. Instalar dependencias para backend y frontend:
     ```
@@ -33,7 +32,6 @@ Este proyecto implementa un sistema básico de pagos, que incluye la autenticaci
     npm install
     cd ../frontend
     npm install
-
     ```
 
 4. Iniciar el servidor:
@@ -43,6 +41,8 @@ Este proyecto implementa un sistema básico de pagos, que incluye la autenticaci
     cd backend
     npm start
 
+    cd ../frontend
+    npm run dev
     ```
 
 ## Endpoints
