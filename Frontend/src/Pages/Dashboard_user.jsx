@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import styles1 from '../styles/DashboardGeneral.module.css';
 import styles from '../styles/DashboardUser.module.css';
-import ItemUser from '../../public/Components/itemUser/itemUser';
+import ItemUser from '../../public/Components/itemUser2/itemUser';
 import Notifications from './Notifications';
 
 const Dashboard_user = () => {
@@ -13,6 +13,7 @@ const Dashboard_user = () => {
   const [errors, setErrors] = useState({});
   const [filtredUsers, setFiltredUsers] = useState([]);
   const [searchText, setSearchText] = useState('');
+  const [btnActive, setBtnActive] = useState(true);
 
   useEffect(() => {
     fetch('http://localhost:3004/api/command/users', {
@@ -29,7 +30,9 @@ const Dashboard_user = () => {
           // Actualizar usuarios activos y eliminados
           setUsers(data.users);
           setDeletedUsers(data.deletedUsers);
+          console.log(data.deletedUsers);
           setFiltredUsers(data.users); // Inicialmente mostrar todos los usuarios activos
+          console.log(data.users);
         }
       })
       .catch(error => {
@@ -69,14 +72,18 @@ const Dashboard_user = () => {
     return Math.floor(difMilisegundos / milisegundosPorDia);
   };
 
+  const handleClickBtnUser = () => {
+    setBtnActive(!btnActive);
+  };
+
   const handleSearchChange = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchText(value);
 
     if (value === '') {
-      setFiltredUsers(users); 
+      setFiltredUsers(btnActive ? users : deletedUsers); 
     } else {
-      const filtered = users.filter((user) => user.username.toLowerCase().startsWith(value));
+      const filtered = (btnActive ? users : deletedUsers).filter((user) => user.username.toLowerCase().startsWith(value));
       setFiltredUsers(filtered);
     }
   };
@@ -93,7 +100,7 @@ const Dashboard_user = () => {
 
         {/* Sección búsqueda */}
         <div className={styles.searchSection}>
-          <div>
+          <div className={styles.searchFill_container}>
             <input
               type='text'
               placeholder='Buscar usuario... '
@@ -101,37 +108,50 @@ const Dashboard_user = () => {
               value={searchText}
               onChange={handleSearchChange}
             />
+            <div className={styles.contFill}>
+              <label htmlFor="filter" className={styles.labelFill}>Filtrar por estado:</label>
+              <select className={styles.filter} value={filterState} onChange={handleFilterChange}>
+                <option value="all">Todos</option>
+                <option value="pendiente">Pendientes</option>
+                <option value="activo">Activos</option>
+                <option value="inactivo">Inactivos</option>
+                <option value="bloqueado">Bloqueados</option>
+              </select>
+            </div>
           </div>
-          <label htmlFor="filter" className={styles.labelFill}>Filtrar por estado:</label>
-          <select className={styles.filter} value={filterState} onChange={handleFilterChange}>
-            <option value="all">Todos</option>
-            <option value="pendiente">Pendientes</option>
-            <option value="activo">Activos</option>
-            <option value="inactivo">Inactivos</option>
-            <option value="bloqueado">Bloqueados</option>
-          </select>
-        </div>
+          <div className={styles.sectionBtn}>
+            <button className={`${!btnActive ? styles.btnOn : styles.btnOff}`}
+            onClick={handleClickBtnUser}>
+              <span>Usuarios Activos</span>
+            </button>
+            <button className={`${btnActive ? styles.btnOn : styles.btnOff}`}
+            onClick={handleClickBtnUser}>
+              <span>Usuarios Eliminados</span>
+            </button>
+          </div>
 
+        </div>
         <section className={styles.userSection}>
-          {/* Sección títulos */}
-          <div className={styles.titleSections}>
-            <span>Usuario</span>
-            <span>Tiempo</span>
-            <span>Activo</span>
-          </div>
 
           {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
 
           <div className={styles.itemSection}>
             {/* Mostrar usuarios activos filtrados */}
-            {filtredUsers.filter(filterUsersByState).map((user, index) => {
-              if (user.rol === 'Cliente') {
+            {btnActive ? (
+              filtredUsers.filter(filterUsersByState).map((user, index) => {
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
                   <ItemUser user={user} key={index} delay={delay} />
                 );
-              }
-            })}
+              })
+            ) : (
+              deletedUsers.map((user, index) => {
+                const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
+                return (
+                  <ItemUser user={user} key={index} delay={delay} />
+                );
+              })
+            )}
           </div>
         </section>
       </main>

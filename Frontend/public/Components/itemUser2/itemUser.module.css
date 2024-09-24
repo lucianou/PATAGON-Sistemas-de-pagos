@@ -88,7 +88,7 @@
   }
 
   #activo{
-    background: linear-gradient(-45deg, rgb(19, 224, 29), rgb(172, 241, 175));
+    background: linear-gradient(-45deg, rgb(16, 192, 25), rgb(205, 241, 207));
   }
   #inactivo{
     background: linear-gradient(-45deg, rgb(224, 224, 19), rgb(241, 241, 175));

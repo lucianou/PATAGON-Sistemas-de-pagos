@@ -1,35 +1,74 @@
 .searchSection{
   display: flex;
-  align-items: center;
-  height: 40px;
-  padding: 0 10px;
+  justify-content: space-between;
+  width: 80%;
+  height: 80px;
+  padding: 10px;
   margin-bottom: 30px;
   /* background: red; */
-  div {
-    min-height: 40px;
-    max-height: 40px;
+  .searchFill_container {
     display: flex;
-    align-items: center;
-    overflow: hidden;
     input {
-      height: 40px;
       width: 400px;
       border-radius: 5px;
       border: none;
       margin-left: 5px;
-      font-size: 17px;
+      font-size: 20px;
       outline: none;
       padding: 0 10px;
+    }
+    .contFill{
+      display: flex;
+      align-items: center;
+    }
+  }
+  .sectionBtn {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    background-color: rgb(42, 46, 46);
+    border-radius: 10px;
+    button {
+      height: 40px;
+      width: 180px;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 17px;
+      font-weight: bold;
+      border: none;
+      outline: none;
+    }
+    .btnOn {
+      background-color: rgb(211, 155, 52);
+      cursor: pointer;
+      color: white;
+      position: relative;
+      &:hover::after {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.411);
+      }
+    }
+    .btnOff {
+      background-color: rgb(42, 46, 46);
+      pointer-events: none;
+      color: gray;
     }
   }
 }
 
 .userSection {
   /* background-color: red; */
+  width: 80%;
   .titleSections {
     display: flex;
     padding: 0 40px;
-    width: 900px;
+    width: 100%;
     height: 40px;
     font-size: 20px;
     font-weight: bold;
@@ -39,9 +78,14 @@
   .itemSection{
     padding: auto;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
     height: fit-content;
     /* background-color: #fff; */
+    > * {
+      flex: 1;
+    }
   }
 }
 
@@ -62,7 +106,7 @@
 }
 
 .filter {
-  height: 40px;
+  height: 80%;
   margin: 0 10px;
   border: none;
   outline: none;
