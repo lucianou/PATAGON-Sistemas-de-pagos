@@ -15,7 +15,7 @@ const app = express();
 const server = http.createServer(app);
 const io = setupSocket(server);
 
-const port = 3004;
+const port = 3003;
 
 app.use(cors());
 app.use(express.json());
