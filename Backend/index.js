@@ -15,7 +15,8 @@ const app = express();
 const server = http.createServer(app);
 const io = setupSocket(server);
 
-const port = 3003;
+const port = process.env.PORT_BACKEND;
+const host = process.env.HOST;
 
 app.use(cors());
 app.use(express.json());
@@ -59,5 +60,5 @@ app.get('/viewPDF/:id', async (req, res) => {
 
 
 server.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}/`);
+  console.log(`Servidor escuchando en http://${host}:${port}/`);
 });
