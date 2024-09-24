@@ -1,6 +1,6 @@
 # PATAGÓN - Sistemas de pagos
 
-Este proyecto implementa un sistema básico de pagos, que incluye la autenticación de usuarios, registro, envío de correos electrónicos y creación de usuarios por parte de un administrador.
+Este proyecto implementa un sistema de pagos, que incluye la autenticación de usuarios, registro, envío de correos electrónicos y creación de usuarios por parte de un administrador.
 
 
 ## Características
@@ -39,7 +39,7 @@ Este proyecto implementa un sistema básico de pagos, que incluye la autenticaci
     bash
 
     cd backend
-    npm start
+    npm run dev
 
     cd ../frontend
     npm run dev
