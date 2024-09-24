@@ -36,9 +36,10 @@ const Dashboard_solicitudes = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const solicitudesPerPage = 5; 
   const totalPages = Math.ceil(solicitudes.length / solicitudesPerPage);
+  const port = import.meta.env.VITE_PORT;
 
   useEffect(() => {
-    fetch('http://localhost:3004/api/command/requests', {
+    fetch(`http://localhost:${port}/api/command/requests`, {
       headers: { 'Content-Type': 'application/json' },
       method: 'GET',
     })

@@ -8,6 +8,7 @@ const useForm = (initialData) => {
   const navigate = useNavigate();
 
   const apiKey = import.meta.env.VITE_API_KEY;
+  const port = import.meta.env.VITE_PORT;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,7 +21,7 @@ const useForm = (initialData) => {
     const jsonString = JSON.stringify(form);
     console.log(jsonString); // {"email":"ejemplo@gmail.com","password":"contraseña"}
 
-    fetch('http://localhost:3004/api/command/login', {
+    fetch(`http://localhost:${port}/api/command/login`, {
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': apiKey,

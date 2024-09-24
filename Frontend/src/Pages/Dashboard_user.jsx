@@ -14,9 +14,10 @@ const Dashboard_user = () => {
   const [filtredUsers, setFiltredUsers] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [btnActive, setBtnActive] = useState(true);
+  const port = import.meta.env.VITE_PORT;
 
   useEffect(() => {
-    fetch('http://localhost:3004/api/command/users', {
+    fetch(`http://localhost:${port}/api/command/users`, {
       headers: {
         'Content-Type': 'application/json',
       },

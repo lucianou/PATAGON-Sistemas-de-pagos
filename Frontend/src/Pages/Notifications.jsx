@@ -6,9 +6,10 @@ import styles from '../styles/Notifications.module.css';
 const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
     const navigate = useNavigate(); 
+    const port = import.meta.env.VITE_PORT;
 
     useEffect(() => {
-        const socket = io('http://localhost:3004');
+        const socket = io(`http://localhost:${port}`);
 
         socket.on('newRequest', (data) => {
             const newNotification = {
