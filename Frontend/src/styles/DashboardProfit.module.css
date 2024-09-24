@@ -34,7 +34,9 @@
 }
 
 /* Estilo para el div expandido */
-.expanded {
+.div1:hover,
+.div2:hover,
+.div3:hover {
   width: 100%; /* Opcional, puedes ajustarlo según prefieras */
   height: 100%; /* Opcional, puedes ajustarlo según prefieras */
   z-index: 4;

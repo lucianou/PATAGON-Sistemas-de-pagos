@@ -2,16 +2,23 @@
 .hamburger {
   background-color: transparent;
   border: none;
-  color: #fff;
   cursor: pointer;
   transition: left 0.3s ease;
   margin-left: 20px;
   margin-top: 20px;
+  &:hover{
+    transition: all 0.1s ease;
+    scale: 1.4;
+    color: rgb(219, 162, 56);
+  }
 }
 
-.hamburger:hover{
-  transition: all 0.1s ease;
-  scale: 1.2;
+.faIcon {
+  height: 25px;
+  min-width: 25px;
+  max-width: 25px;
+  color: #ffffff;
+  cursor: pointer;
 }
 
 .sidebar {
@@ -26,7 +33,17 @@
   transition: 0.3s all ease;
   box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2); /* Sombra a la derecha del div */
   
-  .active a{
+  li:hover{
+    cursor: pointer;
+    .faIcon{
+      transition: all 0.1s ease;
+      scale: 1.4;
+      color: rgb(219, 162, 56);
+    }
+  }
+
+  .active a,
+  .active .faIcon{
     color: rgb(48, 175, 171) !important;
     font-weight: bold !important;    
   }
@@ -82,9 +99,9 @@
       li {
         position: relative;
         padding: 20px 20px;
+
         a {
           text-decoration: none;
-          pointer-events: none;
           align-items: center;
           color: #b0b0b0;
           cursor: default;
@@ -106,8 +123,11 @@
 .sidebar.open {
   left: 0; /* Despliega la sidebar */
   width: 290px;
-
-  .active:hover a{
+  .faIcon{
+    pointer-events: none;
+  }
+  .active:hover a,
+  .active:hover .faIcon{
     color: rgb(13, 228, 221) !important;
   }
   .profile {
@@ -164,8 +184,9 @@
       top: 0;
       transition: width 0.3s ease;
     }
-    a {
-      color: #fff;
+    a,
+    .faIcon{
+      color: rgb(219, 162, 56);
     }
   }
 
@@ -188,9 +209,5 @@
   }
 }
 
-.faIcon {
-  height: 25px;
-  min-width: 25px;
-  max-width: 25px;
-}
+
 
