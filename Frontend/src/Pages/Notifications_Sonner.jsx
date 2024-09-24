@@ -4,8 +4,9 @@ import { io } from 'socket.io-client';
 import styles from '../styles/Notifications_Sonner.module.css'; // Importar los estilos modulares
 //npm install sonner
 const Notifications = () => {
+  const port = import.meta.env.VITE_PORT;
   useEffect(() => {
-    const socket = io('http://localhost:3004');
+    const socket = io(`http://localhost:${port}`);
 
     socket.emit('joinAdmin', 'admin');
 

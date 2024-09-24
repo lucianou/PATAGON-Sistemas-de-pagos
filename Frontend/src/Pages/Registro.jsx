@@ -51,7 +51,6 @@ const Registro = () => {
 
   return (
     <div className={style.body}>
-      {/* <img src="https://patagon.uach.cl/user/themes/darkquark/images/logo/patagon-logo-text-color.svg" alt="patagon" className={style.logo}/> */}
       <div className={style.contenedor}>
         <form onSubmit={handleSubmit}>
           <h1>Registrarse</h1>

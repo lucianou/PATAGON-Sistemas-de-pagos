@@ -8,6 +8,7 @@ const useForm = (initialData, onValidate) => {
   const navigate = useNavigate();
 
   const apiKey = import.meta.env.VITE_API_KEY;
+  const port = import.meta.env.VITE_PORT;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +27,7 @@ const useForm = (initialData, onValidate) => {
       const jsonString = JSON.stringify(dataWithoutRepPass);
       console.log(jsonString);
 
-      fetch("http://localhost:3004/api/command/register", {
+      fetch(`http://localhost:${port}/api/command/register`, {
         headers: {
           "Content-Type": "application/json",
           'x-api-key': apiKey,

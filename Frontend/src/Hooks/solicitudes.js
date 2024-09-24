@@ -1,7 +1,8 @@
 // solicitudes.js
 export const fetchSolicitudes = async () => {
+    const port = import.meta.env.VITE_PORT;
     try {
-        const response = await fetch('http://localhost:3004/api/command/requests');
+        const response = await fetch(`http://localhost:${port}/api/command/requests`);
         if (!response.ok) {
             throw new Error('Error en la solicitud');
         }
