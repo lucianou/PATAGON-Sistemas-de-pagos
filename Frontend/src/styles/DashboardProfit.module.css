@@ -1,0 +1,41 @@
+.contenedor {
+  position: relative;
+  width: 90%;
+  min-height: 88vh;
+}
+.div1, .div2, .div3 {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 49.1%;
+  height: 48.3%;
+  transition: all 0.2s;
+  z-index: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.div1 {
+  top: 0;
+  left: 0;
+}
+
+.div2 {
+  top: 0;
+  right: 0;
+}
+
+.div3 {
+  bottom: 0;
+  left: 0;
+}
+
+/* Estilo para el div expandido */
+.expanded {
+  width: 100%; /* Opcional, puedes ajustarlo según prefieras */
+  height: 100%; /* Opcional, puedes ajustarlo según prefieras */
+  z-index: 4;
+}

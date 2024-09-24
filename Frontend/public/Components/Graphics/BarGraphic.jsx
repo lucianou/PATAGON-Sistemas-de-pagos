@@ -1,4 +1,3 @@
-
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJs,
@@ -23,7 +22,6 @@ ChartJs.register(
     Legend,
     Filler
 );
-
 
 const cards = ["RTX01", "RTX02", "RTX03", "RTX04", "RTX05", "RTX06", "RTX07", "RTX08", "RTX09", "RTX10", "RTX11", "RTX12"];
 const horas_uso = [40, 10, 20, 30, 40, 50, 40, 30, 20, 10, 10, 10];
@@ -51,6 +49,11 @@ const misoptions = {
     plugins: {
         legend: {
             position: 'top',
+            labels: {
+                font: {
+                    weight: 'bold', // Negrita para la leyenda
+                },
+            },
         },
         tooltip: {
             callbacks: {
@@ -63,12 +66,28 @@ const misoptions = {
             title: {
                 display: true,
                 text: 'Tarjetas',
+                font: {
+                    weight: 'bold', // Negrita para el título del eje X
+                },
+            },
+            ticks: {
+                font: {
+                    weight: 'bold', // Negrita para las etiquetas del eje X
+                },
             },
         },
         y: {
             title: {
                 display: true,
                 text: 'Horas de uso',
+                font: {
+                    weight: 'bold', // Negrita para el título del eje Y
+                },
+            },
+            ticks: {
+                font: {
+                    weight: 'bold', // Negrita para las etiquetas del eje Y
+                },
             },
             suggestedMin: 0,
         },

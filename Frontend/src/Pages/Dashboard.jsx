@@ -4,6 +4,7 @@ import Card from '../../public/Components/Tarjeta/Card.jsx';
 import style1 from '../styles/DashboardGeneral.module.css'; // Para Menu
 import style from '../styles/Dashboard.module.css'; // Para Bolsas
 import Notifications from './Notifications.jsx';
+import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,7 @@ const Dashboard = () => {
       <main className={`${style1.content} ${isOpen ? style1.open : ''}`}>
         <div className={style1.header}>
           <h1>Dashboard</h1>  
+          <Notification_dashboard/>
         </div>
 
         <div className={style.dashboardWidgets}>

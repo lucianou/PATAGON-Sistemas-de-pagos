@@ -1,4 +1,3 @@
-
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJs,
@@ -51,6 +50,11 @@ const misoptions = {
     plugins: {
         legend: {
             position: 'top',
+            labels: {
+                font: {
+                    weight: 'bold', // Negrita para la leyenda
+                },
+            },
         },
         tooltip: {
             callbacks: {
@@ -63,12 +67,28 @@ const misoptions = {
             title: {
                 display: true,
                 text: 'Meses',
+                font: {
+                    weight: 'bold', // Negrita para el título del eje X
+                },
+            },
+            ticks: {
+                font: {
+                    weight: 'bold', // Negrita para las etiquetas del eje X
+                },
             },
         },
         y: {
             title: {
                 display: true,
                 text: 'Ganancias',
+                font: {
+                    weight: 'bold', // Negrita para el título del eje Y
+                },
+            },
+            ticks: {
+                font: {
+                    weight: 'bold', // Negrita para las etiquetas del eje Y
+                },
             },
             suggestedMin: 0,
         },
