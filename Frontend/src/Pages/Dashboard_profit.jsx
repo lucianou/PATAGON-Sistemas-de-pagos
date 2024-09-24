@@ -21,17 +21,14 @@ const Dashboard_profit = () => {
           <h1>Ganancias</h1>
         </header>
         <div className={styles.contenedor}>
-          <div className={`${styles.div1} ${activeDiv === 1 ? styles.expanded : ''}`} 
-          onClick={() => handleDivClick(1)}>
+          <div className={`${styles.div1} ${activeDiv === 1 ? styles.expanded : ''}`} >
             <LinearGraphic />
           </div>
 
-          <div className={`${styles.div2} ${activeDiv === 2 ? styles.expanded : ''}`} 
-          onClick={() => handleDivClick(2)}>
+          <div className={`${styles.div2} ${activeDiv === 2 ? styles.expanded : ''}`} >
             <BarGraphic />
           </div>
-          <div className={`${styles.div3} ${activeDiv === 3 ? styles.expanded : ''}`} 
-          onClick={() => handleDivClick(3)}>
+          <div className={`${styles.div3} ${activeDiv === 3 ? styles.expanded : ''}`} >
             <BarGraphic />  
           </div>
         </div>
