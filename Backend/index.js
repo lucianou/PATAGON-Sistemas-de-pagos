@@ -4,11 +4,11 @@ import dotenv from 'dotenv';
 import http from 'http';
 import { Server } from 'socket.io';
 
-import { UserControlRouter } from './routes/userControlRoute.js';
-import { AuthRouter } from './routes/authRoute.js';
-import { RequestsRouter } from './routes/requestsRoute.js';
-import { pool } from './middleware/authenticateDB.js';
-import { setupSocket } from './controllers/socketConfig.js';
+import { UserControlRouter } from './src/routes/userControlRoute.js';
+import { AuthRouter } from './src/routes/authRoute.js';
+import { RequestsRouter } from './src/routes/requestsRoute.js';
+import { pool } from './src/middleware/authenticateDB.js';
+import { setupSocket } from './src/controllers/socketConfig.js';
 
 dotenv.config();
 const app = express();
