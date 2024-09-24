@@ -131,7 +131,7 @@ const ParticlesComponent = (props) => {
   );
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
+    <div style={{ position: 'absolute', width: '100%', height: '100vh' }}>
       {/* Canvas de partículas */}
       <Particles 
         id={props.id} 
@@ -143,11 +143,11 @@ const ParticlesComponent = (props) => {
           left: 0,
           width: '100%',
           height: '100%',
-          zIndex: 0, // Establece un zIndex bajo para estar detrás
+          zIndex: -1, // Establece un zIndex bajo para estar detrás
         }} 
       />
       {/* Contenido encima del canvas */}
-      <h1 style={{ position: 'relative', zIndex: 1, color: "#ffffff" }}>Tu encabezado aquí</h1>
+      {/* <h1 style={{ position: 'relative', zIndex: 1, color: "#ffffff" }}>Tu encabezado aquí</h1> */}
       {/* Agrega más contenido si es necesario */}
     </div>
   );

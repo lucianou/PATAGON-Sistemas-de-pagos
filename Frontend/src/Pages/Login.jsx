@@ -19,6 +19,7 @@ function Login() {
 
   return (
     <>
+      <ParticlesBG/>
       <div className={style.body}>
         <div className={style.contenedor}>
           {/* <img src={patagonImg} alt="patagon" className={style.logo} /> */}

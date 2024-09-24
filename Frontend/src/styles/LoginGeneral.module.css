@@ -6,13 +6,13 @@
 }
 
 .body{
+  position: relative;
   min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: black;
   
   .contenedor {
     display: flex;
@@ -28,6 +28,7 @@
     box-shadow: 0 0 0px #03e9f4,
                 0 5px 10px #03e9f4,
                 0 25px 60px #03e9f4; 
+
     form{
       width: 90%;
       > *{
