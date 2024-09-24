@@ -38,7 +38,7 @@
             const form = document.getElementById('uploadForm');
             const formData = new FormData(form); // Crea un objeto FormData con los datos del formulario
 
-            fetch('http://localhost:3004/api/command/addRequest', {
+            fetch('http://localhost:3003/api/command/addRequest', {
                 method: 'POST',
                 body: formData,
             })
