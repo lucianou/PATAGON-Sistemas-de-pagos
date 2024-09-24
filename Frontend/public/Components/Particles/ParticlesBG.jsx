@@ -1,8 +1,8 @@
+import React, { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { useEffect, useMemo, useState } from "react";
 import { loadSlim } from "@tsparticles/slim"; // Asegúrate de tener esta dependencia instalada
 
-const ParticlesComponent = (props) => {
+const ParticlesComponent = React.memo((props) => {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
@@ -27,10 +27,6 @@ const ParticlesComponent = (props) => {
       fpsLimit: 120,
       interactivity: {
         events: {
-          onClick: {
-            enable: true,
-            mode: "repulse",
-          },
           onHover: {
             enable: true,
             mode: "repulse",
@@ -61,7 +57,7 @@ const ParticlesComponent = (props) => {
       },
       particles: {
         number: {
-          value: 200,
+          value: 190,
           density: {
             enable: true,
             value_area: 540,
@@ -127,7 +123,7 @@ const ParticlesComponent = (props) => {
       },
       detectRetina: false,
     }),
-    [],
+    []
   );
 
   return (
@@ -151,6 +147,6 @@ const ParticlesComponent = (props) => {
       {/* Agrega más contenido si es necesario */}
     </div>
   );
-};
+});
 
 export default ParticlesComponent;

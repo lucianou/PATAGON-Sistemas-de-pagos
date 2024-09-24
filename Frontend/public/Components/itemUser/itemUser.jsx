@@ -45,12 +45,10 @@ const ItemUser = ({ user, delay }) => {
 
       <div className={styles.itemTime}>
         <div>
-          <span>Utilizado:</span>
-          <span>00:00:00:00</span>
+          <span>{user.username}</span>
         </div>
         <div>
-          <span>Restante:</span>
-          <span>00:00:00:00</span>
+          <span>{user.email}</span>
         </div>
       </div>
 

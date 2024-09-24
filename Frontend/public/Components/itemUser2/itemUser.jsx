@@ -49,17 +49,15 @@ const ItemUser = ({ user, delay }) => {
         <FontAwesomeIcon icon={faUser} className={styles.faIcon} />
         <span>{user.username}</span>
       </div>
-
       <div className={styles.itemTime}>
         <div>
-          <span>Utilizado:</span>
-          <span>00:00:00:00</span>
+          <span>{user.email}</span>
         </div>
         <div>
-          <span>Restante:</span>
-          <span>00:00:00:00</span>
+          <span>{user.username}</span>
         </div>
       </div>
+
 
       <div className={styles.itemStatus} id={stateUser}>
         <FontAwesomeIcon icon={icon} className={styles.statusIcon} />

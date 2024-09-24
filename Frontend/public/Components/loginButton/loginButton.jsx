@@ -1,9 +1,9 @@
 import React from 'react';
-import './loginButton.css';
+import styles from './loginButton.module.css';
 
 const LoginButton = ({ text, onClick}) => {
   return (
-    <button className="textButton" type='submit' onClick={onClick}>
+    <button className={styles.textButton} type='submit' onClick={onClick}>
       <span></span>
       <span></span>
       <span></span>

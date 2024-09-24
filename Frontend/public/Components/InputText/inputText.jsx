@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import style from './inputText.module.css';
 
 
-const InputText = ({ id, label, handleChange, value, icon }) => {
+const InputText = ({ id, label, handleChange, value, icon, onFocus }) => {
   return (
     <div className={style.inputGroup}>
-      <input type='text' id={id} name={id} autoComplete='off' value={value} required onChange={handleChange} />
+      <input type='text' id={id} name={id} autoComplete='off' value={value} required onChange={handleChange} onFocus={onFocus}/>
       <label htmlFor={id}>{label}</label>
       <FontAwesomeIcon icon={icon} className={style.faIcon}/>
     </div>
