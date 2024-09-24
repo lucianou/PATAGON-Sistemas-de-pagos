@@ -16,8 +16,8 @@ services:
 
   backend:
     build:
-      context: ./Backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./Backend/Dockerfile
     ports:
       - "3003:3003"
     env_file:
@@ -32,6 +32,7 @@ services:
     build:
       context: ./Frontend
       dockerfile: Dockerfile
+
     ports:
       - "4003:4003"
     env_file:

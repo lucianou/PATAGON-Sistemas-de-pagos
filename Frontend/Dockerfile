@@ -1,20 +1,20 @@
-# Usa una imagen base de Node.js
+# Usa una imagen base
 FROM node:16-bullseye
 
-# Establece el directorio de trabajo en el contenedor
+# Establece el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos package.json y package-lock.json
+# Copia los archivos de dependencias
 COPY package.json package-lock.json ./
 
 # Instala las dependencias
 RUN npm install
 
-# Copia el resto del código de la aplicación
+# Copia el resto del código
 COPY . .
 
-# Expone el puerto que has definido en vite.config.js
+# Expone el puerto
 EXPOSE 4003
 
-# Comando para ejecutar Vite
+# Comando para iniciar la aplicación
 CMD ["npm", "run", "dev"]
