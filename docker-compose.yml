@@ -4,9 +4,9 @@ services:
     image: postgres:14
     restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: dbname
+      POSTGRES_USER: patagon_user
+      POSTGRES_PASSWORD: MrV5ghjqzIZaoUqMJBnW7CS9j160EHom
+      POSTGRES_DB: patagon
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
