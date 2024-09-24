@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { toast, Toaster } from 'sonner';
+import { toast, Toaster } from 'sonner'; //npm install sonner
 import { io } from 'socket.io-client';
-import styles from '../styles/Notifications_Sonner.module.css'; // Importar los estilos modulares
-//npm install sonner
+import styles from '../styles/Notifications_Sonner.module.css'; 
 const Notifications = () => {
   const port = import.meta.env.VITE_PORT;
   useEffect(() => {

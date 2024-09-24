@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; // Importa el componente del menú
+import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import Card from '../../public/Components/Tarjeta/Card.jsx';
-import style1 from '../styles/DashboardGeneral.module.css'; // Para estilos personalizados
-import style from '../styles/Dashboard.module.css'; // Para estilos personalizados
+import style1 from '../styles/DashboardGeneral.module.css'; // Para Menu
+import style from '../styles/Dashboard.module.css'; // Para Bolsas
 import Notifications from './Notifications.jsx';
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
 
