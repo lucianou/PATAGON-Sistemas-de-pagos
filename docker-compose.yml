@@ -1,0 +1,38 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./Backend
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./Backend:/usr/src/app
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=${DATABASE_URL}
+    env_file:
+      - ./Backend/.env
+    depends_on:
+      - postgres
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./Frontend
+    ports:
+      - "4003:80"   # El puerto 4003 servirá el frontend (internamente Nginx usa el puerto 80)
+
+  postgres:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbname
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
