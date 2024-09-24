@@ -1,0 +1,17 @@
+.particles canvas {
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+h1{
+    z-index: 4;
+    position: relative;
+    color: white;
+}
+
+.a{
+    z-index: 10;
+    background-color: beige;
+    color: white;
+}

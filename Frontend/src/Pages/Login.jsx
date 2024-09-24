@@ -7,6 +7,7 @@ import InputPassword from "../../public/Components/InputPassword/inputPassword";
 import InputText from "../../public/Components/InputText/inputText";
 import patagonImg from "../assets/patagon-logo-text-color.png";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import ParticlesBG from "../../public/Components/Particles/ParticlesBG";
 
 function Login() {
   const initialData = {
