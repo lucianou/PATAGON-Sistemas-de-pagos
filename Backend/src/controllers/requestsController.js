@@ -17,11 +17,11 @@ export async function requests(req, res) {
 }
 
 export async function addRequest(req, res) {
-  const { nombre, email, institucion, user_id ,documento_pdf,documento_pub } = req.body;
+  const { nombre, email, institucion, user_id } = req.body;
 
   // Accede a los archivos PDF y PUB subidos
-  // const documento_pdf = req.files['documento_pdf'] ? req.files['documento_pdf'][0].buffer : null;
-  // const documento_pub = req.files['documento_pub'] ? req.files['documento_pub'][0].buffer : null;
+  const documento_pdf = req.files['documento_pdf'] ? req.files['documento_pdf'][0].buffer : null;
+  const documento_pub = req.files['documento_pub'] ? req.files['documento_pub'][0].buffer : null;
 
   try {
       // Inserta la nueva solicitud en la base de datos
@@ -36,7 +36,7 @@ export async function addRequest(req, res) {
       const values = [nombre, email, institucion, documento_pdf, documento_pub, user_id, requestDate];
       const result = await pool.query(query, values);
 
-      // Enviar la solicitud recién insertada como respuesta
+      // Emitir la nueva solicitud
       req.app.get('io').emit('newRequest', result.rows[0]);
       res.status(201).json(result.rows[0]);
 

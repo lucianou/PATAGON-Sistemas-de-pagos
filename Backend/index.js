@@ -35,6 +35,28 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
+app.get('/viewPDF/:id', async (req, res) => {
+  const requestId = req.params.id;
+
+  try {
+      const query = 'SELECT documento_pdf FROM public."Requests" WHERE "ID_request" = $1';
+      const result = await pool.query(query, [requestId]);
+
+      if (result.rows.length > 0) {
+          const pdfData = result.rows[0].documento_pdf;
+
+          // Configura las cabeceras para mostrar el PDF en el navegador
+          res.setHeader('Content-Type', 'application/pdf');
+          res.send(pdfData);
+      } else {
+          res.status(404).send('PDF no encontrado');
+      }
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Error al visualizar el archivo PDF' });
+  }
+});
+
 
 server.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}/`);
