@@ -58,6 +58,15 @@ app.get('/viewPDF/:id', async (req, res) => {
   }
 });
 
+app.get('/api/bolsas', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM public."Bolsas"'); // Consulta para obtener todas las bolsas
+    res.json(result.rows);  // Enviamos los resultados como respuesta
+  } catch (error) {
+    console.error('Error al obtener las bolsas:', error);
+    res.status(500).json({ error: 'Error al obtener las bolsas' });
+  }
+});
 
 server.listen(port, () => {
   console.log(`Servidor escuchando en http://${host}:${port}/`);

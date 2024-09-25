@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import Card from '../../public/Components/Tarjeta/Card.jsx';
 import style1 from '../styles/DashboardGeneral.module.css'; // Para Menu
@@ -8,85 +8,48 @@ import Notification_dashboard from '../../public/Components/notificaciones/notif
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [bolsas, setBolsas] = useState([]); // Estado para almacenar las bolsas
   
+  useEffect(() => {
+    const fetchBolsas = async () => {
+      try {
+        const response = await fetch('http://localhost:3003/api/bolsas'); // URL del endpoint
+        if (!response.ok) {
+          throw new Error('Error en la red al obtener las bolsas'); // Manejo de errores
+        }
+        const data = await response.json(); // Convierte la respuesta a JSON
+        setBolsas(data); // Actualiza el estado con las bolsas
+      } catch (error) {
+        console.error('Error al obtener las bolsas:', error);
+      }
+    };
+
+    fetchBolsas(); // Llama a la función para obtener las bolsas
+  }, []);
+
   return (
     <div className={style1.dashboardContainer}>
-      <MenuDashboard  toggleMenu={ () => {setIsOpen(!isOpen)} } isOpen={isOpen}/>
-      <Notifications/>
-      
+      <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
+      <Notifications />
+
       <main className={`${style1.content} ${isOpen ? style1.open : ''}`}>
         <div className={style1.header}>
-          <h1>Dashboard</h1>  
-          <Notification_dashboard/>
+          <h1>Dashboard</h1>
+          <Notification_dashboard />
         </div>
 
         <div className={style.dashboardWidgets}>
-        <Card
-            nombre="Bolsa 1"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 2"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 3"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 4"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 5"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 6"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 7"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 8"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 9"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 10"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
-        <Card
-            nombre="Bolsa 11"
-            tiempo="25 horas"
-            precio="$25.000"
-            detalles={['Rtx 3090 ti x4', '16 gb', '128 gb']}
-        />
+          { (
+            bolsas.map(bolsa => ( // Itera sobre las bolsas obtenidas y muestra una Card para cada una
+              <Card
+                key={bolsa.id} // Asegúrate de usar un key único
+                nombre={bolsa.nombre}
+                tiempo={bolsa.tiempo}
+                precio={bolsa.precio}
+                detalles={bolsa.detalles} // Pasamos el arreglo de detalles
+              />
+            ))
+          )}
         </div>
       </main>
     </div>
