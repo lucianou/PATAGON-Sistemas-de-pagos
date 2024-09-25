@@ -9,11 +9,14 @@ import Notification_dashboard from '../../public/Components/notificaciones/notif
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [bolsas, setBolsas] = useState([]); // Estado para almacenar las bolsas
+  const ipserver = import.meta.env.VITE_IP;
+  const port = import.meta.env.VITE_PORT;
+
   
   useEffect(() => {
     const fetchBolsas = async () => {
       try {
-        const response = await fetch('http://localhost:3003/api/bolsas'); // URL del endpoint
+        const response = await fetch(`http://${ipserver}:${port}/api/bolsas`); // URL del endpoint
         if (!response.ok) {
           throw new Error('Error en la red al obtener las bolsas'); // Manejo de errores
         }

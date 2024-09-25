@@ -3,11 +3,13 @@ import { io } from "socket.io-client";
 import styles from '../../../src/styles/Notifications.module.css';
 import { fetchSolicitudes } from '../../../src/Hooks/solicitudes'; // Ajusta la ruta según sea necesario
 
+const port = import.meta.env.VITE_PORT;
+const ipserver = import.meta.env.VITE_IP;
 
 const Notification_dashboard = () => {
     const [pendingCount, setPendingCount] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const socket = io('http://localhost:3004'); // Conéctate al socket
+    const socket = io(`http://${ipserver}:${port}`); // Conéctate al socket
 
     useEffect(() => {
         const getSolicitudes = async () => {

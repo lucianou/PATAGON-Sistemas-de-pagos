@@ -7,9 +7,10 @@ const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
     const navigate = useNavigate(); 
     const port = import.meta.env.VITE_PORT;
+    const ipserver = import.meta.env.VITE_IP;
 
     useEffect(() => {
-        const socket = io(`http://localhost:${port}`);
+        const socket = io(`http://${ipserver}:${port}`);
 
         socket.on('newRequest', (data) => {
             const newNotification = {

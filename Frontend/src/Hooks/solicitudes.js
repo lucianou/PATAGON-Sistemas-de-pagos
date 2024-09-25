@@ -1,8 +1,9 @@
 // solicitudes.js
+const ipserver = import.meta.env.VITE_IP;
 export const fetchSolicitudes = async () => {
     const port = import.meta.env.VITE_PORT;
     try {
-        const response = await fetch(`http://localhost:${port}/api/command/requests`);
+        const response = await fetch(`http://${ipserver}:${port}/api/command/requests`);
         if (!response.ok) {
             throw new Error('Error en la solicitud');
         }

@@ -15,9 +15,10 @@ const Dashboard_user = () => {
   const [searchText, setSearchText] = useState('');
   const [btnActive, setBtnActive] = useState(true);
   const port = import.meta.env.VITE_PORT;
+  const ipserver = import.meta.env.VITE_IP;
 
   useEffect(() => {
-    fetch(`http://localhost:${port}/api/command/users`, {
+    fetch(`http://${ipserver}:${port}/api/command/users`, {
       headers: {
         'Content-Type': 'application/json',
       },

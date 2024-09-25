@@ -9,6 +9,7 @@ const useForm = (initialData) => {
 
   const apiKey = import.meta.env.VITE_API_KEY;
   const port = import.meta.env.VITE_PORT;
+  const ipserver = import.meta.env.VITE_IP;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,7 +22,7 @@ const useForm = (initialData) => {
     const jsonString = JSON.stringify(form);
     console.log(jsonString); // {"email":"ejemplo@gmail.com","password":"contraseña"}
 
-    fetch(`http://localhost:${port}/api/command/login`, {
+    fetch(`http://${ipserver}:${port}/api/command/login`, {
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': apiKey,
