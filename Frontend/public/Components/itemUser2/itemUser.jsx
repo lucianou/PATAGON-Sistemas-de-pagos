@@ -15,7 +15,7 @@ const ItemUser = ({ user, delay }) => {
 
   // Función para determinar el estado y el ícono según los días
   const obtenerEstadoUsuario = (dias, styles) => {
-    if (dias === '?') {
+    if (dias === '-') {
       return { stateUser: styles.pendiente, icon: faQuestion };
     } else if (dias >= 0 && dias < 60) {
       return { stateUser: styles.activo, icon: faCheck };
@@ -26,7 +26,7 @@ const ItemUser = ({ user, delay }) => {
     }
   };
 
-  let dias = '?';
+  let dias = '-';
   let stateUser, icon;
 
   if (!user.motivo) {
@@ -44,22 +44,20 @@ const ItemUser = ({ user, delay }) => {
   }
 
   return (
-    <div className={styles.item} style={{ animationDelay: delay }}>
-      <div className={styles.itemUser}>
-        <FontAwesomeIcon icon={faUser} className={styles.faIcon} />
+    <div className={`${styles.item} ${stateUser}`} style={{ animationDelay: delay }}>
+      <div className={styles.itemBackground} ></div>
+      <div className={`${styles.divUsername} ${stateUser}`} >
         <span>{user.username}</span>
       </div>
-      <div className={styles.itemTime}>
-        <div>
-          <span>{user.email}</span>
-        </div>
-        <div>
-          <span>{user.username}</span>
-        </div>
+      <div className={styles.itemUser}>
+        <FontAwesomeIcon icon={faUser} className={styles.faIcon} />
+      </div>
+      <div className={styles.email}>
+        <span>{user.email}</span>
       </div>
 
 
-      <div className={styles.itemStatus} id={stateUser}>
+      <div className={`${styles.itemStatus} ${stateUser}`}>
         <FontAwesomeIcon icon={icon} className={styles.statusIcon} />
         <span>{dias}</span>
       </div>
