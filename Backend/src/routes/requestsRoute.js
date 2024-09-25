@@ -3,10 +3,11 @@ import upload from '../controllers/multerConfig.js';
 
 
 import{addRequest, requests} from "../controllers/requestsController.js"
+import { authenticateToken } from "../middleware/authenticateToken.js";
 
 const router = express.Router();
 
-router.get("/requests", requests);
+router.get("/requests", authenticateToken, requests);
 router.post('/addRequest', upload.fields([
     { name: 'documento_pdf', maxCount: 1 },
     { name: 'documento_pub', maxCount: 1 }
