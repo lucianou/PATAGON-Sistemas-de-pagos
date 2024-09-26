@@ -4,6 +4,7 @@ import styles1 from '../styles/DashboardGeneral.module.css';
 import styles from '../styles/DashboardUser.module.css';
 import ItemUser from '../../public/Components/itemUser2/itemUser';
 import Notifications from './Notifications';
+import ModalUser from '../../public/Components/modalUser/modalUser';
 
 const Dashboard_user = () => {
   const [filterState, setFilterState] = useState("all"); 
@@ -14,6 +15,8 @@ const Dashboard_user = () => {
   const [filtredUsers, setFiltredUsers] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [btnActive, setBtnActive] = useState(true);
+  const [showModal, setShowModal] = React.useState(false);
+
   const port = import.meta.env.VITE_PORT;
   const ipserver = import.meta.env.VITE_IP;
 
@@ -145,19 +148,20 @@ const Dashboard_user = () => {
               filtredUsers.filter(filterUsersByState).map((user, index) => {
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
-                  <ItemUser user={user} key={index} delay={delay} />
+                  <ItemUser user={user} key={index} delay={delay} setShowModal={setShowModal} />
                 );
               })
             ) : (
               deletedUsers.map((user, index) => {
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
-                  <ItemUser user={user} key={index} delay={delay} />
+                  <ItemUser user={user} key={index} delay={delay} setShowModal={setShowModal} />
                 );
               })
             )}
           </div>
         </section>
+      {showModal && <ModalUser closeModal={ setShowModal } />}
       </main>
     </div>
   );

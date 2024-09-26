@@ -1,0 +1,39 @@
+.containerModal{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(255, 255, 255);
+  z-index: 1000;
+  padding: 30px;
+  border: #000 2px solid;
+  h1{
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #000;
+  }
+
+  .motiveSection{
+    label{
+      color: #000;
+    }
+  }
+  .buttonSection{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    button{
+      padding: 5px 10px;
+
+    }
+  }
+}

@@ -13,8 +13,24 @@
   animation: fadeInUp 0.3s  ease forwards;
   animation-delay: var(--animationDelay); /* Soporta un retraso en la animación */
   z-index: 1;
+  background: none ;
   /* cursor: pointer; */
-  
+  .hoverText{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    font-weight: 1000;
+    z-index: 3;
+    filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.5));
+    cursor: pointer;
+  }
   &::after{
     content: ' ';
     position: absolute;
@@ -26,22 +42,16 @@
     border-radius: 10px;
     width: 100%; 
     height: 100%;   
-    transition: all .3s ease;
+    transition: all 0.2s ease;
   }
 
-  &:hover::after {
-    opacity: 1;
-  }
-
-  &:hover, .item {
-    perspective: 100px;
-    transform: rotateY(10deg);
-  }
-
-  .email{
-    z-index: 1;
-    font-weight: 600;
-
+  &:hover{
+    .hoverText{
+      opacity: 1;
+    }
+    &::after{
+      opacity: 1;
+    }
   }
   .itemBackground{
     position: absolute;
@@ -79,9 +89,20 @@
       color: #ffffff;
     }
   }
-  .email{
+  .infoDiv{
     z-index: 1;
-    transition: all 0.2s ease;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span:nth-child(1),
+    span:nth-child(3){
+      font-weight: bold;
+      color: rgb(255, 255, 255);
+    }
+    span:nth-child(2){
+      margin-bottom: 10px;
+    }
   }
   .itemUser{
     display: flex;
@@ -125,40 +146,6 @@
       height: 30px;
       filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.5));
       transition: opacity 0.2s ease;
-    }
-    span {
-      opacity: 0;
-      position: absolute;
-      color: white;
-      text-align: center;
-      z-index: 1;
-      font-size: 18px;
-    }
-    &::after {
-      content: ' ';
-      position: absolute;
-      background: transparent;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-    }
-    &:hover {
-      scale: 1.2;
-      .statusIcon {
-        transition: opacity .2s ease;
-        opacity: 0;
-      }
-      &::after {
-        content: ' ';
-        background: #0c0c0c54;
-        transition: background 0.3s ease; 
-      }
-      span {
-        opacity: 1;
-        display: block;
-        transition: opacity .2s ease; /* Añade transición al span */
-      }
-
     }
   }
 
