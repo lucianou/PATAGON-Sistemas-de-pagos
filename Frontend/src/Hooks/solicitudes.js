@@ -3,7 +3,7 @@ const ipserver = import.meta.env.VITE_IP;
 export const fetchSolicitudes = async () => {
     const port = import.meta.env.VITE_PORT;
     const token = localStorage.getItem('token'); // Obtén el token almacenado
-
+    
     try {
         const response = await fetch(`http://${ipserver}:${port}/api/command/requests`, {
             method: 'GET',

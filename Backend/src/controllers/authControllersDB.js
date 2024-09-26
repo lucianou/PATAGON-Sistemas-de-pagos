@@ -6,6 +6,7 @@ import {pool} from '../middleware/authenticateDB.js'
 
 
 const SECRET_KEY = process.env.SECRET_KEY;
+const REFRESH_SECRET_KEY = process.env.REFRESH_SECRET_KEY;
 
 //INICIO DE SESIÓN EN BASE DE DATOS
 export async function loginUserDB(req, res) {
@@ -39,15 +40,26 @@ export async function loginUserDB(req, res) {
         await pool.query(updateDateQuery, [currentDate, email]);
 
 
-        // Generar token JWT si el login es exitoso
+        // Generar access token (login)
         const token = jwt.sign(
             { email: user.email, username: user.username, rol: user.rol},
             SECRET_KEY,
             { expiresIn: "1h" }
         );
+        // Generar Refresh Token (largo plazo)
+        const refreshToken = jwt.sign(
+            { email: user.email, username: user.username, rol: user.rol },
+            REFRESH_SECRET_KEY, 
+            { expiresIn: "30d" }
+        );
+
+        const updateRefreshTokenQuery = `UPDATE public."Users" SET refresh_token = $1 WHERE email = $2`;
+        await pool.query(updateRefreshTokenQuery, [refreshToken, email]);
+
         res.status(200).json({
             message: "Inicio de sesión exitoso",
             token: token,
+            refreshToken: refreshToken,
         });
 
     } catch (error) {

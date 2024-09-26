@@ -37,6 +37,7 @@ const useForm = (initialData) => {
         setErrors({ server: data.error });
       } else {
         if (data.token) {
+          localStorage.setItem('refreshToken',data.refreshToken);
           // Guardar el token en localStorage
           localStorage.setItem('token', data.token);
           const decodedToken = jwtDecode(data.token);
