@@ -111,7 +111,7 @@ const Dashboard_user = () => {
             />
             <div className={styles.contFill}>
               <label htmlFor="filter" className={styles.labelFill}>Filtrar por estado:</label>
-              <select className={styles.filter} value={filterState} onChange={handleFilterChange}>
+              <select className={styles.filter} value={filterState} id="filter" onChange={handleFilterChange}>
                 <option value="all">Todos</option>
                 <option value="pendiente">Pendientes</option>
                 <option value="activo">Activos</option>
