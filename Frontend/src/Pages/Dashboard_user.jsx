@@ -15,13 +15,16 @@ const Dashboard_user = () => {
   const [searchText, setSearchText] = useState('');
   const [btnActive, setBtnActive] = useState(true);
   const port = import.meta.env.VITE_PORT;
+  const ipserver = import.meta.env.VITE_IP;
 
   useEffect(() => {
-    fetch(`http://localhost:${port}/api/command/users`, {
+    const token = localStorage.getItem('token'); // Obtén el token almacenado
+    fetch(`http://${ipserver}:${port}/api/command/users`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-      },
-      method: 'GET'
+        'Authorization': `Bearer ${token}` // Envía el token en los headers
+      }
     })
       .then((response) => response.json())
       .then(data => {
@@ -40,8 +43,8 @@ const Dashboard_user = () => {
         console.log('Error:', error);
         setErrors({ server: 'Error en la solicitud: ' + error.message });
       });
-
   }, []);
+  
 
   // Función para manejar el cambio del filtro
   const handleFilterChange = (event) => {

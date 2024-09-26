@@ -9,6 +9,7 @@ import { AuthRouter } from './src/routes/authRoute.js';
 import { RequestsRouter } from './src/routes/requestsRoute.js';
 import { pool } from './src/middleware/authenticateDB.js';
 import { setupSocket } from './src/controllers/socketConfig.js';
+import { authenticateToken } from './src/middleware/authenticateToken.js';
 
 dotenv.config();
 const app = express();
@@ -36,7 +37,7 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-app.get('/viewPDF/:id', async (req, res) => {
+app.get('/viewPDF/:id', authenticateToken,async (req, res) => {
   const requestId = req.params.id;
 
   try {
@@ -58,6 +59,15 @@ app.get('/viewPDF/:id', async (req, res) => {
   }
 });
 
+app.get('/api/bolsas',authenticateToken, async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM public."Bolsas"'); // Consulta para obtener todas las bolsas
+    res.json(result.rows);  // Enviamos los resultados como respuesta
+  } catch (error) {
+    console.error('Error al obtener las bolsas:', error);
+    res.status(500).json({ error: 'Error al obtener las bolsas' });
+  }
+});
 
 server.listen(port, () => {
   console.log(`Servidor escuchando en http://${host}:${port}/`);
