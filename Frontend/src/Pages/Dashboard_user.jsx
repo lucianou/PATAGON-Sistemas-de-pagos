@@ -139,7 +139,6 @@ const Dashboard_user = () => {
 
         </div>
         <section className={styles.userSection}>
-
           {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
 
           <div className={styles.itemSection}>

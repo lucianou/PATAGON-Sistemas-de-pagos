@@ -6,6 +6,7 @@ import LoginButton from '../../public/Components/loginButton/loginButton';
 import InputPassword from '../../public/Components/InputPassword/inputPassword';
 import InputText from '../../public/Components/InputText/inputText';
 import { faEnvelope, faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import ParticlesBG from '../../public/Components/Particles/ParticlesBG';
 
 const Registro = () => {
   const initialData = {
@@ -50,28 +51,31 @@ const Registro = () => {
   const { form, errors, handleChange, handleSubmit } = useForm(initialData, onValidate);
 
   return (
-    <div className={style.body}>
-      <div className={style.contenedor}>
-        <form onSubmit={handleSubmit}>
-          <h1>Registrarse</h1>
-          {errors.server && <div className={style2.errorMessage} >{errors.server}</div>}
-          <InputText icon={faUser} id='username' value={form.username} label='Nombre de usuario' handleChange={handleChange}/>  
-          {errors.username && <div className={style2.errorMessage} >{errors.username}</div>}
-          
-          <InputText icon={faEnvelope} id='email' value={form.email} label='Correo electronico' handleChange={handleChange}/>
-          {errors.email && <div className={style2.errorMessage} >{errors.email}</div>}
-          
-          <InputPassword icon={faLock} id='password' value={form.password} label='Contraseña' handleChange={handleChange}/>
-          {errors.password && <div className={style2.errorMessage} >{errors.password}</div>}
-          
-          <InputPassword icon={faLock} id='repPass' value={form.repPass} label='Repetir contraseña' handleChange={handleChange}/>
-          {errors.repPass && <div className={style2.errorMessage} >{errors.repPass}</div>}
+    <>
+      <ParticlesBG/>
+      <div className={style.body}>
+        <div className={style.contenedor}>
+          <form onSubmit={handleSubmit}>
+            <h1>Registrarse</h1>
+            {errors.server && <div className={style2.errorMessage} >{errors.server}</div>}
+            <InputText icon={faUser} id='username' value={form.username} label='Nombre de usuario' handleChange={handleChange}/>  
+            {errors.username && <div className={style2.errorMessage} >{errors.username}</div>}
+            
+            <InputText icon={faEnvelope} id='email' value={form.email} label='Correo electronico' handleChange={handleChange}/>
+            {errors.email && <div className={style2.errorMessage} >{errors.email}</div>}
+            
+            <InputPassword icon={faLock} id='password' value={form.password} label='Contraseña' handleChange={handleChange}/>
+            {errors.password && <div className={style2.errorMessage} >{errors.password}</div>}
+            
+            <InputPassword icon={faLock} id='repPass' value={form.repPass} label='Repetir contraseña' handleChange={handleChange}/>
+            {errors.repPass && <div className={style2.errorMessage} >{errors.repPass}</div>}
 
-          <LoginButton text="Registrarse" />
-          <p className={style.registro}>¿Ya tienes cuenta? <a href='/'>Ingresa</a></p>
-        </form>
+            <LoginButton text="Registrarse" />
+            <p className={style.registro}>¿Ya tienes cuenta? <a href='/'>Ingresa</a></p>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
