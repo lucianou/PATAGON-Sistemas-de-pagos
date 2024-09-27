@@ -29,6 +29,22 @@ const Dashboard_user = () => {
         'Authorization': `Bearer ${token}` // Envía el token en los headers
       }
     })
+      .then((response) =>{
+        //si recibe el token invalido
+        if(response.status == 401){
+          return refreshAccessToken().then(newToken => {
+            return fetch(`http://${ipserver}:${port}/api/command/users`,{
+              method: 'GET',
+              headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${newToken}` 
+              }
+            });
+          });
+        }
+        return response;
+     })
+
       .then((response) => response.json())
       .then(data => {
         if (data.error) {
