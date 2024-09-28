@@ -20,7 +20,7 @@ const useForm = (initialData) => {
     e.preventDefault();
     form.email = form.email.toLowerCase();
     const jsonString = JSON.stringify(form);
-    console.log(jsonString); // {"email":"ejemplo@gmail.com","password":"contraseña"}
+    console.log(jsonString); 
 
     fetch(`http://${ipserver}:${port}/api/command/login`, {
       headers: {

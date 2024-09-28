@@ -4,7 +4,7 @@ import { faUser, faCheck, faTimes, faExclamationTriangle, faSkull, faQuestion } 
 import styles from "./itemUser.module.css";
 import { format } from 'date-fns';
 
-const ItemUser = ({ user, delay, setShowModal }) => {
+const ItemUser = ({ user, delay, setShowModal, selectUser}) => {
   // Función para calcular la diferencia en días entre la fecha actual y la fecha de ingreso del usuario
   const calcularDiasDesdeIngreso = (fechaIngreso) => {
     const fechaActual = new Date();
@@ -64,8 +64,7 @@ const ItemUser = ({ user, delay, setShowModal }) => {
       <div className={`${styles.itemStatus} ${stateUser}`}>
         <FontAwesomeIcon icon={icon} className={styles.statusIcon} />
       </div>
-      { dead && <a className={styles.hoverText}>Ver mas información</a> }
-      { !dead && <a className={styles.hoverText} onClick={() => { setShowModal(true) }}>ELIMINAR USUARIO</a> }
+      <a className={styles.hoverText} onClick={() => { setShowModal(true); selectUser(user) }}>{ dead ? "VER MOTIVO" : "ELIMINAR USUARIO"}</a>
     </div>
   );
 };

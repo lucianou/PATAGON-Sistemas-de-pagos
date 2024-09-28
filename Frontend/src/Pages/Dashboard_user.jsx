@@ -5,6 +5,7 @@ import styles from '../styles/DashboardUser.module.css';
 import ItemUser from '../../public/Components/itemUser2/itemUser';
 import Notifications from './Notifications';
 import ModalUser from '../../public/Components/modalUser/modalUser';
+import { set } from 'date-fns';
 
 const Dashboard_user = () => {
   const [filterState, setFilterState] = useState("all"); 
@@ -15,7 +16,9 @@ const Dashboard_user = () => {
   const [filtredUsers, setFiltredUsers] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [btnActive, setBtnActive] = useState(true);
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [key, setKey] = useState(0); // Clave única para el contenedor de usuarios
 
   const port = import.meta.env.VITE_PORT;
   const ipserver = import.meta.env.VITE_IP;
@@ -43,8 +46,7 @@ const Dashboard_user = () => {
           });
         }
         return response;
-     })
-
+      })
       .then((response) => response.json())
       .then(data => {
         if (data.error) {
@@ -97,6 +99,10 @@ const Dashboard_user = () => {
 
   const handleClickBtnUser = () => {
     setBtnActive(!btnActive);
+    setFiltredUsers(btnActive ? deletedUsers : users );
+    setSearchText('');
+    setFilterState('all');
+    setKey(prevKey => prevKey + 1); // Cambiar la clave única para forzar la actualización de los usuarios
   };
 
   const handleSearchChange = (e) => {
@@ -109,6 +115,29 @@ const Dashboard_user = () => {
       const filtered = (btnActive ? users : deletedUsers).filter((user) => user.username.toLowerCase().startsWith(value));
       setFiltredUsers(filtered);
     }
+  };
+
+  const handleCloseModal = (motive) => {
+    if (motive) {
+      console.log(`Motivo de eliminación para ${selectedUser.username}: ${motive}`);
+      fetch(`http://${ipserver}:${port}/api/command/deleted-user`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ username: selectedUser.username, email: selectedUser.email ,motivo: motive })
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error('Error en la solicitud');
+        }
+      })
+    }
+    setShowModal(false);
+    setSelectedUser(null);
   };
 
   return (
@@ -133,7 +162,7 @@ const Dashboard_user = () => {
             />
             <div className={styles.contFill}>
               <label htmlFor="filter" className={styles.labelFill}>Filtrar por estado:</label>
-              <select className={styles.filter} value={filterState} id="filter" onChange={handleFilterChange}>
+              <select className={`${styles.filter} ${!btnActive ? styles.off : '' }`} value={filterState} id="filter" onChange={handleFilterChange}>
                 <option value="all">Todos</option>
                 <option value="pendiente">Pendientes</option>
                 <option value="activo">Activos</option>
@@ -157,26 +186,19 @@ const Dashboard_user = () => {
         <section className={styles.userSection}>
           {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
 
-          <div className={styles.itemSection}>
+          <div className={styles.itemSection} key={key}>
             {/* Mostrar usuarios activos filtrados */}
-            {btnActive ? (
+            {
               filtredUsers.filter(filterUsersByState).map((user, index) => {
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
-                  <ItemUser user={user} key={index} delay={delay} setShowModal={setShowModal} />
+                  <ItemUser user={user} key={index} delay={delay} setShowModal={setShowModal} selectUser={setSelectedUser}/>
                 );
               })
-            ) : (
-              deletedUsers.map((user, index) => {
-                const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
-                return (
-                  <ItemUser user={user} key={index} delay={delay} setShowModal={setShowModal} />
-                );
-              })
-            )}
+            }
           </div>
         </section>
-      {showModal && <ModalUser closeModal={ setShowModal } />}
+      {showModal && <ModalUser closeModal={ handleCloseModal } motivo={selectedUser.motivo ? selectedUser.motivo : null}/>}
       </main>
     </div>
   );
