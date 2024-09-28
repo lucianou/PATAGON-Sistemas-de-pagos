@@ -7,7 +7,7 @@ import { authenticateToken } from "../middleware/authenticateToken.js";
 
 const router = express.Router();
 
-router.get("/requests", authenticateToken, requests);
+router.get("/requests", requests);
 router.post('/addRequest', upload.fields([
     { name: 'documento_pdf', maxCount: 1 },
     { name: 'documento_pub', maxCount: 1 }

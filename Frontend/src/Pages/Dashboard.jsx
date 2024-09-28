@@ -44,12 +44,9 @@ const Dashboard = () => {
   return (
     <div className={style1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
-      <Notifications />
-
       <main className={`${style1.content} ${isOpen ? style1.open : ''}`}>
         <div className={style1.header}>
           <h1>Dashboard</h1>
-          <Notification_dashboard />
         </div>
 
         <div className={style.dashboardWidgets}>

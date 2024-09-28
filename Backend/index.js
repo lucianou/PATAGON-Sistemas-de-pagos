@@ -37,7 +37,7 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-app.get('/viewPDF/:id', authenticateToken,async (req, res) => {
+app.get('/viewPDF/:id',async (req, res) => {
   const requestId = req.params.id;
 
   try {

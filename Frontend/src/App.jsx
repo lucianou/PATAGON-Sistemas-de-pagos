@@ -7,48 +7,52 @@ import Dashboard_solicitudes from './Pages/Dashboard_solicitudes';
 import Dashboard_user from './Pages/Dashboard_user';
 import Dashboard_profit from './Pages/Dashboard_profit';
 import Dashboard_config from './Pages/Dashboard_config';
-import Notifications from './Pages/Notifications_Sonner';
 import NotFound from './Pages/NotFound';
 import Solicitudes from './Pages/Solicitudes';
-import ProtectedRoute from '../public/Components/ProtectedRoute'; // Asegúrate de que la ruta sea correcta
+import ProtectedRoute from '../public/Components/ProtectedRoute';
+import DashboardLayout from '../public/Components/notificaciones/DashboardLayout'
 
 function App() {
   return (
     <Router>
-      <Notifications />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         
-        {/* Rutas protegidas por token */}
+        {/* Rutas protegidas con el nuevo layout */}
         <Route path="/dashboard" element={
           <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/dashboard-solicitudes" element={
-          <ProtectedRoute>
-            <Dashboard_solicitudes />
+            <DashboardLayout>
+              <Dashboard />
+            </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/dashboard-profit" element={
           <ProtectedRoute>
-            <Dashboard_profit />
+            <DashboardLayout>
+              <Dashboard_profit />
+            </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/dashboard-config" element={
           <ProtectedRoute>
-            <Dashboard_config />
+            <DashboardLayout>
+              <Dashboard_config />
+            </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/dashboard-user" element={
           <ProtectedRoute>
-            <Dashboard_user />
+            <DashboardLayout>
+              <Dashboard_user />
+            </DashboardLayout>
           </ProtectedRoute>
         } />
-        <Route path="/solicitudes" element={
+        <Route path="/dashboard-solicitudes" element={
           <ProtectedRoute>
-            <Solicitudes />
+            <DashboardLayout>
+              <Solicitudes />
+            </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/404" element={<NotFound />} />
