@@ -9,6 +9,7 @@ import Dashboard_profit from './Pages/Dashboard_profit';
 import Dashboard_config from './Pages/Dashboard_config';
 import Notifications from './Pages/Notifications_Sonner';
 import NotFound from './Pages/NotFound';
+import Solicitudes from './Pages/Solicitudes';
 import ProtectedRoute from '../public/Components/ProtectedRoute'; // Asegúrate de que la ruta sea correcta
 
 function App() {
@@ -43,6 +44,11 @@ function App() {
         <Route path="/dashboard-user" element={
           <ProtectedRoute>
             <Dashboard_user />
+          </ProtectedRoute>
+        } />
+        <Route path="/solicitudes" element={
+          <ProtectedRoute>
+            <Solicitudes />
           </ProtectedRoute>
         } />
         <Route path="/404" element={<NotFound />} />
