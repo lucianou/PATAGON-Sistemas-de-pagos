@@ -8,6 +8,7 @@ import ItemUser from '../../public/Components/itemUser2/itemUser';
 import Notifications from './Notifications';
 import ModalUser from '../../public/Components/modalUser/modalUser';
 import useDashboardUser from '../Hooks/useDashboardUser';
+import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard';
 
 const Dashboard_user = () => {
   const {
@@ -37,6 +38,7 @@ const Dashboard_user = () => {
       <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`} id={styles.content}>
         <div className={styles1.header}>
           <h1>Dashboard User</h1>
+          <Notification_dashboard/>
         </div>
 
         {/* Sección búsqueda */}

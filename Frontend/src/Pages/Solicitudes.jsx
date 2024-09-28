@@ -12,7 +12,7 @@ const Solicitudes = () =>{
   const [solicitudes, setSolicitudes] = useState([]);
   const [error, setError] = useState(null); 
   const ipserver = import.meta.env.VITE_IP;
-  const port = import.meta.env.VITE_PORT;
+  const port = import.meta.env.VITE_PORT; 
 
   useEffect(() => {
     const fetchSolicitudes = async () => {
@@ -49,6 +49,7 @@ const Solicitudes = () =>{
        <main className={`${styles.content} ${isOpen ? styles.open : ''}`}>
         <div className={styles.header}>
           <h1>Solicitudes</h1>
+          <Notification_dashboard/>
         </div>
        
         <div className={styles.solicitudesList}>
