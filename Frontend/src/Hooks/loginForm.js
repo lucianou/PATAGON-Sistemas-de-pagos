@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { jwtDecode } from 'jwt-decode';
+
 const useForm = (initialData) => {
   const [form, setForm] = useState(initialData);
   const [errors, setErrors] = useState({});
-  const [serverMessage, setServerMessage] = useState(''); // Para almacenar el mensaje del servidor
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // Estado de carga
 
   const apiKey = import.meta.env.VITE_API_KEY;
   const port = import.meta.env.VITE_PORT;
@@ -21,7 +22,7 @@ const useForm = (initialData) => {
     form.email = form.email.toLowerCase();
     const jsonString = JSON.stringify(form);
     console.log(jsonString); 
-
+    setLoading(true);
     fetch(`http://${ipserver}:${port}/api/command/login`, {
       headers: {
         'Content-Type': 'application/json',
@@ -35,10 +36,11 @@ const useForm = (initialData) => {
     .then((data) => {
       if (data.error) {
         setErrors({ server: data.error });
+        setLoading(false);
       } else {
         if (data.token) {
-          localStorage.setItem('refreshToken',data.refreshToken);
           // Guardar el token en localStorage
+          localStorage.setItem('refreshToken',data.refreshToken);
           localStorage.setItem('token', data.token);
           const decodedToken = jwtDecode(data.token);
           console.log(decodedToken);
@@ -51,7 +53,6 @@ const useForm = (initialData) => {
             navigate('/userDashboard');
           }
         }
-        setServerMessage(data.message);
       }
     })
     .catch((error) => {
@@ -61,7 +62,7 @@ const useForm = (initialData) => {
     
   }
 
-  return { form, errors, handleChange, handleSubmit };
+  return { form, errors, loading, handleChange, handleSubmit };
 }
 
 export default useForm;

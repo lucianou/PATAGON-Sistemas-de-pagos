@@ -54,9 +54,9 @@ const Dashboard = () => {
 
         <div className={style.dashboardWidgets}>
           { (
-            bolsas.map(bolsa => ( // Itera sobre las bolsas obtenidas y muestra una Card para cada una
+            bolsas.map((bolsa, index) => ( // Itera sobre las bolsas obtenidas y muestra una Card para cada una
               <Card
-                key={bolsa.id} // Asegúrate de usar un key único
+                key={index} // Asegúrate de usar un key único
                 nombre={bolsa.nombre}
                 tiempo={bolsa.tiempo}
                 precio={bolsa.precio}

@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { set } from "date-fns";
 
 const useForm = (initialData, onValidate) => {
   const [form, setForm] = useState(initialData);
   const [errors, setErrors] = useState({});
   const [serverMessage, setServerMessage] = useState(""); // Para almacenar el mensaje del servidor
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // Estado de carga
 
   const apiKey = import.meta.env.VITE_API_KEY;
   const port = import.meta.env.VITE_PORT;
@@ -19,6 +21,7 @@ const useForm = (initialData, onValidate) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const err = onValidate(form);
 
     if (err === null) {
@@ -41,9 +44,10 @@ const useForm = (initialData, onValidate) => {
         .then((data) => {
           if (data.error) {
             setErrors({ server: data.error });
+            setLoading(false);
           } else {
             setServerMessage(data.message);
-            navigate("/dashboard");
+            navigate("/");
           }
         })
         .catch((error) => {
@@ -53,10 +57,11 @@ const useForm = (initialData, onValidate) => {
     } else {
       setErrors(err);
       console.log(errors);
+      setLoading(false);
     }
   };
 
-  return {form, errors, handleChange, handleSubmit};
+  return { form, errors, loading, handleChange, handleSubmit };
 };
 
 export default useForm;

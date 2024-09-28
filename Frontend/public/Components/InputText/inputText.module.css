@@ -22,8 +22,9 @@
     left: 5px;
     border-right: 2px solid #ffffff;
   }
-  input:focus~label,
-  input:valid~label {
+  input:focus ~ label,
+  input:valid ~ label,
+  input:disabled ~ label  {
     top: -1px;
     font-size: 12px;
     background: transparent;

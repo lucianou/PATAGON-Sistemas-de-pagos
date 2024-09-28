@@ -1,6 +1,7 @@
 .dashboardContainer {
   background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ;
   min-height: 100vh;
+  width: 100%;
   .content {
     padding: 20px;
     color: white;
@@ -18,6 +19,10 @@
     font-size: 20px;
     display: flex;
     justify-content: space-between;
+    h1{
+      font-family: 'Lora';
+      text-transform: uppercase;
+    }
   }
   @supports (-webkit-background-clip: text) {
     .header {

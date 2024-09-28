@@ -18,7 +18,7 @@ const Registro = () => {
 
   const onValidate = (form) => {
     let regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
-    let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
+    let regexEmail = /^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
     let regexPassword = /^\S+$/;
 
     let errors = {};
@@ -48,7 +48,7 @@ const Registro = () => {
     return isError ? errors : null; 
   };
 
-  const { form, errors, handleChange, handleSubmit } = useForm(initialData, onValidate);
+  const { form, errors, loading, handleChange, handleSubmit } = useForm(initialData, onValidate);
 
   return (
     <>
@@ -57,20 +57,20 @@ const Registro = () => {
         <div className={style.contenedor}>
           <form onSubmit={handleSubmit}>
             <h1>Registrarse</h1>
-            {errors.server && <div className={style2.errorMessage} >{errors.server}</div>}
-            <InputText icon={faUser} id='username' value={form.username} label='Nombre de usuario' handleChange={handleChange}/>  
+            {errors.server && <div className={style2.errorMessageSV} >{errors.server}</div>}
+            <InputText icon={faUser} id='username' value={form.username} label='Nombre de usuario' handleChange={handleChange} disabled={loading}/>  
             {errors.username && <div className={style2.errorMessage} >{errors.username}</div>}
             
-            <InputText icon={faEnvelope} id='email' value={form.email} label='Correo electronico' handleChange={handleChange}/>
+            <InputText icon={faEnvelope} id='email' value={form.email} label='Correo electronico' handleChange={handleChange} disabled={loading}/>
             {errors.email && <div className={style2.errorMessage} >{errors.email}</div>}
             
-            <InputPassword icon={faLock} id='password' value={form.password} label='Contraseña' handleChange={handleChange}/>
+            <InputPassword icon={faLock} id='password' value={form.password} label='Contraseña' handleChange={handleChange} disabled={loading}/>
             {errors.password && <div className={style2.errorMessage} >{errors.password}</div>}
             
-            <InputPassword icon={faLock} id='repPass' value={form.repPass} label='Repetir contraseña' handleChange={handleChange}/>
+            <InputPassword icon={faLock} id='repPass' value={form.repPass} label='Repetir contraseña' handleChange={handleChange} disabled={loading}/>
             {errors.repPass && <div className={style2.errorMessage} >{errors.repPass}</div>}
 
-            <LoginButton text="Registrarse" />
+            <LoginButton text="Registrarse" disabled={loading}/>
             <p className={style.registro}>¿Ya tienes cuenta? <a href='/'>Ingresa</a></p>
           </form>
         </div>

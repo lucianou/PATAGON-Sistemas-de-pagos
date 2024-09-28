@@ -1,144 +1,35 @@
-import React, { useState, useEffect } from 'react';
+// src/Pages/Dashboard_user.jsx
+
+import React from 'react';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import styles1 from '../styles/DashboardGeneral.module.css';
 import styles from '../styles/DashboardUser.module.css';
 import ItemUser from '../../public/Components/itemUser2/itemUser';
 import Notifications from './Notifications';
 import ModalUser from '../../public/Components/modalUser/modalUser';
-import { set } from 'date-fns';
+import useDashboardUser from '../Hooks/useDashboardUser';
 
 const Dashboard_user = () => {
-  const [filterState, setFilterState] = useState("all"); 
-  const [isOpen, setIsOpen] = useState(false);
-  const [users, setUsers] = useState([]); // Usuarios activos
-  const [deletedUsers, setDeletedUsers] = useState([]); // Usuarios eliminados
-  const [errors, setErrors] = useState({});
-  const [filtredUsers, setFiltredUsers] = useState([]);
-  const [searchText, setSearchText] = useState('');
-  const [btnActive, setBtnActive] = useState(true);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [key, setKey] = useState(0); // Clave única para el contenedor de usuarios
-
-  const port = import.meta.env.VITE_PORT;
-  const ipserver = import.meta.env.VITE_IP;
-
-  useEffect(() => {
-    const token = localStorage.getItem('token'); // Obtén el token almacenado
-    fetch(`http://${ipserver}:${port}/api/command/users`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Envía el token en los headers
-      }
-    })
-      .then((response) =>{
-        //si recibe el token invalido
-        if(response.status == 401){
-          return refreshAccessToken().then(newToken => {
-            return fetch(`http://${ipserver}:${port}/api/command/users`,{
-              method: 'GET',
-              headers:{
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${newToken}` 
-              }
-            });
-          });
-        }
-        return response;
-      })
-      .then((response) => response.json())
-      .then(data => {
-        if (data.error) {
-          setErrors({ server: data.error });
-        } else {
-          // Actualizar usuarios activos y eliminados
-          setUsers(data.users);
-          setDeletedUsers(data.deletedUsers);
-          console.log(data.deletedUsers);
-          setFiltredUsers(data.users); // Inicialmente mostrar todos los usuarios activos
-          console.log(data.users);
-        }
-      })
-      .catch(error => {
-        console.log('Error:', error);
-        setErrors({ server: 'Error en la solicitud: ' + error.message });
-      });
-  }, []);
-  
-
-  // Función para manejar el cambio del filtro
-  const handleFilterChange = (event) => {
-    setFilterState(event.target.value);
-  };
-
-  // Función para filtrar usuarios según el estado seleccionado
-  const filterUsersByState = (user) => {
-    const dias = user.fecha_ingreso !== null 
-      ? calcularDiasDesdeIngreso(user.fecha_ingreso)
-      : -1;
-
-    if (filterState === "all") return true; // No filtrar si la opción es "all"
-    
-    if (filterState === "pendiente" && dias === -1) return true;
-    if (filterState === "activo" && dias >= 0 && dias < 60) return true;
-    if (filterState === "inactivo" && dias >= 60 && dias < 120) return true;
-    if (filterState === "bloqueado" && dias >= 120) return true;
-
-    return false;
-  };
-  
-  // Calcular días desde el ingreso del usuario
-  const calcularDiasDesdeIngreso = (fechaIngreso) => {
-    const fechaActual = new Date();
-    const fechaUsuario = new Date(fechaIngreso);
-    const difMilisegundos = fechaActual - fechaUsuario;
-    const milisegundosPorDia = 1000 * 60 * 60 * 24;
-    return Math.floor(difMilisegundos / milisegundosPorDia);
-  };
-
-  const handleClickBtnUser = () => {
-    setBtnActive(!btnActive);
-    setFiltredUsers(btnActive ? deletedUsers : users );
-    setSearchText('');
-    setFilterState('all');
-    setKey(prevKey => prevKey + 1); // Cambiar la clave única para forzar la actualización de los usuarios
-  };
-
-  const handleSearchChange = (e) => {
-    const value = e.target.value.toLowerCase();
-    setSearchText(value);
-
-    if (value === '') {
-      setFiltredUsers(btnActive ? users : deletedUsers); 
-    } else {
-      const filtered = (btnActive ? users : deletedUsers).filter((user) => user.username.toLowerCase().startsWith(value));
-      setFiltredUsers(filtered);
-    }
-  };
-
-  const handleCloseModal = (motive) => {
-    if (motive) {
-      console.log(`Motivo de eliminación para ${selectedUser.username}: ${motive}`);
-      fetch(`http://${ipserver}:${port}/api/command/deleted-user`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({ username: selectedUser.username, email: selectedUser.email ,motivo: motive })
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error('Error en la solicitud');
-        }
-      })
-    }
-    setShowModal(false);
-    setSelectedUser(null);
-  };
+  const {
+    filterState,
+    isOpen,
+    errors,
+    filtredUsers,
+    searchText,
+    btnActive,
+    showModal,
+    selectedUser,
+    key,
+    loading, // Obtener el estado de carga
+    setIsOpen,
+    setShowModal,
+    setSelectedUser,
+    handleFilterChange,
+    filterUsersByState,
+    handleClickBtnUser,
+    handleSearchChange,
+    handleCloseModal
+  } = useDashboardUser();
 
   return (
     <div className={styles1.dashboardContainer}>
@@ -159,10 +50,11 @@ const Dashboard_user = () => {
               name='search'
               value={searchText}
               onChange={handleSearchChange}
+              disabled={loading} // Deshabilitar el input mientras se carga
             />
             <div className={styles.contFill}>
               <label htmlFor="filter" className={styles.labelFill}>Filtrar por estado:</label>
-              <select className={`${styles.filter} ${!btnActive ? styles.off : '' }`} value={filterState} id="filter" onChange={handleFilterChange}>
+              <select className={`${styles.filter} ${!btnActive ? styles.off : '' }`} value={filterState} id="filter" onChange={handleFilterChange} disabled={loading}>
                 <option value="all">Todos</option>
                 <option value="pendiente">Pendientes</option>
                 <option value="activo">Activos</option>
@@ -172,11 +64,11 @@ const Dashboard_user = () => {
             </div>
           </div>
           <div className={styles.sectionBtn}>
-            <button className={`${!btnActive ? styles.btnOn : styles.btnOff}`}
+            <button className={`${!btnActive ? styles.btnOn : styles.btnOff} ${loading ? styles.btnOff : ''}`}
             onClick={handleClickBtnUser}>
               <span>Usuarios Activos</span>
             </button>
-            <button className={`${btnActive ? styles.btnOn : styles.btnOff}`}
+            <button className={`${btnActive ? styles.btnOn : styles.btnOff} ${loading ? styles.btnOff : ''}`}
             onClick={handleClickBtnUser}>
               <span>Usuarios Eliminados</span>
             </button>
@@ -187,9 +79,9 @@ const Dashboard_user = () => {
           {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
 
           <div className={styles.itemSection} key={key}>
-            {/* Mostrar usuarios activos filtrados */}
-            {
-              filtredUsers.filter(filterUsersByState).map((user, index) => {
+            {/* Mostrar usuarios filtrados */}
+            {filtredUsers.filter(filterUsersByState)
+              .map((user, index) => {
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
                   <ItemUser user={user} key={index} delay={delay} setShowModal={setShowModal} selectUser={setSelectedUser}/>

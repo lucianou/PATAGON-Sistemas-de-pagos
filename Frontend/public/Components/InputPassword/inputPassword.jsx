@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import style from './inputPassword.module.css';
 
-const InputPassword = ({ id, label, value, handleChange }) => {
+const InputPassword = ({ id, label, value, handleChange, disabled}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
@@ -20,6 +20,7 @@ const InputPassword = ({ id, label, value, handleChange }) => {
         onChange={handleChange}
         required
         autoComplete='off'
+        disabled={disabled}
       />
       <label htmlFor={id}>{label}</label>
       <FontAwesomeIcon icon={faLock} className={style.faIcon} />

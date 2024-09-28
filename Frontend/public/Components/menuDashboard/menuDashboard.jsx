@@ -17,6 +17,8 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
     event.preventDefault();
     localStorage.removeItem('token'); // Elimina el token del localStorage
     localStorage.removeItem('rol'); // Elimina el rol del localStorage
+    localStorage.removeItem('username'); // Elimina el rol del localStorage
+    localStorage.removeItem('refreshToken'); // Elimina el rol del localStorage
     window.location.href = event.target.href; // Redirige al usuario a la ruta especificada en el enlace
   };
 
