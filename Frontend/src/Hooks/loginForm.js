@@ -50,7 +50,7 @@ const useForm = (initialData) => {
             navigate('/dashboard');
           } else if (decodedToken.rol === 'Cliente'){
             localStorage.setItem('rol', 'Cliente');
-            navigate('/userDashboard');
+            navigate('/dashboard-user');
           }
         }
       }

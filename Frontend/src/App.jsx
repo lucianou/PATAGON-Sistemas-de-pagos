@@ -41,13 +41,7 @@ function App() {
             </DashboardLayout>
           </ProtectedRoute>
         } />
-        <Route path="/dashboard-user" element={
-          <ProtectedRoute>
-            <DashboardLayout>
-              <Dashboard_user />
-            </DashboardLayout>
-          </ProtectedRoute>
-        } />
+        <Route path="/dashboard-user" element={<Dashboard_user /> } />
         <Route path="/dashboard-solicitudes" element={
           <ProtectedRoute>
             <DashboardLayout>

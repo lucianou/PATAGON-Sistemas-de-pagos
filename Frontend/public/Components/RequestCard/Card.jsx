@@ -1,34 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Card.module.css';
 
 const Card = ({ solicitud }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [inputText, setInputText] = useState('');
+  const [modalAction, setModalAction] = useState(null); // Para determinar si es aceptar o rechazar
+  const ipserver = import.meta.env.VITE_IP;
+  const port = import.meta.env.VITE_PORT; 
+
   const handleViewPDF = async () => {
-    const id = solicitud.ID_request; // Obtener el ID de la solicitud
-    const token = localStorage.getItem('token'); // Obtener el token almacenado
+    const id = solicitud.ID_request;
+    const token = localStorage.getItem('token');
 
     try {
-      const response = await fetch(`http://localhost:3003/viewPDF/${id}`, {
-        method: 'GET', // Usar el método GET
+      const response = await fetch(`http://${ipserver}:${port}/viewPDF/${id}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Envía el token en los headers si es necesario
+          'Authorization': `Bearer ${token}`,
         },
       });
 
       if (!response.ok) {
-        const errorData = await response.text(); // Obtener el texto de error
-        throw new Error(`Error: ${response.status} ${response.statusText}. ${errorData}`); // Manejo de errores más detallado
+        const errorData = await response.text();
+        throw new Error(`Error: ${response.status} ${response.statusText}. ${errorData}`);
       }
 
-      // Si la respuesta es correcta, abrir el PDF directamente
-      const blob = await response.blob(); // Obtener el archivo como Blob
-      const url = window.URL.createObjectURL(blob); // Crear una URL para el Blob
-      window.open(url, '_blank'); // Abrir el PDF en una nueva pestaña
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, '_blank');
 
     } catch (error) {
-      console.error('Error al obtener el PDF:', error.message); // Imprimir el mensaje de error
+      console.error('Error al obtener el PDF:', error.message);
     }
   };
+
+  const handleAccept = () => {
+    setModalAction('accept'); 
+    setIsModalOpen(true); 
+  };
+
+  const handleReject = () => {
+    setModalAction('reject'); 
+    setIsModalOpen(true); 
+  };
+
+  const handleModalSubmit = async (e) => {
+    e.preventDefault(); 
+    const action = modalAction === 'accept' ? 'aceptado' : 'rechazado'; // Determina la acción
+
+    const requestBody = {
+      nombre: solicitud.nombre,
+      email: solicitud.email,
+      accion: action,
+      comentario: inputText, 
+    };
+
+    try {
+        const response = await fetch(`http://${ipserver}:${port}/api/command/new-user-creation`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify(requestBody),
+        });
+
+        if (response.ok) {
+            console.log('Solicitud procesada exitosamente');
+            // Aquí puedes hacer algo como actualizar el estado o mostrar un mensaje
+        } else {
+            const errorData = await response.text();
+            console.error('Error al procesar la solicitud:', errorData);
+        }
+    } catch (error) {
+        console.error('Error en la solicitud:', error.message);
+    }
+
+    setInputText(''); 
+    setIsModalOpen(false); 
+};
 
   return (
     <div className={styles.card}>
@@ -42,7 +93,7 @@ const Card = ({ solicitud }) => {
         <button
           className={styles.fileButton}
           title="Ver PDF"
-          onClick={handleViewPDF} // Añadir el manejador de clic
+          onClick={handleViewPDF}
         >
           <img
             src="/icons/pdf-icon.svg"
@@ -61,6 +112,38 @@ const Card = ({ solicitud }) => {
           />
         </button>
       </div>
+      {solicitud.estado === 'pendiente' && (
+        <div className={styles.actions}>
+          <button className={styles.actionButton} onClick={handleAccept}>
+            Aceptar
+          </button>
+          <button className={styles.actionButton} onClick={handleReject}>
+            Rechazar
+          </button>
+        </div>
+      )}
+      
+      {/* Modal para ingresar texto */}
+      {isModalOpen && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2>{modalAction === 'accept' ? 'Ingrese SSH' : 'Motivo de rechazo'}</h2>
+            <form onSubmit={handleModalSubmit}>
+              <textarea
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                rows="4"
+                placeholder="Escriba su comentario aquí..."
+                required
+              />
+              <div className={styles.modalActions}>
+                <button type="button" onClick={() => setIsModalOpen(false)}>Cancelar</button>
+                <button type="submit">Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -11,7 +11,7 @@ router.get("/",authenticateToken, getPatagonData);
 
 router.post("/new-user-creation", authenticateToken, authorizeRoles('Administrador'),newUserCreation);
 router.post("/deleted-user",authenticateToken, authorizeRoles('Administrador'), deletedUser)
-router.get("/users", authenticateToken ,AllUsers);
+router.get("/users", authenticateToken, authorizeRoles('Administrador') ,AllUsers);
 
 
 export {router as UserControlRouter}
