@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Card.module.css';
 
-const Card = ({ solicitud }) => {
+const Card = ({ solicitud, updateSolicitudes }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputText, setInputText] = useState('');
   const [modalAction, setModalAction] = useState(null); // Para determinar si es aceptar o rechazar
@@ -68,7 +68,7 @@ const Card = ({ solicitud }) => {
 
         if (response.ok) {
             console.log('Solicitud procesada exitosamente');
-            // Aquí puedes hacer algo como actualizar el estado o mostrar un mensaje
+            updateSolicitudes({ ...solicitud, estado: action });
         } else {
             const errorData = await response.text();
             console.error('Error al procesar la solicitud:', errorData);
@@ -88,6 +88,7 @@ const Card = ({ solicitud }) => {
         <p className={styles.info}><strong>Email:</strong> {solicitud.email}</p>
         <p className={styles.info}><strong>Institución:</strong> {solicitud.institucion}</p>
         <p className={styles.info}><strong>Estado:</strong> {solicitud.estado}</p>
+        <p className={styles.info}><strong>Fecha:</strong> {solicitud.fecha}</p>
       </div>
       <div className={styles.files}>
         <button

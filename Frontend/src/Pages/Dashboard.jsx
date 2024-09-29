@@ -4,11 +4,11 @@ import Card from '../../public/Components/Tarjeta/Card.jsx';
 import style1 from '../styles/DashboardGeneral.module.css'; // Para Menu
 import style from '../styles/Dashboard.module.css'; // Para Bolsas
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
-import refreshAccessToken from '../../public/Components/RefreshToken.jsx';
+import refreshAccessToken from '../../public/Components/RefreshToken';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [bolsas, setBolsas] = useState([]); // Estado para almacenar las bolsas
+  const [bolsas, setBolsas] = useState([]); 
   const ipserver = import.meta.env.VITE_IP;
   const port = import.meta.env.VITE_PORT;
 
@@ -26,7 +26,7 @@ const Dashboard = () => {
           }
         });
 
-        if(response.status == 401){
+        if(response.status == 403){
           return refreshAccessToken().then(newToken => {
             return fetch(`http://${ipserver}:${port}/api/bolsas`,{
               method: 'GET',
