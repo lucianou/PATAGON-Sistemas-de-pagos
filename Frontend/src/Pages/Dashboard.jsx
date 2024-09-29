@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import Card from '../../public/Components/Tarjeta/Card.jsx';
-import style1 from '../styles/DashboardGeneral.module.css'; // Para Menu
-import style from '../styles/Dashboard.module.css'; // Para Bolsas
+import styles1 from '../styles/DashboardGeneral.module.css'; // Para Menu
+import styles from '../styles/Dashboard.module.css'; // Para Bolsas
 import Notifications from './Notifications.jsx';
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
+import logo from '../assets/SoloLogo_Patagon.png';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,17 +43,20 @@ const Dashboard = () => {
   
 
   return (
-    <div className={style1.dashboardContainer}>
+    <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
-      <Notifications />
 
-      <main className={`${style1.content} ${isOpen ? style1.open : ''}`}>
-        <div className={style1.header}>
+      <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`}>
+      <div className={styles1.header}>
+        <div className={styles1.titleLogo}>
+          <img src={logo} className={styles1.menuIcon}/>
           <h1>Dashboard</h1>
-          <Notification_dashboard />
         </div>
+        <Notification_dashboard />
+      </div>
 
-        <div className={style.dashboardWidgets}>
+
+        <div className={styles.dashboardWidgets}>
           { (
             bolsas.map((bolsa, index) => ( // Itera sobre las bolsas obtenidas y muestra una Card para cada una
               <Card

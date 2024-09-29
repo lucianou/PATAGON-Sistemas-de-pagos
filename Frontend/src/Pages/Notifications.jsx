@@ -41,9 +41,8 @@ const Notifications = () => {
             <div className={`${styles.notificationIcon} ${notifications.length > 0 ? styles.active : ''}`}>
                 🔔
             </div>
-
-            {/* Renderiza las notificaciones */}
-            {notifications.length > 0 && notifications.map((notification) => (
+        {/* Renderiza las notificaciones */}
+        {/* {notifications.length > 0 && notifications.map((notification) => (
                 <div
                     key={notification.id}
                     className={styles.notification}
@@ -56,7 +55,7 @@ const Notifications = () => {
                         <div className={styles.email}>Correo: {notification.email}</div>
                     </div>
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 };

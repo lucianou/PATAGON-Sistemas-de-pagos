@@ -39,20 +39,19 @@ const Notification_dashboard = () => {
     };
 
     return (
-        <div className={styles.notificationIcon}>
-            <div onClick={toggleModal} style={{ cursor: 'pointer' }}>
-                🔔
-                {pendingCount > 0 && <span className={styles.notificationDot}>{pendingCount}</span>}
-            </div>
+        <div className={styles.notification}>
             {isModalOpen && (
                 <div className={styles.modal}>
                     <div className={styles.modalContent}>
                         <h4>Solicitudes Pendientes</h4>
                         <p>Tienes {pendingCount} solicitud(es) pendiente(s).</p>
-                        
                     </div>
                 </div>
             )}
+            <div className={styles.notificationIcon} onClick={toggleModal} style={{ cursor: 'pointer' }}>
+                <span>🔔</span>
+                {pendingCount > 0 && <span className={styles.notificationDot}>{pendingCount}</span>}
+            </div>
         </div>
     );
 };

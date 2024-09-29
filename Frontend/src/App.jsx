@@ -15,7 +15,7 @@ import ProtectedRoute from '../public/Components/ProtectedRoute'; // Asegúrate 
 function App() {
   return (
     <Router>
-      <Notifications />
+      {/* <Notifications /> */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />

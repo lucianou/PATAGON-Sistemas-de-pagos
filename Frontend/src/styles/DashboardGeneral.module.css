@@ -19,17 +19,26 @@
     font-size: 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    .titleLogo{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .menuIcon{
+        height: 40px;
+      }
+    }
     h1{
-      font-family: 'Lora';
+      font-family: 'Lora', 'Android Assassin', 'Jakobenz', 'Tilt Prism', 'VALORANT', 'No Continue';
       text-transform: uppercase;
     }
-  }
-  @supports (-webkit-background-clip: text) {
-    .header {
-      background: linear-gradient(to bottom, #ffffff,#03e9f4);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+    @supports (-webkit-background-clip: text) {
+      h1 {
+        background: linear-gradient(to bottom, #ffffff,#03e9f4);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
   }
 }

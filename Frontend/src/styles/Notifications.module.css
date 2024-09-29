@@ -12,11 +12,12 @@
     align-items: center; /* Centra el contenido verticalmente */
     gap: 15px; /* Espacio entre el icono y el texto */
     animation: slideIn 0.5s ease-out; /* Animación de entrada y salida */
+    transition: width 0.3s ease; /* Transición suave */
 }
 
-.notification-icon {
-    width: 40px; /* Tamaño del icono */
-    height: 40px; /* Tamaño del icono */
+.notificationIcon {
+    width: 50px; /* Tamaño del icono */
+    height: 50px; /* Tamaño del icono */
     background-color: #f39c12; /* Color de fondo del icono */
     border-radius: 50%; /* Icono circular */
     display: flex; /* Centrar el icono */
@@ -24,6 +25,17 @@
     justify-content: center; /* Centrar el icono horizontalmente */
     font-size: 20px; /* Tamaño de la fuente para el icono */
     color: white; /* Color del icono */
+    overflow: hidden;
+
+}
+
+.modal{
+    .modalContent{
+        animation: slideIn 0.5s ease-out; /* Animación de salida */
+    }
+    h4,p {
+        white-space: nowrap;
+    }
 }
 
 .notification-content {

@@ -8,6 +8,7 @@ import ItemUser from '../../public/Components/itemUser2/itemUser';
 import Notifications from './Notifications';
 import ModalUser from '../../public/Components/modalUser/modalUser';
 import useDashboardUser from '../Hooks/useDashboardUser';
+import logo from '../assets/SoloLogo_Patagon.png';
 
 const Dashboard_user = () => {
   const {
@@ -34,11 +35,15 @@ const Dashboard_user = () => {
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
-      <Notifications />
+      {/* <Notifications /> */}
 
       <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`} id={styles.content}>
+
         <div className={styles1.header}>
-          <h1>Dashboard User</h1>
+          <div className={styles1.titleLogo}>
+            <img src={logo} className={styles1.menuIcon}/>
+            <h1>Dashboard User</h1>
+          </div>
         </div>
 
         {/* Sección búsqueda */}
@@ -56,10 +61,10 @@ const Dashboard_user = () => {
               <label htmlFor="filter" className={styles.labelFill}>Filtrar por estado:</label>
               <select className={`${styles.filter} ${!btnActive ? styles.off : '' }`} value={filterState} id="filter" onChange={handleFilterChange} disabled={loading}>
                 <option value="all">Todos</option>
-                <option value="pendiente">Pendientes</option>
                 <option value="activo">Activos</option>
                 <option value="inactivo">Inactivos</option>
                 <option value="bloqueado">Bloqueados</option>
+                <option value="pendiente">Pendientes</option>
               </select>
             </div>
           </div>
