@@ -4,6 +4,7 @@ import Card from '../../public/Components/Tarjeta/Card.jsx';
 import style1 from '../styles/DashboardGeneral.module.css'; // Para Menu
 import style from '../styles/Dashboard.module.css'; // Para Bolsas
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
+import refreshAccessToken from '../../public/Components/RefreshToken.jsx';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,29 +15,41 @@ const Dashboard = () => {
   
   useEffect(() => {
     const fetchBolsas = async () => {
-      const token = localStorage.getItem('token'); // Obtén el token almacenado
+      const token = localStorage.getItem('token'); 
   
       try {
         const response = await fetch(`http://${ipserver}:${port}/api/bolsas`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Envía el token en los headers
+            'Authorization': `Bearer ${token}` 
           }
         });
-  
+
+        if(response.status == 401){
+          return refreshAccessToken().then(newToken => {
+            return fetch(`http://${ipserver}:${port}/api/bolsas`,{
+              method: 'GET',
+              headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${newToken}` 
+              }
+            });
+          });
+        }
+
         if (!response.ok) {
-          throw new Error('Error en la red al obtener las bolsas'); // Manejo de errores
+          throw new Error('Error en la red al obtener las bolsas'); 
         }
   
-        const data = await response.json(); // Convierte la respuesta a JSON
-        setBolsas(data); // Actualiza el estado con las bolsas
+        const data = await response.json(); 
+        setBolsas(data);
       } catch (error) {
         console.error('Error al obtener las bolsas:', error);
       }
     };
   
-    fetchBolsas(); // Llama a la función para obtener las bolsas
+    fetchBolsas();
   }, []);
   
 

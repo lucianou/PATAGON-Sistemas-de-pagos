@@ -3,6 +3,7 @@ import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard';
 import styles from '../styles/requests.module.css';
 import Card from '../../public/Components/RequestCard/Card';
+import refreshAccessToken from '../../public/Components/RefreshToken';
 
 const Solicitudes = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +24,18 @@ const Solicitudes = () => {
             'Authorization': `Bearer ${token}`
           }
         });
+
+        if(response.status == 401){
+          return refreshAccessToken().then(newToken => {
+            return fetch(`http://${ipserver}:${port}/api/command/users`,{
+              method: 'GET',
+              headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${newToken}` 
+              }
+            });
+          });
+        }
 
         if (!response.ok) {
           throw new Error('Error en la red al obtener las solicitudes');
