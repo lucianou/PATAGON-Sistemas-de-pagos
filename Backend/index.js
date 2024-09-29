@@ -37,7 +37,7 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-app.get('/viewPDF/:id',async (req, res) => {
+app.get('/viewPDF/:id',authenticateToken ,async (req, res) => {
   const requestId = req.params.id;
 
   try {
@@ -58,6 +58,29 @@ app.get('/viewPDF/:id',async (req, res) => {
       res.status(500).json({ error: 'Error al visualizar el archivo PDF' });
   }
 });
+
+app.get('/viewPUB/:id', authenticateToken, async (req, res) => {
+  const requestId = req.params.id;
+
+  try {
+      const query = 'SELECT documento_pub FROM public."Requests" WHERE "ID_request" = $1';
+      const result = await pool.query(query, [requestId]);
+
+      if (result.rows.length > 0) {
+          const pubData = result.rows[0].documento_pub;
+
+          // Configura las cabeceras para mostrar el archivo .pub en el navegador
+          res.setHeader('Content-Type', 'application/vnd.ms-publisher'); // MIME type para archivos .pub
+          res.send(pubData);
+      } else {
+          res.status(404).send('Archivo .pub no encontrado');
+      }
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Error al visualizar el archivo .pub' });
+  }
+});
+
 
 app.get('/api/bolsas',authenticateToken, async (req, res) => {
   try {

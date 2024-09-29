@@ -35,6 +35,33 @@ const Card = ({ solicitud, updateSolicitudes }) => {
     }
   };
 
+  const handleViewPUB = async () => {
+    const id = solicitud.ID_request;
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await fetch(`http://${ipserver}:${port}/viewPUB/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.text();
+            throw new Error(`Error: ${response.status} ${response.statusText}. ${errorData}`);
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+
+    } catch (error) {
+        console.error('Error al obtener el archivo .pub:', error.message);
+    }
+  };
+
   const handleAccept = () => {
     setModalAction('accept'); 
     setIsModalOpen(true); 
@@ -105,6 +132,7 @@ const Card = ({ solicitud, updateSolicitudes }) => {
         <button
           className={styles.fileButton}
           title="Ver PUB"
+          onClick={handleViewPUB}
         >
           <img
             src="/icons/pub_icon.svg"
