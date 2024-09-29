@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Card.module.css';
 
-const Card = ({ solicitud, updateSolicitudes }) => {
+const Card = ({ solicitud, updateSolicitudes, delay}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputText, setInputText] = useState('');
   const [modalAction, setModalAction] = useState(null); // Para determinar si es aceptar o rechazar
@@ -109,7 +109,7 @@ const Card = ({ solicitud, updateSolicitudes }) => {
 };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} style={{ '--animationDelay': delay }}>
       <div>
         <h3 className={styles.title}>Nombre: {solicitud.nombre}</h3>
         <p className={styles.info}><strong>Email:</strong> {solicitud.email}</p>

@@ -9,11 +9,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  opacity: 0;
+  animation: fadeInUp 0.3s  ease forwards;
+  animation-delay: var(--animationDelay); /* Soporta un retraso en la animación */
 }
 
 .card:hover {
-  transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #092f47d6;
 }
 
 .title {
@@ -70,3 +73,14 @@
   background-color: #0056b3; /* Color de fondo al pasar */
 }
 
+/* Animación */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

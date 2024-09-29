@@ -36,9 +36,8 @@
   li:hover{
     cursor: pointer;
     .faIcon{
-      transition: all 0.1s ease;
+      transition: all 0.2s ease;
       scale: 1.4;
-      color: rgb(219, 162, 56);
     }
   }
 
@@ -99,7 +98,9 @@
       li {
         position: relative;
         padding: 20px 20px;
-
+        .faIcon{
+          transition: all 0.2s ease;
+        }
         a {
           text-decoration: none;
           align-items: center;
@@ -107,12 +108,13 @@
           cursor: default;
           font-size: 20px;
           display: flex;
+          transition: all 0.2s ease;
           span {
             opacity: 0;
             max-height: 0;
             margin-left: 20px;
             overflow: hidden; /* Evitar contenido visible cuando está oculto */
-            transition: opacity 0.4s ease, max-height 0.1s ease; /* Transición suave */
+            transition: opacity 0.2s ease, max-height 0.1s ease; /* Transición suave */
           }
         }
       }
@@ -186,7 +188,10 @@
     }
     a,
     .faIcon{
-      color: rgb(219, 162, 56);
+      color: rgb(255, 255, 255);
+      transition: all 0.2s ease;
+      font-size: 22px;
+      font-weight: bold;
     }
   }
 

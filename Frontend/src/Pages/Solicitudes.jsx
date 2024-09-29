@@ -94,9 +94,12 @@ const Solicitudes = () => {
 
         <div className={styles.solicitudesList}>
           {filteredSolicitudes.length > 0 ? (
-            filteredSolicitudes.map((solicitud) => (
-              <Card key={solicitud.ID_request} solicitud={solicitud} updateSolicitudes={updateSolicitudes} />
-            ))
+            filteredSolicitudes.map((solicitud, index) => {
+              const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
+              return(
+                <Card key={solicitud.ID_request} solicitud={solicitud} updateSolicitudes={updateSolicitudes} delay={delay}/>
+              );
+            })
           ) : (
             <p>No hay solicitudes disponibles.</p>
           )}

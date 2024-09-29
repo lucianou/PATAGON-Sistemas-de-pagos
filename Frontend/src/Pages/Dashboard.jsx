@@ -3,7 +3,7 @@ import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import Card from '../../public/Components/Tarjeta/Card.jsx';
 import styles1 from '../styles/DashboardGeneral.module.css'; // Para Menu
 import styles from '../styles/Dashboard.module.css'; // Para Bolsas
-import Notifications from './Notifications.jsx';
+// import Notifications from './Notifications.jsx';
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
 import refreshAccessToken from '../../public/Components/RefreshToken';
 import logo from '../assets/SoloLogo_Patagon.png';
@@ -69,15 +69,19 @@ const Dashboard = () => {
         </div>
         <div className={styles.dashboardWidgets}>
           { (
-            bolsas.map((bolsa, index) => ( // Itera sobre las bolsas obtenidas y muestra una Card para cada una
-              <Card
-                key={index} // Asegúrate de usar un key único
-                nombre={bolsa.nombre}
-                tiempo={bolsa.tiempo}
-                precio={bolsa.precio}
-                detalles={bolsa.detalles} // Pasamos el arreglo de detalles
-              />
-            ))
+            bolsas.map((bolsa, index) => {
+              const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
+              return ( // Itera sobre las bolsas obtenidas y muestra una Card para cada una
+                <Card
+                  key={index} // Asegúrate de usar un key único
+                  nombre={bolsa.nombre}
+                  tiempo={bolsa.tiempo}
+                  precio={bolsa.precio}
+                  detalles={bolsa.detalles} // Pasamos el arreglo de detalles
+                  delay={delay} // Pasamos el delay como prop
+                />
+              );
+            })
           )}
         </div>
       </main>

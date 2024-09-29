@@ -1,16 +1,17 @@
 .bolsaCard {
   background: linear-gradient(5deg, rgb(18, 11, 55), rgb(36, 37, 43));
-
   border-radius: 20px;
   padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   color: white;
+  opacity: 0;
   width: calc(33.33% - 20px); /* 3 tarjetas por línea */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5), /* Sombra principal */
               inset 0px 1px 4px rgba(255, 255, 255, 0.1); /* Sombra interna */
-
+  animation: fadeInUp 0.3s  ease forwards;
+  animation-delay: var(--animationDelay); /* Soporta un retraso en la animación */
   .bolsaLeft {
     width: 50%;
     display: flex;
@@ -103,5 +104,17 @@
 @media (max-width: 768px) {
   .bolsaCard {
     width: 100%; /* 1 tarjeta por fila en pantallas pequeñas */
+  }
+}
+
+/* Animación */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

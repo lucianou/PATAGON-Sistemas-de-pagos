@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Card.module.css"; // Importa tu archivo de estilos como módulo
 
-const Card = ({ nombre, tiempo, detalles, precio, onBuyClick, ram }) => {
+const Card = ({ nombre, tiempo, detalles, precio, onBuyClick, ram, delay }) => {
   return (
-    <div className={styles.bolsaCard}>
+    <div className={styles.bolsaCard} style={{ animationDelay: delay }}>
       <div className={styles.bolsaLeft}>
         <p className={styles.nombre}>{nombre}</p>
         <ul className={styles.bolsaDetails}>
