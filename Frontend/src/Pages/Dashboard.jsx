@@ -5,6 +5,7 @@ import style1 from '../styles/DashboardGeneral.module.css'; // Para Menu
 import style from '../styles/Dashboard.module.css'; // Para Bolsas
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
 import refreshAccessToken from '../../public/Components/RefreshToken';
+import Notifications from './Notifications.jsx';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,6 +57,7 @@ const Dashboard = () => {
   return (
     <div className={style1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
+      <Notifications/>
       <main className={`${style1.content} ${isOpen ? style1.open : ''}`}>
         <div className={style1.header}>
           <h1>Dashboard</h1>

@@ -18,35 +18,27 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
-        
+
         {/* Rutas protegidas con el nuevo layout */}
         <Route path="/dashboard" element={
           <ProtectedRoute>
-            <DashboardLayout>
-              <Dashboard />
-            </DashboardLayout>
+            <Dashboard />
           </ProtectedRoute>
         } />
         <Route path="/dashboard-profit" element={
           <ProtectedRoute>
-            <DashboardLayout>
-              <Dashboard_profit />
-            </DashboardLayout>
+            <Dashboard_profit />
           </ProtectedRoute>
         } />
         <Route path="/dashboard-config" element={
           <ProtectedRoute>
-            <DashboardLayout>
-              <Dashboard_config />
-            </DashboardLayout>
+            <Dashboard_config />
           </ProtectedRoute>
         } />
-        <Route path="/dashboard-user" element={<Dashboard_user /> } />
+        <Route path="/dashboard-user" element={<Dashboard_user />} />
         <Route path="/dashboard-solicitudes" element={
           <ProtectedRoute>
-            <DashboardLayout>
-              <Solicitudes />
-            </DashboardLayout>
+            <Solicitudes />
           </ProtectedRoute>
         } />
         <Route path="/404" element={<NotFound />} />

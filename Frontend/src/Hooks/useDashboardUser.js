@@ -33,7 +33,7 @@ const useDashboardUser = () => {
     })
       .then((response) =>{
         //si recibe el token invalido
-        if(response.status == 401){
+        if(response.status == 403){
           return refreshAccessToken().then(newToken => {
             return fetch(`http://${ipserver}:${port}/api/command/users`,{
               method: 'GET',

@@ -9,13 +9,14 @@ import Notifications from './Notifications';
 const Solicitudes = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [solicitudes, setSolicitudes] = useState([]);
-  const [filter, setFilter] = useState('pendiente'); 
+  const [filter, setFilter] = useState('pendiente'); // Estado para el filtro
   const ipserver = import.meta.env.VITE_IP;
   const port = import.meta.env.VITE_PORT;
 
   useEffect(() => {
     const fetchSolicitudes = async () => {
       const token = localStorage.getItem('token');
+
       try {
         const response = await fetch(`http://${ipserver}:${port}/api/command/requests`, {
           method: 'GET',
@@ -27,16 +28,16 @@ const Solicitudes = () => {
 
         if(response.status == 403){
           return refreshAccessToken().then(newToken => {
-            return fetch(`http://${ipserver}:${port}/api/command/users`, {
+            return fetch(`http://${ipserver}:${port}/api/command/users`,{
               method: 'GET',
-              headers: {
+              headers:{
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${newToken}` 
               }
             });
           });
         }
-
+        
         if (!response.ok) {
           throw new Error('Error en la red al obtener las solicitudes');
         }
@@ -59,6 +60,7 @@ const Solicitudes = () => {
     );
   };
 
+  
   const filteredSolicitudes = solicitudes.filter(solicitud => {
     switch (filter) {
       case 'pendiente':
