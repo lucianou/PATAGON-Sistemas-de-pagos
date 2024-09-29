@@ -2,7 +2,7 @@ import { pool } from "../middleware/authenticateDB.js";
 import { sendEmail } from "./nodeMailer.js";
 
 export async function newUserCreation(req, res) {
-    const { email, rol, nombre, accion } = req.body;  // Agregar campo 'accion' para indicar si se acepta o rechaza
+    const { email, nombre, accion, comentario} = req.body;  // Agregar campo 'accion' para indicar si se acepta o rechaza
 
     try {
         if (accion === "aceptado") {
@@ -16,9 +16,10 @@ export async function newUserCreation(req, res) {
             }
 
             // Insertar el nuevo usuario en la base de datos con su rol
+            const rol = 'Cliente'; 
             const newUser = await pool.query(
-                `INSERT INTO public."Users" (email, rol) VALUES ($1, $2) RETURNING *`,
-                [email, rol]
+                `INSERT INTO public."Users" (email, nombre, rol) VALUES ($1, $2, $3) RETURNING *`,
+                [email, nombre, rol]
             );
 
             // Obtener el ID del nuevo usuario
@@ -47,7 +48,7 @@ Luego podras seleccionar la bolsa disponible de tiempo y proceder al pago.
 
 Podrás ingresar al servidor por ssh utilizando el comando:
 
-ssh -p 
+${comentario}
 
 Te recomendamos revisar https://patagon.uach.cl donde encontrarás:
 
@@ -87,6 +88,8 @@ Discord: https://discord.gg/WvFTPvvWXh`
                 message: `Estimad@ ${nombre},
 
 Lamentamos informarte que tu solicitud para usar Patagón ha sido rechazada.
+
+Motivo: ${comentario}
 Si tienes alguna pregunta o crees que se trata de un error, puedes contactarnos respondiendo a este correo o utilizando el formulario de contacto en nuestro sitio web.
 
 Saludos cordiales,
@@ -116,7 +119,7 @@ export async function AllUsers(req, res) {
     try {
         // Consulta para obtener todos los usuarios
         const query = `
-            SELECT email, username, rol, fecha_ingreso
+            SELECT email, username, rol, fecha_ingreso, nombre
             FROM public."Users"
             WHERE "rol" != 'Administrador'
             ORDER BY "fecha_ingreso" DESC NULLS LAST;

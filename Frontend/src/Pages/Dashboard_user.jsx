@@ -8,6 +8,7 @@ import ItemUser from '../../public/Components/itemUser2/itemUser';
 import Notifications from './Notifications';
 import ModalUser from '../../public/Components/modalUser/modalUser';
 import useDashboardUser from '../Hooks/useDashboardUser';
+import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard';
 import logo from '../assets/SoloLogo_Patagon.png';
 
 const Dashboard_user = () => {
@@ -44,6 +45,7 @@ const Dashboard_user = () => {
             <img src={logo} className={styles1.menuIcon}/>
             <h1>Dashboard User</h1>
           </div>
+          <Notification_dashboard/>
         </div>
 
         {/* Sección búsqueda */}

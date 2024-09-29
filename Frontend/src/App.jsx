@@ -7,28 +7,22 @@ import Dashboard_solicitudes from './Pages/Dashboard_solicitudes';
 import Dashboard_user from './Pages/Dashboard_user';
 import Dashboard_profit from './Pages/Dashboard_profit';
 import Dashboard_config from './Pages/Dashboard_config';
-import Notifications from './Pages/Notifications_Sonner';
 import NotFound from './Pages/NotFound';
 import Solicitudes from './Pages/Solicitudes';
-import ProtectedRoute from '../public/Components/ProtectedRoute'; // Asegúrate de que la ruta sea correcta
+import ProtectedRoute from '../public/Components/ProtectedRoute';
+import DashboardLayout from '../public/Components/notificaciones/DashboardLayout'
 
 function App() {
   return (
     <Router>
-      {/* <Notifications /> */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
-        
-        {/* Rutas protegidas por token */}
+
+        {/* Rutas protegidas con el nuevo layout */}
         <Route path="/dashboard" element={
           <ProtectedRoute>
             <Dashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/dashboard-solicitudes" element={
-          <ProtectedRoute>
-            <Dashboard_solicitudes />
           </ProtectedRoute>
         } />
         <Route path="/dashboard-profit" element={
@@ -41,12 +35,8 @@ function App() {
             <Dashboard_config />
           </ProtectedRoute>
         } />
-        <Route path="/dashboard-user" element={
-          <ProtectedRoute>
-            <Dashboard_user />
-          </ProtectedRoute>
-        } />
-        <Route path="/solicitudes" element={
+        <Route path="/dashboard-user" element={<Dashboard_user />} />
+        <Route path="/dashboard-solicitudes" element={
           <ProtectedRoute>
             <Solicitudes />
           </ProtectedRoute>

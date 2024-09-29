@@ -10,7 +10,7 @@ const ItemUser = ({ user, delay, setShowModal, selectUser}) => {
   let dead = false;
   let stateUser, icon;
   let formattedDate = '';
-
+  console.log(user);
   if (!user.motivo) {
     if (user.fecha_ingreso !== null) {
       // Calcular días desde el ingreso del usuario
@@ -29,9 +29,9 @@ const ItemUser = ({ user, delay, setShowModal, selectUser}) => {
     <div className={`${styles.item} ${stateUser}`} style={{ animationDelay: delay }}>
       <div className={styles.itemBackground} ></div>
       <div className={`${styles.divUsername} ${stateUser}`} >
-        <span>{user.username}</span>
+        <span>{dead ? user.username : user.nombre}</span>
       </div>
-      <div className={styles.itemUser}>
+      <div className={`${styles.itemUser} ${stateUser}`}>
         <FontAwesomeIcon icon={faUser} className={styles.faIcon} />
       </div>
       <div className={styles.infoDiv}>

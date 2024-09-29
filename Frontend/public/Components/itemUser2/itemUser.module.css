@@ -62,15 +62,17 @@
     filter: blur(10px);
     height: 100%; 
     border-radius: 10px;
-    mask-image: radial-gradient(circle 60px at 65px 50%, transparent 75%, black 76%);
-    mask-mode: match-source;
+    /* mask-image: radial-gradient(circle 60px at 65px 50%, transparent 75%, black 76%);
+    mask-mode: match-source; */
     z-index: 0;
   }
   .divUsername{
     transition: all 0.2s ease;
     position: absolute;
     height: 40px;
-    width: 200px;
+    max-width: 60%;
+    min-width: 200px;
+    width: fit-content;
     top: -20px;
     left: 50%;
     transform: translateX(-50%);
@@ -86,6 +88,9 @@
       font-weight: bolder;
       filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.5));
       color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
   .infoDiv{
@@ -156,17 +161,17 @@
 }
 .inactivo{
   /* background: linear-gradient(-45deg, rgb(224, 224, 19), rgb(241, 241, 175)); */
-  background-color: rgb(224, 224, 19);
+  background-color: rgb(197, 197, 35);
   border: 3px solid rgb(224, 224, 19);
 } 
 .bloqueado{
   /* background: linear-gradient(-45deg, rgb(224, 19, 19), rgb(241, 175, 175)); */
-  background-color: rgb(224, 19, 19);
+  background-color: rgb(190, 26, 26);
   border: 3px solid rgb(224, 19, 19);
 }
 .pendiente{
   /* background: linear-gradient(-45deg, rgb(56, 30, 204), rgb(138, 161, 209)); */
-  background-color: rgb(30, 76, 204);
+  background-color: rgb(31, 74, 194);
   border: 3px solid rgb(30, 76, 204);
 }
 .muerto{

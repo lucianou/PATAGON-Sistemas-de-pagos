@@ -33,3 +33,35 @@ body{
     }
   }
 }
+
+.filterButtons {
+  display: flex;
+  gap: 10px; 
+  margin-bottom: 20px; 
+}
+
+.filterButtons button {
+  background-color: rgba(3, 233, 244, 0.7); 
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 10px 15px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+  font-size: 16px; 
+}
+
+.filterButtons button:hover {
+  background-color: rgba(3, 233, 244, 1);
+}
+
+.filterButtons button:active {
+  transform: scale(0.95);
+  
+}
+.filterButtons button.active {
+  background-color: rgb(30, 184, 150);
+  color: white;
+  font-weight: bold; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
