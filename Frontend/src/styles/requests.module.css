@@ -65,3 +65,34 @@ body{
   font-weight: bold; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
+
+.excel {
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  padding: 5px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor al pasar */
+  display: inline-flex; /* Para alinear la imagen y el texto */
+  align-items: center; /* Alinear verticalmente */
+}
+
+.excel img {
+  width: 20px; /* Tamaño de la imagen */
+  height: auto; /* Mantener la proporción */
+  margin-right: 5px; /* Espacio entre la imagen y el texto */
+}
+
+.excel span {
+  font-size: 14px; /* Tamaño de la fuente */
+  color: #ffffff; /* Color del texto (cambia a tu preferido) */
+}
+
+button.excel span {
+  color: #ffffff; /* Asegúrate de que esto tenga prioridad */
+}
+
+.excel span {
+  color: #ffffff !important; /* Añade !important como último recurso */
+}
+button {
+  color: rgb(255, 255, 255); /* O cualquier otro color */
+}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import * as XLSX from 'xlsx';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard';
 import styles from '../styles/requests.module.css';
@@ -7,6 +8,8 @@ import Card from '../../public/Components/RequestCard/Card';
 import refreshAccessToken from '../../public/Components/RefreshToken';
 import Notifications from './Notifications';
 import logo from '../assets/SoloLogo_Patagon.png';
+
+
 const Solicitudes = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [solicitudes, setSolicitudes] = useState([]);
@@ -61,6 +64,17 @@ const Solicitudes = () => {
     );
   };
 
+  const exportToExcel = (data) => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+    XLSX.writeFile(workbook, 'Solicitudes.xlsx');
+  };
+
+  const handleExport = () => {
+    exportToExcel(solicitudes); 
+  };
+  
   
   const filteredSolicitudes = solicitudes.filter(solicitud => {
     switch (filter) {
@@ -91,6 +105,13 @@ const Solicitudes = () => {
           <button className={filter === 'aceptado' ? styles.active : ''} onClick={() => setFilter('aceptado')}>Aceptadas</button>
           <button className={filter === 'rechazado' ? styles.active : ''} onClick={() => setFilter('rechazado')}>Rechazadas</button>
         </div>
+        <button className={styles.excel} onClick={handleExport}>
+            <img
+              src="/icons/excel-icon.svg"
+              alt="Ver PUB"
+             />
+             Exportar
+            </button>
 
         <div className={styles.solicitudesList}>
           {filteredSolicitudes.length > 0 ? (
