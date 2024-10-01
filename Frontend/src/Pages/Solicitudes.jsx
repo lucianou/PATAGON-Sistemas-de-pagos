@@ -92,7 +92,6 @@ const Solicitudes = () => {
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => setIsOpen(!isOpen)} isOpen={isOpen} />
-      {/* <Notifications/> */}
       <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`}>
         <div className={styles1.header}>
           <div className={styles1.titleLogo}>
