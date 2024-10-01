@@ -109,7 +109,7 @@ const Card = ({ solicitud, updateSolicitudes, delay}) => {
 };
 
   return (
-    <div className={styles.card} style={{ '--animationDelay': delay }}>
+    <div className={styles.card} style={{ animationDelay: delay }}>
       <div>
         <h3 className={styles.title}>Nombre: {solicitud.nombre}</h3>
         <p className={styles.info}><strong>Email:</strong> {solicitud.email}</p>

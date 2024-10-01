@@ -26,6 +26,7 @@
       gap: 10px;
       .menuIcon{
         height: 40px;
+        filter: drop-shadow(0 0px 10px #03e8f4c7);
       }
     }
     h1{
