@@ -1,5 +1,6 @@
 .dashboardContainer {
-  background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ;
+  /* background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ; */
+  background: #181a1b;
   min-height: 100vh;
   width: 100%;
   .content {
@@ -14,7 +15,7 @@
   .header{
     margin-bottom: 20px;
     padding: 0 30px;
-    color: white;
+    color: rgb(206, 206, 206);
     font-weight: bolder;
     font-size: 20px;
     display: flex;
@@ -33,13 +34,13 @@
       font-family: 'Lora', 'Android Assassin', 'Jakobenz', 'Tilt Prism', 'VALORANT', 'No Continue';
       text-transform: uppercase;
     }
-    @supports (-webkit-background-clip: text) {
+    /* @supports (-webkit-background-clip: text) {
       h1 {
         background: linear-gradient(to bottom, #ffffff,#03e9f4);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
       }
-    }
+    } */
   }
 }

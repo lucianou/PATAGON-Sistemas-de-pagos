@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { calcularDiasDesdeIngreso, obtenerEstadoUsuario } from "../../Utils/dateUtils";
 
 const ItemUser = ({ user, delay, setShowModal, selectUser}) => {
+  const [open, setOpen] = React.useState(false);
   let dias = '-';
   let dead = false;
   let stateUser, icon;
@@ -26,24 +27,19 @@ const ItemUser = ({ user, delay, setShowModal, selectUser}) => {
     icon = faSkull;
   }
   return (
-    <div className={`${styles.item} ${stateUser}`} style={{ animationDelay: delay }}>
+    <div className={`${styles.item}`} style={{ animationDelay: delay }} onClick={ () => {setOpen(!open)}}>
       <div className={styles.itemBackground} ></div>
-      <div className={`${styles.divUsername} ${stateUser}`} >
+      <div className={`${styles.divUsername} ${open ? styles.open : ''}`} onClick={ () => {setOpen(!open)}}>
         <span>{dead ? user.username : user.nombre}</span>
-      </div>
-      <div className={`${styles.itemUser} ${stateUser}`}>
-        <FontAwesomeIcon icon={faUser} className={styles.faIcon} />
       </div>
       <div className={styles.infoDiv}>
         <span>Email:</span>
         <span>{user.email}</span>
-        {!dead && <span>Fecha Ingreso:</span>}
+        {!dead && <span>Ultimo registro:</span>}
         {!dead && <span>{formattedDate ? formattedDate : '-'}</span>}
+        <button className={`${styles.button}`} onClick={() => { setShowModal(true); selectUser(user) }}> {!dead ? "Eliminar usuario" : "Ver Motivo"} </button>
       </div>
-      <div className={`${styles.itemStatus} ${stateUser}`}>
-        <FontAwesomeIcon icon={icon} className={styles.statusIcon} />
-      </div>
-      <a className={styles.hoverText} onClick={() => { setShowModal(true); selectUser(user) }}>{ dead ? "VER MOTIVO" : "ELIMINAR USUARIO"}</a>
+      {/* <a className={styles.hoverText} onClick={() => { setShowModal(true); selectUser(user) }}>{ dead ? "VER MOTIVO" : "ELIMINAR USUARIO"}</a> */}
     </div>
   );
 };

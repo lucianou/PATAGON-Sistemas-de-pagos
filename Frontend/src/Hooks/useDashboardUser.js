@@ -66,29 +66,28 @@ const useDashboardUser = () => {
 
   const handleFilterChange = (event) => {
     setFilterState(event.target.value);
+    setFiltredUsers(filterUsersByState(filtredUsers, event.target.value));
     setKey(prevKey => prevKey + 1); // Cambiar la clave única para forzar la actualización de los usuarios
   };
 
-  const filterUsersByState = (user) => {
-    const dias = user.fecha_ingreso !== null 
-      ? calcularDiasDesdeIngreso(user.fecha_ingreso)
-      : -1;
+  const filterUsersByState = (filtredUsers, filter) => {
+    return filtredUsers.sort((a, b) => {
+      const dateA = new Date(a.fecha_ingreso);
+      const dateB = new Date(b.fecha_ingreso);
 
-    if (filterState === "all") return true; // No filtrar si la opción es "all"
-    
-    if (filterState === "pendiente" && dias === -1) return true;
-    if (filterState === "activo" && dias >= 0 && dias < 60) return true;
-    if (filterState === "inactivo" && dias >= 60 && dias < 120) return true;
-    if (filterState === "bloqueado" && dias >= 120) return true;
-
-    return false;
+      if (filter === "reciente") {
+        return dateB - dateA; // Más reciente primero
+      } else {
+        return dateA - dateB; // Más antiguo primero
+      } 
+    });
   };
 
   const handleClickBtnUser = () => {
     setBtnActive(!btnActive);
     setFiltredUsers(btnActive ? deletedUsers : users );
     setSearchText('');
-    setFilterState('all');
+    setFilterState('reciente');
     setKey(prevKey => prevKey + 1); // Cambiar la clave única para forzar la actualización de los usuarios
   };
 
@@ -99,7 +98,12 @@ const useDashboardUser = () => {
     if (value === '') {
       setFiltredUsers(btnActive ? users : deletedUsers); 
     } else {
-      const filtered = (btnActive ? users : deletedUsers).filter((user) => user.username.toLowerCase().startsWith(value));
+      let filtered;
+      if (btnActive) {
+        filtered = users.filter((user) => user.nombre.toLowerCase().startsWith(value));
+      } else {
+        filtered = deletedUsers.filter((user) => user.username.toLowerCase().startsWith(value));
+      }
       setFiltredUsers(filtered);
     }
   };

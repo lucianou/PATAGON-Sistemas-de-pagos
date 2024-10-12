@@ -27,7 +27,6 @@ const Dashboard_user = () => {
     setShowModal,
     setSelectedUser,
     handleFilterChange,
-    filterUsersByState,
     handleClickBtnUser,
     handleSearchChange,
     handleCloseModal
@@ -60,13 +59,10 @@ const Dashboard_user = () => {
               disabled={loading} // Deshabilitar el input mientras se carga
             />
             <div className={styles.contFill}>
-              <label htmlFor="filter" className={styles.labelFill}>Filtrar por estado:</label>
+              <label htmlFor="filter" className={styles.labelFill}>Filtrar por fecha:</label>
               <select className={`${styles.filter} ${!btnActive ? styles.off : '' }`} value={filterState} id="filter" onChange={handleFilterChange} disabled={loading}>
-                <option value="all">Todos</option>
-                <option value="activo">Activos</option>
-                <option value="inactivo">Inactivos</option>
-                <option value="bloqueado">Bloqueados</option>
-                <option value="pendiente">Pendientes</option>
+                <option value="reciente">Mas recientes</option>
+                <option value="antiguo">Mas antiguos</option>
               </select>
             </div>
           </div>
@@ -87,8 +83,7 @@ const Dashboard_user = () => {
 
           <div className={styles.itemSection} key={key}>
             {/* Mostrar usuarios filtrados */}
-            {filtredUsers.filter(filterUsersByState)
-              .map((user, index) => {
+            {filtredUsers.map((user, index) => {
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
                   <ItemUser user={user} key={index} delay={delay} setShowModal={setShowModal} selectUser={setSelectedUser}/>
@@ -97,8 +92,8 @@ const Dashboard_user = () => {
             }
           </div>
         </section>
-      {showModal && <ModalUser closeModal={ handleCloseModal } motivo={selectedUser.motivo ? selectedUser.motivo : null}/>}
       </main>
+      {showModal && <ModalUser closeModal={ handleCloseModal } motivo={selectedUser.motivo ? selectedUser.motivo : null}/>}
     </div>
   );
 };

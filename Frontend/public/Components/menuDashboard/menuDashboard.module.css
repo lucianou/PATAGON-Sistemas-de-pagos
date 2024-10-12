@@ -28,8 +28,9 @@
   width: 65px;
   top: 0;
   height: 100%;
-  background-color: #1c2a3e;
-  background: linear-gradient(-45deg, #213c58, #131d2a);
+  background-color: #2b2e30;
+  /* background: linear-gradient(-45deg, #213c58, #131d2a); */
+  
   transition: 0.3s all ease;
   box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2); /* Sombra a la derecha del div */
   
@@ -98,6 +99,9 @@
       li {
         position: relative;
         padding: 20px 20px;
+        &:hover {
+          background-color: rgba(100, 100, 100, 0.379);
+        }
         .faIcon{
           transition: all 0.2s ease;
         }

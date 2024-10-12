@@ -1,186 +1,106 @@
 .item {
   position: relative;
-  justify-content: space-between;
+  justify-content: center;
   display: flex;
   align-items: center;
-  min-width: 600px;
   border-radius: 15px;
-  padding: 20px 20px;
-  margin-bottom: 20px;
+  min-width: 200px;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.192);
-  transition: all 0.2s ease;
   opacity: 0;
   animation: fadeInUp 0.3s  ease forwards;
   animation-delay: var(--animationDelay); /* Soporta un retraso en la animación */
+  padding: 5px 10px;
+  background-color: rgba(252, 252, 252, 0.171);
+  transition: all 0.2s ease;
   z-index: 1;
-  /* cursor: pointer; */
-  .hoverText{
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    font-size: 30px;
-    color: #ffffff;
-    transition: all 0.2s ease;
-    font-weight: 1000;
-    z-index: 3;
-    filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.5));
-    cursor: pointer;
-  }
-  &::after{
-    content: ' ';
+  .itemBackground{
     position: absolute;
     top: 0;
-    opacity: 0;
     left: 0;
-    z-index: 2;
-    background: inherit;
-    border-radius: 10px;
-    width: 100%; 
-    height: 100%;   
+    width: 100%;
+    height: 100%; 
+    background-color: rgb(73, 73, 73);
+    border-radius: 15px;
+    border: 2px rgb(117, 117, 117) solid;
+    z-index: 0;
+    cursor: pointer;
     transition: all 0.2s ease;
   }
 
-  &:hover{
-    .hoverText{
-      opacity: 1;
-    }
-    &::after{
-      opacity: 1;
-    }
-  }
-  .itemBackground{
-    position: absolute;
-    clip-path: polygon(15% 0, 85% 0, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0 85%, 0 15%);
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(46, 46, 46, 0.65);
-    filter: blur(10px);
-    height: 100%; 
-    border-radius: 10px;
-    /* mask-image: radial-gradient(circle 60px at 65px 50%, transparent 75%, black 76%);
-    mask-mode: match-source; */
-    z-index: 0;
-  }
   .divUsername{
-    transition: all 0.2s ease;
     position: absolute;
-    height: 40px;
-    max-width: 60%;
-    min-width: 200px;
-    width: fit-content;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0%;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 15px;
+    background-color: rgb(37, 37, 37);
+    border: rgba(255, 255, 255, 0.267) 2px solid;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    border: rgba(255, 255, 255, 0.267) 2px solid;z-index: 4;
+    z-index: 4;   
+    opacity: 1; 
+    transition: all 0.2s ease;
+    cursor: pointer;
     span{
       font-size: x-large;
       font-weight: bolder;
       filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.5));
-      color: #ffffff;
+      color: #fffc;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
   }
+  .open{
+    opacity: 0;
+    z-index: -1;
+  }
+  
   .infoDiv{
     z-index: 1;
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 0.2s ease;
+    
     span:nth-child(1),
     span:nth-child(3){
       font-weight: bold;
-      color: rgb(255, 255, 255);
+      color: #c2a970;
     }
     span:nth-child(2){
       margin-bottom: 10px;
     }
-  }
-  .itemUser{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    color: white;
-    font-weight: bold;
-    z-index: 1;
-    width: 90px;
-    height: 90px;      
-    border: 2px solid white;
-    border-radius: 50%;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    .faIcon{
-      height: 60px;
-      width: 60px;
-      color: white;
+    .button{
+      margin: 5px 0;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: #313131;
       border: none;
-      filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.5));
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
     }
   }
-
-  .itemStatus{
-    border-radius: 50%;
-    z-index: 1;
-    height: 60px;
-    width: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px white solid;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.192);
-    transition: all .3s ease;
-    > *{
-      pointer-events: none;
+  &:hover {
+    .itemBackground,
+    .divUsername,
+    .infoDiv{
+      transform: scale(1.05); /* Crece todo el item */
     }
-    .statusIcon{
-      width: 30px;
-      height: 30px;
-      filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.5));
-      transition: opacity 0.2s ease;
+    .divUsername{
+      background-color: rgb(15, 15, 15);
+    }
+
+    .itemBackground{
+      background-color: rgb(100, 100, 100);
     }
   }
-
 }
-.activo{
-  /* background: linear-gradient(-45deg, rgb(16, 192, 25), rgb(205, 241, 207)); */
-  background-color: rgb(16, 192, 25);
-  border: 3px solid rgb(16, 192, 25);
-}
-.inactivo{
-  /* background: linear-gradient(-45deg, rgb(224, 224, 19), rgb(241, 241, 175)); */
-  background-color: rgb(197, 197, 35);
-  border: 3px solid rgb(224, 224, 19);
-} 
-.bloqueado{
-  /* background: linear-gradient(-45deg, rgb(224, 19, 19), rgb(241, 175, 175)); */
-  background-color: rgb(190, 26, 26);
-  border: 3px solid rgb(224, 19, 19);
-}
-.pendiente{
-  /* background: linear-gradient(-45deg, rgb(56, 30, 204), rgb(138, 161, 209)); */
-  background-color: rgb(31, 74, 194);
-  border: 3px solid rgb(30, 76, 204);
-}
-.muerto{
-  /* background: linear-gradient(-45deg, rgb(0, 0, 0), rgb(116, 116, 116)); */
-  background-color: rgb(0, 0, 0);
-  border: 3px solid rgb(0,0,0);
-}
-
-
 /* Animación */
 @keyframes fadeInUp {
   0% {
