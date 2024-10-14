@@ -1,8 +1,8 @@
 .card {
-  background-color: #113f5ed6;
-  border: 1px solid #313d63;
+  background-color: rgb(37, 37, 37);
+  border: 1px solid  rgb(19, 18, 18);
   border-radius: 8px;
-  padding: 8px;
+  padding: 5px;
   margin: 8px 0;
   box-shadow: 0 2px 8px rgba(190, 170, 170, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
@@ -11,7 +11,7 @@
   align-items: center;
   opacity: 0;
   animation: fadeInUp 0.3s  ease forwards;
-  animation-delay: var(--animationDelay); /* Soporta un retraso en la animación */
+  animation-delay: var(--animationDelay); 
 }
 
 .card:hover {
@@ -78,8 +78,15 @@
   background-color: #ffffff;
   color: black;
   border-radius: 10px;
-  font-size: xx-small;
+  font-size:1ch;
+  border: none;
 }
+
+.modalOverlay .modalContent button{
+  color: black;
+}
+
+
 
 /* Animación */
 @keyframes fadeInUp {
@@ -125,4 +132,5 @@
     padding: 8px 10px;
     font-size: 9px;
   }
+
 }

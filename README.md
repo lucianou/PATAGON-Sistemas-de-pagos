@@ -12,8 +12,8 @@ Este proyecto implementa un sistema de pagos, que incluye la autenticación de u
 
 ## Requisitos Previos
 
-- **Node.js** v14+ 
-- **MongoDB** v4+
+- **Node.js** 
+- **PostgreSQL** 
 
 
 ## Instalación
