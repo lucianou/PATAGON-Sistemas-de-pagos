@@ -11,6 +11,9 @@ import NotFound from './Pages/NotFound';
 import Solicitudes from './Pages/Solicitudes';
 import ProtectedRoute from '../public/Components/ProtectedRoute';
 import DashboardLayout from '../public/Components/notificaciones/DashboardLayout'
+import 'primereact/resources/themes/saga-blue/theme.css'; 
+import 'primereact/resources/primereact.min.css'; 
+import 'primeicons/primeicons.css'; 
 
 function App() {
   return (
