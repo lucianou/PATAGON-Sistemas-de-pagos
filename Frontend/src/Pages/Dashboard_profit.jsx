@@ -10,12 +10,9 @@ const Dashboard_profit = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDiv, setActiveDiv] = useState(null); // Nuevo estado para controlar qué div está expandido
 
-  const handleDivClick = (divNumber) => {
-    setActiveDiv(activeDiv === divNumber ? null : divNumber); // Alterna el div seleccionado
-  };
 
   return (
-    <div className={styles1.dashboardContainer}>
+    <div className={styles1.dashboardContainer} id={styles.black}>
       <MenuDashboard toggleMenu={ () => { setIsOpen(!isOpen)} } isOpen={ isOpen } />
       <main className={`${styles1.content} ${isOpen ? styles1.open : ""} `} id={styles.main}>
         <div className={styles1.header}>
@@ -25,14 +22,14 @@ const Dashboard_profit = () => {
           </div>
         </div>
         <div className={styles.contenedor}>
-          <div className={`${styles.div1} ${activeDiv === 1 ? styles.expanded : ''}`} >
+          <div className={`${styles.div1}`} >
             <LinearGraphic />
           </div>
 
-          <div className={`${styles.div2} ${activeDiv === 2 ? styles.expanded : ''}`} >
+          <div className={`${styles.div2}`} >
             <BarGraphic />
           </div>
-          <div className={`${styles.div3} ${activeDiv === 3 ? styles.expanded : ''}`} >
+          <div className={`${styles.div3}`} >
             <BarGraphic />  
           </div>
         </div>

@@ -34,11 +34,9 @@ const midata = {
             data: horas_uso,
             tension: 0.5,
             fill: true,
-            borderColor: 'rgb(255,255,255)',
-            backgroundColor: 'rgba(255,99,132,0.5)',
+            borderColor: 'rgb(234, 184, 57)',
+            backgroundColor: 'rgb(234, 184, 57, 0.3)',
             pointRadius: 5,
-            pointBorderColor: 'rgba(255,99,132)',
-            pointBackgroundColor: 'rgba(255,99,132)',
         },
     ],
 };
@@ -50,6 +48,7 @@ const misoptions = {
         legend: {
             position: 'top',
             labels: {
+                color: 'rgb(255,255,255, 0.8)', // Color blanco para la leyenda
                 font: {
                     weight: 'bold', // Negrita para la leyenda
                 },
@@ -66,28 +65,33 @@ const misoptions = {
             title: {
                 display: true,
                 text: 'Tarjetas',
+                color: 'rgb(255,255,255, 0.8)', // Color blanco para el título del eje X
                 font: {
                     weight: 'bold', // Negrita para el título del eje X
                 },
             },
             ticks: {
-                font: {
-                    weight: 'bold', // Negrita para las etiquetas del eje X
-                },
+                color: 'rgb(255,255,255, 0.8)', // Color blanco para las etiquetas del eje X
+                
+            },
+            grid: {
+                color: 'rgba(255, 255, 255, 0.2)', // Color de la cuadrícula del eje X
             },
         },
         y: {
             title: {
                 display: true,
                 text: 'Horas de uso',
+                color: 'rgb(255,255,255, 0.8)', // Color blanco para el título del eje Y
                 font: {
                     weight: 'bold', // Negrita para el título del eje Y
                 },
             },
             ticks: {
-                font: {
-                    weight: 'bold', // Negrita para las etiquetas del eje Y
-                },
+                color: 'rgb(255,255,255, 0.8)', // Color blanco para las etiquetas del eje Y
+            },
+            grid: {
+                color: 'rgba(255, 255, 255, 0.2)', // Color de la cuadrícula del eje Y
             },
             suggestedMin: 0,
         },
