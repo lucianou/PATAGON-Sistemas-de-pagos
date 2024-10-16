@@ -7,7 +7,7 @@ import refreshAccessToken from '../../public/Components/RefreshToken';
 import logo from '../assets/SoloLogo_Patagon.png';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-
+import TableComponent from '../../public/Components/Table/Table';
 const Solicitudes = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [solicitudes, setSolicitudes] = useState([]);
@@ -101,14 +101,10 @@ const Solicitudes = () => {
           Exportar
         </button>
 
-        {/* Reemplaza el bloque de solicitudes con DataTable */}
+        
         <div className={styles.solicitudesList}>
           {filteredSolicitudes.length > 0 ? (
-            <DataTable value={filteredSolicitudes} paginator rows={5}>
-              <Column field="ID_request" sortable header="ID Solicitud" />
-              <Column field="email" sortable header="email" />
-              {/* Agrega más columnas según sea necesario */}
-            </DataTable>
+            <TableComponent data={filteredSolicitudes} />
           ) : (
             <p>No hay solicitudes disponibles.</p>
           )}
