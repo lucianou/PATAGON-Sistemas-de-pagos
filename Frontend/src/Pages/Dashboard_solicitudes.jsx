@@ -1,156 +1,155 @@
-import React, { useState, useEffect } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { useState, useEffect } from 'react';
+import * as XLSX from 'xlsx';
+import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
+import styles from '../styles/requests.module.css';
 import styles1 from '../styles/DashboardGeneral.module.css';
-import styles from '../styles/DashboardSolicitudes.module.css';
-import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard'; 
-import Notifications from './Notifications';
-import SolicitudesList from '../../public/Components/listaSolicitudes/SolicitudesList'; // Importa el nuevo componente
+import Card from '../../public/Components/RequestCard/Card';
+import refreshAccessToken from '../../public/Components/RefreshToken';
+import logo from '../assets/SoloLogo_Patagon.png';
 
-// Configuración del worker para pdfjs
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-
-const initialSolicitudes = [ {
-  username: 'user1',
-  email: 'user1@gmail.com',
-  archivo: 'archivo1.pub',
-  fecha: '10/09/2024',
-  pdfUrl: '../assets/solicitud_plantilla.pdf',
-},
-{ username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
-{ username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
-{ username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
-{ username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
-{ username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
-{ username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
-{ username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'},
-{ username: 'user2', email: 'user2@gmail.com', archivo: 'archivo2.pub', fecha: '11/09/2024', pdfUrl: '/assets/documento2.pdf'}];
-
-const Dashboard_solicitudes = () => {
-  const [error, setErrors] = useState(null);
+const Solicitudes = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [solicitudes, setSolicitudes] = useState(initialSolicitudes);
-  const [selectedPdf, setSelectedPdf] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [solicitudes, setSolicitudes] = useState([]);
+  const [filter, setFilter] = useState('pendiente');
   const [currentPage, setCurrentPage] = useState(1);
-  const solicitudesPerPage = 5; 
-  const totalPages = Math.ceil(solicitudes.length / solicitudesPerPage);
+  const itemsPerPage = 2; // Cambia esto al número que desees
+  const ipserver = import.meta.env.VITE_IP;
   const port = import.meta.env.VITE_PORT;
 
   useEffect(() => {
-    fetch(`http://localhost:${port}/api/command/requests`, {
-      headers: { 'Content-Type': 'application/json' },
-      method: 'GET',
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (!data.error) {
-          console.log(data);
-        } else {
-          setErrors({ server: data.error });
+    const fetchSolicitudes = async () => {
+      const token = localStorage.getItem('token');
+
+      try {
+        const response = await fetch(`http://${ipserver}:${port}/api/command/requests`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 403) {
+          return refreshAccessToken().then(newToken => {
+            return fetch(`http://${ipserver}:${port}/api/command/users`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${newToken}` 
+              }
+            });
+          });
         }
-      })
-      .catch(error => {
-        console.log('Error:', error);
-        setErrors({ server: 'Error en la soliditud: ' + error.message });
-      });
+
+        if (!response.ok) {
+          throw new Error('Error en la red al obtener las solicitudes');
+        }
+
+        const data = await response.json();
+        setSolicitudes(data);
+      } catch (error) {
+        console.error('Error al obtener las solicitudes:', error);
+      }
+    };
+
+    fetchSolicitudes();
   }, []);
 
-  const mostrarPDF = (pdfUrl, index) => {
-    setSelectedPdf(pdfUrl);
-    setSelectedIndex(index);
-    setPageNumber(1);
+  useEffect(() => {
+    setCurrentPage(1); // Reinicia a la primera página cuando cambia el filtro
+  }, [filter]);
+
+  const updateSolicitudes = (updatedSolicitud) => {
+    setSolicitudes(prevSolicitudes => 
+      prevSolicitudes.map(solicitud => 
+        solicitud.ID_request === updatedSolicitud.ID_request ? updatedSolicitud : solicitud
+      )
+    );
   };
 
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
+  const exportToExcel = (data) => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+    XLSX.writeFile(workbook, 'Solicitudes.xlsx');
   };
 
-  const goToNextPage = () => {
-    if (pageNumber < numPages) {
-      setPageNumber(pageNumber + 1);
+  const handleExport = () => {
+    exportToExcel(solicitudes);
+  };
+
+  const filteredSolicitudes = solicitudes.filter(solicitud => {
+    switch (filter) {
+      case 'pendiente':
+        return solicitud.estado === 'pendiente';
+      case 'aceptado':
+        return solicitud.estado === 'aceptado';
+      case 'rechazado':
+        return solicitud.estado === 'rechazado';
+      default:
+        return true;
     }
-  };
+  });
 
-  const goToPreviousPage = () => {
-    if (pageNumber > 1) {
-      setPageNumber(pageNumber - 1);
-    }
-  };
+  // Paginación
+  const indexOfLastSolicitud = currentPage * itemsPerPage;
+  const indexOfFirstSolicitud = indexOfLastSolicitud - itemsPerPage;
+  const currentSolicitudes = filteredSolicitudes.slice(indexOfFirstSolicitud, indexOfLastSolicitud);
+  const totalPages = Math.ceil(filteredSolicitudes.length / itemsPerPage);
 
-  const closePdfModal = () => {
-    setSelectedPdf(null);
-    setSelectedIndex(null);
-  };
-
-  const goToNextSolicitudesPage = () => {
+  const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  const goToPreviousSolicitudesPage = () => {
+  const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-  const rechazarSolicitud = () => {
-    const updatedSolicitudes = solicitudes.filter((_, index) => index !== selectedIndex);
-    setSolicitudes(updatedSolicitudes);
-    closePdfModal();
-  };
-
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => setIsOpen(!isOpen)} isOpen={isOpen} />
-      <Notifications />
-      <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`} id={styles.content}>
-        <div className={styles1.header} id={styles.header}>
-          <h1>Solicitudes</h1>
-          <span className={styles.pageCount}> total: {solicitudes.length}</span>
+      <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`}>
+        <div className={styles1.header}>
+          <div className={styles1.titleLogo}>
+            <img src={logo} className={styles1.menuIcon} />
+            <h1>Dashboard Solicitudes</h1>
+          </div>
+        </div>
+        <div className={styles.filterButtons}>
+          <button className={filter === 'pendiente' ? styles.active : ''} onClick={() => setFilter('pendiente')}>Pendientes</button>
+          <button className={filter === 'aceptado' ? styles.active : ''} onClick={() => setFilter('aceptado')}>Aceptadas</button>
+          <button className={filter === 'rechazado' ? styles.active : ''} onClick={() => setFilter('rechazado')}>Rechazadas</button>
+        </div>
+        <button className={styles.excel} onClick={handleExport}>
+          <img src="/icons/excel-icon.svg" alt="Exportar" />
+          Exportar
+        </button>
+
+        <div className={styles.solicitudesList}>
+          {currentSolicitudes.length > 0 ? (
+            currentSolicitudes.map((solicitud, index) => {
+              const delay = `${index * 100}ms`;
+              return (
+                <Card key={solicitud.ID_request} solicitud={solicitud} updateSolicitudes={updateSolicitudes} delay={delay} />
+              );
+            })
+          ) : (
+            <p>No hay solicitudes disponibles.</p>
+          )}
         </div>
 
-        {/* Usa el componente SolicitudesList */}
-        <SolicitudesList 
-          solicitudes={solicitudes}
-          mostrarPDF={mostrarPDF}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          goToPreviousSolicitudesPage={goToPreviousSolicitudesPage}
-          goToNextSolicitudesPage={goToNextSolicitudesPage}
-        />
-
-        {selectedPdf && (
-          <div className={styles.pdfModal}>
-            <div className={styles.pdfContainer}>
-              <h2>Solicitud</h2>
-              <div className={styles.pdfDocument}>
-                <Document file={selectedPdf} onLoadSuccess={onDocumentLoadSuccess}>
-                  <Page pageNumber={pageNumber} />
-                </Document>
-              </div>
-              <div className={styles.pdfControls}>
-                <button onClick={goToPreviousPage} disabled={pageNumber <= 1}>
-                  -
-                </button>
-                <button onClick={goToNextPage} disabled={pageNumber >= numPages}>
-                  +
-                </button>
-                <span className={styles.pageCount}>{pageNumber} de {numPages}</span>
-              </div>
-              <div className={styles.pdfActions}>
-                <button onClick={rechazarSolicitud}>Rechazar</button>
-                <button>Aceptar</button>
-                <button onClick={closePdfModal}>Cerrar</button>
-              </div>
-            </div>
-          </div>
-        )}
+        <div className={styles.pagination}>
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>Anterior</button>
+          <span>Página {currentPage} de {totalPages}</span>
+          <button onClick={handleNextPage} disabled={currentPage === totalPages}>Siguiente</button>
+        </div>
       </main>
     </div>
   );
 };
 
-export default Dashboard_solicitudes;
+export default Solicitudes;
