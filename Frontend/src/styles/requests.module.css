@@ -2,6 +2,23 @@ body{
   background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ;
 }
 
+.files{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+.fileButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.fileButton img {
+  width: 100px; /* Ajusta el tamaño para hacerlo más grande */
+  height: 100px;
+}
+
 .SolicitudesContainer {
   background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ;
   min-height: 100vh;

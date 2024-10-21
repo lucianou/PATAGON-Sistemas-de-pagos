@@ -10,6 +10,7 @@ import { RequestsRouter } from './src/routes/requestsRoute.js';
 import { pool } from './src/middleware/authenticateDB.js';
 import { setupSocket } from './src/controllers/socketConfig.js';
 import { authenticateToken } from './src/middleware/authenticateToken.js';
+import { PurchaseRouter } from './src/routes/purchase.js';
 
 dotenv.config();
 const app = express();
@@ -27,6 +28,7 @@ app.set('io', io);
 app.use("/api/command", AuthRouter);
 app.use("/api/command", RequestsRouter);
 app.use("/api/command", UserControlRouter);
+app.use("/api/commnad/", PurchaseRouter);
 
 app.get('/test-db', async (req, res) => {
   try {
