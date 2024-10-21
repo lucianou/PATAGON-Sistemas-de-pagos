@@ -1,7 +1,16 @@
 import React from "react";
 import styles from "./Card.module.css"; // Importa tu archivo de estilos como módulo
+import { useNavigate } from "react-router-dom";
 
-const Card = ({ nombre, tiempo, detalles, precio, onBuyClick, ram, delay }) => {
+const Card = ({ nombre, tiempo, detalles, precio, onBuyClick, ram, delay, ID }) => {
+  const navigate = useNavigate();
+
+  const handleBuyClick = () => {
+    navigate(`/dashboard-compra/${ID}`,{
+      state: { nombre, tiempo, detalles, precio }
+    });
+  };
+
   return (
     <div className={styles.bolsaCard} style={{ animationDelay: delay }}>
       <div className={styles.bolsaLeft}>
@@ -20,7 +29,7 @@ const Card = ({ nombre, tiempo, detalles, precio, onBuyClick, ram, delay }) => {
           <p className={styles.tiempo}>{tiempo}</p>
           <p className={styles.price}>{precio}</p>
         </div>
-        <button className={styles.botonCompra} onClick={onBuyClick}>
+        <button className={styles.botonCompra} onClick={handleBuyClick}>
           Comprar
         </button>
       </div>
