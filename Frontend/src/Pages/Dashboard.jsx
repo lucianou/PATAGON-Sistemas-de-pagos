@@ -3,7 +3,6 @@ import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import Card from '../../public/Components/Tarjeta/Card.jsx';
 import styles1 from '../styles/DashboardGeneral.module.css'; // Para Menu
 import styles from '../styles/Dashboard.module.css'; // Para Bolsas
-// import Notifications from './Notifications.jsx';
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
 import refreshAccessToken from '../../public/Components/RefreshToken';
 import logo from '../assets/SoloLogo_Patagon.png';
@@ -79,6 +78,7 @@ const Dashboard = () => {
                   precio={bolsa.precio}
                   detalles={bolsa.detalles} // Pasamos el arreglo de detalles
                   delay={delay} // Pasamos el delay como prop
+                  ID = {bolsa.ID}
                 />
               );
             })
