@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom'; // Importa useLocation para obtener la URL actual
 import styles from '../menuDashboard/menuDashboard.module.css'; // Importa tu archivo de estilos como módulo
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faClipboard, faUsers, faDollarSign, faCog, faSignOutAlt, faTimes, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faClipboard, faUsers, faDollarSign, faCog, faSignOutAlt, faTimes, faBars, faUserShield} from '@fortawesome/free-solid-svg-icons';
 import { jwtDecode } from 'jwt-decode';
 
 const MenuDashboard = ({ toggleMenu, isOpen }) => {
@@ -45,6 +45,12 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
               <a href='/dashboard-solicitudes' tabIndex='-1'>
                 <FontAwesomeIcon icon={faClipboard} className={styles.faIcon}/>
                 <span>Solicitudes</span>
+              </a>
+            </li>
+            <li className={isActive('/dashboard-admin') ? styles.active : ''} onClick={() =>  window.location.href = '/dashboard-user' }>
+              <a href='/dashboard-admin' tabIndex='-1'>
+                <FontAwesomeIcon icon={faUserShield} className={styles.faIcon}/> 
+                <span>Administrador</span>
               </a>
             </li>
             <li className={isActive('/dashboard-user') ? styles.active : ''} onClick={() =>  window.location.href = '/dashboard-user' }>

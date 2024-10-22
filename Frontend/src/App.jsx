@@ -12,6 +12,7 @@ import Solicitudes from './Pages/Solicitudes';
 import ProtectedRoute from '../public/Components/ProtectedRoute';
 import DashboardLayout from '../public/Components/notificaciones/DashboardLayout'
 import Purchase_details from './Pages/Purchase_details';
+import Dashboard_admin from './Pages/Dashboard_admin';
 import 'primereact/resources/themes/saga-blue/theme.css'; 
 import 'primereact/resources/primereact.min.css'; 
 import 'primeicons/primeicons.css'; 
@@ -45,9 +46,15 @@ function App() {
             <Solicitudes />
           </ProtectedRoute>
         } />
+        
         <Route path="/dashboard-compra/:id" element={
           <ProtectedRoute>
             <Purchase_details />
+          </ProtectedRoute>
+        } />
+        <Route path="/dashboard-admin" element={
+          <ProtectedRoute>
+            <Dashboard_admin />
           </ProtectedRoute>
         } />
         <Route path="/404" element={<NotFound />} />
