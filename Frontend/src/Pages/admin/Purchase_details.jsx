@@ -1,10 +1,10 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import styles1 from '../styles/DashboardGeneral.module.css'; // Para el dashboard
-import styles from '../styles/Purchase.module.css'; // Los nuevos estilos para la compra
-import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
-import logo from '../assets/SoloLogo_Patagon.png';
+import styles1 from '../../styles/DashboardGeneral.module.css'; // Para el dashboard
+import styles from '../../styles/Purchase.module.css'; // Los nuevos estilos para la compra
+import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard';
+import logo from '../../assets/SoloLogo_Patagon.png';
 
 const Purchase_details = () => {
     const location = useLocation();

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
-import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
-import styles from '../styles/requests.module.css';
-import styles1 from '../styles/DashboardGeneral.module.css';
-import refreshAccessToken from '../../public/Components/RefreshToken';
-import logo from '../assets/SoloLogo_Patagon.png';
-import TableComponent from '../../public/Components/Table/Table';
+import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard';
+import styles from '../../styles/requests.module.css';
+import styles1 from '../../styles/DashboardGeneral.module.css';
+import refreshAccessToken from '../../../public/Components/RefreshToken';
+import logo from '../../assets/SoloLogo_Patagon.png';
+import TableComponent from '../../../public/Components/Table/Table';
 
 const Solicitudes = () => {
     const [isOpen, setIsOpen] = useState(false);
