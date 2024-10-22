@@ -5,7 +5,6 @@ import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboar
 import styles1 from '../../styles/DashboardGeneral.module.css';
 import styles from '../../styles/DashboardUser.module.css';
 import ItemUser from '../../../public/Components/itemUser2/itemUser';
-import Notifications from './Notifications';
 import ModalUser from '../../../public/Components/modalUser/modalUser';
 import useDashboardUser from '../../Hooks/useDashboardUser';
 import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard';

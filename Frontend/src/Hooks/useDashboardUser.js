@@ -6,7 +6,7 @@ import refreshAccessToken from '../../public/Components/RefreshToken'
 // src/hooks/useDashboardUser.js
 
 const useDashboardUser = () => {
-  const [filterState, setFilterState] = useState("all"); 
+  const [filterState, setFilterState] = useState("reciente"); 
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]); // Usuarios activos
   const [deletedUsers, setDeletedUsers] = useState([]); // Usuarios eliminados

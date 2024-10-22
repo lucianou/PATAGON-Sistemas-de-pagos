@@ -4,7 +4,6 @@
   padding: 0 20px;
   display: flex;
   align-items: center;
-
   background-color: #D39B34;
   border-radius: 5px;
   cursor: pointer;
@@ -27,15 +26,19 @@
   width: 100%;
   height: 100vh;
   top: 0;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
   .modalContent{
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.5);
     width: 600px;
     height: fit-content;
     background-color: #ffffff;
     padding: 20px;
+    animation: scaleUp 0.3s forwards;
+    border-radius: 10px;
     .close{
       width: 30px;
       height: 30px;
@@ -51,7 +54,6 @@
       position: relative;
       display: flex;
       margin-bottom: 30px;
-      gap: 10px;
       label{
         width: fit-content;
         padding: 0 5px;
@@ -81,6 +83,7 @@
       border: none;
       cursor: pointer;
       font-size: medium;
+      margin-left: 10px;
     }
     .buttons{
       display: flex;
@@ -102,8 +105,23 @@
         text-transform: uppercase;
       }
     }
-    .optionsAdmin{
-      padding: 10px 30px;
+    .rolGroup{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      .optionsAdmin{
+        padding: 10px 30px;
+        height: 60px;
+        width: 50%;
+        border-radius: 5px;
+        font-size: x-large;
+      }
+      .descripcionRol{
+        color: rgb(62, 160, 75);
+        width: 50%;
+        padding-left: 20px;
+      }
     }
     .radioDiv{
       display: flex;
@@ -121,5 +139,16 @@
         }
       }
     }
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes scaleUp {
+  to {
+    transform: translate(-50%, -50%) scale(1);
   }
 }

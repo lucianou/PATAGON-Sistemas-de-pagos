@@ -7,6 +7,7 @@ import Dashboard_solicitudes from './Pages/admin/Dashboard_solicitudes';
 import Dashboard_user from './Pages/admin/Dashboard_user';
 import Dashboard_profit from './Pages/admin/Dashboard_profit';
 import Dashboard_config from './Pages/admin/Dashboard_config';
+import Dashboard_admin from './Pages/admin/Dashboard_admin';
 import NotFound from './Pages/admin/NotFound';
 import Solicitudes from './Pages/admin/Solicitudes';
 import ProtectedRoute from '../public/Components/ProtectedRoute';

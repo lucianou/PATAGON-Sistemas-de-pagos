@@ -1,35 +1,71 @@
 import React, { useState, useEffect } from 'react';
-import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
-import Card from '../../public/Components/Tarjeta/Card.jsx';
-import styles1 from '../styles/DashboardGeneral.module.css'; // Para Menu
-import styles from '../styles/DashboardAdmin.module.css';
-import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
-import refreshAccessToken from '../../public/Components/RefreshToken';
+import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard.jsx';
+import styles1 from '../../styles/DashboardGeneral.module.css'; // Para Menu
+import styles from '../../styles/DashboardAdmin.module.css';
+import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard.jsx';
+import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import logo from '../assets/SoloLogo_Patagon.png';
+import logo from '../../assets/SoloLogo_Patagon.png';
 
 const Dashboard = () => {
+  const initialData = {
+    nombre: "",
+    email: "",
+    password: "",
+    rol: "admin",
+  };
+  const [form, setForm] = useState(initialData);
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
-  const [password, setPassword] = useState(''); // Estado para almacenar la contraseña generada
-  const [rol, setRol] = useState('');
   // Función para generar una contraseña segura
-  const generatePassword = () => {
+  const generatePassword = (e) => {
+    e.preventDefault();
     const length = Math.floor(Math.random() * (27 - 12 + 1)) + 12; // Genera una longitud aleatoria entre 12 y 27
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
     let password = "";
     for (let i = 0, n = charset.length; i < length; ++i) {
       password += charset.charAt(Math.floor(Math.random() * n));
     }
-    setPassword(password);
+    setForm({...form, password: password});
   };
 
   const handleSubmit = async (e) => { 
     
     e.preventDefault();
   }
-  
+
+  const renderPermissions = () => {
+    if (form.rol === "admin") {
+      return (
+        <ul className={styles.descripcionRol}>
+          <li>Ver, aceptar o rechazar solicitudes.</li>
+          <li>Crear admins y ver ganancias.</li>
+          <li>Ver usuario o eliminarlo.</li>
+        </ul>
+      );
+    } else if (form.rol === "co-admin") {
+      return (
+        <ul className={styles.descripcionRol}>
+          <li>Ver, aceptar o rechazar solicitudes.</li>
+          <li>Ver usuario pero no eliminarlo.</li>
+          <li>Ver ganancias.</li>
+        </ul>
+      );
+    } else if (form.rol === "revisor") {
+      return (
+        <ul className={styles.descripcionRol}>
+          <li>Solo ver solicitudes.</li>
+        </ul>
+      );
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
@@ -50,31 +86,34 @@ const Dashboard = () => {
       </main>
         <div className={styles.modal} style={{display: modal ? 'block' : 'none'}}>
           <div className={styles.modalContent}>
-            <span onClick={ () => {setModal(false)}}>
-              <FontAwesomeIcon icon={faTimes} className={styles.close}/>
-            </span>
-            <h2>Crear administrador</h2>
             <form onSubmit={handleSubmit}>
+              <span onClick={ () => {setModal(false)}}>
+                <FontAwesomeIcon icon={faTimes} className={styles.close}/>
+              </span>
+              <h2>Crear administrador</h2>
               <div className={styles.inputGroup}>
-                <label htmlFor="name">Nombre</label>
-                <input type="text" id="name" name="name" placeholder='Co-admin...' required />
+                <label htmlFor="nombre">Nombre</label>
+                <input type="text" value={form.nombre} name="nombre" placeholder='Co-admin...' onChange={handleChange} required />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" placeholder='example@gmail.com' required />
+                <input type="email" value={form.email} name="email" placeholder='example@gmail.com' onChange={handleChange} required />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="password">Contraseña</label>
-                <input type="password" id="password" value={password} name="password" placeholder='Escriba una contraseña segura' required />
+                <input type="password" value={form.password} name="password" placeholder='Escriba una contraseña segura' onChange={handleChange} required />
                 <button className={styles.randomPassword} onClick={generatePassword}>
                   <span>Random Password</span>
                 </button>
               </div>
-              <select className={styles.optionsAdmin} value={rol}>
-                <option value="admin">Admin</option>
-                <option value="co-admin">Co-admin</option>
-                <option value="revisor">Revisor</option>
-              </select>
+              <div className={styles.rolGroup}>
+                <select className={styles.optionsAdmin} value={form.rol}  name="rol" onChange={handleChange}>
+                  <option value="admin">Admin</option>
+                  <option value="co-admin">Co-admin</option>
+                  <option value="revisor">Revisor</option>
+                </select>
+                  {renderPermissions()}
+              </div>
               {/* <div className={styles.radioDiv}>
                 <div>
                   <label htmlFor="admin">Admin</label>
