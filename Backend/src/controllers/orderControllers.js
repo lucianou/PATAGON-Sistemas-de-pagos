@@ -16,7 +16,7 @@ function signParameters(params, secretKey) {
     return crypto.createHmac('sha256', secretKey).update(orderedParams).digest('hex');
 }
 
-export const crearOrden = async (req, res) => {
+export const createPayment = async (req, res) => {
     const { monto, ordenCompra, email } = req.body;
 
     // Verificar que se han recibido todos los parámetros necesarios
@@ -96,7 +96,7 @@ export const crearOrden = async (req, res) => {
     reqApi.end();
 };
 
-export const confirmarPago = async (req, res) => {
+export const confirmPayment = async (req, res) => {
     const { commerceOrder, status, signature } = req.body;
 
     // Validar la firma que envía Flow
