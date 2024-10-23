@@ -1,5 +1,31 @@
 import { pool } from "../middleware/authenticateDB.js";
 import { sendEmail } from "./nodeMailer.js";
+import bcrypt from "bcrypt";
+
+
+// Inserta usuario en tabla
+export async function insertUserRole(req, res) {
+    const { email, nombre, password, rol } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+        // Verificar si el usuario ya existe
+        const checkQuery = 'SELECT * FROM public."Users" WHERE email = $1';
+        const checkResult = await pool.query(checkQuery, [email]);
+
+        if (checkResult.rows.length > 0) {
+            return res.status(400).json({ error: "El usuario ya existe" });
+        }
+
+        // Si no existe, insertar el nuevo usuario
+        const query = 'INSERT INTO public."Users" (email, nombre, password, rol) VALUES ($1, $2, $3, $4) RETURNING *';
+        const result = await pool.query(query, [email, nombre, hashedPassword, rol]);
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error al insertar usuario" });
+    }
+}
+
 
 export async function newUserCreation(req, res) {
     const { email, nombre, accion, comentario} = req.body;  // Agregar campo 'accion' para indicar si se acepta o rechaza
