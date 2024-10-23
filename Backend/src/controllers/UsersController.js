@@ -147,7 +147,7 @@ export async function AllUsers(req, res) {
         const query = `
             SELECT email, username, rol, fecha_ingreso, nombre
             FROM public."Users"
-            WHERE "rol" != 'Administrador'
+            WHERE "rol" = 'Cliente'
             ORDER BY "fecha_ingreso" DESC NULLS LAST;
         `;
         const query2 = `SELECT * FROM public."Deleted_users"`;

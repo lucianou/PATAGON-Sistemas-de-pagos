@@ -19,7 +19,7 @@ const TableComponent = ({ columns, data, actionsRenderer }) => {
         {
             columns,
             data,
-            initialState: { pageIndex: 0, pageSize: 2 },
+            initialState: { pageIndex: 0, pageSize: 10 },
         },
         useSortBy,
         usePagination

@@ -5,13 +5,15 @@ import styles from '../styles/Purchase.module.css';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import logo from '../assets/SoloLogo_Patagon.png';
 import useFetchBolsa from '../Hooks/bolsas';
+import useCreateOrder from '../Hooks/useCreateOrder'; // Asegúrate de que la ruta sea correcta
 
 const Purchase_details = () => {
     const { pathname } = useLocation();
     const id = pathname.split('/').pop(); 
     const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
-    const { bolsa } = useFetchBolsa(id); 
+    const { bolsa } = useFetchBolsa(id);
+    const { createOrder } = useCreateOrder(); // Obtén la función de creación de órdenes
 
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
@@ -30,7 +32,7 @@ const Purchase_details = () => {
         };
 
         try {
-            const { urlPago } = await createOrder(orderData);
+            const { urlPago } = await createOrder(orderData); // Usa createOrder desde el hook
             if (urlPago) {
                 window.location.href = urlPago; // Redirige al usuario a la URL de pago de Flow
             }
@@ -38,7 +40,6 @@ const Purchase_details = () => {
             console.error('Error al procesar la compra:', err);
         }
     };
-
 
     if (!bolsa) {
         return <div>Cargando...</div>; // Puedes agregar un spinner o mensaje de carga
