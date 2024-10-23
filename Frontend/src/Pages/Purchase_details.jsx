@@ -1,84 +1,49 @@
-<<<<<<< Updated upstream
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import styles1 from '../styles/DashboardGeneral.module.css'; // Para el dashboard
-import styles from '../styles/Purchase.module.css'; // Los nuevos estilos para la compra
-import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
-import logo from '../assets/SoloLogo_Patagon.png';
-=======
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles1 from '../styles/DashboardGeneral.module.css';
 import styles from '../styles/Purchase.module.css';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import logo from '../assets/SoloLogo_Patagon.png';
 import useFetchBolsa from '../Hooks/bolsas';
->>>>>>> Stashed changes
 
 const Purchase_details = () => {
-    const location = useLocation();
-    const { nombre, tiempo, detalles, precio, ram } = location.state;
+    const { pathname } = useLocation();
+    const id = pathname.split('/').pop(); 
     const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
-<<<<<<< Updated upstream
-=======
     const { bolsa } = useFetchBolsa(id); 
->>>>>>> Stashed changes
 
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
-        console.log("Términos aceptados:", e.target.checked); // Depuración
     };
 
-    const handleBuyClick = () => {
-
+    const handleBuyClick = async () => {
         if (!isChecked) {
             alert('Debes aceptar los términos y condiciones antes de continuar.');
             return;
         }
-<<<<<<< Updated upstream
-        // Lógica para comprar ahora
-    };
-
-=======
 
         const orderData = {
             monto: 1000, // Asigna el monto real de la bolsa
+            ordenCompra: '12345',
             email: 'ferna.cast0607@gmail.com'
         };
 
         try {
-            const response = await fetch('http://localhost:3003/api/command/create-payment', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(orderData),
-                
-            });
-            console.log(orderData);
-            if (response.ok) {
-                const data = await response.json();
-                const { urlPago } = data;
-                if (urlPago) {
-                    window.location.href = urlPago; // Redirige al usuario a la URL de pago de Flow
-                }
-            } else {
-                const errorData = await response.json();
-                alert(`Error: ${errorData.message || 'Error al crear la orden'}`);
+            const { urlPago } = await createOrder(orderData);
+            if (urlPago) {
+                window.location.href = urlPago; // Redirige al usuario a la URL de pago de Flow
             }
         } catch (err) {
             console.error('Error al procesar la compra:', err);
-            alert('Error al procesar la compra, por favor intenta nuevamente.');
         }
     };
+
 
     if (!bolsa) {
         return <div>Cargando...</div>; // Puedes agregar un spinner o mensaje de carga
     }
 
->>>>>>> Stashed changes
     return (
         <div className={styles1.dashboardContainer}>
             <MenuDashboard toggleMenu={() => setIsOpen(!isOpen)} isOpen={isOpen} />
@@ -92,14 +57,6 @@ const Purchase_details = () => {
 
                 <div className={styles.purchaseContainer}>
                     <div className={styles.purchaseDetails}>
-<<<<<<< Updated upstream
-                        <h2>{nombre}</h2>
-                        <p>Tiempo: {tiempo}</p>
-                        <p>Precio: ${precio}</p>
-                        <p>Detalles: {detalles}</p>
-                        <p>RAM: {ram}</p>
-                        <p className={styles.condiciones}>Sistemas de arriendos Patagón ofrece un sistema basado en la venta de bolsas de tiempo para el uso de los recursos de un servidor. Cada bolsa de tiempo tiene un costo específico y permite al usuario acceder a servicios de cómputo por un período determinado. A medida que el usuario utiliza estos recursos, el tiempo disponible en la bolsa se va descontando proporcionalmente.</p>
-=======
                         <h2>{bolsa.nombre}</h2>
                         <p>Tiempo: {bolsa.tiempo}</p>
                         <p>Precio: ${bolsa.precio}</p>
@@ -108,9 +65,7 @@ const Purchase_details = () => {
                         <p className={styles.condiciones}>
                             Sistemas de arriendos Patagón ofrece un sistema basado en la venta de bolsas de tiempo para el uso de los recursos de un servidor. Cada bolsa de tiempo tiene un costo específico y permite al usuario acceder a servicios de cómputo por un período determinado. A medida que el usuario utiliza estos recursos, el tiempo disponible en la bolsa se va descontando proporcionalmente.
                         </p>
->>>>>>> Stashed changes
                     </div>
-
 
                     <div className={styles.purchaseSummary}>
                         <h3>Resumen</h3>
@@ -118,15 +73,10 @@ const Purchase_details = () => {
                             <p>Artículos:</p>
                             <p>1</p>
                         </div>
-                        <div className={styles.summaryRow}>
-                            <p>Costo:</p>
-                            <p>$0.00</p>
-                        </div>
                         <div className={styles.totalPrice}>
-                            <p>Total: ${precio}</p>
+                            <p>Total: ${bolsa.precio}</p>
                         </div>
 
-                        {/* Checkbox para aceptar los términos */}
                         <div className={styles.termsContainer}>
                             <input
                                 type="checkbox"

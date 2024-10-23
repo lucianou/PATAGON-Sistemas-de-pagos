@@ -10,6 +10,7 @@ const useCreateOrder = () => {
 
         try {
             const response = await fetch('http://localhost:3003/api/command/create-payment', {
+
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

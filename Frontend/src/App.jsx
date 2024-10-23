@@ -10,6 +10,7 @@ import Dashboard_config from './Pages/Dashboard_config';
 import NotFound from './Pages/NotFound';
 import Solicitudes from './Pages/Solicitudes';
 import ProtectedRoute from '../public/Components/ProtectedRoute';
+import RetornoPage from './Pages/PurchaseReturn';
 import DashboardLayout from '../public/Components/notificaciones/DashboardLayout'
 import Purchase_details from './Pages/Purchase_details';
 import Dashboard_admin from './Pages/Dashboard_admin';
@@ -52,6 +53,8 @@ function App() {
             <Purchase_details />
           </ProtectedRoute>
         } />
+
+        <Route path="/retorno" element={<RetornoPage />} />
         <Route path="/dashboard-admin" element={
           <ProtectedRoute>
             <Dashboard_admin />

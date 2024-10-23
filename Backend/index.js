@@ -28,7 +28,7 @@ app.set('io', io);
 app.use("/api/command", AuthRouter);
 app.use("/api/command", RequestsRouter);
 app.use("/api/command", UserControlRouter);
-app.use("/api/commnad/", PurchaseRouter);
+app.use("/api/command/", PurchaseRouter);
 
 app.get('/test-db', async (req, res) => {
   try {
@@ -39,7 +39,7 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-app.get('/viewPDF/:id',authenticateToken ,async (req, res) => {
+app.get('/viewPDF/:id' ,async (req, res) => {
   const requestId = req.params.id;
 
   try {
@@ -96,4 +96,22 @@ app.get('/api/bolsas',authenticateToken, async (req, res) => {
 
 server.listen(port, () => {
   console.log(`Servidor escuchando en http://${host}:${port}/`);
+});
+
+
+
+
+app.get('/api/bolsas/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const result = await pool.query('SELECT * FROM public."Bolsas" WHERE "ID" = $1', [id]); // Usa "ID" entre comillas
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Bolsa no encontrada' });
+    }
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error al obtener los detalles de la bolsa:', error);
+    res.status(500).json({ message: 'Error al obtener los detalles de la bolsa' });
+  }
 });
