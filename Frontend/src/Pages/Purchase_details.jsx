@@ -5,21 +5,32 @@ import styles from '../styles/Purchase.module.css';
 import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import logo from '../assets/SoloLogo_Patagon.png';
 import useFetchBolsa from '../Hooks/bolsas';
+<<<<<<< Updated upstream
 import useCreateOrder from '../Hooks/useCreateOrder';
+=======
+>>>>>>> Stashed changes
 
 const Purchase_details = () => {
     const { pathname } = useLocation();
     const id = pathname.split('/').pop(); 
     const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+<<<<<<< Updated upstream
     const { bolsa } = useFetchBolsa(id);
     const { createOrder } = useCreateOrder(); 
+=======
+    const { bolsa } = useFetchBolsa(id); 
+>>>>>>> Stashed changes
 
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
     };
 
     const handleBuyClick = async () => {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         if (!isChecked) {
             alert('Debes aceptar los términos y condiciones antes de continuar.');
             return;
@@ -64,7 +75,13 @@ const Purchase_details = () => {
                         <p>Precio: ${bolsa.precio}</p>
                         <p>Detalles: {bolsa.detalles.join(', ')}</p>
                         <p>RAM: {bolsa.ram}</p>
+<<<<<<< Updated upstream
                         <p className={styles.condiciones}>Sistemas de arriendos Patagón ofrece un sistema basado en la venta de bolsas de tiempo para el uso de los recursos de un servidor. Cada bolsa de tiempo tiene un costo específico y permite al usuario acceder a servicios de cómputo por un período determinado. A medida que el usuario utiliza estos recursos, el tiempo disponible en la bolsa se va descontando proporcionalmente.</p>
+=======
+                        <p className={styles.condiciones}>
+                            Sistemas de arriendos Patagón ofrece un sistema basado en la venta de bolsas de tiempo para el uso de los recursos de un servidor. Cada bolsa de tiempo tiene un costo específico y permite al usuario acceder a servicios de cómputo por un período determinado. A medida que el usuario utiliza estos recursos, el tiempo disponible en la bolsa se va descontando proporcionalmente.
+                        </p>
+>>>>>>> Stashed changes
                     </div>
 
                     <div className={styles.purchaseSummary}>
