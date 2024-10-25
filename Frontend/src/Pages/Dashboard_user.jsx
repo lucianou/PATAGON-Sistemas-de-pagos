@@ -5,11 +5,11 @@ import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
 import styles1 from '../styles/DashboardGeneral.module.css';
 import styles from '../styles/DashboardUser.module.css';
 import ItemUser from '../../public/Components/itemUser2/itemUser';
-import Notifications from './Notifications';
 import ModalUser from '../../public/Components/modalUser/modalUser';
 import useDashboardUser from '../Hooks/useDashboardUser';
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard';
 import logo from '../assets/SoloLogo_Patagon.png';
+import TableComponent from '../../public/Components/Table/Table';
 
 const Dashboard_user = () => {
 
@@ -46,8 +46,6 @@ const Dashboard_user = () => {
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
-      {/* <Notifications /> */}
-
       <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`} id={styles.content}>
 
         <div className={styles1.header}>
@@ -91,17 +89,21 @@ const Dashboard_user = () => {
         </div>
         <section className={styles.userSection}>
           {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
-
-          <div className={styles.itemSection} key={key}>
+          
+          {/* <div className={styles.itemSection} key={key}> */}
             {/* Mostrar usuarios filtrados */}
-            {filtredUsers.map((user, index) => {
+            {/* {filtredUsers.map((user, index) => {
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
                   <ItemUser user={user} key={index} delay={delay} setShowModal={setShowModal} selectUser={setSelectedUser}/>
                 );
               })
             }
-          </div>
+          </div> */}
+          <TableComponent
+            columns={columns}
+            data={filtredUsers}
+          />
         </section>
       </main>
       {showModal && <ModalUser closeModal={ handleCloseModal } motivo={selectedUser.motivo ? selectedUser.motivo : null}/>}

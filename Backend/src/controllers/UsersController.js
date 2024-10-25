@@ -4,6 +4,7 @@ import { sendEmail } from "./nodeMailer.js";
 import bcrypt from "bcrypt";
 
 
+
 export async function getAdminsRole(req, res) {
     try {
         const query = `SELECT * FROM public."Users" WHERE rol != 'Cliente' `;
@@ -36,6 +37,7 @@ export async function insertUserRole(req, res) {
         res.status(500).json({ error: "Error al insertar usuario" });
     }
 }
+
 
 export async function newUserCreation(req, res) {
     const { email, nombre, accion, comentario} = req.body;  // Agregar campo 'accion' para indicar si se acepta o rechaza
@@ -157,7 +159,7 @@ export async function AllUsers(req, res) {
         const query = `
             SELECT email, username, rol, fecha_ingreso, nombre
             FROM public."Users"
-            WHERE "rol" != 'Administrador'
+            WHERE "rol" = 'Cliente'
             ORDER BY "fecha_ingreso" DESC NULLS LAST;
         `;
         const query2 = `SELECT * FROM public."Deleted_users"`;

@@ -7,7 +7,7 @@ import { authenticateToken, authorizeRoles } from "../middleware/authenticateTok
 
 const router = express.Router();
 
-router.get("/requests", authenticateToken, authorizeRoles('Administrador'),requests);
+router.get("/requests",requests);
 router.post('/addRequest', upload.fields([
     { name: 'documento_pdf', maxCount: 1 },
     { name: 'documento_pub', maxCount: 1 }
