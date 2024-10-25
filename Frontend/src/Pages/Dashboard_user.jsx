@@ -12,6 +12,17 @@ import Notification_dashboard from '../../public/Components/notificaciones/notif
 import logo from '../assets/SoloLogo_Patagon.png';
 
 const Dashboard_user = () => {
+
+  const columns = React.useMemo(  
+    () => [
+      { Header: 'Nombre', accessor: 'nombre', id: 'nombre' , sortType: 'alphanumeric' },
+      { Header: 'Email', accessor: 'email', sortType: 'alphanumeric'  },
+      { Header: 'Rol', accessor: 'rol' },
+      { Header: 'Fecha ingreso', accessor: 'fecha_ingreso' },
+    ],
+    []
+  );
+
   const {
     filterState,
     isOpen,

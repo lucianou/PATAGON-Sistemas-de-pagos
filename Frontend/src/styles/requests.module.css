@@ -19,6 +19,20 @@ body{
   height: 100px;
 }
 
+.actionButtonsContainer {
+  display: flex;
+  justify-content:center;
+  gap: 5px;
+}
+.actionButtons {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
 .SolicitudesContainer {
   background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ;
   min-height: 100vh;

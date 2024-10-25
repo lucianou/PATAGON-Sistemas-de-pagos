@@ -66,7 +66,7 @@ const Solicitudes = () => {
 
     const columns = React.useMemo(
         () => [
-            { Header: 'Nombre', accessor: 'nombre' },
+            { Header: 'Nombre', accessor: 'nombre' , id: 'nombre'},
             { Header: 'Email', accessor: 'email' },
             { Header: 'Institución', accessor: 'institucion' },
             { Header: 'Estado', accessor: 'estado' },
@@ -97,9 +97,9 @@ const Solicitudes = () => {
     const actionsRenderer = (solicitud) => {
         if (solicitud.estado === 'pendiente') {
             return (
-                <div>
-                    <button onClick={() => alert(`Aceptar solicitud de ${solicitud.nombre}`)}>Aceptar</button>
-                    <button onClick={() => alert(`Rechazar solicitud de ${solicitud.nombre}`)}>Rechazar</button>
+                <div className={styles.actionButtonsContainer}>
+                    <button className={styles.actionButtons} onClick={() => alert(`Aceptar solicitud de ${solicitud.nombre}`)}>Aceptar</button>
+                    <button className={styles.actionButtons} onClick={() => alert(`Rechazar solicitud de ${solicitud.nombre}`)}>Rechazar</button>
                 </div>
             );
         }
