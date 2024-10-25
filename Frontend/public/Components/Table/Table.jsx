@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useTable, useSortBy, usePagination } from 'react-table';
 import styles from '../Table/Table.module.css';
@@ -19,7 +20,19 @@ const TableComponent = ({ columns, data, actionsRenderer }) => {
         {
             columns,
             data,
-            initialState: { pageIndex: 0, pageSize: 10 },
+            initialState: { 
+                pageIndex: 0, 
+                pageSize: 10,
+                
+            },
+            sortTypes: {
+                alphanumeric: (rowA, rowB, columnId) => {
+                    const a = rowA.values[columnId]?.toLowerCase() || '';
+                    const b = rowB.values[columnId]?.toLowerCase() || '';
+                    return a < b ? -1 : a > b ? 1 : 0;
+                }
+            }
+            
         },
         useSortBy,
         usePagination
@@ -35,7 +48,7 @@ const TableComponent = ({ columns, data, actionsRenderer }) => {
                                 {headerGroup.headers.map(column => (
                                     <th
                                         {...column.getHeaderProps(column.getSortByToggleProps())}
-                                        className={styles.th}
+                                        className={`${styles.th} ${styles.headerColumn}`} 
                                     >
                                         {column.render('Header')}
                                         <span>

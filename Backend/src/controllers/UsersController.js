@@ -1,9 +1,21 @@
+import { appendFileSync } from "fs";
 import { pool } from "../middleware/authenticateDB.js";
 import { sendEmail } from "./nodeMailer.js";
 import bcrypt from "bcrypt";
 
 
-// Inserta usuario en tabla
+
+export async function getAdminsRole(req, res) {
+    try {
+        const query = `SELECT * FROM public."Users" WHERE rol != 'Cliente' `;
+        const result = await pool.query(query);
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los administradores' });
+    }
+}
+
 export async function insertUserRole(req, res) {
     const { email, nombre, password, rol } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);

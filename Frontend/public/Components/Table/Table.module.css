@@ -8,11 +8,18 @@
     width: 100%;
     border-collapse: collapse;
 }
-  
+
 .th, .td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
+}
+.th {
+    background-color: #474646; /* Color de fondo del encabezado */
+    color: #ffffff; /* Cambia este color al que prefieras para el texto del encabezado */
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
 }
   
 .pagination {

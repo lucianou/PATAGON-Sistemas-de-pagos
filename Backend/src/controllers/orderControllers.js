@@ -1,83 +1,68 @@
 import axios from 'axios';
-import crypto from 'crypto';
+import CryptoJS from 'crypto-js';
 
 // Configuración de las credenciales y URL base
-const FLOW_API_KEY = process.env.FLOW_API_KEY;
-const FLOW_SECRET_KEY = process.env.FLOW_SECRET_KEY;
-const FLOW_BASE_URL = "https://sandbox.flow.cl/api/payment/create";
+const apiKey = "6C0CF1FB-ECCE-4BE8-8228-2DL17F6412E2";
+const secretKey = "085fd54aafe0b2d77ac053b8e9d6f4fb1a701f56";
+const FLOW_BASE_URL = "https://sandbox.flow.cl/api";
 
-// Función para crear la firma (sign)
-function createSignature(params, secretKey) {
-  const keys = Object.keys(params).sort();
-  const signString = keys.map(key => `${key}=${params[key]}`).join('&');
-  return crypto.createHmac('sha256', secretKey).update(signString).digest('hex');
+function signParameters(params, secretKey) {
+  const orderedParams = Object.keys(params).sort().map(key => `${key}${params[key]}`).join('');
+  return CryptoJS.HmacSHA256(orderedParams, secretKey).toString();
 }
 
 // Controlador para crear un pago
 export const createPayment = async (req, res) => {
-  const { monto, email } = req.body;
-  const orderNumber = Date.now().toString(); // Generar un número de orden único
+  try{
+    const { monto, email } = req.body;
+    const orderNumber = Date.now().toString(); // Generar un número de orden único
 
-  // Parámetros requeridos para la creación de la orden
-  const paymentData = {
-    apiKey: FLOW_API_KEY,
-    commerceOrder: orderNumber,
-    subject: "Compra en mi tienda",
-    currency: "CLP",
-    amount: monto,
-    email: email,
-    paymentMethod: 9, // Todos los medios de pago
-    urlConfirmation: `http://localhost:3003/api/command/confirm-payment`, // Reemplazar con la URL pública en producción
-    urlReturn: `http://localhost:4003/dashboard`, // Reemplazar con la URL pública en producción
-  };
+    const paymentData = {
+      apiKey: apiKey,
+      commerceOrder: orderNumber,
+      subject: "Compra en mi tienda",
+      currency: "CLP",
+      amount: monto,
+      email: email,
+      paymentMethod: 9, 
+      urlConfirmation: `http://localhost:3003/api/command/confirm-payment`,
+      urlReturn: `http://localhost:4003/dashboard`
+    };
 
-  // Crear la firma (s) usando los parámetros
-  const signature = createSignature(paymentData, FLOW_SECRET_KEY);
-  
-  // Añadir la firma a los datos de la orden
-  paymentData.s = signature;
+    const paymentDataString = JSON.stringify(paymentData);
+    const signature = signParameters(paymentData, secretKey);
 
-  try {
-    // Realiza la petición a la API de Flow usando application/x-www-form-urlencoded
-    const response = await axios.post(`${FLOW_BASE_URL}`, new URLSearchParams(paymentData), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }
+    const response = await axios.post(`${FLOW_BASE_URL}/payment/create`, paymentDataString, {
+      ...paymentData,
+      s: signature
     });
 
-    // Enviar la URL de pago con el token al frontend
-    const { url, token } = response.data;
-    const paymentUrl = `${url}?token=${token}`;
+    const paymentUrl = response.data.url;
 
-    res.json({ url: paymentUrl });
-  } catch (error) {
+    res.status(200).json({ url: paymentUrl });
+  }catch (error) {
     console.error('Error al crear la orden:', error.response?.data || error.message);
     res.status(500).json({ error: 'Error al crear la orden' });
   }
-};
-
-
-
+}
+  
 
 // Controlador para confirmar el pago
 export const confirmPayment = async (req, res) => {
   const { token, s } = req.query;
 
-  // Aquí deberías verificar la firma y realizar la lógica de confirmación
   try {
-    // Llamar a la API de Flow para obtener el estado de la transacción
     const response = await axios.get(`${FLOW_BASE_URL}/payment/status`, {
       params: {
-        apiKey: FLOW_API_KEY,
+        apiKey: apiKey,
         token: token,
-        s: s, // Incluir la firma calculada con los parámetros de la transacción
+        s: s,
       }
     });
 
     const { status, commerceOrder } = response.data;
 
-    if (status === 2) { // Pago exitoso
-      // Actualizar la base de datos o tomar acciones necesarias
+    if (status === 2) {
       console.log(`Orden ${commerceOrder} pagada exitosamente`);
     }
 

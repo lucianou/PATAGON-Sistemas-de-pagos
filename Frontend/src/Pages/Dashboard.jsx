@@ -6,14 +6,17 @@ import styles from '../styles/Dashboard.module.css'; // Para Bolsas
 import Notification_dashboard from '../../public/Components/notificaciones/notificaciones_dashboard.jsx';
 import refreshAccessToken from '../../public/Components/RefreshToken';
 import logo from '../assets/SoloLogo_Patagon.png';
+import { jwtDecode } from 'jwt-decode';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [bolsas, setBolsas] = useState([]); 
   const ipserver = import.meta.env.VITE_IP;
   const port = import.meta.env.VITE_PORT;
+  const token = localStorage.getItem('token'); 
+  const decodedToken = jwtDecode(token); 
+  const userRole = decodedToken.rol; 
 
-  
   useEffect(() => {
     const fetchBolsas = async () => {
       const token = localStorage.getItem('token'); 
@@ -64,7 +67,7 @@ const Dashboard = () => {
             <img src={logo} className={styles1.menuIcon}/>
             <h1>Dashboard</h1>
           </div>
-          <Notification_dashboard />
+         {userRole === 'Administrador' && <Notification_dashboard />}
         </div>
         <div className={styles.dashboardWidgets}>
           { (
