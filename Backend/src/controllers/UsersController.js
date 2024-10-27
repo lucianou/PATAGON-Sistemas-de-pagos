@@ -1,5 +1,48 @@
+import { Op } from "sequelize";
 import { pool } from "../middleware/authenticateDB.js";
 import { sendEmail } from "./nodeMailer.js";
+import bcrypt from "bcrypt";
+import User from "../models/user.js";
+import DeletedUser from "../models/deletedUser.js";
+
+
+//Usuarios con roles administrativos
+export async function getAdminsRole(req, res) {
+    try{
+        const admins = await User.findAll({ where: { rol: { [Op.not]: 'Cliente' } } });
+        res.json(admins);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los administradores' });
+    }
+}
+
+//Insertar usuario con rol administrativo
+export async function insertUserRole(req, res) {
+    const { email, nombre, password, rol } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    try {
+        // Verificar si el usuario ya existe
+        const existingUser = await User.findOne({ where: { email: email } });
+        if (existingUser) {
+            return res.status(400).json({ error: "El usuario ya existe" });
+        }
+
+        // Insertar el nuevo usuario
+        const newUser = await User.create({
+            email: email,
+            nombre: nombre,
+            password: hashedPassword,
+            rol: rol
+        });
+        res.json(newUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error al insertar usuario" });
+    }
+}
+
 
 export async function newUserCreation(req, res) {
     const { email, nombre, accion, comentario} = req.body;  // Agregar campo 'accion' para indicar si se acepta o rechaza
@@ -117,25 +160,19 @@ Discord: https://discord.gg/WvFTPvvWXh`
 
 export async function AllUsers(req, res) {
     try {
-        // Consulta para obtener todos los usuarios
-        const query = `
-            SELECT email, username, rol, fecha_ingreso, nombre
-            FROM public."Users"
-            WHERE "rol" != 'Administrador'
-            ORDER BY "fecha_ingreso" DESC NULLS LAST;
-        `;
-        const query2 = `SELECT * FROM public."Deleted_users"`;
-        // Ejecuta la consulta
-        const result = await pool.query(query);
-        const result2 = await pool.query(query2);
+        const users = await User.findAll({
+            attributes: ['email', 'username', 'rol', 'fecha_ingreso', 'nombre'],
+            where: { rol: 'Cliente' },
+            order: [['fecha_ingreso', 'DESC']],
+        });
 
-        
-        // Enviar la lista de usuarios como respuesta
-        res.status(200).json({users: result.rows, deletedUsers: result2.rows});
+        // Consulta para obtener todos los usuarios eliminados
+        const deletedUsers = await DeletedUser.findAll();
+        res.status(200).json({ users, deletedUsers });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ error: 'Error al obtener los usuarios' });
-    }   
+    }
 }
 
 export async function deletedUser(req, res) {

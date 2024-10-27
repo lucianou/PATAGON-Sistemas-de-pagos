@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard.jsx';
 import styles1 from '../../styles/DashboardGeneral.module.css'; // Para Menu
 import styles from '../../styles/DashboardAdmin.module.css';
 import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard.jsx';
-import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
+// import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faTimes, faEye,faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/SoloLogo_Patagon.png';
 
 const Dashboard = () => {
@@ -13,11 +13,16 @@ const Dashboard = () => {
     nombre: "",
     email: "",
     password: "",
-    rol: "admin",
+    rol: "Admin",
   };
   const [form, setForm] = useState(initialData);
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({});
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const port = import.meta.env.VITE_PORT;
+  const ipserver = import.meta.env.VITE_IP;
   // Función para generar una contraseña segura
   const generatePassword = (e) => {
     e.preventDefault();
@@ -31,12 +36,33 @@ const Dashboard = () => {
   };
 
   const handleSubmit = async (e) => { 
-    
     e.preventDefault();
+    console.log(form);  
+    fetch(`http://${ipserver}:${port}/api/command/post-admins-role`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+      },
+      method: 'POST',
+      body: JSON.stringify(form),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        setErrors({ server: data.error });
+      } else {
+        console.log(data);
+        setModal(false);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:',error);
+      setErrors({ server: 'Error en la solicitud: ' + error.message });
+    });
   }
 
   const renderPermissions = () => {
-    if (form.rol === "admin") {
+    if (form.rol === "Admin") {
       return (
         <ul className={styles.descripcionRol}>
           <li>Ver, aceptar o rechazar solicitudes.</li>
@@ -44,7 +70,7 @@ const Dashboard = () => {
           <li>Ver usuario o eliminarlo.</li>
         </ul>
       );
-    } else if (form.rol === "co-admin") {
+    } else if (form.rol === "Co-admin") {
       return (
         <ul className={styles.descripcionRol}>
           <li>Ver, aceptar o rechazar solicitudes.</li>
@@ -52,7 +78,7 @@ const Dashboard = () => {
           <li>Ver ganancias.</li>
         </ul>
       );
-    } else if (form.rol === "revisor") {
+    } else if (form.rol === "Revisor") {
       return (
         <ul className={styles.descripcionRol}>
           <li>Solo ver solicitudes.</li>
@@ -93,24 +119,29 @@ const Dashboard = () => {
               <h2>Crear administrador</h2>
               <div className={styles.inputGroup}>
                 <label htmlFor="nombre">Nombre</label>
-                <input type="text" value={form.nombre} name="nombre" placeholder='Co-admin...' onChange={handleChange} required />
+                <input type="text" value={form.nombre} name="nombre" autoComplete='off' placeholder='Co-admin...' onChange={handleChange} required />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="email">Email</label>
-                <input type="email" value={form.email} name="email" placeholder='example@gmail.com' onChange={handleChange} required />
+                <input type="email" value={form.email} name="email" autoComplete='off' placeholder='example@gmail.com' onChange={handleChange} required />
               </div>
               <div className={styles.inputGroup}>
-                <label htmlFor="password">Contraseña</label>
-                <input type="password" value={form.password} name="password" placeholder='Escriba una contraseña segura' onChange={handleChange} required />
+                <div className={styles.passInput}>
+                  <label htmlFor="password">Contraseña</label>
+                  <input type={!showPassword ? "password" : "text"} value={form.password} autoComplete='off' name="password" placeholder='Escriba una contraseña segura' onChange={handleChange} required />
+                  <button className={styles.showPass} onClick={ () => {setShowPassword(!showPassword)}}>
+                    <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} className={styles.eyeIcon}/>
+                  </button>
+                </div>
                 <button className={styles.randomPassword} onClick={generatePassword}>
                   <span>Random Password</span>
                 </button>
               </div>
               <div className={styles.rolGroup}>
                 <select className={styles.optionsAdmin} value={form.rol}  name="rol" onChange={handleChange}>
-                  <option value="admin">Admin</option>
-                  <option value="co-admin">Co-admin</option>
-                  <option value="revisor">Revisor</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Co-admin">Co-admin</option>
+                  <option value="Revisor">Revisor</option>
                 </select>
                   {renderPermissions()}
               </div>

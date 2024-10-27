@@ -4,13 +4,25 @@ import React from 'react';
 import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard';
 import styles1 from '../../styles/DashboardGeneral.module.css';
 import styles from '../../styles/DashboardUser.module.css';
-import ItemUser from '../../../public/Components/itemUser2/itemUser';
+// import ItemUser from '../../../public/Components/itemUser2/itemUser';
 import ModalUser from '../../../public/Components/modalUser/modalUser';
 import useDashboardUser from '../../Hooks/useDashboardUser';
 import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard';
 import logo from '../../assets/SoloLogo_Patagon.png';
+import TableComponent from '../../public/Components/Table/Table';
 
 const Dashboard_user = () => {
+
+  const columns = React.useMemo(  
+    () => [
+      { Header: 'Nombre', accessor: 'nombre', id: 'nombre' , sortType: 'alphanumeric' },
+      { Header: 'Email', accessor: 'email', sortType: 'alphanumeric'  },
+      { Header: 'Rol', accessor: 'rol' },
+      { Header: 'Fecha ingreso', accessor: 'fecha_ingreso' },
+    ],
+    []
+  );
+
   const {
     filterState,
     isOpen,
@@ -79,17 +91,21 @@ const Dashboard_user = () => {
         </div>
         <section className={styles.userSection}>
           {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
-
-          <div className={styles.itemSection} key={key}>
+          
+          {/* <div className={styles.itemSection} key={key}> */}
             {/* Mostrar usuarios filtrados */}
-            {filtredUsers.map((user, index) => {
+            {/* {filtredUsers.map((user, index) => {
                 const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
                 return (
                   <ItemUser user={user} key={index} delay={delay} setShowModal={setShowModal} selectUser={setSelectedUser}/>
                 );
               })
             }
-          </div>
+          </div> */}
+          <TableComponent
+            columns={columns}
+            data={filtredUsers}
+          />
         </section>
       </main>
       {showModal && <ModalUser closeModal={ handleCloseModal } motivo={selectedUser.motivo ? selectedUser.motivo : null}/>}

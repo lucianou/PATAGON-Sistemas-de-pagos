@@ -11,6 +11,7 @@ import Dashboard_admin from './Pages/admin/Dashboard_admin';
 import NotFound from './Pages/admin/NotFound';
 import Solicitudes from './Pages/admin/Solicitudes';
 import ProtectedRoute from '../public/Components/ProtectedRoute';
+import RetornoPage from './Pages/PurchaseReturn';
 import DashboardLayout from '../public/Components/notificaciones/DashboardLayout'
 import Purchase_details from './Pages/admin/Purchase_details';
 import 'primereact/resources/themes/saga-blue/theme.css'; 
@@ -52,6 +53,8 @@ function App() {
             <Purchase_details />
           </ProtectedRoute>
         } />
+
+        <Route path="/retorno" element={<RetornoPage />} />
         <Route path="/dashboard-admin" element={
           <ProtectedRoute>
             <Dashboard_admin />

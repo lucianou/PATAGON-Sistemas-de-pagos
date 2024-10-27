@@ -12,11 +12,27 @@ body{
   background: none;
   border: none;
   cursor: pointer;
+
 }
 
 .fileButton img {
-  width: 100px; /* Ajusta el tamaño para hacerlo más grande */
-  height: 100px;
+  width: 25px; /* Ajusta el tamaño para hacerlo más grande */
+  height: 25px;
+}
+
+
+.actionButtonsContainer {
+  display: flex;
+  justify-content:center;
+  gap: 5px;
+}
+.actionButtons {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .SolicitudesContainer {

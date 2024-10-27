@@ -6,11 +6,14 @@ import styles1 from '../../styles/DashboardGeneral.module.css';
 import refreshAccessToken from '../../../public/Components/RefreshToken';
 import logo from '../../assets/SoloLogo_Patagon.png';
 import TableComponent from '../../../public/Components/Table/Table';
+import useFileViewer from '../../Hooks/useFileViewer';
+
 
 const Solicitudes = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [solicitudes, setSolicitudes] = useState([]);
     const [filter, setFilter] = useState('pendiente');
+    const { viewFile } = useFileViewer();
     const ipserver = import.meta.env.VITE_IP;
     const port = import.meta.env.VITE_PORT;
 
@@ -53,6 +56,15 @@ const Solicitudes = () => {
         fetchSolicitudes();
     }, []);
 
+
+    const handleViewPDF = async (id) => {
+       viewFile(id, 'pdf');
+    };
+
+    const handleViewPUB = async (id) => {
+        viewFile(id, 'pub');
+    };
+
     const exportToExcel = (data) => {
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
@@ -66,7 +78,7 @@ const Solicitudes = () => {
 
     const columns = React.useMemo(
         () => [
-            { Header: 'Nombre', accessor: 'nombre' },
+            { Header: 'Nombre', accessor: 'nombre' , id: 'nombre'},
             { Header: 'Email', accessor: 'email' },
             { Header: 'Institución', accessor: 'institucion' },
             { Header: 'Estado', accessor: 'estado' },
@@ -77,10 +89,10 @@ const Solicitudes = () => {
                 Cell: ({ row }) => (
                     <div className={styles.files}>
                         <button className={styles.fileButton} onClick={() => handleViewPDF(row.original.ID_request)}>
-                            <img src="/icons/pdf-icon.svg" alt="Ver PDF" style={{ width: '20px', height: '20px' }} />
+                            <img src="/icons/pdf-icon.svg" alt="Ver PDF" />
                         </button>
                         <button className={styles.fileButton} onClick={() => handleViewPUB(row.original.ID_request)}>
-                            <img src="/icons/pub_icon.svg" alt="Ver PUB" style={{ width: '20px', height: '20px' }} />
+                            <img src="/icons/pub_icon.svg" alt="Ver PUB" />
                         </button>
                     </div>
                 ),
@@ -97,9 +109,9 @@ const Solicitudes = () => {
     const actionsRenderer = (solicitud) => {
         if (solicitud.estado === 'pendiente') {
             return (
-                <div>
-                    <button onClick={() => alert(`Aceptar solicitud de ${solicitud.nombre}`)}>Aceptar</button>
-                    <button onClick={() => alert(`Rechazar solicitud de ${solicitud.nombre}`)}>Rechazar</button>
+                <div className={styles.actionButtonsContainer}>
+                    <button className={styles.actionButtons} onClick={() => alert(`Aceptar solicitud de ${solicitud.nombre}`)}>Aceptar</button>
+                    <button className={styles.actionButtons} onClick={() => alert(`Rechazar solicitud de ${solicitud.nombre}`)}>Rechazar</button>
                 </div>
             );
         }
