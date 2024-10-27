@@ -22,7 +22,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('token'); 
   
       try {
-        const response = await fetch(`http://${ipserver}:${port}/api/bolsas`, {
+        const response = await fetch(`http://${ipserver}:${port}/api/command/get-products`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const Dashboard = () => {
 
         if(response.status == 403){
           return refreshAccessToken().then(newToken => {
-            return fetch(`http://${ipserver}:${port}/api/bolsas`,{
+            return fetch(`http://${ipserver}:${port}/api/command/get-products`,{
               method: 'GET',
               headers:{
                 'Content-Type': 'application/json',
