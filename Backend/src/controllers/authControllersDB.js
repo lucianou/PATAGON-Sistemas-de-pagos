@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
-import dotenv from 'dotenv';
 import jwt from "jsonwebtoken"; 
-
 import {pool} from '../middleware/authenticateDB.js'
+import User from '../models/user.js';
+import LoginHistory from '../models/loginHistory.js';
 
 
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -14,12 +14,9 @@ export async function loginUserDB(req, res) {
     if (!email || !password) {
         return res.status(400).json({ error: "Email o contraseña requeridos" });
     }
-
     try {
-        const queryText = 'SELECT * FROM public."Users" WHERE email = $1';
-        const { rows } = await pool.query(queryText, [email]);
-
-        const user = rows[0];
+        // Buscar el usuario por email
+        const user = await User.findOne({ where: { email: email } });
         if (!user) {
             return res.status(400).json({ error: "El correo no está registrado" });
         }
@@ -35,26 +32,33 @@ export async function loginUserDB(req, res) {
             return res.status(400).json({ error: "Email o contraseña incorrectos" });
         }
 
-        const currentDate = new Date();
-        const updateDateQuery  = `UPDATE public."Users" SET fecha_ingreso = $1 WHERE email = $2`;
-        await pool.query(updateDateQuery, [currentDate, email]);
-
+        // Actualizar la fecha de ingreso del usuario
+        user.fecha_ingreso = new Date();
+        await user.save(); 
 
         // Generar access token (login)
         const token = jwt.sign(
-            { email: user.email, username: user.username, rol: user.rol},
+            { email: user.email, username: user.username, rol: user.rol },
             SECRET_KEY,
             { expiresIn: "1h" }
         );
+
         // Generar Refresh Token (largo plazo)
         const refreshToken = jwt.sign(
             { email: user.email, username: user.username, rol: user.rol },
-            REFRESH_SECRET_KEY, 
+            REFRESH_SECRET_KEY,
             { expiresIn: "30d" }
         );
 
-        const updateRefreshTokenQuery = `UPDATE public."Users" SET refresh_token = $1 WHERE email = $2`;
-        await pool.query(updateRefreshTokenQuery, [refreshToken, email]);
+        // Actualizar el refresh token en el modelo de usuario
+        user.refresh_token = refreshToken; 
+        await user.save(); 
+
+        // Registrar el inicio de sesión en LoginHistory
+        await LoginHistory.create({
+            user: user.ID, 
+            login_time: new Date(), 
+        });
 
         res.status(200).json({
             message: "Inicio de sesión exitoso",
@@ -69,48 +73,48 @@ export async function loginUserDB(req, res) {
 }
 
 
-//REGISTRO EN BASE DE DATOS
+// Registro de usuario
 export async function register(req, res) {
     const { email, password, username } = req.body;
+
     if (!email || !password || !username) {
         return res
-          .status(400)
-          .json({ error: "Email, usuario y contraseña son requeridos" });
+            .status(400)
+            .json({ error: "Email, usuario y contraseña son requeridos" });
     }
 
     try {
-        // Verificar si el usuario ya existe y si no tiene contraseña
-        const checkUserQuery = 'SELECT * FROM public."Users" WHERE email = $1';
-        const checkUserResult = await pool.query(checkUserQuery, [email]);
+        // Verificar si el usuario ya existe
+        const existingUser = await User.findOne({ where: { email: email } });
 
         // Si no existe el usuario, no se permite el registro
-        if (checkUserResult.rows.length === 0) {
-            return res.status(400).json({ error: "El correo no está registrado. El administrador debe crear primero la cuenta." });
+        if (!existingUser) {
+            return res.status(400).json({
+                error: "El correo no está registrado. El administrador debe crear primero la cuenta.",
+            });
         }
-
-        const existingUser = checkUserResult.rows[0];
 
         // Verificar si el usuario ya tiene una contraseña
         if (existingUser.password) {
-            return res.status(400).json({ error: "El correo ya está registrado y tiene una contraseña." });
+            return res.status(400).json({
+                error: "El correo ya está registrado y tiene una contraseña.",
+            });
         }
 
         // Encriptar la contraseña ingresada
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Actualizar la contraseña y el username del usuario existente
-        const updateUserQuery = `UPDATE public."Users" SET password = $1, username = $2 WHERE email = $3 RETURNING email, username;`;
-        const updateUserValues = [hashedPassword, username, email];
-
-        const updatedUserResult = await pool.query(updateUserQuery, updateUserValues);
-        const updatedUser = updatedUserResult.rows[0];
+        existingUser.password = hashedPassword;
+        existingUser.username = username;
+        await existingUser.save();
 
         res.status(201).json({
             message: "Usuario y contraseña registrados correctamente",
-            user: updatedUser,
+            user: { email: existingUser.email, username: existingUser.username },
         });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ error: "Error al registrar la contraseña y el username" });
     }
 }

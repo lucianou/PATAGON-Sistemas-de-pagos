@@ -7,8 +7,8 @@ const useFileViewer = () => {
     const token = localStorage.getItem('token'); // Obtén el token almacenado
     const viewFile = useCallback(async (id, type) => {
         const endpoint = type === 'pdf' 
-            ? `http://${ipserver}:${port}/viewPDF/${id}` 
-            : `http://${ipserver}:${port}/viewPUB/${id}`;
+            ? `http://${ipserver}:${port}/api/command/viewPDF/${id}` 
+            : `http://${ipserver}:${port}/api/command/viewPUB/${id}`;
 
         try {
             // Abre el archivo en una nueva pestaña
