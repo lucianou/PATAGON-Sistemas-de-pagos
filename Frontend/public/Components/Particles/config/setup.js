@@ -39,7 +39,7 @@ const particleConfig = {
     },
     particles: {
       number: {
-        value: 190,
+        value: 350,
         density: {
           enable: true,
           value_area: 540,
@@ -64,17 +64,17 @@ const particleConfig = {
         },
       },
       opacity: {
-        value: 1,
+        value: 0.8,
         random: true,
         anim: {
           enable: true,
-          speed: 1,
+          speed: 0.25,
           opacity_min: 0,
           sync: false,
         },
       },
       size: {
-        value: { min: 1, max: 3 },
+        value: { min: 1, max: 2 },
         random: true,
         anim: {
           enable: false,
