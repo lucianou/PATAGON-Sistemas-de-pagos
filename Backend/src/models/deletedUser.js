@@ -9,10 +9,18 @@ const DeletedUser = sequelize.define('DeletedUser', {
   },
   username: {
     type: DataTypes.STRING,
+    allowNull: true,
+  },
+  nombre: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
+    allowNull: false,
+  },
+  backup_id:{
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   motivo: {
