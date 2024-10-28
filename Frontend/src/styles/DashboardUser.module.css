@@ -133,3 +133,17 @@
   border-radius: 5px;
   margin-top: 0 !important;
 }
+.actions{
+  display: flex;
+  justify-self: center;
+  gap: 10px;
+  .btnAccion{
+    background-color: #ae3027;
+    width: 100px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+}

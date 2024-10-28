@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles1 from '../styles/DashboardGeneral.module.css';
-import styles from '../styles/Purchase.module.css';
-import MenuDashboard from '../../public/Components/menuDashboard/menuDashboard';
-import logo from '../assets/SoloLogo_Patagon.png';
-import useFetchBolsa from '../Hooks/bolsas';
-import useCreateOrder from '../Hooks/useCreateOrder'; // Asegúrate de que la ruta sea correcta
+import styles1 from '../../styles/DashboardGeneral.module.css';
+import styles from '../../styles/Purchase.module.css';
+import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard';
+import logo from '../../assets/SoloLogo_Patagon.png';
+import useFetchBolsa from '../../Hooks/bolsas';
+import useCreateOrder from '../../Hooks/useCreateOrder'; // Asegúrate de que la ruta sea correcta
 
 const Purchase_details = () => {
     const { pathname } = useLocation();

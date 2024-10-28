@@ -52,7 +52,7 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
                     <span>Solicitudes</span>
                   </a>
                 </li>
-                <li className={isActive('/dashboard-admin') ? styles.active : ''} onClick={() =>  window.location.href = '/dashboard-user' }>
+                <li className={isActive('/dashboard-admin') ? styles.active : ''} onClick={() =>  window.location.href = '/dashboard-admin' }>
                   <a href='/dashboard-admin' tabIndex='-1'>
                     <FontAwesomeIcon icon={faUserShield} className={styles.faIcon}/> 
                     <span>Administrador</span>
