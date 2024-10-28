@@ -63,7 +63,7 @@ const Dashboard_user = () => {
 
   const columnsDeletedUsers = React.useMemo(
     () => [
-      { Header: 'Username', accessor: 'username', id: 'nombre', sortType: 'alphanumeric' },
+      { Header: 'Nombre', accessor: 'username', id: 'nombre', sortType: 'alphanumeric' },
       { Header: 'Email', accessor: 'email', sortType: 'alphanumeric' },
       { Header: 'Motivo', accessor: 'motivo' },
     ],

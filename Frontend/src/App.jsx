@@ -14,6 +14,7 @@ import ProtectedRoute from '../public/Components/ProtectedRoute';
 import RetornoPage from './Pages/PurchaseReturn';
 import DashboardLayout from '../public/Components/notificaciones/DashboardLayout'
 import Purchase_details from './Pages/admin/Purchase_details';
+import MainClient from './Pages/client/main';
 import 'primereact/resources/themes/saga-blue/theme.css'; 
 import 'primereact/resources/primereact.min.css'; 
 import 'primeicons/primeicons.css'; 
@@ -58,6 +59,11 @@ function App() {
         <Route path="/dashboard-admin" element={
           <ProtectedRoute>
             <Dashboard_admin />
+          </ProtectedRoute>
+        } />
+        <Route path="/mainClient" element={
+          <ProtectedRoute>
+            <MainClient />
           </ProtectedRoute>
         } />
         <Route path="/404" element={<NotFound />} />
