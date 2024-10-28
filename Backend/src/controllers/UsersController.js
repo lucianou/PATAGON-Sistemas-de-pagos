@@ -4,6 +4,9 @@ import { sendEmail } from "./nodeMailer.js";
 import bcrypt from "bcrypt";
 import User from "../models/user.js";
 import DeletedUser from "../models/deletedUser.js";
+import sequelize from "../config/sequelize.js";
+import Requests from "../models/requests.js";
+import LoginHistory from "../models/loginHistory.js";
 
 
 //Usuarios con roles administrativos
@@ -42,6 +45,26 @@ export async function insertUserRole(req, res) {
         res.status(500).json({ error: "Error al insertar usuario" });
     }
 }
+
+//Nuevo usuario en patagón, llamada a api
+export async function newUserCreationPatagon(req, res) {
+    try{
+        const{nombre, apellido, institucion, email, key, username, account} = req.body;
+        const apiExternal = await axios.post('https://api.externaservicio.com/endpoint', {
+            nombre, 
+            apellido, 
+            institucion,
+            email, 
+            key, 
+            username, 
+            account
+        });
+        res.status(200).json(apiExternal.data);
+    } catch (error) {
+        console.error('Error llamando a la API externa:', error);
+        res.status(500).json({ mensaje: 'Error al contactar con la API externa' });
+    }
+};
 
 
 export async function newUserCreation(req, res) {
@@ -158,6 +181,7 @@ Discord: https://discord.gg/WvFTPvvWXh`
     }
 }
 
+//Obtener todos los usuarios
 export async function AllUsers(req, res) {
     try {
         const users = await User.findAll({
@@ -175,46 +199,99 @@ export async function AllUsers(req, res) {
     }
 }
 
+// export async function deletedUser(req, res) {
+//     const { username, email, motivo } = req.body;
+  
+//     if (!username || !email || !motivo) {
+//       return res.status(400).json({ message: 'Faltan campos obligatorios' });
+//     }
+  
+//     const client = await pool.connect();
+  
+//     try {
+//         await client.query('BEGIN'); // Inicia la transacción
+  
+//         // Primero eliminar las solicitudes asociadas al usuario por el email
+//         const deleteRequestQuery = 'DELETE FROM public."Requests" WHERE "user_id" = (SELECT "ID" FROM public."Users" WHERE "email" = $1)';
+//         await client.query(deleteRequestQuery, [email]);
+  
+//         // Eliminar el usuario de la tabla "Users"
+//         const deleteQuery = 'DELETE FROM public."Users" WHERE "username" = $1 AND "email" = $2';
+//         const deleteResult = await client.query(deleteQuery, [username, email]);
+  
+//         if (deleteResult.rowCount === 0) {
+//             await client.query('ROLLBACK'); // Revertir transacción si no se encuentra el usuario
+//             return res.status(404).json({ message: 'Usuario no encontrado' });
+//         }   
+  
+//         // Insertar los datos en la tabla "Delete_users"
+//         const insertQuery = `
+//         INSERT INTO public."Deleted_users" ("username", "email", "motivo")
+//         VALUES ($1, $2, $3)
+//         `;
+//         await client.query(insertQuery, [username, email, motivo]);
+  
+//         await client.query('COMMIT'); // Confirmar la transacción
+  
+//         return res.status(200).json({ message: 'Usuario eliminado y registrado en Delete_users' });
+//         } catch (error) {
+//             await client.query('ROLLBACK'); // Revertir la transacción en caso de error
+//             console.error('Error al eliminar el usuario:', error);
+//             return res.status(500).json({ message: 'Error del servidor' });
+//         } finally {
+//             client.release(); // Liberar el cliente
+//         }
+// }
+
+//deleteUser usando sequelize
 export async function deletedUser(req, res) {
-    const { username, email, motivo } = req.body;
-  
-    if (!username || !email || !motivo) {
-      return res.status(400).json({ message: 'Faltan campos obligatorios' });
+    const { nombre, email, motivo } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ message: 'El email es requerido' });
     }
-  
-    const client = await pool.connect();
-  
+
     try {
-        await client.query('BEGIN'); // Inicia la transacción
-  
-        // Primero eliminar las solicitudes asociadas al usuario por el email
-        const deleteRequestQuery = 'DELETE FROM public."Requests" WHERE "user_id" = (SELECT "ID" FROM public."Users" WHERE "email" = $1)';
-        await client.query(deleteRequestQuery, [email]);
-  
-        // Eliminar el usuario de la tabla "Users"
-        const deleteQuery = 'DELETE FROM public."Users" WHERE "username" = $1 AND "email" = $2';
-        const deleteResult = await client.query(deleteQuery, [username, email]);
-  
-        if (deleteResult.rowCount === 0) {
-            await client.query('ROLLBACK'); // Revertir transacción si no se encuentra el usuario
+        // Encontrar al usuario por email
+        const user = await User.findOne({ where: { email: email } });
+        if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
-        }   
-  
-        // Insertar los datos en la tabla "Delete_users"
-        const insertQuery = `
-        INSERT INTO public."Deleted_users" ("username", "email", "motivo")
-        VALUES ($1, $2, $3)
-        `;
-        await client.query(insertQuery, [username, email, motivo]);
-  
-        await client.query('COMMIT'); // Confirmar la transacción
-  
-        return res.status(200).json({ message: 'Usuario eliminado y registrado en Delete_users' });
-        } catch (error) {
-            await client.query('ROLLBACK'); // Revertir la transacción en caso de error
-            console.error('Error al eliminar el usuario:', error);
-            return res.status(500).json({ message: 'Error del servidor' });
-        } finally {
-            client.release(); // Liberar el cliente
         }
+
+        // Desvincular todas las solicitudes relacionadas
+        await Requests.update(
+            { user_id: null },  
+            {
+                where: {
+                    user_id: user.ID,
+                    estado: 'aceptado'  
+                }
+            }
+        );
+
+        // Desvincular todos los registros en LoginHistory
+        await LoginHistory.update(
+            { user: null },  
+            {
+                where: { user: user.ID }
+            }
+        );
+
+        // Guardar el usuario eliminado en Deleted_users
+        await DeletedUser.create({
+            username: user.username,
+            nombre: user.nombre,
+            email: user.email,
+            motivo: motivo,
+            backup_id: user.ID
+        });
+
+        // Eliminar al usuario
+        await user.destroy();
+        
+        return res.status(200).json({ message: 'Usuario eliminado y registrado en Deleted_users' });
+    } catch (error) {
+        console.error('Error al eliminar el usuario:', error);
+        return res.status(500).json({ message: 'Error del servidor' });
+    }
 }
