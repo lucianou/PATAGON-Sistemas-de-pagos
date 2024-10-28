@@ -160,6 +160,28 @@
   }
 }
 
+.titleSectionAdmins{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 20px;
+  margin-top: 30px;
+}
+
+.actions{
+  display: flex;
+  justify-content: center;
+  .btnEliminar{
+    background-color: #ae3027;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 20px;
+    cursor: pointer;
+  }
+}
+
 @keyframes fadeIn {
   to {
     opacity: 1;

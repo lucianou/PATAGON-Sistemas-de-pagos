@@ -52,9 +52,9 @@ const useDashboardUser = () => {
           setErrors({ server: data.error });
         } else {
           // Actualizar usuarios activos y eliminados
+          console.log(data);
           setUsers(data.users);
           setDeletedUsers(data.deletedUsers);
-          setFiltredUsers(data.users); // Inicialmente mostrar todos los usuarios activos
         }
         setLoading(false); // Finalizar la carga
       })
@@ -120,9 +120,11 @@ const useDashboardUser = () => {
       })
       .then((response) => {
         if (response.status === 200) {
+          setUsers((prevUsers) => prevUsers.filter((user) => user.username !== selectedUser.username)); // Eliminar usuario de la lista de usuarios activos
+          setDeletedUsers((prevDeletedUsers) => [...prevDeletedUsers, {username: selectedUser.username, email: selectedUser.email, motivo: motive}]); // Agregar usuario a la lista de usuarios eliminados
           return response.json();
         } else {
-          throw new Error('Error en la solicitud');
+          setErrors({ server: 'Error en la solicitud: ' + response.statusText });
         }
       })
     }
@@ -134,7 +136,8 @@ const useDashboardUser = () => {
     filterState,
     isOpen,
     errors,
-    filtredUsers,
+    users,
+    deletedUsers,
     searchText,
     btnActive,
     showModal,
