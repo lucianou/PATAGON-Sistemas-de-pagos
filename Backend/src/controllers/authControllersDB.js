@@ -58,6 +58,7 @@ export async function loginUserDB(req, res) {
         await LoginHistory.create({
             user: user.ID, 
             login_time: new Date(), 
+            backup_id: user.ID
         });
 
         res.status(200).json({
