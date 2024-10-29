@@ -1,0 +1,97 @@
+/* Contenedor principal */
+.retornoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #181a1b;
+  font-family: Arial, sans-serif;
+  flex-direction: column;
+}
+
+/* Mensaje de confirmación con estilo decorativo */
+.confirmationMessage {
+  text-align: center;
+  background-color: #5ba064; /* Fondo verde */
+  color: #fff;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  max-width: 500px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.return{
+  text-align: center;
+  padding-top: 110px;
+}
+
+.buttonReturn{
+  color: white;
+  font-weight: bold;
+  font-size: medium;
+  border: none;
+  background: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Borde decorativo superior */
+.confirmationMessage::before {
+  content: "";
+  position: absolute;
+  bottom: -20px; /* Cambiado a 'bottom' en lugar de 'top' */
+  left: 0;
+  right: 0;
+  height: 20px;
+  background-color: #5ba064;
+  clip-path: polygon(0% 0%, 5% 100%, 10% 0%, 15% 100%, 20% 0%, 25% 100%, 30% 0%, 35% 100%, 40% 0%, 45% 100%, 50% 0%, 55% 100%, 60% 0%, 65% 100%, 70% 0%, 75% 100%, 80% 0%, 85% 100%, 90% 0%, 95% 100%, 100% 0%);
+}
+
+/* Icono de checkmark animado */
+.checkmark {
+  font-size: 4rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  animation: bounce 0.5s infinite alternate;
+}
+
+/* Título del mensaje */
+.messageTitle {
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Texto informativo */
+.messageText {
+  color: #ffffff;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Contador */
+.countdown {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}

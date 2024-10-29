@@ -102,4 +102,4 @@ export const confirmPayment = async (req, res) => {
 
 
 //controlador para cancelar un pago
-export const cancelPayment = (req, res) => res.redirect(`http://${ip_server}:4003/dashboard`);
+export const cancelPayment = (req, res) => res.redirect(`http://${ip_server}:4003/paymentaccept`);
