@@ -36,12 +36,20 @@
     .parrafos{
       display: flex;
       flex-direction: row;
+      justify-content: center;
+      color: #CCCCCC;
       gap: 30px;
       padding: 0 20px;
       div:nth-child(1),
       div:nth-child(2){
-        width: 50%;
-        background-color: aqua;
+        width: 45%;
+        /* background-color: aqua; */
+        h2{
+          text-align: center;
+        }
+        p{
+          text-align: justify;
+        }
       }
     }
   }
