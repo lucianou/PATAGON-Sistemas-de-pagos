@@ -13,11 +13,12 @@ const Dashboard_profit = () => {
   const [dataPoints, setDataPoints] = useState([]);
   const [labels2, setLabels2] = useState([]);
   const [dataPoints2, setDataPoints2] = useState([]);
+  const ip_server = import.meta.env.VITE_IP;
 
   useEffect(() => {
     const fetchDataWeek = async () => {
       try {
-        const response = await fetch('http://localhost:3003/api/command/get-users-stats-week');
+        const response = await fetch(`http://${ip_server}:3003/api/command/get-users-stats-week`);
         const result = await response.json();
 
         const newLabels = result.map(item => item.date); 
@@ -36,7 +37,7 @@ const Dashboard_profit = () => {
   useEffect(() => {
     const fetchData3Months = async () => {
       try {
-        const response = await fetch('http://localhost:3003/api/command/get-users-stats-3months');
+        const response = await fetch(`http://${ip_server}:3003/api/command/get-users-stats-3months`);
         const result = await response.json();
 
         const newLabels2 = result.map(item => item.month); 
