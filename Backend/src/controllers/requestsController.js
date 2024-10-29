@@ -8,7 +8,16 @@ export async function requests(req, res) {
       attributes: ['ID_request', 'nombre', 'email', 'institucion', 'estado', 'fecha'],
     });
 
-    res.status(200).json(requests);
+     // Formatear la fecha a 'YYYY-MM-DD'
+     const formattedRequests = requests.map(request => {
+      const fecha = request.fecha.toISOString().split('T')[0]; 
+      return {
+        ...request.toJSON(), 
+        fecha, 
+      };
+    });
+
+    res.status(200).json(formattedRequests);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: 'Error al obtener las solicitudes' });

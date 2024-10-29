@@ -14,7 +14,11 @@
     animation: slideIn 0.5s ease-out; /* Animación de entrada y salida */
     transition: width 0.3s ease; /* Transición suave */
 }
-
+.navigateButton{
+    background: linear-gradient(145deg, #356136, rgb(36, 37, 43));
+    border-radius: 5px;
+    border: none;
+}
 .notificationIcon {
     width: 50px; /* Tamaño del icono */
     height: 50px; /* Tamaño del icono */

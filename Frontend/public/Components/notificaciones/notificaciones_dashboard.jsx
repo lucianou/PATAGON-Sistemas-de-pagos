@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 import styles from '../../../src/styles/Notifications.module.css';
-import { fetchSolicitudes } from '../../../src/Hooks/solicitudes'; // Ajusta la ruta según sea necesario
+import { fetchSolicitudes } from '../../../src/Hooks/solicitudes';
 
 const port = import.meta.env.VITE_PORT;
 const ipserver = import.meta.env.VITE_IP;
@@ -9,7 +10,8 @@ const ipserver = import.meta.env.VITE_IP;
 const Notification_dashboard = () => {
     const [pendingCount, setPendingCount] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const socket = io(`http://${ipserver}:${port}`); // Conéctate al socket
+    const navigate = useNavigate();
+    const socket = io(`http://${ipserver}:${port}`);
 
     useEffect(() => {
         const getSolicitudes = async () => {
@@ -24,18 +26,21 @@ const Notification_dashboard = () => {
 
         getSolicitudes();
 
-        // Escuchar el evento de nueva solicitud
         socket.on('newRequest', () => {
-            getSolicitudes(); // Actualiza la lista de solicitudes al recibir una nueva
+            getSolicitudes();
         });
 
         return () => {
-            socket.disconnect(); // Desconectar al salir del componente
+            socket.disconnect();
         };
-    }, [socket]); // Asegúrate de incluir `socket` en las dependencias
+    }, [socket]);
 
     const toggleModal = () => {
         setIsModalOpen(prev => !prev);
+    };
+
+    const handleNavigate = () => {
+        navigate('/dashboard-solicitudes'); // Reemplaza '/ruta-deseada' con la ruta deseada
     };
 
     return (
@@ -45,6 +50,10 @@ const Notification_dashboard = () => {
                     <div className={styles.modalContent}>
                         <h4>Solicitudes Pendientes</h4>
                         <p>Tienes {pendingCount} solicitud(es) pendiente(s).</p>
+                        {/* Botón para redirigir */}
+                        <button onClick={handleNavigate} className={styles.navigateButton}>
+                            Ir a Solicitudes
+                        </button>
                     </div>
                 </div>
             )}

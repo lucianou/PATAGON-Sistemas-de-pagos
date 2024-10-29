@@ -15,12 +15,11 @@ const useCreateOrder = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(orderData),
             });
 
             if (response.ok) {
                 const data = await response.json();
-                return { urlPago: data.urlPago }; // Retorna la URL de pago
+                return { urlPago: data.links[1].href }; 
             } else {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Error al crear la orden');

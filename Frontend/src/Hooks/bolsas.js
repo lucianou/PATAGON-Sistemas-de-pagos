@@ -5,11 +5,13 @@ const useFetchBolsa = (id) => {  // Añadir el token como argumento
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const token = localStorage.getItem('token'); 
+    const port = import.meta.env.VITE_PORT;
+    const ipserver = import.meta.env.VITE_IP;
 
     useEffect(() => {
         const fetchBolsaDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:3003/api/command/get-product/${id}`, {
+                const response = await fetch(`http://${ipserver}:${port}/api/command/get-product/${id}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`, 
