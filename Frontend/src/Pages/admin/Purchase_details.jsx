@@ -28,9 +28,8 @@ const Purchase_details = () => {
 
         setLoading(true); // Mostrar el spinner
         const orderData = {
-            monto: 1000, // Asigna el monto real de la bolsa
-            ordenCompra: '12345',
-            email: 'ferna.cast0607@gmail.com'
+            precio: bolsa.precio, // Asigna el monto real de la bolsa
+            email: localStorage.getItem("email"),
         };
 
         try {

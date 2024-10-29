@@ -54,7 +54,7 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/retorno" element={<RetornoPage />} />
+        <Route path="/paymentaccept" element={<RetornoPage />} />
         <Route path="/dashboard-admin" element={
           <ProtectedRoute>
             <Dashboard_admin />
