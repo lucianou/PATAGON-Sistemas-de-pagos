@@ -3,11 +3,17 @@
   height: 50px;
   padding: 0 20px;
   display: flex;
-  align-items: center;
-  background-color: #D39B34;
+  align-items: center;  
   border-radius: 5px;
   cursor: pointer;
   border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #50A98D;
+  box-shadow: 0 5px 0 #3b7e69;
+  &:active {
+    transform: translateY(5px);
+    box-shadow: 0 2px 0 #3b7e69;
+  }
   .iconUser{
     width: 20px;
     height: 20px;
@@ -16,7 +22,7 @@
   span{
     font-size: medium;
     font-weight: bold;
-    /* filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.5)); */
+    filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.5));
   }
 }
 
@@ -77,6 +83,7 @@
     }
     .passInput{
       position: relative;
+      width: 100%;
       .showPass{
         position: absolute;
         right: 10px;
@@ -94,8 +101,9 @@
     }
 
     .randomPassword{
-      width: fit-content;
+      width: 11.5625em;
       background-color: black;
+      padding: 0 1.25em;
       font-weight: bold;
       border-radius: 5px;
       border: none;
@@ -113,14 +121,23 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #D39B34;
+        transition: transform 0.2s, box-shadow 0.2s;
         border-radius: 5px;
         cursor: pointer;
         border: none;
         font-size: medium;
         font-weight: bold;
         margin: 20px auto;
+        background-color: #50A98D;
         text-transform: uppercase;
+        box-shadow: 0 5px 0 #3b7e69;
+        &:active {
+          transform: translateY(5px);
+          box-shadow: 0 2px 0 #3b7e69;
+        }
+        span{
+          filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.5));
+        }
       }
     }
     .rolGroup{
