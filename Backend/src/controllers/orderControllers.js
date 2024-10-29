@@ -1,18 +1,16 @@
 import axios from "axios";
 
-
 const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const PAYPAL_API_KEY = process.env.PAYPAL_API_KEY;
 const PAYPAL_API = "https://api-m.sandbox.paypal.com";
-const IP_SERVER = process.env.IP_SERVER;
-
-
+const ip_server = process.env.IP_SERVER;
 
 // Controlador para crear un pago PayPal
 export const createPayment = async (req, res) => {
   const {email, precio} = req.body;
-  // console.log(email)
-  // console.log(precio)
+  console.log(email);
+  console.log(precio);
+
 
   try {
     const order = {
@@ -26,12 +24,11 @@ export const createPayment = async (req, res) => {
         },
       ],
       application_context: {
-        description: "Pago de bolsa patagon",
         brand_name: "Patagon arriendos",
         landing_page: "NO_PREFERENCE",
         user_action: "PAY_NOW",
-        return_url: `http://${IP_SERVER}:3003/api/command/confirm-payment`,
-        cancel_url: `http://${IP_SERVER}:3003/api/command/cancel-payment`,
+        return_url: `http://${ip_server}:3003/api/command/confirm-payment`,
+        cancel_url: `http://${ip_server}:3003/api/command/cancel-payment`,
       },
     };
 
@@ -96,7 +93,7 @@ export const confirmPayment = async (req, res) => {
 
     console.log(response.data);
 
-    res.redirect(`http://${IP_SERVER}:4003/paymentaccept`)
+    res.redirect(`http://${ip_server}:4003/dashboard`)
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Internal Server error" });
@@ -105,5 +102,4 @@ export const confirmPayment = async (req, res) => {
 
 
 //controlador para cancelar un pago
-export const cancelPayment = (req, res) => res.redirect(`http://${IP_SERVER}:4003/dashboard`); 
-
+export const cancelPayment = (req, res) => res.redirect(`http://${ip_server}:4003/paymentaccept`);
