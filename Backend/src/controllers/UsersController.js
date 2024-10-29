@@ -184,11 +184,16 @@ Discord: https://discord.gg/WvFTPvvWXh`
 //Obtener todos los usuarios
 export async function AllUsers(req, res) {
     try {
-        const users = await User.findAll({
+        const users1 = await User.findAll({
             attributes: ['email', 'username', 'rol', 'fecha_ingreso', 'nombre'],
             where: { rol: 'Cliente' },
-            order: [['fecha_ingreso', 'DESC']],
+            order: [['fecha_ingreso', 'DESC NULLS LAST']],
         });
+
+        const users = users1.map(user => ({
+            ...user.toJSON(),
+            fecha_ingreso: user.fecha_ingreso ? user.fecha_ingreso.toISOString().split('T')[0] : null,
+          }));
 
         // Consulta para obtener todos los usuarios eliminados
         const deletedUsers = await DeletedUser.findAll();

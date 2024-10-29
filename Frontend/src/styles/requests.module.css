@@ -27,7 +27,7 @@ body{
   gap: 5px;
 }
 .actionButtons {
-  background-color: #27ae60;
+  background: linear-gradient(145deg, #356136, rgb(36, 37, 43));
   color: white;
   border: none;
   border-radius: 5px;

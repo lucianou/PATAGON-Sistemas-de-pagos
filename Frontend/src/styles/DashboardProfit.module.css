@@ -2,7 +2,9 @@
   position: relative;
   width: 90%;
   min-height: 88vh;
+  margin-top: 50px;
 }
+
 .div1, .div2, .div3 {
   position: absolute;
   display: flex;
@@ -10,12 +12,13 @@
   align-items: center;
   width: 49.1%;
   height: 48.3%;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   z-index: 0;
   background-color: black;
   border-radius: 10px;
   padding: 5px;
   overflow: hidden;
+  cursor: pointer; 
 }
 
 .div1 {
@@ -33,11 +36,18 @@
   left: 0;
 }
 
-/* Estilo para el div expandido */
 .div1:hover,
 .div2:hover,
 .div3:hover {
-  width: 100%; /* Opcional, puedes ajustarlo según prefieras */
-  height: 100%; /* Opcional, puedes ajustarlo según prefieras */
+  transform: scale(1.05); 
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); 
+}
+
+
+.expanded {
+  width: 90%;
+  height: 90%;
   z-index: 4;
+  transform: scale(1); 
+  box-shadow: none; 
 }

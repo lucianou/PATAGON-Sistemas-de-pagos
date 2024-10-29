@@ -35,9 +35,10 @@
   border-radius: 8px;
   border: 1px solid #242323;
   margin-left: 20px;
-  height: 400px; 
+  height: 430px; 
   display: flex;
   flex-direction: column;
+  align-content: center;
   
 }
 
@@ -95,4 +96,27 @@
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+
+.logo img{
+  width: 90px;
+  height: 90px;
+
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #3498db; 
+  width: 20px; 
+  height: 20px; 
+  animation: spin 1s linear infinite;
+  display: inline-block; 
+  margin-right: 5px; 
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

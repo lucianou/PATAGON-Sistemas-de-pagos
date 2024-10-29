@@ -12,6 +12,7 @@ const Purchase_details = () => {
     const id = pathname.split('/').pop(); 
     const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { bolsa } = useFetchBolsa(id);
     const { createOrder } = useCreateOrder(); // Obtén la función de creación de órdenes
 
@@ -25,6 +26,7 @@ const Purchase_details = () => {
             return;
         }
 
+        setLoading(true); // Mostrar el spinner
         const orderData = {
             monto: 1000, // Asigna el monto real de la bolsa
             ordenCompra: '12345',
@@ -34,10 +36,12 @@ const Purchase_details = () => {
         try {
             const { urlPago } = await createOrder(orderData); // Usa createOrder desde el hook
             if (urlPago) {
-                window.location.href = urlPago; // Redirige al usuario a la URL de pago de Flow
+                window.location.href = urlPago; 
             }
         } catch (err) {
             console.error('Error al procesar la compra:', err);
+        } finally {
+            setLoading(false); 
         }
     };
 
@@ -90,9 +94,17 @@ const Purchase_details = () => {
                         <button
                             className={styles.buyButton}
                             onClick={handleBuyClick}
+                            disabled={loading} 
                         >
-                            Comprar ahora
+                            {loading ? (
+                                <span className={styles.spinner}></span> // Spinner inline
+                            ) : (
+                                'Comprar ahora'
+                            )}
                         </button>
+                        <div className={styles.logo}>
+                            <img src='/icons/PayPal.svg' alt='PayPal' />
+                        </div>
                     </div>
                 </div>
             </main>

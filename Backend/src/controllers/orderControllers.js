@@ -1,76 +1,99 @@
-import FlowApi from "flowcl-node-api-client"; // Importa la librería
+import axios from "axios";
 
-// Configuración de Flow
-const config = {
-  apiKey: "6C0CF1FB-ECCE-4BE8-8228-2DL17F6412E2", // Asegúrate de que la API Key sea correcta
-  secretKey: "085fd54aafe0b2d77ac053b8e9d6f4fb1a701f56", // Asegúrate de que la Secret Key sea correcta
-  apiURL: 'https://sandbox.flow.cl/api', // URL base de la API
-};
-
-// Controlador para crear un pago
+const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
+const PAYPAL_API_KEY = process.env.PAYPAL_API_KEY;
+const PAYPAL_API = "https://api-m.sandbox.paypal.com";
+const DB_HOST = process.env.DB_HOST;
+// Controlador para crear un pago PayPal
 export const createPayment = async (req, res) => {
   try {
-    const { monto, email } = req.body;
-
-    if (!monto || !email) {
-      return res.status(400).json({ error: 'Missing required payment data (monto and email)' });
-    }
-
-    // Prepara el arreglo de datos
-    const params = {
-      commerceOrder: Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100, // Genera un número de orden aleatorio
-      subject: 'Pago de prueba',
-      currency: 'CLP',
-      amount: parseFloat(monto), // Asegúrate de que el monto sea un número
-      email,
-      paymentMethod: 9, // Todos los métodos de pago
-      urlConfirmation: `${config.apiURL}/payment_confirm`, // URL de confirmación
-      urlReturn: `${config.apiURL}/retorno`, // URL de retorno
+    const order = {
+      intent: "CAPTURE",
+      purchase_units: [
+        {
+          amount: {
+            currency_code: "USD",
+            value: "105.70",
+          },
+        },
+      ],
+      application_context: {
+        brand_name: "Patagon arriendos",
+        landing_page: "NO_PREFERENCE",
+        user_action: "PAY_NOW",
+        return_url: `http://localhost:3003/api/command/confirm-payment`,
+        cancel_url: `http://localhost:3003/api/command/cancel-payment`,
+      },
     };
 
-    // Instancia la clase FlowApi
-    const flowApi = new FlowApi(config);
+    const params = new URLSearchParams();
+    params.append("grant_type", "client_credentials");
 
-    // Define el método a usar
-    const serviceName = "payment/create";
+    // Generar acces token
+    const {
+      data: { access_token },
+    } = await axios.post(
+      "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+      params,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: PAYPAL_CLIENT_ID,
+          password: PAYPAL_API_KEY,
+        },
+      }
+    );
 
-    // Ejecuta el servicio
-    let response = await flowApi.send(serviceName, params, "POST");
+    console.log(access_token);
 
-    // Prepara la URL para redireccionar el browser del pagador
-    const redirect = `${response.url}?token=${response.token}`;
+    // make a request
+    const response = await axios.post(
+      `${PAYPAL_API}/v2/checkout/orders`,
+      order,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
 
-    // Responde con la URL de redirección
-    res.status(200).json({ url: redirect });
+    console.log(response.data);
+
+    return res.json(response.data);
   } catch (error) {
-    console.error('Error creating payment:', error);
-    res.status(500).json({ error: 'Error al crear la orden' }); // Mensaje de error informativo
+    console.log(error);
+    return res.status(500).json("Something goes wrong");
   }
 };
 
 
 // Controlador para confirmar el pago
 export const confirmPayment = async (req, res) => {
-  const { token, s } = req.query;
+  const { token } = req.query;
 
   try {
-    const response = await axios.get(`${FLOW_BASE_URL}/payment/status`, {
-      params: {
-        apiKey: apiKey,
-        token: token,
-        s: s,
+    const response = await axios.post(
+      `${PAYPAL_API}/v2/checkout/orders/${token}/capture`,
+      {},
+      {
+        auth: {
+          username: PAYPAL_CLIENT_ID,
+          password: PAYPAL_API_KEY,
+        },
       }
-    });
+    );
 
-    const { status, commerceOrder } = response.data;
+    console.log(response.data);
 
-    if (status === 2) {
-      console.log(`Orden ${commerceOrder} pagada exitosamente`);
-    }
-
-    res.status(200).send('OK');
+    res.redirect('http://localhost:4003/dashboard')
   } catch (error) {
-    console.error('Error al confirmar el pago:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Error al confirmar el pago' });
+    console.log(error.message);
+    return res.status(500).json({ message: "Internal Server error" });
   }
 };
+
+
+//controlador para cancelar un pago
+export const cancelPayment = (req, res) => res.redirect("/");
