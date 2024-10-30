@@ -95,7 +95,7 @@ export const confirmPayment = async (req, res) => {
 
     console.log(response.data);
 
-    res.redirect(`http://${ip_server}:4003/dashboard`)
+    res.redirect(`http://${ip_server}:4003/paymentaccept`)
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Internal Server error" });
@@ -103,7 +103,7 @@ export const confirmPayment = async (req, res) => {
 };
 
 //controlador para cancelar un pago
-export const cancelPayment = (req, res) => res.redirect(`http://${ip_server}:4003/paymentaccept`);
+export const cancelPayment = (req, res) => res.redirect(`http://${ip_server}:4003/dashboard`);
 
 
 
