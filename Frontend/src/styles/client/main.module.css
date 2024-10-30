@@ -1,12 +1,21 @@
 .container{
-  background-color: #47533A;
+  background-color: #0f0f0f;
+  background: linear-gradient(to bottom, #0f0f0f, #333333);
   min-height: 100vh;
-  font-family: Lora;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   .section1{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 60px 0;
+    width: 100%;
+    /* border-radius: 40px; */
+    /* background-color: #D29E4E; */
+    background: linear-gradient(145deg, #45773e, #216b7e);
+    box-shadow: 0 0 15px #00000096;
+    padding: 30px 0;
+    margin-bottom: 30px;
     .dashboardWidgets{
       display: flex;
       justify-content: center;
@@ -25,10 +34,14 @@
       padding: 30px 0;
       h1{
         font-size: 40px;
+        filter: drop-shadow(0 5px 5px #00000096);
+        font-family: Lora;
         color: #CCCCCC;
         margin-bottom: 20px;
       }
       h3{
+        filter: drop-shadow(0 5px 5px #00000096);
+        font-family: Lora;
         font-size: 20px;
         color: #CCCCCC;
       }
@@ -38,17 +51,28 @@
       flex-direction: row;
       justify-content: center;
       color: #CCCCCC;
-      gap: 30px;
-      padding: 0 20px;
+      gap: 100px;
+      padding: 0 40px;
       div:nth-child(1),
       div:nth-child(2){
-        width: 45%;
-        /* background-color: aqua; */
+        width: 500px;
         h2{
           text-align: center;
+          font-family: Lora;
+          filter: drop-shadow(0 5px 5px #00000096);
+          padding-bottom: 20px;
+        }
+        p, li{
+          font-family: Lora;
+          color: white;
+          text-align: justify;
+        }
+        
+        li{
+          margin-bottom: 20px;
         }
         p{
-          text-align: justify;
+          margin-bottom: 40px;
         }
       }
     }
