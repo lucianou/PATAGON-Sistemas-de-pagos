@@ -2,11 +2,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #181A1B;
-  padding: 10px 0 ;
+  flex-direction: column;
+  /* background-color: #181A1B; */
+  height: 300px;
   .logo{
     width: auto;
-    height: 60px;  
+    height: 90px;  
+  }
+  h2{
+    color: #cccccc;
+    margin-top: 10px;
+    font-size: 30px;
+    font-family: Lora;
+    background: linear-gradient(to right, rgb(10, 179, 108), rgb(0, 171, 140), rgb(137, 194, 168));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 .header{
@@ -14,10 +24,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #3F3729;
   color: white;
   font-weight: bolder;
   font-size: 20px;
+  width: 100%;
   .sectionIzq{
     display: flex;
     align-items: center;

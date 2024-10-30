@@ -84,12 +84,14 @@ const MainClient = () => {
           </div>
           <div>
             <h2>Por que preferirnos</h2>
-            <p>Somos un equipo especializado en computación científica, investigación avanzada y desarrollo tecnológico.
-            Estamos comprometidos con el éxito de tus proyectos, brindando asesoría personalizada y recursos de última generación.
-            Contamos con experiencia en múltiples disciplinas científicas y sectores industriales.
-            Ofrecemos un entorno optimizado para cálculos intensivos, garantizando el máximo rendimiento.
-            Trabajamos con planificación detallada y seguimiento constante para asegurar el éxito de cada tarea.
-            Respaldamos nuestros servicios con acuerdos claros y un enfoque de colaboración duradero.</p>
+            <ul>
+              <li>Somos un equipo especializado en computación científica, investigación avanzada y desarrollo tecnológico.</li>
+              <li>Estamos comprometidos con el éxito de tus proyectos, brindando asesoría personalizada y recursos de última generación.</li>
+              <li>Contamos con experiencia en múltiples disciplinas científicas y sectores industriales.</li>
+              <li>Ofrecemos un entorno optimizado para cálculos intensivos, garantizando el máximo rendimiento.</li>
+              <li>Trabajamos con planificación detallada y seguimiento constante para asegurar el éxito de cada tarea.</li>
+              <li>Respaldamos nuestros servicios con acuerdos claros y un enfoque de colaboración duradero.</li>
+            </ul>
           </div>
         </div>
       </section>
