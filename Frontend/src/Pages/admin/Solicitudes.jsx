@@ -143,9 +143,9 @@ const Solicitudes = () => {
                 </div>
 
                 <div className={styles.filterButtons}>
-                    <button className={filter === 'pendiente' ? styles.active : ''} onClick={() => setFilter('pendiente')}>Pendientes</button>
-                    <button className={filter === 'aceptado' ? styles.active : ''} onClick={() => setFilter('aceptado')}>Aceptadas</button>
-                    <button className={filter === 'rechazado' ? styles.active : ''} onClick={() => setFilter('rechazado')}>Rechazadas</button>
+                    <button className={filter === 'pendiente' ? styles.active : ''} id={styles.btn} onClick={() => setFilter('pendiente')}>Pendientes</button>
+                    <button className={filter === 'aceptado' ? styles.active : ''} id={styles.btn} onClick={() => setFilter('aceptado')}>Aceptadas</button>
+                    <button className={filter === 'rechazado' ? styles.active : ''} id={styles.btn} onClick={() => setFilter('rechazado')}>Rechazadas</button>
                 </div>
 
                 <button className={styles.excel} onClick={handleExport}>

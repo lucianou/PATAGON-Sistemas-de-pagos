@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// exportaciones admins
 import Login from './Pages/admin/Login';
 import Registro from './Pages/admin/Registro';
 import Dashboard from './Pages/admin/Dashboard';
@@ -14,10 +15,17 @@ import ProtectedRoute from '../public/Components/ProtectedRoute';
 import RetornoPage from './Pages/PurchaseReturn';
 import DashboardLayout from '../public/Components/notificaciones/DashboardLayout'
 import Purchase_details from './Pages/admin/Purchase_details';
+import MainClient from './Pages/client/main';
 import 'primereact/resources/themes/saga-blue/theme.css'; 
 import 'primereact/resources/primereact.min.css'; 
 import 'primeicons/primeicons.css'; 
+// exportaciones cliente
 
+import UsInfo from './Pages/client/UsInfo';
+import Bolsas from './Pages/client/Bolsas';
+import Docs from './Pages/client/Docs';
+import UseRequest from './Pages/client/UseRequest';
+import Profile from './Pages/client/Profile';
 function App() {
   return (
     <Router>
@@ -58,6 +66,38 @@ function App() {
         <Route path="/dashboard-admin" element={
           <ProtectedRoute>
             <Dashboard_admin />
+          </ProtectedRoute>
+        } />
+        <Route path="/mainClient" element={
+          <ProtectedRoute>
+            <MainClient />
+          </ProtectedRoute>
+        } />
+
+        {/* paginas cliente */}
+        <Route path="/UsInfo" element={
+          <ProtectedRoute>
+            <UsInfo />
+          </ProtectedRoute>
+        } />
+        <Route path="/Bolsas" element={
+          <ProtectedRoute>
+            <Bolsas />
+          </ProtectedRoute>
+        } />
+        <Route path="/Docs" element={
+          <ProtectedRoute>
+            <Docs />
+          </ProtectedRoute>
+        } />
+        <Route path="/UseRequest" element={
+          <ProtectedRoute>
+            <UseRequest />
+          </ProtectedRoute>
+        } />
+        <Route path="/Profile" element={
+          <ProtectedRoute>
+            <Profile />
           </ProtectedRoute>
         } />
         <Route path="/404" element={<NotFound />} />
