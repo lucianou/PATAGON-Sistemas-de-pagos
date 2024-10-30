@@ -41,6 +41,19 @@ services:
     networks:
       - app-network
 
+  ngrok:
+    image: wernight/ngrok
+    restart: unless-stopped
+    ports:
+      - "4040:4040"
+    environment:
+      - NGROK_AUTHTOKEN=2o8iKMv8qWPABK2pbRR9IUGvo1U_2uwUkJSYZT2uz64vsjxEV
+      - NGROK_PORT=backend:3003
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
 volumes:
   pgdata:
 
