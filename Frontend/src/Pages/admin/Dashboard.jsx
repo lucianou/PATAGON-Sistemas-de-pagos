@@ -67,7 +67,7 @@ const Dashboard = () => {
             <img src={logo} className={styles1.menuIcon}/>
             <h1>Dashboard</h1>
           </div>
-         {userRole === 'Administrador' && <Notification_dashboard />}
+          {userRole === 'Administrador' && <Notification_dashboard />}
         </div>
         <div className={styles.dashboardWidgets}>
           { (

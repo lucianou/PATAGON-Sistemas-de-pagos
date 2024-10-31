@@ -45,22 +45,23 @@ const useForm = (initialData) => {
           const decodedToken = jwtDecode(data.token);
           localStorage.setItem('email', decodedToken.email);
           console.log(decodedToken);
-          if(decodedToken.rol === 'Administrador'){
-            localStorage.setItem('rol', 'Administrador');
+          if(decodedToken.rol !== 'Cliente' && decodedToken.rol !== 'Estudiante' ){
+            localStorage.setItem('rol', decodedToken.rol);
             localStorage.setItem('username', decodedToken.username);
             navigate('/dashboard');
-          } else if (decodedToken.rol === 'Cliente'){
-            localStorage.setItem('rol', 'Cliente');
-            navigate('/dashboard');
+          } else {
+            localStorage.setItem('rol', decodedToken.rol );
+            navigate('/mainClient');
           }
         }
+      setLoading(false);
       }
     })
     .catch((error) => {
       console.error('Error:',error);
       setErrors({ server: 'Error en la solicitud: ' + error.message });
+      setLoading(false);
     });
-    
   }
 
   return { form, errors, loading, handleChange, handleSubmit };
