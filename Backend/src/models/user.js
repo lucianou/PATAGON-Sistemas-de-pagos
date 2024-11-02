@@ -14,7 +14,7 @@ const User = sequelize.define('User', {
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   rol: {
     type: DataTypes.STRING,
@@ -36,6 +36,10 @@ const User = sequelize.define('User', {
   refresh_token: {
     type: DataTypes.STRING,
     allowNull: true,
+  },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
 }, {
   timestamps: false,

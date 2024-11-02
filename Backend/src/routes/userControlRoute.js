@@ -2,7 +2,7 @@ import express from "express";
 import { authenticateToken, authorizeRoles } from "../middleware/authenticateToken.js"
 import{ getPatagonData} from "../controllers/interactionControllers.js"
 import { newUserCreation , AllUsers, deletedUser, insertUserRole, getAdminsRole} from "../controllers/UsersController.js";
-
+import { newUserCreationPatagon , rejectRequest} from "../controllers/patagonController.js";
 
 const router = express.Router();
 
@@ -14,6 +14,9 @@ router.post("/new-user-creation", authenticateToken, authorizeRoles('Administrad
 router.post("/deleted-user", deletedUser);
 router.get("/users", authenticateToken, authorizeRoles('Administrador') ,AllUsers);
 router.get("/get-admins-role" , authenticateToken, authorizeRoles('Administrador') ,getAdminsRole)
+
+router.post("/new-user-creation-patagon", newUserCreationPatagon);
+router.post("/reject-request", rejectRequest);
 
 
 export {router as UserControlRouter}

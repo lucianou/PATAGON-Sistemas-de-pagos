@@ -12,7 +12,5 @@ router.post('/addRequest', upload.fields([
     { name: 'documento_pdf', maxCount: 1 },
     { name: 'documento_pub', maxCount: 1 }
 ]), addRequest);
-//router.post("/addRequest", addRequest);
-
 
 export {router as RequestsRouter}

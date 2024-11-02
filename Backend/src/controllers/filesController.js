@@ -37,3 +37,27 @@ export async function getPub(req, res) {
     res.status(500).json({ error: 'Error al obtener el archivo .pub' });
   }
 }
+
+
+export async function getPUBKey(req, res) {
+  const { id } = req.params;
+  try {
+      const request = await Requests.findByPk(id);
+
+      if (!request || !request.documento_pub) {
+          return res.status(404).json({ mensaje: 'Llave pública no encontrada' });
+      }
+
+      // Convertir el campo `documento_pub` a texto UTF-8 y eliminar espacios en blanco
+      const publicKey = request.documento_pub.toString('utf-8').trim();
+
+      // Retornar la clave pública en formato JSON
+      return res.status(200).json({
+          mensaje: "Clave pública obtenida correctamente",
+          publicKey: publicKey
+      });
+  } catch (error) {
+      console.error('Error al obtener la llave pública:', error);
+      return res.status(500).json({ mensaje: 'Error al obtener la llave pública' });
+  }
+}

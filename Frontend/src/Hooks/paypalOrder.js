@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-const useCreateOrder = () => {
+const paypalOrder = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const HOST = import.meta.env.VITE_IP;
 
-    const createOrder = async (orderData) => {
+    const paypal = async (orderData) => {
         setLoading(true);
         setError(null);
 
@@ -34,7 +34,7 @@ const useCreateOrder = () => {
         }
     };
 
-    return { createOrder, loading, error };
+    return { paypal, loading, error };
 };
 
-export default useCreateOrder;
+export default paypalOrder;

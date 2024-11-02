@@ -11,14 +11,30 @@ import LoginHistory from "../models/loginHistory.js";
 
 //Usuarios con roles administrativos
 export async function getAdminsRole(req, res) {
-    try{
-        const admins = await User.findAll({ where: { rol: { [Op.not]: 'Cliente' } } });
-        res.json(admins);
+    try {
+        const admins = await User.findAll({
+            where: { rol: { [Op.not]: 'Cliente' } },
+            order: [['fecha_ingreso', 'DESC NULLS LAST']],
+        });
+
+        // Formatea la fecha_ingreso en cada objeto admin
+        const formattedAdmins = admins.map(admin => {
+            const formattedDate = admin.fecha_ingreso
+                ? new Date(admin.fecha_ingreso).toISOString().slice(2, 10) // Obtiene 'yy-mm-dd'
+                : null; 
+            return {
+                ...admin.toJSON(), 
+                fecha_ingreso: formattedDate,
+            };
+        });
+
+        res.json(formattedAdmins);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener los administradores' });
     }
 }
+
 
 //Insertar usuario con rol administrativo
 export async function insertUserRole(req, res) {
@@ -45,26 +61,6 @@ export async function insertUserRole(req, res) {
         res.status(500).json({ error: "Error al insertar usuario" });
     }
 }
-
-//Nuevo usuario en patagón, llamada a api
-export async function newUserCreationPatagon(req, res) {
-    try{
-        const{nombre, apellido, institucion, email, key, username, account} = req.body;
-        const apiExternal = await axios.post('https://api.externaservicio.com/endpoint', {
-            nombre, 
-            apellido, 
-            institucion,
-            email, 
-            key, 
-            username, 
-            account
-        });
-        res.status(200).json(apiExternal.data);
-    } catch (error) {
-        console.error('Error llamando a la API externa:', error);
-        res.status(500).json({ mensaje: 'Error al contactar con la API externa' });
-    }
-};
 
 
 export async function newUserCreation(req, res) {
@@ -181,6 +177,7 @@ Discord: https://discord.gg/WvFTPvvWXh`
     }
 }
 
+
 //Obtener todos los usuarios
 export async function AllUsers(req, res) {
     try {
@@ -204,49 +201,6 @@ export async function AllUsers(req, res) {
     }
 }
 
-// export async function deletedUser(req, res) {
-//     const { username, email, motivo } = req.body;
-  
-//     if (!username || !email || !motivo) {
-//       return res.status(400).json({ message: 'Faltan campos obligatorios' });
-//     }
-  
-//     const client = await pool.connect();
-  
-//     try {
-//         await client.query('BEGIN'); // Inicia la transacción
-  
-//         // Primero eliminar las solicitudes asociadas al usuario por el email
-//         const deleteRequestQuery = 'DELETE FROM public."Requests" WHERE "user_id" = (SELECT "ID" FROM public."Users" WHERE "email" = $1)';
-//         await client.query(deleteRequestQuery, [email]);
-  
-//         // Eliminar el usuario de la tabla "Users"
-//         const deleteQuery = 'DELETE FROM public."Users" WHERE "username" = $1 AND "email" = $2';
-//         const deleteResult = await client.query(deleteQuery, [username, email]);
-  
-//         if (deleteResult.rowCount === 0) {
-//             await client.query('ROLLBACK'); // Revertir transacción si no se encuentra el usuario
-//             return res.status(404).json({ message: 'Usuario no encontrado' });
-//         }   
-  
-//         // Insertar los datos en la tabla "Delete_users"
-//         const insertQuery = `
-//         INSERT INTO public."Deleted_users" ("username", "email", "motivo")
-//         VALUES ($1, $2, $3)
-//         `;
-//         await client.query(insertQuery, [username, email, motivo]);
-  
-//         await client.query('COMMIT'); // Confirmar la transacción
-  
-//         return res.status(200).json({ message: 'Usuario eliminado y registrado en Delete_users' });
-//         } catch (error) {
-//             await client.query('ROLLBACK'); // Revertir la transacción en caso de error
-//             console.error('Error al eliminar el usuario:', error);
-//             return res.status(500).json({ message: 'Error del servidor' });
-//         } finally {
-//             client.release(); // Liberar el cliente
-//         }
-// }
 
 //deleteUser usando sequelize
 export async function deletedUser(req, res) {

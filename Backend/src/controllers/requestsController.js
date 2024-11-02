@@ -6,6 +6,7 @@ export async function requests(req, res) {
   try {
     const requests = await Resquests.findAll({
       attributes: ['ID_request', 'nombre', 'email', 'institucion', 'estado', 'fecha'],
+      order: [['fecha', 'ASC']],
     });
 
      // Formatear la fecha a 'YYYY-MM-DD'
