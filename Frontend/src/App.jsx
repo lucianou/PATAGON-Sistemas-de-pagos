@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'sonner';
+import styles from "../src/styles/Notifications_Sonner.module.css";
 // exportaciones admins
 import Login from './Pages/admin/Login';
 import Registro from './Pages/admin/Registro';
@@ -26,6 +28,8 @@ import Bolsas from './Pages/client/Bolsas';
 import Docs from './Pages/client/Docs';
 import UseRequest from './Pages/client/UseRequest';
 import Profile from './Pages/client/Profile';
+
+
 function App() {
   return (
     <Router>
@@ -53,6 +57,7 @@ function App() {
         <Route path="/dashboard-solicitudes" element={
           <ProtectedRoute>
             <Solicitudes />
+            <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
           </ProtectedRoute>
         } />
         

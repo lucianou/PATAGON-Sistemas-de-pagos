@@ -4,19 +4,18 @@ const ipserver = import.meta.env.VITE_IP;
 const port = import.meta.env.VITE_PORT;
 
 const useFileViewer = () => {
-    const token = localStorage.getItem('token'); // Obtén el token almacenado
+    const token = localStorage.getItem('token'); 
     const viewFile = useCallback(async (id, type) => {
         const endpoint = type === 'pdf' 
             ? `http://${ipserver}:${port}/api/command/viewPDF/${id}` 
-            : `http://${ipserver}:${port}/api/command/viewPUB/${id}`;
+            : `http://${ipserver}:${port}/api/command/get-pub-key/${id}`;
 
         try {
-            // Abre el archivo en una nueva pestaña
             const response = await fetch(endpoint, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // Envía el token en los headers
+                    'Authorization': `Bearer ${token}` 
                 }
             });
 
@@ -36,11 +35,17 @@ const useFileViewer = () => {
                 throw new Error('Error al obtener el archivo');
             }
 
-            // Si el archivo es un PUB, se puede abrir directamente
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            window.open(url); // Abre en nueva pestaña
-            window.URL.revokeObjectURL(url); // Libera el objeto URL
+            if (type === 'pub') {
+                const data = await response.json();
+                console.log(data.publicKey);
+                return data.publicKey; 
+            }
+            else {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                window.open(url); 
+                window.URL.revokeObjectURL(url); 
+            }
         } catch (error) {
             console.error('Error al obtener el archivo:', error);
         }

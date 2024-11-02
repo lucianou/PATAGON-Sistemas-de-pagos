@@ -30,7 +30,7 @@ const Dashboard = () => {
           }
         });
 
-        if(response.status == 403){
+        if(response.status == 401){
           return refreshAccessToken().then(newToken => {
             return fetch(`http://${ipserver}:${port}/api/command/get-products`,{
               method: 'GET',

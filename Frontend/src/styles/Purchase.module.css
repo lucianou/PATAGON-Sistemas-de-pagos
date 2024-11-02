@@ -35,7 +35,7 @@
   border-radius: 8px;
   border: 1px solid #242323;
   margin-left: 20px;
-  height: 430px; 
+  height: 470px; 
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -98,11 +98,16 @@
   gap: 5px;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
 
 .logo img{
-  width: 90px;
-  height: 90px;
-
+  width: 80px;
+  height: 80px;
 }
 
 .spinner {
@@ -114,6 +119,21 @@
   animation: spin 1s linear infinite;
   display: inline-block; 
   margin-right: 5px; 
+}
+
+.paymentMethod {
+  display: flex;                /* Usar flexbox para organizar en fila */
+  align-items: center;         /* Centrar verticalmente */
+  gap: 20px;                   /* Espacio entre los elementos */
+  margin-top: 16px;            /* Espacio superior para separar de otros elementos */
+}
+
+.paymentMethod input {
+  margin-right: 8px;           /* Espacio entre el radio y la etiqueta */
+}
+
+.paymentMethod label {
+  font-size: 14px;            
 }
 
 @keyframes spin {

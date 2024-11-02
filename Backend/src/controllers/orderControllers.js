@@ -1,6 +1,5 @@
 import axios from "axios";
-import mercadopago from "mercadopago";
-
+import Orders from "../models/transactions.js";
 
 const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const PAYPAL_API_KEY = process.env.PAYPAL_API_KEY;
@@ -8,13 +7,11 @@ const PAYPAL_API = "https://api-m.sandbox.paypal.com";
 const ip_server = process.env.IP_SERVER;
 const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
 
+
 // Controlador para crear un pago PayPal
 export const createPayment = async (req, res) => {
-  const {email, precio} = req.body;
-  console.log(email);
-  console.log(precio);
-
-
+  const {email, precio, id} = req.body;
+  
   try {
     const order = {
       intent: "CAPTURE",
@@ -55,8 +52,6 @@ export const createPayment = async (req, res) => {
       }
     );
 
-    console.log(access_token);
-
     // make a request
     const response = await axios.post(
       `${PAYPAL_API}/v2/checkout/orders`,
@@ -67,8 +62,22 @@ export const createPayment = async (req, res) => {
         },
       }
     );
+    
+    //guardar en la base de datos
+    const orderData = {
+      order_id: response.data.id,
+      user_email: email,
+      payment_method: "PayPal",
+      amount: parseFloat(precio),
+      currency: "USD",
+      status: "Creado",
+      created_at: new Date(),
+      id_product: id,
+    };
 
-    console.log(response.data);
+    await Orders.create(orderData);
+    console.log("Orden creada en PayPal y guardada en BD");
+
 
     return res.json(response.data);
   } catch (error) {
@@ -93,7 +102,18 @@ export const confirmPayment = async (req, res) => {
       }
     );
 
-    console.log(response.data);
+    const { id: orderId, status } = response.data;
+    console.log(`Orden ${orderId} capturada en PayPal con estado: ${status}`);
+
+    //actualizar en la base de datos
+    if (status === "COMPLETED") {
+      await Orders.update(
+        { status: "Pagado", updated_at: new Date() },
+        {where: {order_id: orderId}}
+    )
+    };
+
+    //console.log(response.data);
 
     res.redirect(`http://${ip_server}:4003/paymentaccept`)
   } catch (error) {
@@ -103,28 +123,47 @@ export const confirmPayment = async (req, res) => {
 };
 
 //controlador para cancelar un pago
-export const cancelPayment = (req, res) => res.redirect(`http://${ip_server}:4003/dashboard`);
+export const cancelPayment = async (req, res) => {
+ 
+  try {
+      await Orders.update(
+          { status: "Cancelado", updated_at: new Date() }, 
+          { where: { order_id: req.query.token } }
+      );
 
+      console.log(`Orden ${req.query.token} ha sido cancelada y su estado actualizado a "Cancelado"`);
+
+  
+      res.redirect(`http://${ip_server}:4003/dashboard`);
+  } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({ message: "Internal Server error" });
+  }
+};
 
 
 //controlador para crear un pago MercadoPago
 export const createOrderMercadoPago = async (req, res) => {
+  const { email, precio, id } = req.body;
+  const order = new Date().getTime();
+
+
   try {
-   
-    // Define el payload de la orden de pago
     const payload = {
       items: [
         {
-          title: "Patagon arriendos",
-          unit_price: 1000,
+          title: `Patagon arriendo bolsa ${id}`,
+          description: email,
+          unit_price: Number(precio),
           currency_id: "CLP",
           quantity: 1,
         },
       ],
-      notification_url: "https://rx84cmhh-3003.brs.devtunnels.ms/api/command/webhook",
+      metadata: {email, order},
+      notification_url: `http://${ip_server}:3003/api/command/webhook`,
       back_urls: {
-        success: "http://localhost:4003/paymentaccept",
-        //failure: "http://localhost:3000/api/commmand/failure",
+        success: `http://${ip_server}:4003/paymentaccept`,
+        failure: `http://${ip_server}:4003/dashboard`,
         //pending: "http://localhost:3000//api/commmand/pending",
       },
       auto_return: "approved",
@@ -143,7 +182,24 @@ export const createOrderMercadoPago = async (req, res) => {
     );
 
     // Muestra en consola el objeto de respuesta completo
-    console.log("Respuesta de Mercado Pago:", response.data);
+    //console.log("Respuesta de Mercado Pago:", response.data);
+    // console.log(response);
+
+    //guardar en la base de datos
+    const orderData = {
+      //crear id de orden segun fecha y hora
+      order_id: order,
+      user_email: email,
+      payment_method: "MercadoPago",
+      amount: parseFloat(precio),
+      currency: "CLP",
+      status: "Creado",
+      created_at: new Date(),
+      id_product: id,
+    };
+
+    await Orders.create(orderData);
+    console.log("Orden creada en mercadopago y guardada en BD");
 
     // Responde con el link de pago
     res.json({ init_point: response.data.init_point });
@@ -176,7 +232,18 @@ export const webhookMercadoPago = async (req, res) => {
       }
 
       const data = await response.json();
-      console.log("Detalles del pago:", data);
+      //console.log("Detalles del pago:", data);
+      console.log("correo", data.metadata.email);
+
+      //actualizar en la base de datos
+      if (data.status === "approved") {
+        await Orders.update(
+          { status: "Pagado", updated_at: new Date() },
+          {where: {order_id: data.metadata.order}},
+        )
+      };
+
+      
     }
 
     res.sendStatus(204); 

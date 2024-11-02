@@ -7,12 +7,18 @@ import refreshAccessToken from '../../../public/Components/RefreshToken';
 import logo from '../../assets/SoloLogo_Patagon.png';
 import TableComponent from '../../../public/Components/Table/Table';
 import useFileViewer from '../../Hooks/useFileViewer';
-
+import AcceptRequestModal from '../../../public/Components/RequestsUsers/AcceptRequestModal';
+import RejectRequestModal from '../../../public/Components/RequestsUsers/RejectRequestModal';
+import { toast} from 'sonner';
+import { fetchRequest } from '../../Hooks/patagonUserFetch';
 
 const Solicitudes = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [solicitudes, setSolicitudes] = useState([]);
     const [filter, setFilter] = useState('pendiente');
+    const [selectedSolicitud, setSelectedSolicitud] = useState(null);
+    const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
+    const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
     const { viewFile } = useFileViewer();
     const ipserver = import.meta.env.VITE_IP;
     const port = import.meta.env.VITE_PORT;
@@ -56,13 +62,67 @@ const Solicitudes = () => {
         fetchSolicitudes();
     }, []);
 
-
     const handleViewPDF = async (id) => {
        viewFile(id, 'pdf');
     };
 
-    const handleViewPUB = async (id) => {
-        viewFile(id, 'pub');
+    const handleViewPUB = async (id, nombre) => {
+        const key = await viewFile(id, 'pub');
+        alert(`Nombre de usuario: ${nombre}\n\nClave pública:\n${key}`);
+    };
+
+    const handleAcceptClick = (solicitud) => {
+        setSelectedSolicitud(solicitud);
+        setIsAcceptModalOpen(true); 
+    };
+
+    const handleRejectClick = (solicitud) => {
+        setSelectedSolicitud(solicitud);
+        setIsRejectModalOpen(true);
+    };
+
+    const handleAccept = async (formData) => {
+        const { success, data, error } = await fetchRequest(
+            `http://${ipserver}:${port}/api/command/new-user-creation-patagon`,'POST',formData);
+    
+        if (success) {
+            console.log('Respuesta del servidor:', data);
+            setSolicitudes(prevSolicitudes =>
+                prevSolicitudes.map(solicitud =>
+                    solicitud.ID_request === formData.ID_request
+                        ? { ...solicitud, estado: 'aceptado' }
+                        : solicitud
+                )
+            );
+            toast.success('Solicitud aceptada exitosamente!');
+            setIsAcceptModalOpen(false);
+        } else {
+            console.error('Error al aceptar la solicitud:', error);
+            toast.error('Error al aceptar la solicitud');
+        }
+    };
+    
+
+    const handleReject = async (reasonData) => {
+        console.log(reasonData);
+        const { success, data, error } = await fetchRequest(
+            `http://${ipserver}:${port}/api/command/reject-request`,'POST',reasonData);
+            
+        if (success) {
+            console.log('Respuesta del servidor:', data);
+            setSolicitudes(prevSolicitudes =>
+                prevSolicitudes.map(solicitud =>
+                    solicitud.ID_request === reasonData.ID_request
+                        ? { ...solicitud, estado: 'rechazado' }
+                        : solicitud
+                )
+            );
+            toast.success('Solicitud rechazada exitosamente!');
+            setIsRejectModalOpen(false);
+        } else {
+            console.error('Error al rechazar la solicitud:', error);
+            toast.error('Error al rechazar la solicitud');
+        }
     };
 
     const exportToExcel = (data) => {
@@ -88,10 +148,18 @@ const Solicitudes = () => {
                 accessor: 'documentos',
                 Cell: ({ row }) => (
                     <div className={styles.files}>
-                        <button className={styles.fileButton} onClick={() => handleViewPDF(row.original.ID_request)}>
+                        <button
+                            className={styles.fileButton}
+                            onClick={() => handleViewPDF(row.original.ID_request)}
+                            title="Solicitud"
+                        >
                             <img src="/icons/pdf-icon.svg" alt="Ver PDF" />
                         </button>
-                        <button className={styles.fileButton} onClick={() => handleViewPUB(row.original.ID_request)}>
+                        <button
+                            className={styles.fileButton}
+                            onClick={() => handleViewPUB(row.original.ID_request, row.original.nombre)}
+                            title="Llave pública"
+                        >
                             <img src="/icons/pub_icon.svg" alt="Ver PUB" />
                         </button>
                     </div>
@@ -110,8 +178,19 @@ const Solicitudes = () => {
         if (solicitud.estado === 'pendiente') {
             return (
                 <div className={styles.actionButtonsContainer}>
-                    <button className={styles.actionButtons} onClick={() => alert(`Aceptar solicitud de ${solicitud.nombre}`)}>Aceptar</button>
-                    <button className={styles.actionButtons} onClick={() => alert(`Rechazar solicitud de ${solicitud.nombre}`)}>Rechazar</button>
+                    <button
+                        className={styles.actionButtons}
+                        onClick={() => handleAcceptClick(solicitud)}
+                    >
+                        Aceptar
+                    </button>
+                    <button
+                        className={styles.actionButtons}
+                        onClick={() => handleRejectClick(solicitud)}
+                        title="Rechazar solicitud"
+                        >
+                            Rechazar
+                        </button>
                 </div>
             );
         }
@@ -143,9 +222,27 @@ const Solicitudes = () => {
                 </div>
 
                 <div className={styles.filterButtons}>
-                    <button className={filter === 'pendiente' ? styles.active : ''} id={styles.btn} onClick={() => setFilter('pendiente')}>Pendientes</button>
-                    <button className={filter === 'aceptado' ? styles.active : ''} id={styles.btn} onClick={() => setFilter('aceptado')}>Aceptadas</button>
-                    <button className={filter === 'rechazado' ? styles.active : ''} id={styles.btn} onClick={() => setFilter('rechazado')}>Rechazadas</button>
+                    <button 
+                        className={filter === 'pendiente' ? styles.active : ''} 
+                        id={styles.btn} 
+                        onClick={() => setFilter('pendiente')}
+                    >
+                        Pendientes
+                    </button>
+                    <button 
+                        className={filter === 'aceptado' ? styles.active : ''} 
+                        id={styles.btn} 
+                        onClick={() => setFilter('aceptado')}
+                    >
+                        Aceptadas
+                    </button>
+                    <button 
+                        className={filter === 'rechazado' ? styles.active : ''} 
+                        id={styles.btn} 
+                        onClick={() => setFilter('rechazado')}
+                    >
+                        Rechazadas
+                    </button>
                 </div>
 
                 <button className={styles.excel} onClick={handleExport}>
@@ -155,7 +252,8 @@ const Solicitudes = () => {
 
                 <div className={styles.solicitudesList}>
                     {filteredSolicitudes.length > 0 ? (
-                        <TableComponent 
+                        <TableComponent
+                            key={solicitudes.length}
                             columns={columns} 
                             data={filteredSolicitudes} 
                         />
@@ -163,6 +261,24 @@ const Solicitudes = () => {
                         <p>No hay solicitudes disponibles.</p>
                     )}
                 </div>
+
+                {isAcceptModalOpen && (
+                    <AcceptRequestModal
+                        isOpen={isAcceptModalOpen}
+                        onClose={() => setIsAcceptModalOpen(false)}
+                        onAccept={handleAccept}
+                        solicitud={selectedSolicitud}
+                    />
+                )}
+
+                {isRejectModalOpen && (
+                    <RejectRequestModal
+                        isOpen={isRejectModalOpen}
+                        onClose={() => setIsRejectModalOpen(false)}
+                        onReject={handleReject}
+                        solicitud={selectedSolicitud}
+                    />
+                )}
             </main>
         </div>
     );

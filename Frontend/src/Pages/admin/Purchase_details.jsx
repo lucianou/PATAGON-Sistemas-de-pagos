@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import styles1 from '../../styles/DashboardGeneral.module.css';
 import styles from '../../styles/Purchase.module.css';
 import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard';
 import logo from '../../assets/SoloLogo_Patagon.png';
 import useFetchBolsa from '../../Hooks/bolsas';
-import useCreateOrder from '../../Hooks/useCreateOrder'; // Asegúrate de que la ruta sea correcta
+import paypalOrder from '../../Hooks/paypalOrder'; // Asegúrate de que la ruta sea correcta
+import mercadopagoOrder from '../../Hooks/mercadopagoOrder';
 
 const Purchase_details = () => {
     const { pathname } = useLocation();
@@ -13,11 +14,17 @@ const Purchase_details = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState('paypal'); // Estado para el método de pago
     const { bolsa } = useFetchBolsa(id);
-    const { createOrder } = useCreateOrder(); // Obtén la función de creación de órdenes
+    const { paypal } = paypalOrder(); 
+    const { mercadopago } = mercadopagoOrder();
 
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
+    };
+
+    const handlePaymentMethodChange = (e) => {
+        setPaymentMethod(e.target.value); // Actualiza el método de pago seleccionado
     };
 
     const handleBuyClick = async () => {
@@ -28,12 +35,21 @@ const Purchase_details = () => {
 
         setLoading(true); // Mostrar el spinner
         const orderData = {
-            precio: bolsa.precio, // Asigna el monto real de la bolsa
+            precio: bolsa.precio,
             email: localStorage.getItem("email"),
+            id: bolsa.ID,
         };
 
         try {
-            const { urlPago } = await createOrder(orderData); // Usa createOrder desde el hook
+            let urlPago;
+            if (paymentMethod === 'paypal') {
+                const response = await paypal(orderData);
+                urlPago = response.urlPago; 
+            } else if (paymentMethod === 'mercadopago') {
+                const response = await mercadopago(orderData);
+                urlPago = response.urlPago; 
+            }
+
             if (urlPago) {
                 window.location.href = urlPago; 
             }
@@ -45,7 +61,7 @@ const Purchase_details = () => {
     };
 
     if (!bolsa) {
-        return <div>Cargando...</div>; // Puedes agregar un spinner o mensaje de carga
+        return <div>Cargando...</div>;
     }
 
     return (
@@ -90,19 +106,47 @@ const Purchase_details = () => {
                             />
                             <label htmlFor="termsCheckbox">Acepto los términos y condiciones</label>
                         </div>
+
+                        <div className={styles.paymentMethod}>
+                
+                            <div>
+                                <input
+                                    type="radio"
+                                    id="paypal"
+                                    name="paymentMethod"
+                                    value="paypal"
+                                    checked={paymentMethod === 'paypal'}
+                                    onChange={handlePaymentMethodChange}
+                                />
+                                <label htmlFor="paypal">PayPal</label>
+                            </div>
+                            <div>
+                                <input
+                                    type="radio"
+                                    id="mercadopago"
+                                    name="paymentMethod"
+                                    value="mercadopago"
+                                    checked={paymentMethod === 'mercadopago'}
+                                    onChange={handlePaymentMethodChange}
+                                />
+                                <label htmlFor="mercadopago">Mercado Pago</label>
+                            </div>
+                        </div>
+
                         <button
                             className={styles.buyButton}
                             onClick={handleBuyClick}
                             disabled={loading} 
                         >
                             {loading ? (
-                                <span className={styles.spinner}></span> // Spinner inline
+                                <span className={styles.spinner}></span>
                             ) : (
                                 'Comprar ahora'
                             )}
                         </button>
                         <div className={styles.logo}>
                             <img src='/icons/PayPal.svg' alt='PayPal' />
+                            <img src='/icons/mercadopago.svg' alt='Mercado Pago' /> 
                         </div>
                     </div>
                 </div>
