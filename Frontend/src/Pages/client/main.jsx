@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/client/main.module.css";
 import NavBar from "../../../public/Components/navBarClient/navBarClient";
 import Card from '../../../public/Components/Tarjeta/Card.jsx';
+import logo from "../../../src/assets/patagon-logo-text-color.png";
 import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
 
 const MainClient = () => {
@@ -51,6 +52,10 @@ const MainClient = () => {
   return (
     <div className={styles.container}>
       <NavBar />
+      <div className={styles.headerLogo}>
+        <img src={logo} alt="logo" className={styles.logo}/>
+        <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
+      </div>
       <section className={styles.section1}>
           <div className={styles.dashboardWidgets}>
             { (
@@ -73,7 +78,7 @@ const MainClient = () => {
       </section>
       <section className={styles.section2}>
         <div className={styles.header}>
-            <h1>SOMOS</h1>
+            <h1>NOSOTROS SOMOS</h1>
             <h3>Tu Partner en computacion de alto rendimiento</h3>
         </div>
         <div className={styles.parrafos}>
@@ -95,8 +100,11 @@ const MainClient = () => {
           </div>
         </div>
         <section className={styles.trustedPartner}>
-          <h2>Un aliado seguro</h2>
-          <p>Proveemos recursos altamente confiables...</p>
+          <h1>Un aliado seguro</h1>
+          <div className={styles.divTexto}>
+            <p>Seremos mucho más que otro recurso técnico en tu equipo. </p>
+            <p>Porque hacemos nuestros tus desafíos, nos adaptamos a tus necesidades y te brindamos la seguridad de que tus proyectos de investigación y desarrollo estarán en manos confiables, con el soporte y la tecnología de vanguardia del supercomputador Patagón.</p>
+          </div>
         </section>
 
         <section className={styles.values}>

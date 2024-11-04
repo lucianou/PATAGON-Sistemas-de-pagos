@@ -1,3 +1,26 @@
+.headerLogo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* background-color: #181A1B; */
+  height: 300px;
+  .logo{
+    width: auto;
+    height: 90px;  
+  }
+  h2{
+    color: #cccccc;
+    margin-top: 10px;
+    font-size: 30px;
+    font-family: Lora;
+    background: linear-gradient(to top, rgb(10, 179, 108), rgb(45, 199, 171), rgb(224, 213, 213));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
 .container{
   background-color: #0f0f0f;
   background: linear-gradient(to bottom, #0f0f0f, #333333);
@@ -12,7 +35,7 @@
     width: 100%;
     /* border-radius: 40px; */
     background-color: #838383;
-    /* background: linear-gradient(145deg, #45773e, #216b7e); */
+    /* background: linear-gradient(to right, #919191, #727272); */
     box-shadow: 0 0 15px #00000096;
     padding: 30px 0;
     margin-bottom: 30px;
@@ -34,7 +57,7 @@
       padding: 30px 0;
       h1{
         font-size: 40px;
-        filter: drop-shadow(0 5px 5px #00000096);
+        filter: drop-shadow(3px 3px 0px #00000096);
         font-family: Lora;
         color: #CCCCCC;
         margin-bottom: 20px;
@@ -75,6 +98,87 @@
           margin-bottom: 40px;
         }
       }
+
+    }
+    .missionVision {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      h2 {
+        color: #cccccc;
+      }
+    }
+  
+    .trustedPartner {
+      text-align: center;
+      background-color: #141414;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      color: #cccccc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      h1{
+        padding: 10px 0;
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+      .divTexto{
+        /* background-color: red; */
+        width: 56.25em;
+        margin-bottom: 10px;
+
+      }
+    }
+    
+    .values {
+      text-align: center;
+      margin-bottom: 2rem;
+      h2 {
+        color: #cccccc;
+        margin-bottom: 1.5rem;
+      }
+    }
+    
+    .valueItems {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1rem;
+      div {
+        background-color: #1e1e1e;
+        padding: 1rem;
+        border-radius: 8px;
+        color: #cccccc;
+        text-align: center;
+        width: 120px;
+      }
+    }
+    
+    .team {
+      text-align: center;
+      h2 {
+        color: #cccccc;
+        margin-bottom: 1.5rem;
+      }
+    }
+    
+    .teamMembers {
+      display: flex;
+      justify-content: space-around;
+    }
+    
+    .member {
+      background-color: #333333;
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b3b3b3;
     }
   }
 }
