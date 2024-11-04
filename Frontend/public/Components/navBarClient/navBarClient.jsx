@@ -15,7 +15,7 @@ const navBar = () => {
           <a href='/UsInfo' tabIndex='-1'>
             Nosotros
           </a>
-          <a href='/Bolsa' tabIndex='-1'>
+          <a href='/Bolsas' tabIndex='-1'>
             Bolsas
           </a>
           <a href='/Docs' tabIndex='-1'>  
