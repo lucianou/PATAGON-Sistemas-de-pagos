@@ -11,6 +11,7 @@ import AcceptRequestModal from '../../../public/Components/RequestsUsers/AcceptR
 import RejectRequestModal from '../../../public/Components/RequestsUsers/RejectRequestModal';
 import { toast} from 'sonner';
 import { fetchRequest } from '../../Hooks/patagonUserFetch';
+import useExportToExcel from '../../Hooks/exportExcelRequests';
 
 const Solicitudes = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,7 @@ const Solicitudes = () => {
     const [selectedSolicitud, setSelectedSolicitud] = useState(null);
     const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
     const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
+    const { exportToExcel, loading } = useExportToExcel();
     const { viewFile } = useFileViewer();
     const ipserver = import.meta.env.VITE_IP;
     const port = import.meta.env.VITE_PORT;
@@ -125,16 +127,14 @@ const Solicitudes = () => {
         }
     };
 
-    const exportToExcel = (data) => {
-        const worksheet = XLSX.utils.json_to_sheet(data);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
-        XLSX.writeFile(workbook, 'Solicitudes.xlsx');
-    };
-
+    
     const handleExport = () => {
-        exportToExcel(solicitudes);
-    };
+        exportToExcel(
+          `http://${ipserver}:${port}/api/command/requests`,   
+          'Solicitudes_Historico'
+        );
+      };
+    
 
     const columns = React.useMemo(
         () => [
