@@ -9,16 +9,20 @@ const navBar = () => {
       <div className={styles.header}>
         {/* <img src={wave} alt="wave" className={styles.wave}/> */}
         <div className={styles.sectionIzq}>
-          <span>Inicio</span>
-          <span>Nosotros</span>
-          <span>Bolsas</span>
-          <span>Docs</span>
+          <a href='/mainClient' tabIndex='-1'>
+            <span>Inicio</span>
+          </a>
+          <a href='/UsInfo' tabIndex='-1'>
+            <span>Nosotros</span>
+          </a>
+          <a href='/Bolsa' tabIndex='-1'>
+            <span>Bolsas</span>
+          </a>
+          <a href='/Docs' tabIndex='-1'>
+            <span>Docs</span>
+          </a>
         </div>
         <span>Mi Perfil</span>
-      </div>
-      <div className={styles.headerLogo}>
-        <img src={logo} alt="logo" className={styles.logo}/>
-        <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
       </div>
     </>
   );

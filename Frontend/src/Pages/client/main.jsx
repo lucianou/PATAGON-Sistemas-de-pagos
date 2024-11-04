@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/client/main.module.css";
 import NavBar from "../../../public/Components/navBarClient/navBarClient";
 import Card from '../../../public/Components/Tarjeta/Card.jsx';
+import logo from "../../../src/assets/patagon-logo-text-color.png";
 import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
 
 const MainClient = () => {
@@ -51,6 +52,10 @@ const MainClient = () => {
   return (
     <div className={styles.container}>
       <NavBar />
+      <div className={styles.headerLogo}>
+        <img src={logo} alt="logo" className={styles.logo}/>
+        <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
+      </div>
       <section className={styles.section1}>
           <div className={styles.dashboardWidgets}>
             { (
