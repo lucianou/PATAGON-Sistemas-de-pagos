@@ -182,7 +182,7 @@ Discord: https://discord.gg/WvFTPvvWXh`
 export async function AllUsers(req, res) {
     try {
         const users1 = await User.findAll({
-            attributes: ['email', 'username', 'rol', 'fecha_ingreso', 'nombre'],
+            attributes: ['email', 'username', 'rol', 'fecha_ingreso', 'nombre', 'type'],
             where: { rol: 'Cliente' },
             order: [['fecha_ingreso', 'DESC NULLS LAST']],
         });
