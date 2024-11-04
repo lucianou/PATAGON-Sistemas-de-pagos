@@ -1,0 +1,53 @@
+.ProfileContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, #c4a348, #4e6b2c);
+  height: 100vh;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.ProfileCard{
+  background: linear-gradient(180deg, #333333, #222222);
+  width: 60%;
+  height: 300px;
+  border-radius: 20px;
+  display: flex;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.ProfileImage{
+  width: 100px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.UserInfo{ 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.UserName{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.UserAntiquity{
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.ServiceInfo{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}

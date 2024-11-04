@@ -28,6 +28,7 @@ import Bolsas from './Pages/client/Bolsas';
 import Docs from './Pages/client/Docs';
 import UseRequest from './Pages/client/UseRequest';
 import Profile from './Pages/client/Profile';
+import HistorialCompras from './Pages/client/historialCompras';
 
 
 function App() {
@@ -103,6 +104,11 @@ function App() {
         <Route path="/Profile" element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path="/Compras" element={
+          <ProtectedRoute>
+            <HistorialCompras />
           </ProtectedRoute>
         } />
         <Route path="/404" element={<NotFound />} />
