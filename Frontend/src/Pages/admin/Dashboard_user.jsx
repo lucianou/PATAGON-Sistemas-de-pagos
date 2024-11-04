@@ -49,6 +49,7 @@ const Dashboard_user = () => {
       { Header: 'Email', accessor: 'email', sortType: 'alphanumeric' },
       { Header: 'Rol', accessor: 'rol' },
       { Header: 'Fecha ingreso', accessor: 'fecha_ingreso' },
+      { Header: 'Tipo', accessor: 'type' },
       {
         Header: 'Acciones', accessor: 'acciones',
         Cell: ({ row }) => (

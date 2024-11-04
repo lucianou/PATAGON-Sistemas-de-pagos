@@ -34,8 +34,17 @@
   justify-content:center;
   gap: 5px;
 }
-.actionButtons {
-  background: linear-gradient(145deg, #356136, rgb(36, 37, 43));
+.actionButtonsAccept {
+  background: #5ba16585;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.actionButtonsReject {
+  background: #c29d53a8;
   color: white;
   border: none;
   border-radius: 5px;

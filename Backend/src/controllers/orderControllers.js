@@ -219,7 +219,7 @@ export const webhookMercadoPago = async (req, res) => {
     if (payment.type === "payment") {
       // Realiza una llamada a la API de MercadoPago para obtener los detalles del pago
       const paymentId = payment["data.id"];
-      
+
       const response = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
         method: 'GET',
         headers: {
@@ -239,14 +239,14 @@ export const webhookMercadoPago = async (req, res) => {
       if (data.status === "approved") {
         await Orders.update(
           { status: "Pagado", updated_at: new Date() },
-          {where: {order_id: data.metadata.order}},
+          { where: { order_id: data.metadata.order } },
         )
       };
 
-      
+
     }
 
-    res.sendStatus(204); 
+    res.sendStatus(204);
   } catch (error) {
     console.error("Error al procesar el webhook:", error);
     return res.status(500).json({ message: "Something went wrong" });

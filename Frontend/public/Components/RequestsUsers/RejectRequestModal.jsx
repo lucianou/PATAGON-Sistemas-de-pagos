@@ -9,7 +9,7 @@ const RejectRequestModal = ({ isOpen, onClose, onReject, solicitud }) => {
   };
 
   const handleSubmit = () => {
-    onReject({ reason, requestId: solicitud.ID_request });
+    onReject({ reason, requestId: solicitud.ID_request, nombre: solicitud.nombre, email: solicitud.email });
     onClose();
   };
 

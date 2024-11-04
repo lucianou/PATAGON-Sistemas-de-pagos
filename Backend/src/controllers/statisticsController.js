@@ -1,4 +1,5 @@
 import LoginHistory from "../models/loginHistory.js";
+import Orders from "../models/transactions.js";
 import { Sequelize, Op } from "sequelize";
 
 //Obtener los datos de de registro de usuarios
@@ -102,5 +103,27 @@ export async function getUsersStats3Months(req, res) {
   } catch (error) {
     console.error('Error al obtener los datos de registro de usuarios:', error);
     res.status(500).json({ error: 'Error al obtener los datos de registro de usuarios' });
+  }
+}
+
+
+
+//obtener ganancias totales
+export async function getGananciasTotales(req, res) {
+  try {
+    const orders = await Orders.findAll({
+      attributes: ['amount'],
+      where: { status: "Pagado" },
+    });
+
+    const totalGanancias = orders.reduce((total, order) => {
+      // Convertir order.amount a número usando parseFloat
+      return total + parseFloat(order.amount) || 0; // Usa || 0 para manejar posibles NaN
+    }, 0);
+
+    res.json({ totalGanancias });
+  } catch (error) {
+    console.error('Error al obtener las ganancias totales:', error);
+    res.status(500).json({ error: 'Error al obtener las ganancias totales' });
   }
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import User from "../models/user.js";
 import Requests from "../models/requests.js";
+import { sendEmail } from "./nodeMailer.js";
 
 // Función auxiliar para obtener la clave pública sin salto de línea
 export async function getPublicKeyFromDatabase(requestId) {
@@ -72,7 +73,7 @@ export async function newUserCreationPatagon(req, res) {
 
 //Rechazar solicitud
 export async function rejectRequest(req, res) {
-  const { requestId, reason } = req.body;
+  const { requestId, reason, nombre, email } = req.body;
   try {
       await Requests.update(
         { estado: 'rechazado' },
@@ -83,6 +84,31 @@ export async function rejectRequest(req, res) {
           }
         }
       );
+
+      // Crear el objeto mailOptions
+      const mailOptions = {
+        to: email,
+        subject: `[Patagón] Respuesta solicitud de uso ${nombre}, Universidad Austral de Chile`,
+        message: `
+              Estimad@ ${nombre},
+
+              Tu solicitud fue rechazada 
+
+              Motivo: ${reason}
+              
+              Si tienes alguna pregunta o crees que se trata de un error, puedes contactarnos respondiendo a este correo o utilizando el formulario de contacto en nuestro sitio web.
+
+              Saludos cordiales,
+
+              --
+              Supercomputador Patagón
+              Universidad Austral de Chile
+              Website: https://patagon.uach.cl
+              Tutorials: https://patagon.uach.cl/patagon/tutoriales
+              Discord: https://discord.gg/WvFTPvvWXh
+          `
+      };
+      sendEmail(mailOptions, res);
       res.status(200).json({ mensaje: 'Solicitud rechazada' });
   } catch (error) {
       console.error('Error al rechazar la solicitud:', error);

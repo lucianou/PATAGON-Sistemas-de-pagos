@@ -179,13 +179,13 @@ const Solicitudes = () => {
             return (
                 <div className={styles.actionButtonsContainer}>
                     <button
-                        className={styles.actionButtons}
+                        className={styles.actionButtonsAccept}
                         onClick={() => handleAcceptClick(solicitud)}
                     >
                         Aceptar
                     </button>
                     <button
-                        className={styles.actionButtons}
+                        className={styles.actionButtonsReject}
                         onClick={() => handleRejectClick(solicitud)}
                         title="Rechazar solicitud"
                         >
