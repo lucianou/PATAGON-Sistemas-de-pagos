@@ -94,6 +94,30 @@ const MainClient = () => {
             </ul>
           </div>
         </div>
+        <section className={styles.trustedPartner}>
+          <h2>Un aliado seguro</h2>
+          <p>Proveemos recursos altamente confiables...</p>
+        </section>
+
+        <section className={styles.values}>
+          <h2>Valores</h2>
+          <div className={styles.valueItems}>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+          </div>
+        </section>
+
+        <section className={styles.team}>
+          <h2>Equipo</h2>
+          <div className={styles.teamMembers}>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+          </div>
+        </section>
       </section>
     </div>
   );

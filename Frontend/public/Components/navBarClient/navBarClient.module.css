@@ -14,7 +14,8 @@
     margin-top: 10px;
     font-size: 30px;
     font-family: Lora;
-    background: linear-gradient(to right, rgb(10, 179, 108), rgb(0, 171, 140), rgb(137, 194, 168));
+    background: linear-gradient(to right, rgb(14, 153, 95), rgb(0, 171, 140), rgb(137, 194, 168));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -23,8 +24,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
-  color: white;
+  padding: 0 20px;  
+  color: #cccccc;
   font-weight: bolder;
   font-size: 20px;
   width: 100%;
@@ -34,5 +35,6 @@
   }
   span{
     padding: 20px 30px;
+    font-size: bold;
   }
 }

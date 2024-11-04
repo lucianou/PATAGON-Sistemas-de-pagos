@@ -9,7 +9,7 @@ const navBar = () => {
       <div className={styles.header}>
         {/* <img src={wave} alt="wave" className={styles.wave}/> */}
         <div className={styles.sectionIzq}>
-          <span>Inicio</span>
+          <span>Home</span>
           <span>Nosotros</span>
           <span>Bolsas</span>
           <span>Docs</span>
