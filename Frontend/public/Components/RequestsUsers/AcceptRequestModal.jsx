@@ -61,6 +61,7 @@ const AcceptRequestModal = ({ isOpen, onClose, onAccept, solicitud }) => {
             Account:
             <select
               name="account"
+              className={styles.select}
               value={formData.account}
               onChange={handleChange}
             >

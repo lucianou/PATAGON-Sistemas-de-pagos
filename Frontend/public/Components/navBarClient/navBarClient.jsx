@@ -10,19 +10,19 @@ const navBar = () => {
         {/* <img src={wave} alt="wave" className={styles.wave}/> */}
         <div className={styles.sectionIzq}>
           <a href='/mainClient' tabIndex='-1'>
-            <span>Inicio</span>
+            Home
           </a>
           <a href='/UsInfo' tabIndex='-1'>
-            <span>Nosotros</span>
+            Nosotros
           </a>
           <a href='/Bolsa' tabIndex='-1'>
-            <span>Bolsas</span>
+            Bolsas
           </a>
-          <a href='/Docs' tabIndex='-1'>
-            <span>Docs</span>
+          <a href='/Docs' tabIndex='-1'>  
+            Docs
           </a>
         </div>
-        <span>Mi Perfil</span>
+        <a>Mi Perfil</a>
       </div>
     </>
   );

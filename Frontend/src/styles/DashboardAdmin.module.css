@@ -142,11 +142,9 @@
     }
     .rolGroup{
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       gap: 20px;
       .optionsAdmin{
-        padding: 10px 30px;
+        padding: 0px 30px;
         height: 60px;
         width: 50%;
         border-radius: 5px;
@@ -206,6 +204,6 @@
 }
 @keyframes scaleUp {
   to {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(.9);
   }
 }

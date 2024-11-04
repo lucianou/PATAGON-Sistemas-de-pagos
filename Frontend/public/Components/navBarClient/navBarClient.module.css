@@ -14,7 +14,8 @@
     margin-top: 10px;
     font-size: 30px;
     font-family: Lora;
-    background: linear-gradient(to right, rgb(10, 179, 108), rgb(0, 171, 140), rgb(137, 194, 168));
+    background: linear-gradient(to right, rgb(14, 153, 95), rgb(0, 171, 140), rgb(137, 194, 168));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -23,16 +24,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
-  color: white;
-  font-weight: bolder;
+  padding: 0 20px;  
+  color: #cccccc;
   font-size: 20px;
   width: 100%;
   .sectionIzq{
     display: flex;
     align-items: center;
   }
-  span{
+  a{
+    text-decoration: none;
+    color: #cccccc;
+    /* background: red; */
     padding: 20px 30px;
   }
+  a:visited{
+    color: #00AB8C;
+    font-weight: bolder;
+  }
+
 }

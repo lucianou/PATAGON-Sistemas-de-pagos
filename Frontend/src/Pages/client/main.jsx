@@ -78,7 +78,7 @@ const MainClient = () => {
       </section>
       <section className={styles.section2}>
         <div className={styles.header}>
-            <h1>SOMOS</h1>
+            <h1>NOSOTROS SOMOS</h1>
             <h3>Tu Partner en computacion de alto rendimiento</h3>
         </div>
         <div className={styles.parrafos}>
@@ -99,6 +99,33 @@ const MainClient = () => {
             </ul>
           </div>
         </div>
+        <section className={styles.trustedPartner}>
+          <h1>Un aliado seguro</h1>
+          <div className={styles.divTexto}>
+            <p>Seremos mucho más que otro recurso técnico en tu equipo. </p>
+            <p>Porque hacemos nuestros tus desafíos, nos adaptamos a tus necesidades y te brindamos la seguridad de que tus proyectos de investigación y desarrollo estarán en manos confiables, con el soporte y la tecnología de vanguardia del supercomputador Patagón.</p>
+          </div>
+        </section>
+
+        <section className={styles.values}>
+          <h2>Valores</h2>
+          <div className={styles.valueItems}>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+            <div><p>Logo Provisional</p><p>Descripción</p></div>
+          </div>
+        </section>
+
+        <section className={styles.team}>
+          <h2>Equipo</h2>
+          <div className={styles.teamMembers}>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+          </div>
+        </section>
       </section>
     </div>
   );
