@@ -30,7 +30,7 @@ const Dashboard = () => {
     fetch(`http://${ipserver}:${port}/api/command/get-admins-role`, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Envía el token en los headers
+        'Authorization': `Bearer ${token}` //Envía el token en los headers
       },
       method: 'GET',
     })

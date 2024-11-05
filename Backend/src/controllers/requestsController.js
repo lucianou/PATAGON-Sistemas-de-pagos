@@ -29,18 +29,34 @@ export async function requests(req, res) {
 
 
 export async function addRequest(req, res) {
-  const { nombre, email, institucion, user_id } = req.body;
+  const { name, email, institution } = req.body; // Cambia institucion a institution
 
-  const documento_pdf = req.files['documento_pdf'] ? req.files['documento_pdf'][0].buffer : null;
-  const documento_pub = req.files['documento_pub'] ? req.files['documento_pub'][0].buffer : null;
+  // Asegúrate de que los nombres coincidan con los que usaste en el formulario
+  const documento_pdf = req.files && req.files['upload-application']
+    ? req.files['upload-application'][0].buffer
+    : null;
+  const documento_pub = req.files && req.files['upload-public-key']
+    ? req.files['upload-public-key'][0].buffer
+    : null;
+
+  if (!documento_pdf || !documento_pub) {
+    return res.status(400).json({ error: 'Faltan archivos PDF o PUB' });
+  }
+
+  // Verifica si los archivos PDF y PUB están presentes
+  if (!documento_pdf || !documento_pub) {
+    return res.status(400).json({ error: 'Faltan archivos PDF o PUB' });
+  }
 
   try {
+  
     const requestDate = new Date();
 
+    // Crea la nueva solicitud
     const newRequest = await Resquests.create({
-      nombre,
+      nombre: name,
       email,
-      institucion,
+      institucion: institution,
       documento_pdf,
       documento_pub,
       user_id: null, 
@@ -48,6 +64,7 @@ export async function addRequest(req, res) {
       fecha: requestDate,
     });
 
+    // Emite el evento para notificar la nueva solicitud
     req.app.get('io').emit('newRequest', newRequest);
     res.status(201).json(newRequest);
     
@@ -56,3 +73,4 @@ export async function addRequest(req, res) {
     res.status(500).json({ error: 'Error al guardar la solicitud' });
   }
 }
+

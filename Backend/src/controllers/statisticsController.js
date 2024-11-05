@@ -127,3 +127,17 @@ export async function getGananciasTotales(req, res) {
     res.status(500).json({ error: 'Error al obtener las ganancias totales' });
   }
 }
+
+//obtener todos los ingresos con sus detalles
+export async function getIngresos(req, res) {
+  try {
+    const orders = await Orders.findAll({
+      attributes: ['user_email', 'amount', 'payment_method', 'created_at'],
+    });
+
+    res.json(orders);
+  } catch (error) {
+    console.error('Error al obtener los ingresos:', error);
+    res.status(500).json({ error: 'Error al obtener los ingresos' });
+  }
+}
