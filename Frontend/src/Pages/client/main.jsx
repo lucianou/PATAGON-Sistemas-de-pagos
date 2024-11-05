@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/client/main.module.css";
 import NavBar from "../../../public/Components/navBarClient/navBarClient";
 import Card from '../../../public/Components/Tarjeta/Card.jsx';
+import logo from "../../../src/assets/patagon-logo-text-color.png";
 import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShieldAlt, faLock, faCheckCircle, faBolt, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const MainClient = () => {
   const [bolsas, setBolsas] = useState([]); 
@@ -51,6 +54,10 @@ const MainClient = () => {
   return (
     <div className={styles.container}>
       <NavBar />
+      <div className={styles.headerLogo}>
+        <img src={logo} alt="logo" className={styles.logo}/>
+        <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
+      </div>
       <section className={styles.section1}>
           <div className={styles.dashboardWidgets}>
             { (
@@ -73,7 +80,7 @@ const MainClient = () => {
       </section>
       <section className={styles.section2}>
         <div className={styles.header}>
-            <h1>SOMOS</h1>
+            <h1>NOSOTROS SOMOS</h1>
             <h3>Tu Partner en computacion de alto rendimiento</h3>
         </div>
         <div className={styles.parrafos}>
@@ -94,6 +101,46 @@ const MainClient = () => {
             </ul>
           </div>
         </div>
+        <section className={styles.trustedPartner}>
+          <h1>Un aliado seguro</h1>
+          <div className={styles.divTexto}>
+            <p>Seremos mucho más que otro recurso técnico en tu equipo. </p>
+            <p>Porque hacemos nuestros tus desafíos, nos adaptamos a tus necesidades y te brindamos la seguridad de que tus proyectos de investigación y desarrollo estarán en manos confiables, con el soporte y la tecnología de vanguardia del supercomputador Patagón.</p>
+          </div>
+        </section>
+
+        <section className={styles.values}>
+          <h1>Valores</h1>
+          <div className={styles.valueItems}>
+            <div>
+                <FontAwesomeIcon icon={faShieldAlt} className={styles.icon} /> <p>Seguridad</p>
+            </div>
+            <div>
+                <FontAwesomeIcon icon={faLock} className={styles.icon} /> <p>Confidencialidad</p>
+            </div>
+            <div>
+                <FontAwesomeIcon icon={faCheckCircle} className={styles.icon} /> <p>Confiabilidad</p>
+            </div>
+            <div>
+                <FontAwesomeIcon icon={faBolt} className={styles.icon} /> <p>Eficiencia</p>
+            </div>
+            <div>
+                <FontAwesomeIcon icon={faClock} className={styles.icon} /> <p>Tiempo de respuesta</p>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.team}>
+          <h2>Equipo</h2>
+          <div className={styles.teamMembers}>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+          </div>
+        </section>
       </section>
     </div>
   );

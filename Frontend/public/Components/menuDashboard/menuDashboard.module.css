@@ -76,7 +76,6 @@
   .profile {
     opacity: 0;
     max-height: 0;
-    margin: 10px 0;
     text-align: center;
     transition: opacity 0.16s ease, max-height 0.35s ease; /* Transición para mostrar/ocultar */
     /* background: #ffffff1e; */
@@ -94,11 +93,12 @@
   }
 
   .menu {
+    margin-top: 10px;
     ul {
       list-style-type: none;
       li {
         position: relative;
-        padding: 20px 20px;
+        padding: 18px 20px;
         &:hover {
           background-color: rgba(100, 100, 100, 0.379);
         }
@@ -194,7 +194,6 @@
     .faIcon{
       color: rgb(255, 255, 255);
       transition: all 0.2s ease;
-      font-size: 22px;
       font-weight: bold;
     }
   }

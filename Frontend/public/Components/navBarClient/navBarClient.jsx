@@ -1,24 +1,28 @@
 import React from "react";
 import styles from "./navBarClient.module.css";
-import logo from "../../../src/assets/patagon-logo-text-color.png";
-import wave from "../../../src/assets/wave.svg";
 
 const navBar = () => {
+  const isActive = (path) => location.pathname === path;
+  
   return (
     <>
       <div className={styles.header}>
         {/* <img src={wave} alt="wave" className={styles.wave}/> */}
         <div className={styles.sectionIzq}>
-          <span>Inicio</span>
-          <span>Nosotros</span>
-          <span>Bolsas</span>
-          <span>Docs</span>
+          <a href='/mainClient' className={isActive("/mainClient") ? styles.active : ''} tabIndex='-1'>
+            Home
+          </a>
+          <a href='/UsInfo' className={isActive("/UsInfo") ? styles.active : ''} tabIndex='-1'>
+            Nosotros
+          </a>
+          <a href='/Bolsa' className={isActive("/Bolsa") ? styles.active : ''} tabIndex='-1'>
+            Bolsas
+          </a>
+          <a href='/Docs' className={isActive("/Docs") ? styles.active : ''} tabIndex='-1'>  
+            Docs
+          </a>
         </div>
-        <span>Mi Perfil</span>
-      </div>
-      <div className={styles.headerLogo}>
-        <img src={logo} alt="logo" className={styles.logo}/>
-        <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
+        <a>Mi Perfil</a>
       </div>
     </>
   );

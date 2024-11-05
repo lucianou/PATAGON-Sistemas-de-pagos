@@ -1,9 +1,11 @@
 import React from 'react';
+import NavBar from "../../../public/Components/navBarClient/navBarClient";
 import styles from '../../styles/client/UsInfo.module.css';
 
 const UsInfo = () => {
   return (
     <div className={styles.container}>
+      <NavBar />
       <section className={styles.header}>
         <h1>SOMOS</h1>
         <p>Tu Partner en computación de alto rendimiento</p>

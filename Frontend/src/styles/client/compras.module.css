@@ -1,0 +1,70 @@
+.historial-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #222222;
+    height: 100vh;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+  
+  .historial-title {
+    margin-bottom: 20px;
+    font-size: 32px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .table-container {
+    background: linear-gradient(180deg, #333333, #222222);
+    width: 80%;
+    max-height: 300px;
+    border-radius: 20px;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .table-header, .table-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .table-header {
+    background-color: #333333;
+    border-bottom: 1px solid #555555;
+  }
+  
+  .table-row {
+    align-items: center;
+    background-color: #444444;
+    border-bottom: 1px solid #555555;
+    transition: background 0.3s;
+  }
+  
+  .table-row:hover {
+    background-color: #555555;
+  }
+  
+  .table-cell {
+    display: flex;
+    align-items: center;
+  }
+  
+  .id-cell {
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #111111;
+    border-radius: 50%;
+    text-align: center;
+    color: #ffffff;
+  }
+  
+  .pagination {
+    margin-top: 10px;
+    color: white;
+    font-size: 14px;
+  }
+  
