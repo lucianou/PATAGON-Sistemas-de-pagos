@@ -50,9 +50,7 @@ const Docs = ({}) => {
           <a href= "#" className = {styles.link}>Ver más</a>
         </div>
       </section>
-      <section className={styles.section2}>
-
-      </section>
+      <h1>aqui pongan footers</h1>
     </div>
   )
 }
