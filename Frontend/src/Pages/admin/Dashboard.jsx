@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard.jsx';
-import styles1 from '../../styles/DashboardGeneral.module.css'; // Para Menu
+import styles1 from '../../styles/DashboardGeneral.module.css';
 import styles from '../../styles/Dashboard.module.css';
 import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard.jsx';
-import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
 import logo from '../../assets/SoloLogo_Patagon.png';
 import LinearGraphic from "../../../public/Components/Graphics/LinearGraphic.jsx";
 import CircularGraphic from "../../../public/Components/Graphics/CircularGraphic.jsx";
 import { jwtDecode } from 'jwt-decode';
-import { FaDollarSign, FaUsers, FaChartLine } from 'react-icons/fa'; // Importa íconos específicos
+import { FaDollarSign, FaUsers, FaChartLine } from 'react-icons/fa';
+import useDashboardStats from '../../Hooks/useDashboardStats.js';
 
-
-
-// Componente para cada card de información importante con íconos
 const InfoCard = ({ title, value, change, icon }) => (
   <div className={styles.infoCard}>
     <div className={styles.iconContainer}>{icon}</div>
     <div className={styles.textContainer}>
       <h2>{title}</h2>
-      <p>${value}</p>
+      <p>{value}</p>
       {change && <span>{change}</span>}
     </div>
   </div>
@@ -26,65 +23,32 @@ const InfoCard = ({ title, value, change, icon }) => (
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const ipserver = import.meta.env.VITE_IP;
-  const port = import.meta.env.VITE_PORT;
   const token = localStorage.getItem('token');
   const decodedToken = jwtDecode(token);
   const userRole = decodedToken.rol;
-  const [labels, setLabels] = useState([]);
-  const [dataPoints, setDataPoints] = useState([]);
-  const [ingresos, setIngresos] = useState([]);
+  const { data, loading, error } = useDashboardStats();
+  const labels = data?.sevenDaysStats ? data.sevenDaysStats.map(item => item.date) : [];
+  const dataPoints = data?.sevenDaysStats ? data.sevenDaysStats.map(item => item.count) : [];
 
-  useEffect(() => {
-    const fetchDataWeek = async () => {
-      try {
-        const response = await fetch(`http://${ipserver}:3003/api/command/get-users-stats-week`);
-        const result = await response.json();
-
-        const newLabels = result.map(item => item.date); 
-        const newDataPoints = result.map(item => item.count);
-
-        setLabels(newLabels);
-        setDataPoints(newDataPoints);
-      } catch (error) {
-        console.error('Error fetching weekly data:', error);
-      }
-    };
-
-    fetchDataWeek();
-  }, []);
-
-  useEffect(() => {
-    const obtenerIngresos = async () => {
-      try {
-        const response = await fetch(`http://${ipserver}:${port}/api/command/get-total-gains`);
-        const ingresosUsers = await response.json();
-        setIngresos(ingresosUsers); 
-      } catch (error) {
-        console.error('Error fetching ingresos:', error);
-      }
-    };
-    obtenerIngresos(); 
-  }, []);
-
+ 
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
       <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`}>
         <div className={styles1.header}>
           <div className={styles1.titleLogo}>
-            <img src={logo} className={styles1.menuIcon} />
+            <img src={logo} className={styles1.menuIcon} alt="Logo" />
             <h1>Dashboard</h1>
           </div>
           {userRole === 'Administrador' && <Notification_dashboard />}
         </div>
 
-        {/* Contenedor de las 3 cards superiores */}
         <div className={styles.cardContainer}>
-          <InfoCard title="Total ingresos" value={ingresos.totalGanancias} change="+2,031" icon={<FaDollarSign />} />
-          <InfoCard title="Usuarios registrados" value="221,324" change="-$2,201" icon={<FaUsers />} />
-          <InfoCard title="Solicitudes recibidas" value="12.8%" change="-1.22%" icon={<FaChartLine />} />
+          <InfoCard title="Total ingresos" value={`$${data?.totalGanancias ?? 0}`} change="+2,031" icon={<FaDollarSign />} />
+          <InfoCard title="Usuarios registrados" value={data?.totalUsers ?? 0} icon={<FaUsers />} />
+          <InfoCard title="Solicitudes recibidas" value={`${data?.totalRequests ?? 0}`} icon={<FaChartLine />} />
         </div>
+
         <div className={styles.graphContainer}>
           <div className={styles.graph1}>
             <LinearGraphic
@@ -103,6 +67,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
+
         <div className={styles.infoTableContainer}>
           <h3 className={styles.infoTableTitle}>Lista de solicitudes</h3>
           <table className={styles.infoTable}>
@@ -125,27 +90,9 @@ const Dashboard = () => {
                 <td>UACh</td>
                 <td>Fernando Castillo Perez</td>
               </tr>
-              <tr>
-                <td>10</td>
-                <td>fernacastillo.perez0607@gmail.com</td>
-                <td>Aceptado</td>
-                <td>2024-09-19</td>
-                <td>UACh</td>
-                <td>Fernando Castillo Perez</td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>fernacastillo.perez0607@gmail.com</td>
-                <td>Aceptado</td>
-                <td>2024-09-19</td>
-                <td>UACh</td>
-                <td>Fernando Castillo Perez</td>
-              </tr>
             </tbody>
           </table>
         </div>
-
-
       </main>
     </div>
   );
