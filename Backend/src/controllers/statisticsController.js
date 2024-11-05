@@ -1,5 +1,7 @@
 import LoginHistory from "../models/loginHistory.js";
 import Orders from "../models/transactions.js";
+import User from "../models/user.js";
+import Requests from "../models/requests.js";
 import { Sequelize, Op } from "sequelize";
 
 //Obtener los datos de de registro de usuarios
@@ -107,7 +109,6 @@ export async function getUsersStats3Months(req, res) {
 }
 
 
-
 //obtener ganancias totales
 export async function getGananciasTotales(req, res) {
   try {
@@ -139,5 +140,56 @@ export async function getIngresos(req, res) {
   } catch (error) {
     console.error('Error al obtener los ingresos:', error);
     res.status(500).json({ error: 'Error al obtener los ingresos' });
+  }
+}
+
+
+//obtener ingreso de un usuario
+export async function getIngresoUsuario(req, res) {
+  try {
+    const { email } = req.body;
+    
+    const orders = await Orders.findAll({
+      attributes: ['order_id', 'user_email', 'amount', 'payment_method', 'created_at'],
+      where: { user_email: email },
+    });
+
+    res.json(orders);
+  } catch (error) {
+    console.error('Error al obtener los ingresos:', error);
+    res.status(500).json({ error: 'Error al obtener los ingresos' });
+  }
+};
+
+//envio de la cantidad total de ingresos, cantidad de usuarios totales y cantidad de solicitudes recibidas
+export async function dashboardStats(req, res) {
+  try {
+      // Obtener la cantidad total de usuarios
+      const totalUsers = await User.count();
+
+      // Obtener la cantidad total de solicitudes
+      const totalRequests = await Requests.count();
+
+      // Obtener todas las órdenes con estado "Pagado"
+      const orders = await Orders.findAll({
+        attributes: ['amount'],
+        where: { status: "Pagado" },
+      });
+
+      // Calcular el total de ganancias
+      const totalGanancias = orders.reduce((total, order) => {
+        // Convertir order.amount a número usando parseFloat
+        return total + (parseFloat(order.amount) || 0); // Usa || 0 para manejar posibles NaN
+      }, 0);
+
+      // Enviar la información como respuesta JSON
+      res.json({
+          totalGanancias,
+          totalUsers,
+          totalRequests
+      });
+  } catch (error) {
+      console.error("Error fetching dashboard stats:", error);
+      res.status(500).json({ message: "Error fetching dashboard stats" });
   }
 }
