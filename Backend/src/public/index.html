@@ -149,7 +149,7 @@
             const form = document.getElementById('uploadForm');
             const formData = new FormData(form);
 
-            fetch('https://rx84cmhh-3003.brs.devtunnels.ms/api/command/addRequest', {
+            fetch('http://localhost:3003/api/command/addRequest', {
                 method: 'POST',
                 body: formData,
             })
