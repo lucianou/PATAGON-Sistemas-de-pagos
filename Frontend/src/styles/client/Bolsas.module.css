@@ -1,0 +1,14 @@
+.container{
+    background-color: #101010;
+    height: 100vh;
+}
+
+.section1{
+    background-color: #101010;
+}
+.section1 h1{
+    color: #f5fbf3;
+}
+.section2{
+    background-color: #4e4646;
+}

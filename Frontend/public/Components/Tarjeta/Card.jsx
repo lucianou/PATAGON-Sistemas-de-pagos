@@ -26,7 +26,7 @@ const Card = ({ nombre, tiempo, detalles, precio, ram, delay, ID }) => {
       <div className={styles.bolsaRight}>
         <div className={styles.headerRight}>
           <p className={styles.tiempo}>{tiempo}</p>
-          <p className={styles.price}>{precio}</p>
+          <p className={styles.price}>${precio}</p>
         </div>
         <button className={styles.botonCompra} onClick={handleBuyClick}>
           Comprar
