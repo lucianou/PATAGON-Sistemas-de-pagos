@@ -181,15 +181,54 @@ export async function dashboardStats(req, res) {
         // Convertir order.amount a número usando parseFloat
         return total + (parseFloat(order.amount) || 0); // Usa || 0 para manejar posibles NaN
       }, 0);
+      
+      // Obtener la cantidad total de solicitudes en 7 días
+      const sevenDaysStats = await getWeeklyUserStatsUtility();
 
       // Enviar la información como respuesta JSON
       res.json({
           totalGanancias,
           totalUsers,
-          totalRequests
+          totalRequests,
+          sevenDaysStats
       });
   } catch (error) {
       console.error("Error fetching dashboard stats:", error);
       res.status(500).json({ message: "Error fetching dashboard stats" });
   }
+}
+
+// Función de utilidad para obtener el conteo de usuarios en los últimos 7 días
+async function getWeeklyUserStatsUtility() {
+  const currentDate = new Date();
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(currentDate.getDate() - 6);
+
+  const users = await LoginHistory.findAll({
+    attributes: [
+      [Sequelize.fn('DATE', Sequelize.col('login_time')), 'date'],
+      [Sequelize.fn('COUNT', Sequelize.col('user')), 'count']
+    ],
+    where: {
+      login_time: { [Op.gte]: sevenDaysAgo }
+    },
+    group: [Sequelize.fn('DATE', Sequelize.col('login_time'))],
+    order: [[Sequelize.fn('DATE', Sequelize.col('login_time')), 'ASC']]
+  });
+
+  const usersCount = {};
+  users.forEach((record) => {
+    usersCount[record.get('date')] = parseInt(record.get('count'), 10);
+  });
+
+  const result = [];
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(currentDate.getDate() - i);
+    const dateKey = date.toISOString().slice(0, 10);
+
+    result.push({ date: dateKey, count: usersCount[dateKey] || 0 });
+  }
+
+  return result;
 }
