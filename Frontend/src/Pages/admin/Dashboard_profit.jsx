@@ -121,7 +121,7 @@ const Dashboard_profit = () => {
               <p>Total de ganancias realizadas en dolares</p>
             </div>
             <div className={styles.CardGananciasValue}>
-              <p>{loading ? 'Loading...' : '$' + ingresos.totalGanancias}</p>
+              <p>${ingresos.totalGanancias}</p>
             </div>
             <div className={styles.exportExcel}>
               <button className={styles.excel} onClick={handleExport}>

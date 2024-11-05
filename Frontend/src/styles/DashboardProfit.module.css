@@ -111,7 +111,7 @@
   justify-content: center;
   align-items: center;
   font-size: 2.5rem;
-  color: #4caf50;
+  color: #00796b;
   font-weight: bold;
   margin-top: 12px;
 }
@@ -178,7 +178,7 @@
 
 .CardIngresosValues span {
   font-weight: bold;
-  color: #4caf50;
+  color: #00796b;
 }
 
 .exportExcel {
