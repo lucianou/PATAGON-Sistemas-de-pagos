@@ -66,8 +66,8 @@ const Purchase_details = () => {
 
     return (
         <div className={styles1.dashboardContainer}>
-            <MenuDashboard toggleMenu={() => setIsOpen(!isOpen)} isOpen={isOpen} />
-            <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`}>
+            {/* <MenuDashboard toggleMenu={() => setIsOpen(!isOpen)} isOpen={isOpen} /> */}
+            <main className={`${styles1.content} `}>
                 <div className={styles1.header}>
                     <div className={styles1.titleLogo}>
                         <img src={logo} className={styles1.menuIcon} alt="Logo" />

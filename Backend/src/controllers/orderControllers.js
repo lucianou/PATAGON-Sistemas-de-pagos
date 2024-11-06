@@ -134,7 +134,7 @@ export const cancelPayment = async (req, res) => {
       console.log(`Orden ${req.query.token} ha sido cancelada y su estado actualizado a "Cancelado"`);
 
   
-      res.redirect(`http://${ip_server}:4003/dashboard`);
+      res.redirect(`http://${ip_server}:4003/mainClient`);
   } catch (error) {
       console.log(error.message);
       return res.status(500).json({ message: "Internal Server error" });
@@ -163,7 +163,7 @@ export const createOrderMercadoPago = async (req, res) => {
       notification_url: `http://${ip_server}:3003/api/command/webhook`,
       back_urls: {
         success: `http://${ip_server}:4003/paymentaccept`,
-        failure: `http://${ip_server}:4003/dashboard`,
+        failure: `http://${ip_server}:4003/mainClient`,
         //pending: "http://localhost:3000//api/commmand/pending",
       },
       auto_return: "approved",

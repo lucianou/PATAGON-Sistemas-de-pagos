@@ -34,13 +34,19 @@
   }
   a{
     text-decoration: none;
+    transition: all .2s ease;
+    margin: 20px 30px;
     color: #cccccc;
-    /* background: red; */
-    padding: 20px 30px;
+    &:hover{
+      color: #07A160;
+      transform: scale(1.1);
+    }
   }
-  a:visited{
-    color: #00AB8C;
+
+  .active{
+    color: #00AB8C !important;
     font-weight: bolder;
+    /* border-bottom: 2px solid #ffffff; */
   }
 
 }

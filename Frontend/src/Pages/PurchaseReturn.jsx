@@ -14,7 +14,7 @@ const RetornoPage = () => {
 
   useEffect(() => {
     if (counter === 0) {
-      window.location.href = "/dashboard"; // Redirige a la página principal después de la cuenta regresiva
+      window.location.href = "/mainClient"; // Redirige a la página principal después de la cuenta regresiva
     }
   }, [counter]);
 
@@ -30,7 +30,7 @@ const RetornoPage = () => {
         <p className={styles.countdown}>Redireccionando en {counter} segundos...</p>
       </div>
       <div className={styles.return}>
-        <button className={styles.buttonReturn} onClick={() => window.location.href = "/dashboard"}>Volver al inicio</button>
+        <button className={styles.buttonReturn} onClick={() => window.location.href = "/mainClient"}>Volver al inicio</button>
       </div>
     </div>
   );

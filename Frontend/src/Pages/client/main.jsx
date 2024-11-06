@@ -4,6 +4,8 @@ import NavBar from "../../../public/Components/navBarClient/navBarClient";
 import Card from '../../../public/Components/Tarjeta/Card.jsx';
 import logo from "../../../src/assets/patagon-logo-text-color.png";
 import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShieldAlt, faLock, faCheckCircle, faBolt, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const MainClient = () => {
   const [bolsas, setBolsas] = useState([]); 
@@ -108,19 +110,32 @@ const MainClient = () => {
         </section>
 
         <section className={styles.values}>
-          <h2>Valores</h2>
+          <h1>Valores</h1>
           <div className={styles.valueItems}>
-            <div><p>Logo Provisional</p><p>Descripción</p></div>
-            <div><p>Logo Provisional</p><p>Descripción</p></div>
-            <div><p>Logo Provisional</p><p>Descripción</p></div>
-            <div><p>Logo Provisional</p><p>Descripción</p></div>
-            <div><p>Logo Provisional</p><p>Descripción</p></div>
+            <div>
+                <FontAwesomeIcon icon={faShieldAlt} className={styles.icon} /> <p>Seguridad</p>
+            </div>
+            <div>
+                <FontAwesomeIcon icon={faLock} className={styles.icon} /> <p>Confidencialidad</p>
+            </div>
+            <div>
+                <FontAwesomeIcon icon={faCheckCircle} className={styles.icon} /> <p>Confiabilidad</p>
+            </div>
+            <div>
+                <FontAwesomeIcon icon={faBolt} className={styles.icon} /> <p>Eficiencia</p>
+            </div>
+            <div>
+                <FontAwesomeIcon icon={faClock} className={styles.icon} /> <p>Tiempo de respuesta</p>
+            </div>
           </div>
         </section>
 
         <section className={styles.team}>
           <h2>Equipo</h2>
           <div className={styles.teamMembers}>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>Nombre aquí</div>
             <div className={styles.member}>Nombre aquí</div>
             <div className={styles.member}>Nombre aquí</div>
             <div className={styles.member}>Nombre aquí</div>
