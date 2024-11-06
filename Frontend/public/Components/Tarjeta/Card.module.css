@@ -24,20 +24,22 @@
     left: 0;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0.5px, transparent 3px);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0.5px, transparent 2.5px);
     z-index: -1;
     animation: starsAnimation 20s linear infinite;
   }
 
-  /* Diferencias entre capas */
+  /* Configuración de las capas de estrellas */
   &::before {
-    background-size: 90px 80px; /* Estrellas menos frecuentes */
-    opacity: 0.6; /* Menor opacidad */
+    background-size: 75px 80px;
+    background-position: 30px 50px; /* Inicio en posición aleatoria */
+    opacity: 0.6;
   }
   
   &::after {
-    background-size: 80px 60px; /* Estrellas más frecuentes */
-    opacity: 0.3; /* Mayor transparencia */
+    background-size: 80px 60px;
+    background-position: -40px -30px; /* Inicio en posición aleatoria */
+    opacity: 0.3;
     animation-delay: 10s; /* Diferente fase de animación para variedad */
   }
   
