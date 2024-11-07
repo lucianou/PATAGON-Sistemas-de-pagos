@@ -1,23 +1,182 @@
-.dashboardWidgets {
+.cardContainer {
   display: flex;
-  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 40px;
+  width: 100%;
+}
+
+.infoCard {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 170px;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
   gap: 20px;
 }
 
+.infoCard:hover {
+  transform: translateY(-2px); /* Efecto de hover para levantar un poco la card */
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #e0f7fa;
+  border-radius: 50%;
+  margin-right: 15px;
+  font-size: 1.5rem;
+  color: #00796b;
+}
+
+.textContainer {
+  text-align: left;
+}
+
+.textContainer h2 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.textContainer p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00796b;
+  margin: 5px 0;
+}
+
+.textContainer span {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.graphContainer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.graph1 {
+  width: 60%; 
+  height: 400px;
+  background-color: #1e1e1e;
+  border-radius: 20px;
+  padding: 20px;
+  transition: transform 0.2s;
+}
+
+.graph2 {
+  width: 40%;
+  height: 400px;
+  background-color: #1e1e1e;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  transition: transform 0.2s;
+}
 
 
+.graph1:hover, .graph2:hover {
+  transform: translateY(-2px); 
+}
 
 
-/* Responsividad */
+.infoTableContainer {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  color: #ffffff;
+}
 
+.infoTableContainer .infoTableTitle {
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.infoTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.infoTable .infoTableTh, .infoTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.infoTable th {
+  background-color: #333;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.infoTable tr:hover {
+  background-color: #2a2a2a;
+}
+
+/* Para pantallas de tabletas (ancho máximo de 768px) */
 @media (max-width: 768px) {
-  .dashboardWidgets .widget {
-    flex: 1 1 calc(50% - 20px); /* 2 en línea en pantallas medianas */
+  .cardContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .infoCard {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .graphContainer {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .graph1{
+    height: 400px;
+  }
+  .graph1, .graph2 {
+    width: 100%;
+    height: auto;
   }
 }
 
+/* Para pantallas móviles (ancho máximo de 480px) */
 @media (max-width: 480px) {
-  .dashboardWidgets .widget {
-    flex: 1 1 100%; /* 1 en línea en pantallas pequeñas */
+  .iconContainer {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .infoCard {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .textContainer > h2 {
+    font-size: 1rem;
+  }
+
+  .textContainer > p {
+    font-size: 1.2rem;
+  }
+
+  .infoTableContainer {
+    padding: 15px;
+  }
+
+  .infoTable th, .infoTable td {
+    padding: 8px;
+    font-size: 0.9rem;
   }
 }

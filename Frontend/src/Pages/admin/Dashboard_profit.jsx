@@ -4,16 +4,21 @@ import styles1 from "../../styles/DashboardGeneral.module.css";
 import styles from "../../styles/DashboardProfit.module.css";
 import LinearGraphic from "../../../public/Components/Graphics/LinearGraphic";
 import logo from '../../assets/SoloLogo_Patagon.png';
+import * as XLSX from 'xlsx';
+import useExportToExcel from '../../Hooks/exportExcelRequests';
 
 const Dashboard_profit = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [expandedDiv, setExpandedDiv] = useState(null); // Estado para el gráfico expandido
-  const divRefs = useRef([]); // Referencias a los divs de gráficos
+  const [expandedDiv, setExpandedDiv] = useState(null);
+  const divRefs = useRef([]);
   const [labels, setLabels] = useState([]);
+  const [ingresos, setIngresos] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
   const [labels2, setLabels2] = useState([]);
   const [dataPoints2, setDataPoints2] = useState([]);
+  const { exportToExcel, loading } = useExportToExcel();
   const ip_server = import.meta.env.VITE_IP;
+  const port = import.meta.env.VITE_PORT;
 
   useEffect(() => {
     const fetchDataWeek = async () => {
@@ -53,12 +58,34 @@ const Dashboard_profit = () => {
     fetchData3Months();
   }, []);
 
+  useEffect(() => {
+    const obtenerIngresos = async () => {
+      try {
+        const response = await fetch(`http://${ip_server}:${port}/api/command/get-total-gains`);
+        const ingresosUsers = await response.json();
+  
+        // Asegúrate de que ingresosUsers tenga la propiedad que necesitas
+        setIngresos(ingresosUsers); // Asegura que ingresosUsers tiene totalGanancias
+      } catch (error) {
+        console.error('Error fetching ingresos:', error);
+      }
+    };
+  
+    obtenerIngresos(); // Llama a la función para obtener los ingresos al montar el componente
+  }, []);
+  
 
   const handleExpand = (div) => {
-    setExpandedDiv(expandedDiv === div ? null : div); // Toggle entre expandir y colapsar
+    setExpandedDiv(expandedDiv === div ? null : div);
   };
 
- 
+  const handleExport = () => {
+    exportToExcel(
+      `http://${ip_server}:${port}/api/command/get-ingresos`,
+      'Transacciones_Historico'
+    );
+  };
+
   const handleClickOutside = (event) => {
     if (expandedDiv && divRefs.current) {
       const isOutsideClick = divRefs.current.every(
@@ -70,7 +97,6 @@ const Dashboard_profit = () => {
     }
   };
 
- 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => {
@@ -88,11 +114,50 @@ const Dashboard_profit = () => {
             <h1>Dashboard Profit</h1>
           </div>
         </div>
+        <div className={styles.CardContainer}>
+          <div className={styles.CardGanancias}>
+            <div className={styles.CardGananciasTitle}>
+              <h2>Ganancias totales</h2>
+              <p>Total de ganancias realizadas en dolares</p>
+            </div>
+            <div className={styles.CardGananciasValue}>
+              <p>${ingresos.totalGanancias}</p>
+            </div>
+            <div className={styles.exportExcel}>
+              <button className={styles.excel} onClick={handleExport}>
+                <img src="/icons/excel-icon.svg" alt="Exportar" />
+                Exportar detalles
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.CardIngresos}>
+            <div className={styles.CardIngresosTitle}>
+              <h2>Ingresos</h2>
+              <p>Diarios, mensuales y anuales</p>
+            </div>
+            <div className={styles.CardIngresosValues}>
+              <div>
+                <p>Diario</p>
+                <span>$0</span>
+              </div>
+              <div>
+                <p>Mensual</p>
+                <span>$0</span>
+              </div>
+              <div>
+                <p>Anual</p>
+                <span>$0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className={styles.contenedor}>
           <div 
             className={`${styles.div1} ${expandedDiv === 'div1' ? styles.expanded : ''}`}
             onClick={() => handleExpand('div1')}
-            ref={(el) => (divRefs.current[0] = el)} // Asignamos referencia al primer div
+            ref={(el) => (divRefs.current[0] = el)}
           >
             <LinearGraphic
               labels={labels2}
@@ -105,7 +170,7 @@ const Dashboard_profit = () => {
           <div 
             className={`${styles.div2} ${expandedDiv === 'div2' ? styles.expanded : ''}`}
             onClick={() => handleExpand('div2')}
-            ref={(el) => (divRefs.current[1] = el)} // Asignamos referencia al segundo div
+            ref={(el) => (divRefs.current[1] = el)}
           >
             <LinearGraphic
               labels={labels}
@@ -118,7 +183,7 @@ const Dashboard_profit = () => {
           <div 
             className={`${styles.div3} ${expandedDiv === 'div3' ? styles.expanded : ''}`}
             onClick={() => handleExpand('div3')}
-            ref={(el) => (divRefs.current[2] = el)} // Asignamos referencia al tercer div
+            ref={(el) => (divRefs.current[2] = el)}
           >
             <LinearGraphic
               labels={labels}

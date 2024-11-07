@@ -119,25 +119,26 @@
     <h1>Subir Solicitud con Archivos</h1>
     <form id="uploadForm" enctype="multipart/form-data">
         <div>
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
         </div>
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
         </div>
         <div>
-            <label for="institucion">Institución:</label>
-            <input type="text" id="institucion" name="institucion" required>
+            <label for="institution">Institución:</label>
+            <input type="text" id="institution" name="institution" required>
         </div>
         <div>
-            <label for="documento_pdf">Subir Documento PDF:</label>
-            <input type="file" id="documento_pdf" name="documento_pdf" accept="application/pdf" required>
+            <label for="upload-application">Subir Documento PDF:</label>
+            <input type="file" id="upload-application" name="upload-application" accept="application/pdf" required>
         </div>
         <div>
-            <label for="documento_pub">Subir Documento PUB:</label>
-            <input type="file" id="documento_pub" name="documento_pub" accept=".pub" required>
+            <label for="upload-public-key">Subir Documento PUB:</label>
+            <input type="file" id="upload-public-key" name="upload-public-key" accept=".pub" required>
         </div>
+        
         <button type="submit">Enviar Solicitud</button>
     </form>
 
@@ -148,7 +149,7 @@
             const form = document.getElementById('uploadForm');
             const formData = new FormData(form);
 
-            fetch('https://2011-146-83-216-166.ngrok-free.app/api/command/addRequest', {
+            fetch('http://localhost:3003/api/command/addRequest', {
                 method: 'POST',
                 body: formData,
             })

@@ -13,7 +13,7 @@ import LoginHistory from "../models/loginHistory.js";
 export async function getAdminsRole(req, res) {
     try {
         const admins = await User.findAll({
-            where: { rol: { [Op.not]: 'Cliente' } },
+            where: { rol: { [Op.not]: 'Cliente' } , email: { [Op.not]: 'adminpatagon2024@uach.cl' } },
             order: [['fecha_ingreso', 'DESC NULLS LAST']],
         });
 
@@ -32,6 +32,25 @@ export async function getAdminsRole(req, res) {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener los administradores' });
+    }
+}
+
+//Eliminar usuario administrativos
+export async function deleteAdminsRoles(req, res) {
+    const { email } = req.body;
+    try {
+        // Verificar si el usuario existe
+        const user = await User.findOne({ where: { email: email } });
+        if (!user) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+          
+        // Eliminar el usuario
+        await user.destroy();
+        res.status(200).json({ message: 'Usuario eliminado' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al eliminar el usuario' });
     }
 }
 

@@ -1,91 +1,97 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard.jsx';
-import Card from '../../../public/Components/Tarjeta/Card.jsx';
-import styles1 from '../../styles/DashboardGeneral.module.css'; // Para Menu
-import styles from '../../styles/Dashboard.module.css'; // Para Bolsas
+import styles1 from '../../styles/DashboardGeneral.module.css';
+import styles from '../../styles/Dashboard.module.css';
 import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard.jsx';
-import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
 import logo from '../../assets/SoloLogo_Patagon.png';
+import LinearGraphic from "../../../public/Components/Graphics/LinearGraphic.jsx";
+import CircularGraphic from "../../../public/Components/Graphics/CircularGraphic.jsx";
 import { jwtDecode } from 'jwt-decode';
+import { FaDollarSign, FaUsers, FaChartLine } from 'react-icons/fa';
+import useDashboardStats from '../../Hooks/useDashboardStats.js';
+
+const InfoCard = ({ title, value, change, icon }) => (
+  <div className={styles.infoCard}>
+    <div className={styles.iconContainer}>{icon}</div>
+    <div className={styles.textContainer}>
+      <h2>{title}</h2>
+      <p>{value}</p>
+      {change && <span>{change}</span>}
+    </div>
+  </div>
+);
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [bolsas, setBolsas] = useState([]); 
-  const ipserver = import.meta.env.VITE_IP;
-  const port = import.meta.env.VITE_PORT;
-  const token = localStorage.getItem('token'); 
-  const decodedToken = jwtDecode(token); 
-  const userRole = decodedToken.rol; 
+  const token = localStorage.getItem('token');
+  const decodedToken = jwtDecode(token);
+  const userRole = decodedToken.rol;
+  const { data, loading, error } = useDashboardStats();
+  const labels = data?.sevenDaysStats ? data.sevenDaysStats.map(item => item.date) : [];
+  const dataPoints = data?.sevenDaysStats ? data.sevenDaysStats.map(item => item.count) : [];
 
-  useEffect(() => {
-    const fetchBolsas = async () => {
-      const token = localStorage.getItem('token'); 
-  
-      try {
-        const response = await fetch(`http://${ipserver}:${port}/api/command/get-products`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` 
-          }
-        });
-
-        if(response.status == 401){
-          return refreshAccessToken().then(newToken => {
-            return fetch(`http://${ipserver}:${port}/api/command/get-products`,{
-              method: 'GET',
-              headers:{
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${newToken}` 
-              }
-            });
-          });
-        }
-
-        if (!response.ok) {
-          throw new Error('Error en la red al obtener las bolsas'); 
-        }
-  
-        const data = await response.json(); 
-        setBolsas(data);
-      } catch (error) {
-        console.error('Error al obtener las bolsas:', error);
-      }
-    };
-  
-    fetchBolsas();
-  }, []);
-  
-
+ 
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
-
       <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`}>
         <div className={styles1.header}>
           <div className={styles1.titleLogo}>
-            <img src={logo} className={styles1.menuIcon}/>
+            <img src={logo} className={styles1.menuIcon} alt="Logo" />
             <h1>Dashboard</h1>
           </div>
           {userRole === 'Administrador' && <Notification_dashboard />}
         </div>
-        <div className={styles.dashboardWidgets}>
-          { (
-            bolsas.map((bolsa, index) => {
-              const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
-              return ( // Itera sobre las bolsas obtenidas y muestra una Card para cada una
-                <Card
-                  key={index} // Asegúrate de usar un key único
-                  nombre={bolsa.nombre}
-                  tiempo={bolsa.tiempo}
-                  precio={bolsa.precio}
-                  detalles={bolsa.detalles} // Pasamos el arreglo de detalles
-                  delay={delay} // Pasamos el delay como prop
-                  ID = {bolsa.ID}
-                />
-              );
-            })
-          )}
+
+        <div className={styles.cardContainer}>
+          <InfoCard title="Total ingresos" value={`$${data?.totalGanancias ?? 0}`} change="+2,031" icon={<FaDollarSign />} />
+          <InfoCard title="Usuarios registrados" value={data?.totalUsers ?? 0} icon={<FaUsers />} />
+          <InfoCard title="Solicitudes recibidas" value={`${data?.totalRequests ?? 0}`} icon={<FaChartLine />} />
+        </div>
+
+        <div className={styles.graphContainer}>
+          <div className={styles.graph1}>
+            <LinearGraphic
+              labels={labels}
+              dataPoints={dataPoints}
+              title="Ingresos últimos 7 días"
+              color="#0b6730"
+            />
+          </div>
+          <div className={styles.graph2}>
+            <CircularGraphic
+              labels={['Pagado', 'UACh']}
+              dataPoints={[300, 50]}
+              title="Distribución de usuarios"
+              colors={['#FF6384', '#36A2EB']}
+            />
+          </div>
+        </div>
+
+        <div className={styles.infoTableContainer}>
+          <h3 className={styles.infoTableTitle}>Lista de solicitudes</h3>
+          <table className={styles.infoTable}>
+            <thead className={styles.infoTableThead}>
+              <tr className={styles.infoTableTr}>
+                <th className={styles.infoTableTh}>#</th>
+                <th className={styles.infoTableTh}>Email</th>
+                <th className={styles.infoTableTh}>Estado</th>
+                <th className={styles.infoTableTh}>Fecha</th>
+                <th className={styles.infoTableTh}>Institución</th>
+                <th className={styles.infoTableTh}>Nombre</th>
+              </tr>
+            </thead>
+            <tbody className={styles.infoTableTbody}>
+              <tr>
+                <td>10</td>
+                <td>fernacastillo.perez0607@gmail.com</td>
+                <td>Aceptado</td>
+                <td>2024-09-19</td>
+                <td>UACh</td>
+                <td>Fernando Castillo Perez</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
     </div>

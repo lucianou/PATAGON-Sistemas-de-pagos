@@ -5,7 +5,7 @@ import styles from "../src/styles/Notifications_Sonner.module.css";
 // exportaciones admins
 import Login from './Pages/admin/Login';
 import Registro from './Pages/admin/Registro';
-import Dashboard from './Pages/admin/Dashboard';
+import Dashboard_bolsas from './Pages/admin/Dashboard_bolsas';
 import Dashboard_solicitudes from './Pages/admin/Dashboard_solicitudes';
 import Dashboard_user from './Pages/admin/Dashboard_user';
 import Dashboard_profit from './Pages/admin/Dashboard_profit';
@@ -21,6 +21,7 @@ import MainClient from './Pages/client/main';
 import 'primereact/resources/themes/saga-blue/theme.css'; 
 import 'primereact/resources/primereact.min.css'; 
 import 'primeicons/primeicons.css'; 
+import Dashboard from './Pages/admin/Dashboard';
 // exportaciones cliente
 
 import UsInfo from './Pages/client/UsInfo';
@@ -44,6 +45,7 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
         } />
+        <Route path="/dashboard-bolsas" element={<Dashboard_bolsas/>} />
         <Route path="/dashboard-profit" element={
           <ProtectedRoute>
             <Dashboard_profit />
