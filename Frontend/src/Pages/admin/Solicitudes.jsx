@@ -12,6 +12,7 @@ import RejectRequestModal from '../../../public/Components/RequestsUsers/RejectR
 import { toast} from 'sonner';
 import { fetchRequest } from '../../Hooks/patagonUserFetch';
 import useExportToExcel from '../../Hooks/exportExcelRequests';
+import { jwtDecode } from 'jwt-decode';
 
 const Solicitudes = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,9 @@ const Solicitudes = () => {
     const { viewFile } = useFileViewer();
     const ipserver = import.meta.env.VITE_IP;
     const port = import.meta.env.VITE_PORT;
+    const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
+    const userRole = decodedToken.rol;
 
     useEffect(() => {
         const fetchSolicitudes = async () => {
@@ -88,14 +92,6 @@ const Solicitudes = () => {
             `http://${ipserver}:${port}/api/command/new-user-creation-patagon`,'POST',formData);
     
         if (success) {
-            console.log('Respuesta del servidor:', data);
-            setSolicitudes(prevSolicitudes =>
-                prevSolicitudes.map(solicitud =>
-                    solicitud.ID_request === formData.ID_request
-                        ? { ...solicitud, estado: 'aceptado' }
-                        : solicitud
-                )
-            );
             toast.success('Solicitud aceptada exitosamente!');
             setIsAcceptModalOpen(false);
         } else {
@@ -111,14 +107,6 @@ const Solicitudes = () => {
             `http://${ipserver}:${port}/api/command/reject-request`,'POST',reasonData);
             
         if (success) {
-            console.log('Respuesta del servidor:', data);
-            setSolicitudes(prevSolicitudes =>
-                prevSolicitudes.map(solicitud =>
-                    solicitud.ID_request === reasonData.ID_request
-                        ? { ...solicitud, estado: 'rechazado' }
-                        : solicitud
-                )
-            );
             toast.success('Solicitud rechazada exitosamente!');
             setIsRejectModalOpen(false);
         } else {
@@ -174,29 +162,34 @@ const Solicitudes = () => {
         []
     );
 
+
     const actionsRenderer = (solicitud) => {
         if (solicitud.estado === 'pendiente') {
             return (
-                <div className={styles.actionButtonsContainer}>
-                    <button
-                        className={styles.actionButtonsAccept}
-                        onClick={() => handleAcceptClick(solicitud)}
-                    >
-                        Aceptar
-                    </button>
-                    <button
-                        className={styles.actionButtonsReject}
-                        onClick={() => handleRejectClick(solicitud)}
-                        title="Rechazar solicitud"
+                (userRole === 'Administrador' || userRole === 'Co-admin') && ( // Agrupando correctamente la condición
+                    <div className={styles.actionButtonsContainer}>
+                        <button
+                            className={styles.actionButtonsAccept}
+                            onClick={() => handleAcceptClick(solicitud)}
+                        >
+                            Aceptar
+                        </button>
+                        <button
+                            className={styles.actionButtonsReject}
+                            onClick={() => handleRejectClick(solicitud)}
+                            title="Rechazar solicitud"
                         >
                             Rechazar
                         </button>
-                </div>
+                    </div>
+                )
             );
         }
+    
         return 'Sin acciones';
     };
-
+    
+      
     const filteredSolicitudes = solicitudes.filter(solicitud => {
         switch (filter) {
             case 'pendiente':
