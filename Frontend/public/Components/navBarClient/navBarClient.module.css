@@ -1,52 +1,92 @@
-.headerLogo{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  /* background-color: #181A1B; */
-  height: 300px;
-  .logo{
-    width: auto;
-    height: 90px;  
-  }
-  h2{
-    color: #cccccc;
-    margin-top: 10px;
-    font-size: 30px;
-    font-family: Lora;
-    background: linear-gradient(to right, rgb(14, 153, 95), rgb(0, 171, 140), rgb(137, 194, 168));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-.header{
+.header {
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;  
+  background-color: #1D1D1D;
+  padding: 0 40px;
   color: #cccccc;
   font-size: 20px;
   width: 100%;
-  .sectionIzq{
+  z-index: 2;
+  border-bottom: 2px solid #2b2b2b;
+
+  .sectionIzq {
     display: flex;
     align-items: center;
-  }
-  a{
-    text-decoration: none;
-    transition: all .2s ease;
-    margin: 20px 30px;
-    color: #cccccc;
-    &:hover{
-      color: #07A160;
-      transform: scale(1.1);
+
+    a {
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 20px 30px;
+      color: #cccccc;
+
+      &:hover {
+        color: #07A160;
+        transform: scale(1.1);
+        background-color: #2b2b2b;
+
+      }
     }
   }
 
-  .active{
-    color: #00AB8C !important;
-    font-weight: bolder;
-    /* border-bottom: 2px solid #ffffff; */
+  .userDiv {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    .user{
+      padding: 20px 10px;
+      margin-right: 30px;
+    }
+    a{
+      color: #cccccc;
+      cursor: pointer;
+      transition: all .2s;
+      &:hover{
+        color: #07A160;
+        background-color: #2b2b2b;
+      }
+    }
+    ul {
+      transition: all 0.3s ease;
+      position: absolute;
+      width: max-content;
+      right: 0;
+      top: 100%;
+      opacity: 0;
+      visibility: hidden;
+      li {
+        text-align: right;
+        background-color: #1D1D1D;
+        margin-right: 30px;
+        padding: 0 10px;
+        border-bottom: 2px solid #2b2b2b;
+        
+        list-style: none;
+        transition: .2s all;z-index: 1;
+        a {
+          display: block;
+          text-decoration: none;
+          padding: 5px 0;
+        }
+        &:hover {
+          background-color: #2b2b2b;
+        }
+      }
+      li:nth-child(1) {
+        border-top: 2px solid #2b2b2b;
+      }
+    }
+
+    &:hover ul {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
+  .active {
+    color: #00AB8C !important;
+    font-weight: bolder;
+  }
 }

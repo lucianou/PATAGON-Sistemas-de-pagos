@@ -22,7 +22,14 @@ const navBar = () => {
             Docs
           </a>
         </div>
-        <a href='/profile' className={isActive("/profile") ? styles.active : ''} tabIndex='-1'>Mi Perfil</a>
+        <div className={styles.userDiv}>
+          <a className={styles.user}>Usuario</a>
+          <ul>
+            <li><a href="/Profile">Mi Perfil</a></li>
+            <li><a href="/Compras">Historial de compras</a></li>
+            <li><a href="/">Cerrar sesión</a></li>
+          </ul>
+        </div>
       </div>
     </>
   );

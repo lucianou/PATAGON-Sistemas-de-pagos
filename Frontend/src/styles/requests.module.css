@@ -152,15 +152,8 @@
   color: #ffffff; /* Color del texto (cambia a tu preferido) */
 }
 
-button.excel span {
-  color: #ffffff; /* Asegúrate de que esto tenga prioridad */
-}
-
-.excel span {
+.excel {
   color: #ffffff !important; /* Añade !important como último recurso */
-}
-button {
-  color: rgb(255, 255, 255); /* O cualquier otro color */
 }
 
 .pagination {
