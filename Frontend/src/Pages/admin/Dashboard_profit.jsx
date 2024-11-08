@@ -6,38 +6,24 @@ import LinearGraphic from "../../../public/Components/Graphics/LinearGraphic";
 import logo from '../../assets/SoloLogo_Patagon.png';
 import * as XLSX from 'xlsx';
 import useExportToExcel from '../../Hooks/exportExcelRequests';
+import useDashboardStats from "../../Hooks/useDashboardStatsProfit";
+import BarGraphic from "../../../public/Components/Graphics/BarGraphic";
+
 
 const Dashboard_profit = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedDiv, setExpandedDiv] = useState(null);
   const divRefs = useRef([]);
-  const [labels, setLabels] = useState([]);
-  const [ingresos, setIngresos] = useState([]);
-  const [dataPoints, setDataPoints] = useState([]);
   const [labels2, setLabels2] = useState([]);
   const [dataPoints2, setDataPoints2] = useState([]);
   const { exportToExcel, loading } = useExportToExcel();
+  const { data } = useDashboardStats();
   const ip_server = import.meta.env.VITE_IP;
   const port = import.meta.env.VITE_PORT;
 
-  useEffect(() => {
-    const fetchDataWeek = async () => {
-      try {
-        const response = await fetch(`http://${ip_server}:3003/api/command/get-users-stats-week`);
-        const result = await response.json();
-
-        const newLabels = result.map(item => item.date); 
-        const newDataPoints = result.map(item => item.count);
-
-        setLabels(newLabels);
-        setDataPoints(newDataPoints);
-      } catch (error) {
-        console.error('Error fetching weekly data:', error);
-      }
-    };
-
-    fetchDataWeek();
-  }, []);
+  const labels = data?.weeklyStats ? data.weeklyStats.map(item => item.date) : [];
+  const dataPoints = data?.weeklyStats ? data.weeklyStats.map(item => item.count) : [];
+  
 
   useEffect(() => {
     const fetchData3Months = async () => {
@@ -58,22 +44,7 @@ const Dashboard_profit = () => {
     fetchData3Months();
   }, []);
 
-  useEffect(() => {
-    const obtenerIngresos = async () => {
-      try {
-        const response = await fetch(`http://${ip_server}:${port}/api/command/get-total-gains`);
-        const ingresosUsers = await response.json();
-  
-        // Asegúrate de que ingresosUsers tenga la propiedad que necesitas
-        setIngresos(ingresosUsers); // Asegura que ingresosUsers tiene totalGanancias
-      } catch (error) {
-        console.error('Error fetching ingresos:', error);
-      }
-    };
-  
-    obtenerIngresos(); // Llama a la función para obtener los ingresos al montar el componente
-  }, []);
-  
+ 
 
   const handleExpand = (div) => {
     setExpandedDiv(expandedDiv === div ? null : div);
@@ -114,6 +85,7 @@ const Dashboard_profit = () => {
             <h1>Dashboard Profit</h1>
           </div>
         </div>
+        
         <div className={styles.CardContainer}>
           <div className={styles.CardGanancias}>
             <div className={styles.CardGananciasTitle}>
@@ -121,7 +93,7 @@ const Dashboard_profit = () => {
               <p>Total de ganancias realizadas en dolares</p>
             </div>
             <div className={styles.CardGananciasValue}>
-              <p>${ingresos.totalGanancias}</p>
+              <p>${data?.totalGanancias ?? 0}</p>
             </div>
             <div className={styles.exportExcel}>
               <button className={styles.excel} onClick={handleExport}>
@@ -130,7 +102,6 @@ const Dashboard_profit = () => {
               </button>
             </div>
           </div>
-
           <div className={styles.CardIngresos}>
             <div className={styles.CardIngresosTitle}>
               <h2>Ingresos</h2>
@@ -153,6 +124,32 @@ const Dashboard_profit = () => {
           </div>
         </div>
 
+        <div className={styles.containerMethodPayment}>
+          <div className={styles.topProducts}>
+            <h2>Top productos vendidos</h2>
+            <div className={styles.topProductsContainer}>
+              {data?.products?.length > 0 ? (
+                data.products.map((product, index) => (
+                  <div className={styles.topProduct} key={index}>
+                    <p>Bolsa: {product.id_product}</p>
+                    <p>Total Vendido: {parseInt(product.total_sold, 10)}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No hay productos disponibles</p>
+              )}
+            </div>
+          </div>
+          <div className={styles.graphicMethodPayment}>
+            <BarGraphic
+              labels={['Pagado', 'UACh']}
+              dataPoints={[300, 50]}
+              title="Métodos de pago utilizados"
+              color="#0b6730"
+            />
+          </div>
+        </div>
+
         <div className={styles.contenedor}>
           <div 
             className={`${styles.div1} ${expandedDiv === 'div1' ? styles.expanded : ''}`}
@@ -166,7 +163,6 @@ const Dashboard_profit = () => {
               color="#0b6730"
             />
           </div>
-
           <div 
             className={`${styles.div2} ${expandedDiv === 'div2' ? styles.expanded : ''}`}
             onClick={() => handleExpand('div2')}
@@ -179,17 +175,16 @@ const Dashboard_profit = () => {
               color="#0b6730"
             />
           </div>
-
           <div 
             className={`${styles.div3} ${expandedDiv === 'div3' ? styles.expanded : ''}`}
             onClick={() => handleExpand('div3')}
             ref={(el) => (divRefs.current[2] = el)}
           >
-            <LinearGraphic
-              labels={labels}
-              dataPoints={dataPoints}
-              title="Ingresos últimos 7 días"
-              color="#0b6730"
+            <BarGraphic
+              labels={['MercadoPago', 'PayPal']}
+              dataPoints={[20, 30]}
+              title="Método de pago utilizados"
+              color="#0b6730" 
             />
           </div>
         </div>

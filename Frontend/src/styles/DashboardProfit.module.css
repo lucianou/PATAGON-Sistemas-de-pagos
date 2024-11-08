@@ -2,7 +2,7 @@
   position: relative;
   width: 90%;
   min-height: 88vh;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .graphicContainer{
@@ -64,6 +64,7 @@
   width: 90%;
   justify-content: center;
   align-items: stretch;
+  margin-bottom: 30px;
 }
 
 /* Tarjeta de ganancias */
@@ -206,4 +207,66 @@
   width: 16px;
   height: auto;
   margin-right: 5px;
+}
+
+.topProducts {
+  margin: 0;
+  text-align: center;
+  padding: 15px;
+  background-color: #1e1e1e; /* Fondo oscuro */
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  max-width: 300px;
+  color: #f1f1f1;
+}
+
+.topProducts > h2 {
+  font-size: 1.5rem;
+  color: #f1f1f1;
+  margin-bottom: 15px;
+}
+
+.topProductsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.topProduct {
+  padding: 5px 0;
+  border-bottom: 1px solid #444;
+  width: 100%;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.topProduct:last-child {
+  border-bottom: none; 
+}
+
+.topProduct > p {
+  margin: 0;
+  color: #ddd;
+}
+
+.topProduct > p:first-child {
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.containerMethodPayment{ 
+  margin-top: 30px;
+  display: flex;
+ 
+}
+
+.graphicMethodPayment {
+  width: 64%;
+  margin-left: 20px;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  height: 300px;
+  justify-items: center;
 }
