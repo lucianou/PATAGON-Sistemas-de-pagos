@@ -185,12 +185,40 @@ export async function dashboardStats(req, res) {
       // Obtener la cantidad total de solicitudes en 7 días
       const sevenDaysStats = await getWeeklyUserStatsUtility();
 
+      //obtner la cantidad de usuarios con type pagado y uach
+      const usersTypePagado = await User.count({ where: { type: 'Pagado' } });
+      const usersTypeUach = await User.count({ where: { type: 'UACh' } });
+
+    // Obtener la fecha de inicio del mes actual
+    const startDate = new Date();
+    startDate.setDate(1); // Primer día del mes
+    startDate.setHours(0, 0, 0, 0); // Asegurar que está a la medianoche
+
+    // Obtener la cantidad de dinero pagado en el último mes
+    const ordersMes = await Orders.findAll({
+      attributes: ['amount'],
+      where: {
+        status: "Pagado",
+        created_at: { // Filtrar por el campo de fecha, asumiendo que es 'createdAt'
+          [Op.gte]: startDate
+        }
+      }
+    });
+
+    // Calcular el total de ingresos del mes sumando los montos
+    const totalMoneyPayed = ordersMes.reduce((total, order) => {
+      return total + (parseFloat(order.amount) || 0);
+    }, 0);
+
       // Enviar la información como respuesta JSON
       res.json({
           totalGanancias,
           totalUsers,
           totalRequests,
-          sevenDaysStats
+          sevenDaysStats,
+          usersTypePagado,
+          usersTypeUach,
+          totalMoneyPayed
       });
   } catch (error) {
       console.error("Error fetching dashboard stats:", error);
@@ -198,7 +226,7 @@ export async function dashboardStats(req, res) {
   }
 }
 
-// Función de utilidad para obtener el conteo de usuarios en los últimos 7 días
+
 async function getWeeklyUserStatsUtility() {
   const currentDate = new Date();
   const sevenDaysAgo = new Date();
@@ -232,3 +260,49 @@ async function getWeeklyUserStatsUtility() {
 
   return result;
 }
+
+
+export async function dashboardStatsProfit(req, res) {
+  try {
+    // Consulta para agrupar por id_product y contar la cantidad de cada producto
+    const products = await Orders.findAll({
+      attributes: [
+        'id_product',
+        [Sequelize.fn('COUNT', Sequelize.col('id_product')), 'total_sold']
+      ],
+      group: ['id_product'],
+      order: [[Sequelize.literal('total_sold'), 'DESC']],
+    });
+
+    const sevenDaysStats = await getWeeklyUserStatsUtility();
+
+     // Obtener todas las órdenes con estado "Pagado"
+     const orders = await Orders.findAll({
+      attributes: ['amount'],
+      where: { status: "Pagado" },
+    });
+
+    // Calcular el total de ganancias
+    const totalGanancias = orders.reduce((total, order) => {
+      // Convertir order.amount a número usando parseFloat
+      return total + (parseFloat(order.amount) || 0); // Usa || 0 para manejar posibles NaN
+    }, 0);
+  
+    res.json({
+      success: true,
+      totalGanancias,
+      products,
+      weeklyStats: sevenDaysStats
+    });
+    
+  } catch (error) {
+    console.error("Error fetching product sales data:", error);
+    res.status(500).json({ success: false, message: "Error fetching data" });
+  }
+}
+
+
+
+
+
+

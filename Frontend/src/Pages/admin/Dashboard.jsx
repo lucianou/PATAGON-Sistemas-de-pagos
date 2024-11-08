@@ -7,11 +7,12 @@ import logo from '../../assets/SoloLogo_Patagon.png';
 import LinearGraphic from "../../../public/Components/Graphics/LinearGraphic.jsx";
 import CircularGraphic from "../../../public/Components/Graphics/CircularGraphic.jsx";
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 import { FaDollarSign, FaUsers, FaChartLine } from 'react-icons/fa';
 import useDashboardStats from '../../Hooks/useDashboardStats.js';
 
-const InfoCard = ({ title, value, change, icon }) => (
-  <div className={styles.infoCard}>
+const InfoCard = ({ title, value, change, icon, onClick }) => (
+  <div className={styles.infoCard} onClick={onClick} style={{ cursor: 'pointer' }}>
     <div className={styles.iconContainer}>{icon}</div>
     <div className={styles.textContainer}>
       <h2>{title}</h2>
@@ -27,10 +28,11 @@ const Dashboard = () => {
   const decodedToken = jwtDecode(token);
   const userRole = decodedToken.rol;
   const { data, loading, error } = useDashboardStats();
+  const navigate = useNavigate();
+
   const labels = data?.sevenDaysStats ? data.sevenDaysStats.map(item => item.date) : [];
   const dataPoints = data?.sevenDaysStats ? data.sevenDaysStats.map(item => item.count) : [];
 
- 
   return (
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
@@ -44,9 +46,25 @@ const Dashboard = () => {
         </div>
 
         <div className={styles.cardContainer}>
-          <InfoCard title="Total ingresos" value={`$${data?.totalGanancias ?? 0}`} change="+2,031" icon={<FaDollarSign />} />
-          <InfoCard title="Usuarios registrados" value={data?.totalUsers ?? 0} icon={<FaUsers />} />
-          <InfoCard title="Solicitudes recibidas" value={`${data?.totalRequests ?? 0}`} icon={<FaChartLine />} />
+          <InfoCard 
+            title="Total ingresos" 
+            value={`$${data?.totalGanancias ?? 0} USD`} 
+            change={`+${data?.totalMoneyPayed ?? 0}`} 
+            icon={<FaDollarSign />} 
+            onClick={() => navigate('/dashboard-profit')}
+          />
+          <InfoCard 
+            title="Usuarios registrados" 
+            value={data?.totalUsers ?? 0} 
+            icon={<FaUsers />} 
+            onClick={() => navigate('/dashboard-user')}
+          />
+          <InfoCard 
+            title="Solicitudes recibidas" 
+            value={`${data?.totalRequests ?? 0}`} 
+            icon={<FaChartLine />} 
+            onClick={() => navigate('/dashboard-solicitudes')}
+          />
         </div>
 
         <div className={styles.graphContainer}>
@@ -61,7 +79,7 @@ const Dashboard = () => {
           <div className={styles.graph2}>
             <CircularGraphic
               labels={['Pagado', 'UACh']}
-              dataPoints={[300, 50]}
+              dataPoints= {[data?.usersTypePagado ?? 0, data?.usersTypeUach ?? 0]}
               title="Distribución de usuarios"
               colors={['#FF6384', '#36A2EB']}
             />
