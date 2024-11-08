@@ -200,7 +200,10 @@
 .excel{
   background: none;
   border: none;
+  color: white;
 }
+
+
 
 .exportExcel img {
   align-items: center;
