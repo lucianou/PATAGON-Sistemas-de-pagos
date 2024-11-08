@@ -7,6 +7,7 @@ import logo from '../../assets/SoloLogo_Patagon.png';
 import useFetchBolsa from '../../Hooks/bolsas';
 import paypalOrder from '../../Hooks/paypalOrder'; // Asegúrate de que la ruta sea correcta
 import mercadopagoOrder from '../../Hooks/mercadopagoOrder';
+import NavBar from '../../../public/Components/navBarClient/navBarClient';
 
 const Purchase_details = () => {
     const { pathname } = useLocation();
@@ -67,6 +68,7 @@ const Purchase_details = () => {
     return (
         <div className={styles1.dashboardContainer}>
             {/* <MenuDashboard toggleMenu={() => setIsOpen(!isOpen)} isOpen={isOpen} /> */}
+            <NavBar />
             <main className={`${styles1.content} `}>
                 <div className={styles1.header}>
                     <div className={styles1.titleLogo}>
