@@ -23,7 +23,7 @@ ChartJs.register(
     Filler
 );
 
-const BarGraphic = ({ labels, dataPoints, title = 'Ganancias', color = 'rgb(234, 184, 57)' }) => {
+const BarGraphic = ({ labels, dataPoints, title, color }) => {
     const midata = {
         labels,
         datasets: [
@@ -31,7 +31,7 @@ const BarGraphic = ({ labels, dataPoints, title = 'Ganancias', color = 'rgb(234,
                 label: title,
                 data: dataPoints,
                 borderColor: color,
-                backgroundColor: `rgba(${color.slice(4)}, 0.3)`, // Fondo transparente para las barras
+                backgroundColor: color,
                 pointRadius: 5,
             },
         ],
@@ -47,6 +47,15 @@ const BarGraphic = ({ labels, dataPoints, title = 'Ganancias', color = 'rgb(234,
                     font: { weight: 'bold' },
                 },
             },
+            title: {
+                display: true,
+                text: title,
+                color: 'rgb(255,255,255, 0.8)',
+                font: {
+                    size: 16,
+                    weight: 'bold',
+                },
+            },
             tooltip: {
                 callbacks: {
                     label: (tooltipItem) => `${tooltipItem.dataset.label}: ${tooltipItem.raw}`,
@@ -57,7 +66,7 @@ const BarGraphic = ({ labels, dataPoints, title = 'Ganancias', color = 'rgb(234,
             x: {
                 title: {
                     display: true,
-                    text: 'Tarjetas',
+                    text: 'Método de pago',
                     color: 'rgb(255,255,255, 0.8)',
                     font: { weight: 'bold' },
                 },
@@ -71,7 +80,7 @@ const BarGraphic = ({ labels, dataPoints, title = 'Ganancias', color = 'rgb(234,
             y: {
                 title: {
                     display: true,
-                    text: 'Horas de uso',
+                    text: 'Cantidad',
                     color: 'rgb(255,255,255, 0.8)',
                     font: { weight: 'bold' },
                 },

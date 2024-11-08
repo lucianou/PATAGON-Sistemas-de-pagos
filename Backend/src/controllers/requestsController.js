@@ -65,6 +65,8 @@ export async function addRequest(req, res) {
     });
 
     // Emite el evento para notificar la nueva solicitud
+    //solicitud guardada correctamente mostrar en consola
+    console.log(newRequest);
     req.app.get('io').emit('newRequest', newRequest);
     res.status(201).json(newRequest);
     
