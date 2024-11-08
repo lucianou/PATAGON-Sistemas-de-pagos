@@ -22,7 +22,7 @@ const navBar = () => {
             Docs
           </a>
         </div>
-        <a>Mi Perfil</a>
+        <a href='/profile' className={isActive("/profile") ? styles.active : ''} tabIndex='-1'>Mi Perfil</a>
       </div>
     </>
   );
