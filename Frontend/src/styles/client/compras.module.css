@@ -6,6 +6,7 @@
     height: 100vh;
     color: white;
     font-family: Arial, sans-serif;
+    padding-top: 100px;
   }
   
   .historial-title {
@@ -53,18 +54,44 @@
   }
   
   .id-cell {
-    justify-content: center;
     width: 30px;
     height: 30px;
-    background-color: #111111;
-    border-radius: 50%;
     text-align: center;
     color: #ffffff;
+    font-size: small;
   }
   
   .pagination {
-    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .pagination button {
+    padding: 8px 16px;
+    background-color: #4CAF50; 
     color: white;
+    border: none;
+    border-radius: 5px;
     font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination button:hover {
+    background-color: #45a049; 
+  }
+  
+  .pagination button:disabled {
+    background-color: #8b8b8b; 
+    color: #666;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-size: 14px;
+    color: #fffbfb;
   }
   

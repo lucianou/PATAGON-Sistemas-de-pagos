@@ -72,7 +72,7 @@ const Purchase_details = () => {
             <main className={`${styles1.content} `}>
                 <div className={styles1.header}>
                     <div className={styles1.titleLogo}>
-                        <img src={logo} className={styles1.menuIcon} alt="Logo" />
+                        {/* <img src={logo} className={styles1.menuIcon} alt="Logo" /> */}
                         <h1>Detalles de compra</h1>
                     </div>
                 </div>
