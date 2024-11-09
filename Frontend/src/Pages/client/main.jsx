@@ -3,85 +3,51 @@ import styles from "../../styles/client/main.module.css";
 import NavBar from "../../../public/Components/navBarClient/navBarClient";
 import Card from '../../../public/Components/Tarjeta/Card.jsx';
 import logo from "../../../src/assets/patagon-logo-text-color.png";
-import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldAlt, faLock, faCheckCircle, faBolt, faClock } from "@fortawesome/free-solid-svg-icons";
+import DashboardBolsasUser from "../../Hooks/useDashboardBolsasUser.js";
 
 const MainClient = () => {
-  const [bolsas, setBolsas] = useState([]); 
-  const ipserver = import.meta.env.VITE_IP;
-  const port = import.meta.env.VITE_PORT;
+  const { bolsas, loading, error } = DashboardBolsasUser();
 
-  useEffect(() => {
-    const fetchBolsas = async () => {
-      const token = localStorage.getItem('token'); 
-  
-      try {
-        const response = await fetch(`http://${ipserver}:${port}/api/command/get-products`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` 
-          }
-        });
-
-        if(response.status == 403){
-          return refreshAccessToken().then(newToken => {
-            return fetch(`http://${ipserver}:${port}/api/command/get-products`,{
-              method: 'GET',
-              headers:{
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${newToken}` 
-              }
-            });
-          });
-        }
-
-        if (!response.ok) {
-          throw new Error('Error en la red al obtener las bolsas'); 
-        }
-  
-        const data = await response.json(); 
-        setBolsas(data);
-      } catch (error) {
-        console.error('Error al obtener las bolsas:', error);
-      }
-    };
-  
-    fetchBolsas();
-  }, []);
-  
   return (
     <div className={styles.container}>
       <NavBar />
       <div className={styles.headerLogo}>
-        <img src={logo} alt="logo" className={styles.logo}/>
+        <img src={logo} alt="logo" className={styles.logo} />
         <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
       </div>
       <section className={styles.section1}>
-          <div className={styles.dashboardWidgets}>
-            { (
-              bolsas.map((bolsa, index) => {
-                const delay = `${index * 100}ms`; // Incrementar el delay por cada usuario
-                return ( // Itera sobre las bolsas obtenidas y muestra una Card para cada una
-                  <Card
-                    key={index} // Asegúrate de usar un key único
-                    nombre={bolsa.nombre}
-                    tiempo={bolsa.tiempo}
-                    precio={bolsa.precio}
-                    detalles={bolsa.detalles} // Pasamos el arreglo de detalles
-                    delay={delay} // Pasamos el delay como prop
-                    ID = {bolsa.ID}
-                  />
-                );
-              })
-            )}
-          </div>
+        <div className={styles.dashboardWidgets}>
+        {loading ? (
+            <div className={styles.spinner}></div>
+          ) : error ? (
+            <p>Error al cargar bolsas: {error}</p>
+          ) : bolsas && bolsas.length > 0 ? (  
+            bolsas.map((bolsa, index) => {
+              const delay = `${index * 100}ms`; 
+              return (
+                <Card
+                  key={index} 
+                  nombre={bolsa.nombre}
+                  tiempo={bolsa.tiempo}
+                  precio={bolsa.precio}
+                  detalles={bolsa.detalles} 
+                  delay={delay} 
+                  ID={bolsa.ID}
+                />
+              );
+            })
+          ) : (
+            <p>No hay bolsas disponibles.</p>
+          )}
+        </div>
       </section>
+
       <section className={styles.section2}>
         <div className={styles.header}>
-            <h1>NOSOTROS SOMOS</h1>
-            <h3>Tu Partner en computacion de alto rendimiento</h3>
+          <h1>NOSOTROS SOMOS</h1>
+          <h3>Tu Partner en computacion de alto rendimiento</h3>
         </div>
         <div className={styles.parrafos}>
           <div>
@@ -113,19 +79,19 @@ const MainClient = () => {
           <h1>Valores</h1>
           <div className={styles.valueItems}>
             <div>
-                <FontAwesomeIcon icon={faShieldAlt} className={styles.icon} /> <p>Seguridad</p>
+              <FontAwesomeIcon icon={faShieldAlt} className={styles.icon} /> <p>Seguridad</p>
             </div>
             <div>
-                <FontAwesomeIcon icon={faLock} className={styles.icon} /> <p>Confidencialidad</p>
+              <FontAwesomeIcon icon={faLock} className={styles.icon} /> <p>Confidencialidad</p>
             </div>
             <div>
-                <FontAwesomeIcon icon={faCheckCircle} className={styles.icon} /> <p>Confiabilidad</p>
+              <FontAwesomeIcon icon={faCheckCircle} className={styles.icon} /> <p>Confiabilidad</p>
             </div>
             <div>
-                <FontAwesomeIcon icon={faBolt} className={styles.icon} /> <p>Eficiencia</p>
+              <FontAwesomeIcon icon={faBolt} className={styles.icon} /> <p>Eficiencia</p>
             </div>
             <div>
-                <FontAwesomeIcon icon={faClock} className={styles.icon} /> <p>Tiempo de respuesta</p>
+              <FontAwesomeIcon icon={faClock} className={styles.icon} /> <p>Tiempo de respuesta</p>
             </div>
           </div>
         </section>
