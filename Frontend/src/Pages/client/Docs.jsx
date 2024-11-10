@@ -51,7 +51,7 @@ const Docs = ({ }) => {
             <a href="#" className={styles.link}>Ver más</a>
           </div>
         </section>
-        <h1>aqui pongan footers</h1>
+        {/* <h1>aqui pongan footers</h1> */}
       </div>
     </>
   )
