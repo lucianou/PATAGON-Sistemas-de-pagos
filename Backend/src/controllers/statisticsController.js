@@ -147,10 +147,10 @@ export async function getIngresos(req, res) {
 //obtener ingreso de un usuario
 export async function getIngresoUsuario(req, res) {
   try {
-    const { email } = req.body;
+    const email = req.query.email;
     
     const orders = await Orders.findAll({
-      attributes: ['order_id', 'user_email', 'amount', 'payment_method', 'created_at'],
+      attributes: ['order_id', 'user_email', 'amount', 'payment_method', 'created_at', 'id_product'],
       where: { user_email: email },
     });
 

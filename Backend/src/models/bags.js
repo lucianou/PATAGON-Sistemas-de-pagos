@@ -11,8 +11,8 @@ const Bag = sequelize.define('Bag', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  tiempo: {
-    type: DataTypes.STRING,
+  time:{
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   precio: {

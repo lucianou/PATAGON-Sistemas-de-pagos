@@ -39,6 +39,7 @@ const Purchase_details = () => {
             precio: bolsa.precio,
             email: localStorage.getItem("email"),
             id: bolsa.ID,
+            time: bolsa.time,
         };
 
         try {
@@ -80,8 +81,8 @@ const Purchase_details = () => {
                 <div className={styles.purchaseContainer}>
                     <div className={styles.purchaseDetails}>
                         <h2>{bolsa.nombre}</h2>
-                        <p>Tiempo: {bolsa.tiempo}</p>
-                        <p>Precio: ${bolsa.precio}</p>
+                        <p>Tiempo: {bolsa.time} horas</p>
+                        <p>Precio: ${bolsa.precio} USD</p>
                         <p>Detalles: {bolsa.detalles.join(', ')}</p>
                         <p>RAM: {bolsa.ram}</p>
                         <p className={styles.condiciones}>
@@ -96,7 +97,7 @@ const Purchase_details = () => {
                             <p>1</p>
                         </div>
                         <div className={styles.totalPrice}>
-                            <p>Total: ${bolsa.precio}</p>
+                            <p>Total: ${bolsa.precio} USD</p>
                         </div>
 
                         <div className={styles.termsContainer}>

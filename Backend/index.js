@@ -2,15 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import http from 'http';
-import User from './src/models/user.js';
-import { Server } from 'socket.io';
 
 import { UserControlRouter } from './src/routes/userControlRoute.js';
 import { AuthRouter } from './src/routes/authRoute.js';
 import { RequestsRouter } from './src/routes/requestsRoute.js';
-import { pool } from './src/middleware/authenticateDB.js';
 import { setupSocket } from './src/config/socketConfig.js';
-import { authenticateToken } from './src/middleware/authenticateToken.js';
 import { PurchaseRouter } from './src/routes/purchase.js';
 import { StatisticsRouter } from './src/routes/statisticsRoute.js';
 import { ProductsRouter } from './src/routes/productsRoute.js';
