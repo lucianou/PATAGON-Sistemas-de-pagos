@@ -1,5 +1,6 @@
 import axios from "axios";
 import Orders from "../models/transactions.js";
+import User from "../models/user.js";
 
 const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const PAYPAL_API_KEY = process.env.PAYPAL_API_KEY;
@@ -10,7 +11,7 @@ const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
 
 // Controlador para crear un pago PayPal
 export const createPayment = async (req, res) => {
-  const {email, precio, id} = req.body;
+  const {email, precio, id, time} = req.body;
   
   try {
     const order = {
@@ -27,7 +28,7 @@ export const createPayment = async (req, res) => {
         brand_name: "Patagon arriendos",
         landing_page: "NO_PREFERENCE",
         user_action: "PAY_NOW",
-        return_url: `http://${ip_server}:3003/api/command/confirm-payment`,
+        return_url: `http://${ip_server}:3003/api/command/confirm-payment?email=${email}&time=${time}`,
         cancel_url: `http://${ip_server}:3003/api/command/cancel-payment`,
       },
     };
@@ -89,7 +90,9 @@ export const createPayment = async (req, res) => {
 // Controlador para confirmar el pago
 export const confirmPayment = async (req, res) => {
   const { token } = req.query;
-
+  const email = req.query.email;
+  const time = req.query.time;
+  
   try {
     const response = await axios.post(
       `${PAYPAL_API}/v2/checkout/orders/${token}/capture`,
@@ -109,12 +112,13 @@ export const confirmPayment = async (req, res) => {
     if (status === "COMPLETED") {
       await Orders.update(
         { status: "Pagado", updated_at: new Date() },
-        {where: {order_id: orderId}}
-    )
+        { where: { order_id: orderId } }
+      )
+      await User.increment(
+        { hours_remaining: time },
+        { where: { email } }
+      );
     };
-
-    //console.log(response.data);
-
     res.redirect(`http://${ip_server}:4003/paymentaccept`)
   } catch (error) {
     console.log(error.message);
@@ -144,9 +148,8 @@ export const cancelPayment = async (req, res) => {
 
 //controlador para crear un pago MercadoPago
 export const createOrderMercadoPago = async (req, res) => {
-  const { email, precio, id } = req.body;
+  const {email, precio, id, time} = req.body;
   const order = new Date().getTime();
-
 
   try {
     const payload = {
@@ -160,7 +163,7 @@ export const createOrderMercadoPago = async (req, res) => {
         },
       ],
       metadata: {email, order},
-      notification_url: `http://${ip_server}:3003/api/command/webhook`,
+      notification_url: `http://${ip_server}:3003/api/command/webhook?email=${email}&time=${time}`,
       back_urls: {
         success: `http://${ip_server}:4003/paymentaccept`,
         failure: `http://${ip_server}:4003/mainClient`,
@@ -214,6 +217,8 @@ export const createOrderMercadoPago = async (req, res) => {
 export const webhookMercadoPago = async (req, res) => {
   try {
     const payment = req.query;
+    const email = req.query.email;
+    const time = req.query.time;
     console.log("Webhook recibido:", payment);
 
     if (payment.type === "payment") {
@@ -241,9 +246,11 @@ export const webhookMercadoPago = async (req, res) => {
           { status: "Pagado", updated_at: new Date() },
           { where: { order_id: data.metadata.order } },
         )
+        await User.increment(
+          { hours_remaining: time },
+          { where: { email } }
+        );
       };
-
-
     }
 
     res.sendStatus(204);

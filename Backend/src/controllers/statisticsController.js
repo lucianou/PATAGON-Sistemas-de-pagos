@@ -150,7 +150,7 @@ export async function getIngresoUsuario(req, res) {
     const email = req.query.email;
     
     const orders = await Orders.findAll({
-      attributes: ['order_id', 'user_email', 'amount', 'payment_method', 'created_at'],
+      attributes: ['order_id', 'user_email', 'amount', 'payment_method', 'created_at', 'id_product'],
       where: { user_email: email },
     });
 

@@ -30,7 +30,7 @@ const MainClient = () => {
                 <Card
                   key={index} 
                   nombre={bolsa.nombre}
-                  tiempo={bolsa.tiempo}
+                  tiempo={bolsa.time}
                   precio={bolsa.precio}
                   detalles={bolsa.detalles} 
                   delay={delay} 
