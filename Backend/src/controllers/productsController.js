@@ -1,5 +1,6 @@
 import Bag from "../models/bags.js";
 import User from "../models/user.js";
+import Requests from "../models/requests.js";
 
 //obtener los productos, bolsas de tiempo
 export async function getProducts(req, res) {
@@ -36,8 +37,13 @@ export async function getTimeRemaining(req, res) {
     if (!user) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
+  
+    const request = await Requests.findOne({ where: { email: email, estado: 'aceptado' } });
+    const institution = request ? request.institucion : null;
+   
+
     //enviar horas y username
-    res.json({ time_remaining: user.hours_remaining, username: user.username });
+    res.json({ time_remaining: user.hours_remaining, username: user.username, name: user.nombre, institution: institution, email: user.email, id: user.ID, licenses: user.rol, type: user.type });
   } catch (error) {
     console.error('Error al obtener el producto:', error);
     res.status(500).json({ error: 'Error al obtener el producto' });
