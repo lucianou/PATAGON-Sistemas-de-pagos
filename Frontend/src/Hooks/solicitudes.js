@@ -1,4 +1,5 @@
 const ipserver = import.meta.env.VITE_IP;
+import refreshAccessToken from '../../public/Components/RefreshToken.jsx';
 
 export const fetchSolicitudes = async () => {
     const port = import.meta.env.VITE_PORT;
@@ -13,12 +14,19 @@ export const fetchSolicitudes = async () => {
             }
         });
 
-        if (!response.ok) {
-            throw new Error('Error en la solicitud');
+        if(response.status == 403 || response.status == 401){
+            return refreshAccessToken().then(newToken => {
+                return fetch(`http://${ipserver}:${port}/api/command/requests`,{
+                    method: 'GET',
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${newToken}` 
+                    }
+                });
+            });
         }
 
         const data = await response.json();
-        console.log('Solicitudes recibidas:', data);
         return data;
     } catch (error) {
         console.error('Error al obtener las solicitudes:', error);

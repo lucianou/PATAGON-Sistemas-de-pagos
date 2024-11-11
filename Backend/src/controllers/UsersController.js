@@ -44,6 +44,16 @@ export async function deleteAdminsRoles(req, res) {
         if (!user) {
             return res.status(404).json({ error: 'Usuario no encontrado' });
         }
+
+        //desvincular todos los registros en LoginHistory
+        await LoginHistory.update(
+            { user: null },
+            {
+                where: {
+                    user: user.ID
+                }
+            }
+        );
           
         // Eliminar el usuario
         await user.destroy();
@@ -64,7 +74,7 @@ export async function insertUserRole(req, res) {
         // Verificar si el usuario ya existe
         const existingUser = await User.findOne({ where: { email: email } });
         if (existingUser) {
-            return res.status(400).json({ error: "El usuario ya existe" });
+            return res.status(400).json({ error: "El usuario con correo ingresado ya existe!!" });
         }
 
         // Insertar el nuevo usuario

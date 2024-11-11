@@ -1,4 +1,6 @@
 export const fetchRequest = async (url, method, data) => {
+    console.log(data);
+
   try {
       const response = await fetch(url, {
           method,

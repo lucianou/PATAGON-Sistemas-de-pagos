@@ -21,12 +21,15 @@ export async function getPublicKeyFromDatabase(requestId) {
 
 //Nuevo usuario en patagón, llamada a api
 export async function newUserCreationPatagon(req, res) {
+
+ 
+  const { nombre, apellido, institucion, email, requestId, username, account, type } = req.body;
+  console.log(req.body);
   try {
-      const { nombre, apellido, institucion, email, requestId, username, account, type } = req.body;
 
       //verificar si el usuario con el email ya existe
       const existingUser = await User.findOne({ where: { email: email } });
-      if (existingUser) {
+      if (existingUser) { 
           return res.status(400).json({ error: "El correo ya está registrado" });
       }
 

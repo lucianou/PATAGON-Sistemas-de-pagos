@@ -15,9 +15,10 @@
     transition: width 0.3s ease; /* Transición suave */
 }
 .navigateButton{
-    background: linear-gradient(145deg, #356136, rgb(36, 37, 43));
+    background: none;
     border-radius: 5px;
     border: none;
+    color: white;
 }
 .notificationIcon {
     width: 50px; /* Tamaño del icono */
