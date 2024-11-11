@@ -287,12 +287,23 @@ export async function dashboardStatsProfit(req, res) {
       // Convertir order.amount a número usando parseFloat
       return total + (parseFloat(order.amount) || 0); // Usa || 0 para manejar posibles NaN
     }, 0);
+
+    //cantidad de pagos con paypal y mercadopago
+    const paypal = await Orders.count({
+      where: { payment_method: "PayPal" },
+    });
+
+    const mercadopago = await Orders.count({
+      where: { payment_method: "MercadoPago" },
+    });
   
     res.json({
       success: true,
       totalGanancias,
       products,
-      weeklyStats: sevenDaysStats
+      weeklyStats: sevenDaysStats,
+      paypal,
+      mercadopago,
     });
     
   } catch (error) {

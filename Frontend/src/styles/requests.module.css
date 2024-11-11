@@ -35,7 +35,7 @@
   gap: 5px;
 }
 .actionButtonsAccept {
-  background: #5ba16585;
+  background: #5ba165;
   color: white;
   border: none;
   border-radius: 5px;
@@ -44,7 +44,7 @@
 }
 
 .actionButtonsReject {
-  background: #c29d53a8;
+  background: #c29d52;
   color: white;
   border: none;
   border-radius: 5px;
@@ -133,27 +133,27 @@
 }
 
 .excel {
-  background: none; /* Sin fondo */
-  border: none; /* Sin borde */
-  padding: 5px; /* Espaciado interno */
-  cursor: pointer; /* Cambia el cursor al pasar */
-  display: inline-flex; /* Para alinear la imagen y el texto */
-  align-items: center; /* Alinear verticalmente */
+  background: none; 
+  border: none; 
+  padding: 5px; 
+  cursor: pointer; 
+  display: inline-flex; 
+  align-items: center; 
 }
 
 .excel img {
-  width: 20px; /* Tamaño de la imagen */
-  height: auto; /* Mantener la proporción */
-  margin-right: 5px; /* Espacio entre la imagen y el texto */
+  width: 20px;
+  height: auto; 
+  margin-right: 5px;
 }
 
 .excel span {
-  font-size: 14px; /* Tamaño de la fuente */
-  color: #ffffff; /* Color del texto (cambia a tu preferido) */
+  font-size: 14px; 
+  color: #ffffff; 
 }
 
 .excel {
-  color: #ffffff !important; /* Añade !important como último recurso */
+  color: #ffffff !important; 
 }
 
 .pagination {

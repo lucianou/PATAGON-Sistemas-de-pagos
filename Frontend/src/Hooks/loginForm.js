@@ -45,11 +45,17 @@ const useForm = (initialData) => {
           const decodedToken = jwtDecode(data.token);
           localStorage.setItem('email', decodedToken.email);
           console.log(decodedToken);
-          if(decodedToken.rol !== 'Cliente' && decodedToken.rol !== 'Estudiante' ){
+          if(decodedToken.rol == 'Administrador' || decodedToken.rol == 'Co-admin'){
             localStorage.setItem('rol', decodedToken.rol);
             localStorage.setItem('username', decodedToken.username);
             navigate('/dashboard');
-          } else {
+          }
+          if(decodedToken.rol == 'Revisor'){
+            localStorage.setItem('rol', decodedToken.rol);
+            localStorage.setItem('username', decodedToken.username);
+            navigate('/dashboard-solicitudes');
+          }  
+          if(decodedToken.rol == 'Cliente'){
             localStorage.setItem('rol', decodedToken.rol );
             navigate('/mainClient');
           }

@@ -33,6 +33,7 @@
     margin: 0 5px;
     cursor: pointer;
     border: none;
+    color: white;
     background-color: #474646; /* Color de fondo del botón activo */
 }
 

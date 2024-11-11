@@ -1,55 +1,50 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../config/sequelize.js';
 
-const User = sequelize.define('User', {
-  ID: {
+const Requests = sequelize.define('Requests', {
+  ID_request: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  rol: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: true,
   },
   nombre: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  fecha_ingreso: {
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  institucion: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  estado: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'pendiente'
+    
+  },
+  fecha: {
     type: DataTypes.DATE,
     defaultValue: Sequelize.literal('CURRENT_DATE'),
     allowNull: false,
   },
-  refresh_token: {
-    type: DataTypes.STRING,
+  documento_pdf: {
+    type: DataTypes.BLOB('long'), // Almacena como bytea
     allowNull: true,
   },
-  type: {
-    type: DataTypes.STRING,
+  documento_pub: {
+    type: DataTypes.BLOB('long'), // Almacena como bytea
     allowNull: true,
   },
-  hours_remaining: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-  },
-  }, {
+}, {
   timestamps: false,
-  tableName: "Users",
+  tableName: "Requests",
 }
 );
-
-export default User;
+export default Requests;

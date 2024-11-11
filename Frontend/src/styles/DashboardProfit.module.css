@@ -202,7 +202,10 @@
   justify-content: center;
   background: none;
   border: none;
+  color: white;
 }
+
+
 
 .exportExcel img {
   width: 16px;
