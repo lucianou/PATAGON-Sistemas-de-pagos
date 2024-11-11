@@ -10,8 +10,13 @@ import useDashboardUser from '../../Hooks/useDashboardUser';
 import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard';
 import logo from '../../assets/SoloLogo_Patagon.png';
 import TableComponent from '../../../public/Components/Table/Table';
+import { jwtDecode } from 'jwt-decode';
 
 const Dashboard_user = () => {
+  const token = localStorage.getItem('token');
+  const decodedToken = jwtDecode(token);
+  const userRole = decodedToken.rol;
+
   const {
     filterState,
     isOpen,
@@ -54,7 +59,11 @@ const Dashboard_user = () => {
         Header: 'Acciones', accessor: 'acciones',
         Cell: ({ row }) => (
           <div className={styles.actions}>
-            <button className={styles.btnAccion} onClick={() => handleRowAction(row.original)}>Eliminar</button>
+            {userRole === 'administrador' ? (
+              <button className={styles.btnAccion} onClick={() => handleRowAction(row.original)}>Eliminar</button>
+            ) : (
+              <span>Sin acciones</span>
+            )}
           </div>
         )
       },

@@ -41,7 +41,7 @@ const Profile = () => {
           
           <div className={styles.Section}>
             <h2>Institución</h2>
-            <p>{data?.institution}</p>
+            {data?.institution ? <p>{data?.institution}</p> : <p>UACh</p>}
           </div>
 
           <div className={styles.Section}>

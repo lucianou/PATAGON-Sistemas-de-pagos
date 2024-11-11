@@ -12,7 +12,7 @@ router.get("/",authenticateToken, getPatagonData);
 router.post("/insert-user-role", authenticateToken, authorizeRoles('Administrador'),insertUserRole);
 router.post("/new-user-creation", authenticateToken, authorizeRoles('Administrador'),newUserCreation);
 router.post("/deleted-user", deletedUser);
-router.get("/users", authenticateToken, authorizeRoles('Administrador') ,AllUsers);
+router.get("/users", authenticateToken, authorizeRoles('Administrador', 'Co-admin') ,AllUsers);
 router.get("/get-admins-role" , authenticateToken, authorizeRoles('Administrador') ,getAdminsRole)
 
 router.post("/delete-admins-roles", deleteAdminsRoles);
