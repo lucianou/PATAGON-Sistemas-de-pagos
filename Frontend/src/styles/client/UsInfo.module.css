@@ -1,15 +1,114 @@
 .container {
-    background-color: #121212;
-    color: #e0e0e0;
-    font-family: Arial, sans-serif;
-    padding: 2rem;
-    padding-top: 100px;
-  }
-  
-  .header {
-    text-align: center;
-    color: #ffcc00;
-    margin-bottom: 2rem;
-  }
-  
-  
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+  padding-top: 100px;
+  height: 120vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  text-align: center;
+  color: #ffcc00;
+  margin-bottom: 2rem;
+}
+
+.header > h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.header > p {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.missionVision {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  align-items: center; 
+  margin-top: 5rem;
+  justify-content: space-around; 
+}
+
+.missionVision > div {
+  max-width: 45%; 
+  text-align: left;
+  text-align: center; 
+}
+
+
+.missionVision  > * h2 {
+  color: #ffcc00;
+  margin-bottom: 2rem;
+}
+
+.missionVision > p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.trustedPartner {
+  background-color: #333;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.trustedPartner > h2 {
+  color: #ffcc00;
+  margin-bottom: 1rem;
+}
+
+.trustedPartner > p {
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.values {
+  margin-bottom: 3rem;
+}
+
+.values > h2 {
+  color: #ffcc00;
+  margin-bottom: 1rem;
+}
+
+.valueItems {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.valueItems > div {
+  background-color: #222;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.valueItems > p {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.team {
+  margin-top: 3rem;
+}
+
+.teamMembers {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.member {
+  background-color: #333;
+  padding: 1rem;
+  border-radius: 8px;
+  color: #ffcc00;
+  text-align: center;
+  flex: 1;
+}
