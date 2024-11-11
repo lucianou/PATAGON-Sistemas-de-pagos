@@ -6,6 +6,14 @@ import logo from "../../../src/assets/patagon-logo-text-color.png";
 import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldAlt, faLock, faCheckCircle, faBolt, faClock } from "@fortawesome/free-solid-svg-icons";
+import fernando1 from "../../assets/fernando1.png";
+import fernando2 from "../../assets/fernando2.png";
+import miguel from "../../assets/miguel.png";
+import seba from "../../assets/seba.png";
+import vicente from "../../assets/vicente.png";
+import luciano from "../../assets/luciano.png";
+import cristobal from "../../assets/cristobal.png";
+import felipe from "../../assets/felipe.png";
 
 const MainClient = () => {
   const [bolsas, setBolsas] = useState([]); 
@@ -131,14 +139,43 @@ const MainClient = () => {
         </section>
 
         <section className={styles.team}>
-          <h2>Equipo</h2>
+        <h1>Equipo Patagon</h1>
+          <div className={styles.patagonMembers}>
+            <div className={styles.member}>
+              <img src={cristobal}></img>
+              <span>Cristobal Navarro</span>
+            </div>
+            <div className={styles.member}>
+              <img src={felipe}></img>
+              <span>Felipe Quezada </span>
+            </div>
+          </div>
+          <h1>Equipo de desarrollo de la pagina</h1>
           <div className={styles.teamMembers}>
-            <div className={styles.member}>Nombre aquí</div>
-            <div className={styles.member}>Nombre aquí</div>
-            <div className={styles.member}>Nombre aquí</div>
-            <div className={styles.member}>Nombre aquí</div>
-            <div className={styles.member}>Nombre aquí</div>
-            <div className={styles.member}>Nombre aquí</div>
+            <div className={styles.member}>
+              <img src={fernando1}></img>
+              <span>Fernando Inzulza</span>
+            </div>
+            <div className={styles.member}>
+              <img src={seba}></img>
+              <span>Sebastián Pangue</span>
+            </div>
+            <div className={styles.member}>
+              <img src={miguel}></img>
+              <span>Miguel Ormeño</span>
+            </div>
+            <div className={styles.member}>
+              <img src={fernando2}></img>
+              <span>Fernando Castillo</span>
+            </div>
+            <div className={styles.member}>
+              <img src={vicente}></img>
+              <span>Vicente Alves</span>
+            </div>
+            <div className={styles.member}>
+              <img src={luciano}></img>
+              <span>Luciano Espinoza</span>
+            </div>
           </div>
         </section>
       </section>

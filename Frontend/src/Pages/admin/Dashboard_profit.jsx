@@ -98,7 +98,7 @@ const Dashboard_profit = () => {
             <div className={styles.exportExcel}>
               <button className={styles.excel} onClick={handleExport}>
                 <img src="/icons/excel-icon.svg" alt="Exportar" />
-                Exportar detalles
+                <span>Exportar detalles</span>
               </button>
             </div>
           </div>

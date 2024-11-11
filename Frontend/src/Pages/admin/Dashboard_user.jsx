@@ -13,7 +13,6 @@ import TableComponent from '../../../public/Components/Table/Table';
 
 const Dashboard_user = () => {
   const {
-    filterState,
     isOpen,
     errors,
     users,
@@ -27,7 +26,6 @@ const Dashboard_user = () => {
     setIsOpen,
     setShowModal,
     setSelectedUser,
-    handleFilterChange,
     handleClickBtnUser,
     handleSearchChange,
     handleCloseModal

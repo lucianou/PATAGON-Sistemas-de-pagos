@@ -6,7 +6,6 @@ import refreshAccessToken from '../../public/Components/RefreshToken'
 // src/hooks/useDashboardUser.js
 
 const useDashboardUser = () => {
-  const [filterState, setFilterState] = useState("reciente"); 
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]); // Usuarios activos
   const [deletedUsers, setDeletedUsers] = useState([]); // Usuarios eliminados
@@ -64,30 +63,10 @@ const useDashboardUser = () => {
       });
   }, [ipserver, port]);
 
-  const handleFilterChange = (event) => {
-    setFilterState(event.target.value);
-    setFiltredUsers(filterUsersByState(filtredUsers, event.target.value));
-    setKey(prevKey => prevKey + 1); // Cambiar la clave única para forzar la actualización de los usuarios
-  };
-
-  const filterUsersByState = (filtredUsers, filter) => {
-    return filtredUsers.sort((a, b) => {
-      const dateA = new Date(a.fecha_ingreso);
-      const dateB = new Date(b.fecha_ingreso);
-
-      if (filter === "reciente") {
-        return dateB - dateA; // Más reciente primero
-      } else {
-        return dateA - dateB; // Más antiguo primero
-      } 
-    });
-  };
-
   const handleClickBtnUser = () => {
     setBtnActive(!btnActive);
     setFiltredUsers(btnActive ? deletedUsers : users );
     setSearchText('');
-    setFilterState('reciente');
     setKey(prevKey => prevKey + 1); // Cambiar la clave única para forzar la actualización de los usuarios
   };
 
@@ -133,7 +112,6 @@ const useDashboardUser = () => {
   };
 
   return {
-    filterState,
     isOpen,
     errors,
     users,
@@ -147,8 +125,6 @@ const useDashboardUser = () => {
     setIsOpen,
     setShowModal,
     setSelectedUser,
-    handleFilterChange,
-    filterUsersByState,
     handleClickBtnUser,
     handleSearchChange,
     handleCloseModal

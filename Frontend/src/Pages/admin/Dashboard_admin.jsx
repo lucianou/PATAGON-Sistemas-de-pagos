@@ -22,15 +22,15 @@ const Dashboard = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [admins, setAdmins] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
   const port = import.meta.env.VITE_PORT;
   const ipserver = import.meta.env.VITE_IP;
 
   useEffect (() => {
-    const token = localStorage.getItem('token'); // Obtén el token almacenado
     fetch(`http://${ipserver}:${port}/api/command/get-admins-role`, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` //Envía el token en los headers
+        'Authorization': `Bearer ${localStorage.getItem('token')}` //Envía el token en los headers
       },
       method: 'GET',
     })
@@ -61,6 +61,26 @@ const Dashboard = () => {
     setForm({...form, password: password});
   };
 
+  const deleteAdmin = (adminSelected) => {
+    setSelectedUser(adminSelected);
+
+    fetch(`http://${ipserver}:${port}/api/command/delete-admins-roles`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({ email: adminSelected.email })
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin.email !== adminSelected.email)); // Eliminar admin de la lista de admins
+        return response.json();
+      } else {
+        setErrors({ server: 'Error en la solicitud: ' + response.statusText });
+      }
+    })
+  }
   const columns = React.useMemo(  
     () => [
       { Header: 'Nombre', accessor: 'nombre', id: 'nombre' , sortType: 'alphanumeric' },
@@ -70,7 +90,7 @@ const Dashboard = () => {
       { Header: 'Acciones', accessor: 'acciones', 
         Cell: ({ row }) => (
           <div className={styles.actions}>
-            <button className={styles.btnEliminar} >Eliminar</button>
+            <button className={styles.btnEliminar} onClick={ deleteAdmin(row.original) }>Eliminar</button>
           </div>
         )
       },
@@ -85,7 +105,7 @@ const Dashboard = () => {
     fetch(`http://${ipserver}:${port}/api/command/insert-user-role`, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Envía el token en los headers 
+        'Authorization': `Bearer ${localStorage.getItem('token')}` // Envía el token en los headers 
       },
       method: 'POST',
       body: JSON.stringify(form),
@@ -198,20 +218,6 @@ const Dashboard = () => {
               </select>
                 {renderPermissions()}
             </div>
-            {/* <div className={styles.radioDiv}>
-              <div>
-                <label htmlFor="admin">Admin</label>
-                <input type="radio" id="admin" name="role" value="admin" required />
-              </div>
-              <div>
-                <label htmlFor="co-admin">Co-admin</label>
-                <input type="radio" id="co-admin" name="role" value="co-admin" required />
-              </div>
-              <div>
-                <label htmlFor="revisor">Revisor</label>
-                <input type="radio" id="revisor" name="role" value="revisor" required />
-              </div>
-            </div> */}
             <div className={styles.buttons}>
               <button className={styles.btnModal} type="submit">
                 <span>Aceptar</span>
