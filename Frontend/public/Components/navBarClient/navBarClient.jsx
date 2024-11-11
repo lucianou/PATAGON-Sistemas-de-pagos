@@ -15,9 +15,9 @@ const navBar = () => {
           <a href='/UsInfo' className={isActive("/UsInfo") ? styles.active : ''} tabIndex='-1'>
             Nosotros
           </a>
-          <a href='/Bolsas' className={isActive("/Bolsas") ? styles.active : ''} tabIndex='-1'>
+          {/* <a href='/Bolsas' className={isActive("/Bolsas") ? styles.active : ''} tabIndex='-1'>
             Bolsas
-          </a>
+          </a> */}
           <a href='/Docs' className={isActive("/Docs") ? styles.active : ''} tabIndex='-1'>  
             Docs
           </a>

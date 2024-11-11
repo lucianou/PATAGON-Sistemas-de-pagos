@@ -9,7 +9,6 @@ const UsInfo = () => {
       <NavBar />
       <div className={styles.container}>
         <Nosotros />
-        
       </div>
       <Footer></Footer>
     </>
