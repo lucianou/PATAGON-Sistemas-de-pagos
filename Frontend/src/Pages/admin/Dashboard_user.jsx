@@ -57,11 +57,7 @@ const Dashboard_user = () => {
         Header: 'Acciones', accessor: 'acciones',
         Cell: ({ row }) => (
           <div className={styles.actions}>
-            {userRole === 'administrador' ? (
-              <button className={styles.btnAccion} onClick={() => handleRowAction(row.original)}>Eliminar</button>
-            ) : (
-              <span>Sin acciones</span>
-            )}
+            <button className={styles.btnAccion} onClick={() => handleRowAction(row.original)}>Eliminar</button>
           </div>
         )
       },
