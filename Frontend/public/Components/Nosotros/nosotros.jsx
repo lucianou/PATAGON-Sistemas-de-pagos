@@ -13,7 +13,6 @@ import { faShieldAlt, faLock, faCheckCircle, faBolt, faClock } from "@fortawesom
 
 const Nosotros = () => {
   return (
-    <div className={styles.container}>
       <section className={styles.section2}>
         <div className={styles.header}>
           <h1>NOSOTROS SOMOS</h1>
@@ -107,7 +106,6 @@ const Nosotros = () => {
           </div>
         </section>
       </section>
-    </div>
   );
 }
 

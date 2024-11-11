@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "../../styles/client/main.module.css";
+import NavBar from "../../../public/Components/navBarClient/navBarClient";
+import Footer from "../../../public/Components/FooterUser/Footer.jsx";
+import Card from '../../../public/Components/Tarjeta/Card.jsx';
 import logo from "../../../src/assets/patagon-logo-text-color.png";
 import DashboardBolsasUser from "../../Hooks/useDashboardBolsasUser.js";
-import Card from     '../../../public/Components/Tarjeta/Card.jsx';
-import NavBar from   "../../../public/Components/navBarClient/navBarClient";
 import Nosotros from "../../../public/Components/Nosotros/nosotros.jsx";
 
 const MainClient = () => {
@@ -43,6 +44,7 @@ const MainClient = () => {
         </div>
       </section>
       <Nosotros />
+      <Footer></Footer>
     </div>
   );
 }

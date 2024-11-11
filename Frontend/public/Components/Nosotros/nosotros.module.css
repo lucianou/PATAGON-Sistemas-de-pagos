@@ -166,13 +166,13 @@
     h1 {
       color: #cccccc;
       margin-bottom: 1.5rem;
+      filter: drop-shadow(2px 2px 0 #00000096);
       font-size: 40px;
     }
     .patagonMembers{
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
       align-items: center;
-      gap: 3.5rem;
       .member{
         display: flex;
         align-items: center;
@@ -188,8 +188,8 @@
           width: 250px;
           max-height: 310px;
           height: auto;
-          filter: drop-shadow(0 5px 10px #00000096);
           border-radius: 50%;
+          box-shadow: 0 5px 10px #00000096;
         }
         span{
           margin-top: 20px;
@@ -202,7 +202,7 @@
     .teamMembers {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
       justify-items: center; /* Centra horizontalmente en cada celda */
       align-items: center; /* Centra verticalmente en cada celda */
       gap: 1.5  rem;
