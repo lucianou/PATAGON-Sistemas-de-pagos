@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from "../../../public/Components/navBarClient/navBarClient";
+import Footer from "../../../public/Components/FooterUser/Footer.jsx";
 import styles from '../../styles/client/UsInfo.module.css';
 
 const UsInfo = () => {
@@ -49,7 +50,9 @@ const UsInfo = () => {
             <div className={styles.member}>Nombre aquí</div>
           </div>
         </section>
+        
       </div>
+      <Footer></Footer>
     </>
   );
 }

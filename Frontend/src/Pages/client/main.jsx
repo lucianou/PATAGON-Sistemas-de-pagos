@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/client/main.module.css";
 import NavBar from "../../../public/Components/navBarClient/navBarClient";
+import Footer from "../../../public/Components/FooterUser/Footer.jsx";
 import Card from '../../../public/Components/Tarjeta/Card.jsx';
 import logo from "../../../src/assets/patagon-logo-text-color.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -145,6 +146,7 @@ const MainClient = () => {
           </div>
         </section>
       </section>
+      <Footer></Footer>
     </div>
   );
 }

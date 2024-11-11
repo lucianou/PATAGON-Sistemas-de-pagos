@@ -3,16 +3,16 @@ import styles from '../../styles/client/Bolsas.module.css';
 import NavBar from "../../../public/Components/navBarClient/navBarClient";
 import DashboardBolsasUser from "../../Hooks/useDashboardBolsasUser.js";
 import Card from '../../../public/Components/Tarjeta/Card.jsx';
-
+import Footer from "../../../public/Components/FooterUser/Footer.jsx";
 const Bolsas = ({}) => {
   const { bolsas, loading, error } = DashboardBolsasUser();
 
   return (
   <div className= {styles.container}>
     <NavBar></NavBar>
+    <div className={styles.gap}></div>
     <section className= {styles.section1}>
       {/* aquí dejen las bolsaas cabroooooooos */}
-      <h1>bolsas</h1>
       <div className={styles.dashboardWidgets}>
         {loading ? (
             <div className={styles.spinner}></div>
@@ -40,6 +40,8 @@ const Bolsas = ({}) => {
     </section>
 
     <section className={styles.section2}></section>
+    <div className={styles.gap}></div>
+    <Footer></Footer>
   </div>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../../styles/client/Docs.module.css';
 import NavBar from "../../../public/Components/navBarClient/navBarClient";
+import Footer from "../../../public/Components/FooterUser/Footer.jsx";
 const Docs = ({ }) => {
   return (
     <>
@@ -53,6 +54,7 @@ const Docs = ({ }) => {
         </section>
         {/* <h1>aqui pongan footers</h1> */}
       </div>
+      <Footer></Footer>
     </>
   )
 }
