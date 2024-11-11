@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faTimes, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import TableComponent from '../../../public/Components/Table/Table';
 import logo from '../../assets/SoloLogo_Patagon.png';
+import { toast} from 'sonner';
 
 const Dashboard = () => {
   const initialData = {
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const [admins, setAdmins] = useState([]);
   const port = import.meta.env.VITE_PORT;
   const ipserver = import.meta.env.VITE_IP;
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -69,9 +71,9 @@ const Dashboard = () => {
         Header: 'Acciones', accessor: 'acciones',
         Cell: ({ row }) => (
           <div className={styles.actions}>
-            <button className={styles.btnEliminar}>Eliminar</button>
+            <button onClick={() => handleDeleteUser(row.original.email)} className={styles.btnEliminar}>Eliminar</button>
           </div>
-        )
+        )        
       },
     ],
     []
@@ -90,11 +92,15 @@ const Dashboard = () => {
       body: JSON.stringify(form),
     })
       .then((response) => response.json())
+
       .then((data) => {
         if (data.error) {
           setErrors({ server: data.error });
+          alert(data.error);
         } else {
           console.log(data);
+          window.location.reload();
+          toast.success('Usuario creado exitosamente!');
           setModal(false);
         }
       })
@@ -102,6 +108,34 @@ const Dashboard = () => {
         console.error('Error:', error);
         setErrors({ server: 'Error en la solicitud: ' + error.message });
       });
+  };
+
+  const handleDeleteUser = async (email) => {
+    const confirmed = window.confirm("¿Estás seguro de que deseas eliminar este usuario?");
+    if (!confirmed) return;
+    fetch(`http://${ipserver}:${port}/api/command/delete-admins-roles`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ email: email })
+    })
+    .then((response) => {
+      if (response.ok) {
+        console.log('Solicitud enviada exitosamente');
+        window.location.reload();
+        toast.success('Usuario eliminado exitosamente!');
+        return response.json();
+      } else {
+        console.error('Error al eliminar el usuario:', response.statusText);
+        setErrors({ server: 'Error en la solicitud: ' + response.statusText });
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      setErrors({ server: 'Error en la solicitud: ' + error.message });
+    });
   };
 
   const renderPermissions = () => {
@@ -154,11 +188,9 @@ const Dashboard = () => {
             <span>Crear administrador</span>
           </button>
         </div>
-        {errors.server ? (
-          <p className={styles.errorMessage}>{errors.server}</p>
-        ) : (
+      
           <TableComponent columns={columns} data={admins} />
-        )}
+      
       </main>
 
       {/* -----------------------MODAL----------------------- */}

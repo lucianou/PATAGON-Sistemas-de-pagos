@@ -142,8 +142,8 @@ const Dashboard_profit = () => {
           </div>
           <div className={styles.graphicMethodPayment}>
             <BarGraphic
-              labels={['Pagado', 'UACh']}
-              dataPoints={[300, 50]}
+              labels={['PayPal', 'MercadoPago']}
+              dataPoints={[data?.paypal ?? 0, data?.mercadopago ?? 0]}
               title="Métodos de pago utilizados"
               color="#0b6730"
             />

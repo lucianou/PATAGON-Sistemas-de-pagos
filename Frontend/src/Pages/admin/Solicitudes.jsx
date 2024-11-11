@@ -13,10 +13,11 @@ import { toast} from 'sonner';
 import { fetchRequest } from '../../Hooks/patagonUserFetch';
 import useExportToExcel from '../../Hooks/exportExcelRequests';
 import { jwtDecode } from 'jwt-decode';
+import useFetchSolicitudes from '../../Hooks/useDashBoardSolicitudes';
 
 const Solicitudes = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [solicitudes, setSolicitudes] = useState([]);
+    const { solicitudes, error } = useFetchSolicitudes();
     const [filter, setFilter] = useState('pendiente');
     const [selectedSolicitud, setSelectedSolicitud] = useState(null);
     const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
@@ -29,44 +30,7 @@ const Solicitudes = () => {
     const decodedToken = jwtDecode(token);
     const userRole = decodedToken.rol;
 
-    useEffect(() => {
-        const fetchSolicitudes = async () => {
-            const token = localStorage.getItem('token');
-
-            try {
-                const response = await fetch(`http://${ipserver}:${port}/api/command/requests`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                if (response.status === 403) {
-                    return refreshAccessToken().then(newToken => {
-                        return fetch(`http://${ipserver}:${port}/api/command/requests`, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${newToken}`
-                            }
-                        });
-                    });
-                }
-
-                if (!response.ok) {
-                    throw new Error('Error en la red al obtener las solicitudes');
-                }
-
-                const data = await response.json();
-                setSolicitudes(data);
-            } catch (error) {
-                console.error('Error al obtener las solicitudes:', error);
-            }
-        };
-
-        fetchSolicitudes();
-    }, []);
+    
 
     const handleViewPDF = async (id) => {
        viewFile(id, 'pdf');
@@ -92,6 +56,7 @@ const Solicitudes = () => {
             `http://${ipserver}:${port}/api/command/new-user-creation-patagon`,'POST',formData);
     
         if (success) {
+            window.location.reload();
             toast.success('Solicitud aceptada exitosamente!');
             setIsAcceptModalOpen(false);
         } else {
@@ -107,8 +72,9 @@ const Solicitudes = () => {
             `http://${ipserver}:${port}/api/command/reject-request`,'POST',reasonData);
             
         if (success) {
-            toast.success('Solicitud rechazada exitosamente!');
+            window.location.reload();
             setIsRejectModalOpen(false);
+            toast.success('Solicitud rechazada exitosamente!');
         } else {
             console.error('Error al rechazar la solicitud:', error);
             toast.error('Error al rechazar la solicitud');

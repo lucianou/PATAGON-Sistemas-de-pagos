@@ -74,6 +74,7 @@ function App() {
         <Route path="/dashboard-admin" element={
           <ProtectedRoute>
             <Dashboard_admin />
+            <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
           </ProtectedRoute>
         } />
         <Route path="/mainClient" element={
