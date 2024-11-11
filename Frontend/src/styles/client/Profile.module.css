@@ -1,53 +1,152 @@
-.ProfileContainer{
+.ProfileContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #222222;
-  height: 100vh;
+  min-height: 100vh;
   color: white;
   font-family: Arial, sans-serif;
+  padding-top: 100px;
 }
 
-.ProfileCard{
-  background: linear-gradient(180deg, #333333, #222222);
-  width: 60%;
-  height: 300px;
-  border-radius: 20px;
+.ProfileHeader {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.ProfileCard {
+  background: linear-gradient(180deg, #333333, #222222);
+  width: 80%;
+  max-width: 900px;
+  border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.ProfileImage{
-  width: 100px;
-  height: 100px;
+.ProfileImage {
+  width: 120px;
+  height: 120px;
   background-color: #f0f0f0;
   border-radius: 50%;
-  margin-right: 20px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 2px solid #444;
 }
 
-.UserInfo{ 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.ProfileImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.UserName{
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.UserAntiquity{
-  font-size: 14px;
-  color: #cccccc;
-}
-
-.ServiceInfo{
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.ProfileName {
+  text-align: center;
   font-size: 24px;
   font-weight: bold;
+}
+
+.ContactIcons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.Icon {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.Icon:hover {
+  color: #fff;
+}
+
+.ProfileDetails {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.Section {
+  flex: 1;
+  background-color: #2b2b2b;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.Section > h2 {
+  font-size: 20px;
+  color: #ffeb3b;
+  margin-bottom: 10px;
+}
+
+.Section > p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #ccc;
+}
+
+.BatteryContainer {
+  text-align: center;
+}
+
+.BatteryLabel {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.Battery {
+  width: 100%;
+  height: 20px;
+  background-color: #444;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.BatteryLevel {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.BatteryPercentage {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffeb3b;
+}
+
+
+.ButtonContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.Button {
+  background-color: #5ca066;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Button:hover {
+  background-color: #45a049;
+}
+
+.Button:active {
+  background-color: #3e8e41;
 }

@@ -41,7 +41,12 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-}, {
+  hours_remaining: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
+  }, {
   timestamps: false,
   tableName: "Users",
 }
