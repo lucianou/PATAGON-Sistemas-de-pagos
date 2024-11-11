@@ -180,24 +180,26 @@
 .CardIngresosValues span {
   font-weight: bold;
   color: #00796b;
+  margin-left: 10px;
 }
 
 .exportExcel {
-  display: flex;
-  color: white;
-  border: none;
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
   margin-top: 12px;
-  align-items: center;
-  justify-content: center;
   justify-items: center;
   gap: 10px;
   font-size:small;
+  span{
+    color: #cccccc;
+  }
 }
 
 .excel{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   color: white;
@@ -206,7 +208,6 @@
 
 
 .exportExcel img {
-  align-items: center;
   width: 16px;
   height: auto;
   margin-right: 5px;

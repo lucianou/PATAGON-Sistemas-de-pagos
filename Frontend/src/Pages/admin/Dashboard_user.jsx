@@ -18,7 +18,6 @@ const Dashboard_user = () => {
   const userRole = decodedToken.rol;
 
   const {
-    filterState,
     isOpen,
     errors,
     users,
@@ -32,7 +31,6 @@ const Dashboard_user = () => {
     setIsOpen,
     setShowModal,
     setSelectedUser,
-    handleFilterChange,
     handleClickBtnUser,
     handleSearchChange,
     handleCloseModal
