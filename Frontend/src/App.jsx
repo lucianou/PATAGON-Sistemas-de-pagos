@@ -30,6 +30,8 @@ import Docs from './Pages/client/Docs';
 import UseRequest from './Pages/client/UseRequest';
 import Profile from './Pages/client/Profile';
 import HistorialCompras from './Pages/client/historialCompras';
+import Privacy from './Pages/client/Privacy';
+import Terms from './Pages/client/Terms';
 
 
 function App() {
@@ -112,6 +114,18 @@ function App() {
         <Route path="/Compras" element={
           <ProtectedRoute>
             <HistorialCompras />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/Privacy" element={
+          <ProtectedRoute>
+            <Privacy />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/Terms" element={
+          <ProtectedRoute>
+            <Terms />
           </ProtectedRoute>
         } />
         <Route path="/404" element={<NotFound />} />
