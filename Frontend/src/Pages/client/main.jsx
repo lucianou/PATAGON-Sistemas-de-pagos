@@ -5,7 +5,7 @@ import Footer from "../../../public/Components/FooterUser/Footer.jsx";
 import Card from '../../../public/Components/Tarjeta/Card.jsx';
 import logo from "../../../src/assets/patagon-logo-text-color.png";
 import DashboardBolsasUser from "../../Hooks/useDashboardBolsasUser.js";
-import Nosotros from "../../../public/Components/Nosotros/nosotros.jsx";
+import DocsUser from '../../../public/Components/docsUser/docsUser.jsx';
 
 const MainClient = () => {
   const { bolsas, loading, error } = DashboardBolsasUser();
@@ -17,7 +17,11 @@ const MainClient = () => {
         <img src={logo} alt="logo" className={styles.logo} />
         <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
       </div>
+      <div>
+
+      </div>
       <section className={styles.section1}>
+        {/* <h1>Bolsas</h1> */}
         <div className={styles.dashboardWidgets}>
         {loading ? (
             <div className={styles.spinner}></div>
@@ -43,8 +47,8 @@ const MainClient = () => {
           )}
         </div>
       </section>
-      <Nosotros />
-      <Footer></Footer>
+      <DocsUser />
+      <Footer />
     </div>
   );
 }
