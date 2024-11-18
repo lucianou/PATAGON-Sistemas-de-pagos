@@ -10,10 +10,10 @@ const Footer = () => {
         </div>
         <div className={styles.footerLinks}>
           <ul>
-            <li><a href="/about">Sobre nosotros</a></li>
-            <li><a href="/contact">Contacto</a></li>
-            <li><a href="/privacy">Política de privacidad</a></li>
-            <li><a href="/terms">Términos y condiciones</a></li>
+            <li><a href="/UsInfo">Sobre nosotros</a></li>
+            <li><a href="https://patagon.uach.cl/contacto" target="_blank" rel="noopener noreferrer">Contacto</a></li>
+            <li><a href="/Privacy">Política de privacidad</a></li>
+            <li><a href="/Terms">Términos y condiciones</a></li>
           </ul>
         </div>
       </div>
