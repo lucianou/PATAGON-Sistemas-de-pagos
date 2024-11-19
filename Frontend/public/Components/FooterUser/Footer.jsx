@@ -1,12 +1,15 @@
 import React from 'react';
-import styles from './Footer.module.css';  // Importación del CSS como módulo
+import styles from './Footer.module.css'; // Importación del CSS como módulo
 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <div className={styles.footerLogo}>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Escudo_uaustralchile.png" alt="Logo UACh" />
+          {/* Logo clickeable que redirige a uach.cl */}
+          <a href="https://www.uach.cl" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Escudo_uaustralchile.png" alt="Logo UACh" />
+          </a>
         </div>
         <div className={styles.footerLinks}>
           <ul>
