@@ -22,7 +22,8 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css'; 
 import Dashboard from './Pages/admin/Dashboard';
 // exportaciones cliente
-
+import Estudiante from './Pages/client/Estudiante';
+import Externos from './Pages/client/Externos';
 import UsInfo from './Pages/client/UsInfo';
 import Bolsas from './Pages/client/Bolsas';
 import Docs from './Pages/client/Docs';
@@ -98,6 +99,16 @@ function App() {
         <Route path="/Docs" element={
           <ProtectedRoute>
             <Docs />
+          </ProtectedRoute>
+        } />
+        <Route path="/Estudiante" element={
+          <ProtectedRoute>
+            <Estudiante />
+          </ProtectedRoute>
+        } />
+        <Route path="/Externos" element={
+          <ProtectedRoute>
+            <Externos />
           </ProtectedRoute>
         } />
         <Route path="/UseRequest" element={

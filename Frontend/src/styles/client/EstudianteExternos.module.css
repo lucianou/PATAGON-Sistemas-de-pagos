@@ -1,0 +1,43 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #444 ;/* Gris claro */
+    color: #333; /* Gris oscuro */
+  }
+  
+  .mainContent {
+    flex: 1;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #ffffff; /* Gris intermedio */
+  }
+  
+  .stepsList {
+    list-style-type: decimal;
+    margin: 20px 0;
+    padding-left: 20px;
+  }
+  
+  .step {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #ffffff; /* Gris intermedio */
+  }
+  .link {
+    color: #0066cc; /* Azul para enlaces */
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  

@@ -37,5 +37,5 @@
     }
   }
   
-//   comando para detectar errores
-// npx eslint . --ext .js,.jsx,.ts,.tsx
+//   comando para detectar erres
+// npx eslint .

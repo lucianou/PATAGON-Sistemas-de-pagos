@@ -22,7 +22,7 @@ const DocsUser = () => {
           que te ayudarán a aprovechar al máximo los recursos
           y beneficios disponibles para ti.
         </p>
-        <a href="#" className={styles.link}>Ver más</a>
+        <a href="/Estudiante" className={styles.link}>Ver más</a>
       </div>
 
       <div className={styles.card}>
@@ -34,7 +34,7 @@ const DocsUser = () => {
           Patagon. Como equipo es crucial que nuestros clientes
           tengan la mayor transparencia ante todo.
         </p>
-        <a href="#" className={styles.link}>Ver más</a>
+        <a href="/Externos" className={styles.link}>Ver más</a>
       </div>
 
       <div className={styles.card}>
@@ -46,7 +46,8 @@ const DocsUser = () => {
           explorar al máximo tus capacidades.
 
         </p>
-        <a href="#" className={styles.link}>Ver más</a>
+        <a href="https://patagon.uach.cl/patagon/tutoriales" className={styles.link} target="_blank" rel="noopener noreferrer">Ver más</a>
+
       </div>
     </section>
     </>
