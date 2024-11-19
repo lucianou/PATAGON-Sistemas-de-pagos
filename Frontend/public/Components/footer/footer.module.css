@@ -1,0 +1,82 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4a4237;
+    color: #d4d5c5;
+    padding: 20px 40px;
+    width:100%;
+}
+
+.leftSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: Lora;
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: Lora;
+}
+
+.contact div {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #d4d5c5;
+}
+
+.contact a {
+    color: #d4d5c5;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.rightSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.logo {
+    height: 50px;
+}
+
+.divider {
+    height: 100px;
+    width: 2px;
+    background-color: #ffffff;
+    margin-right: 20px;
+}
+
+.footerContent {
+    display: flex;
+    align-items: center;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    font-family:Lora;
+    color: #d4d5c5;
+}
