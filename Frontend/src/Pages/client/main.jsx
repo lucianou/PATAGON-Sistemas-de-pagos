@@ -22,7 +22,7 @@ const MainClient = () => {
         <img src={logo} alt="logo" className={styles.logo} />
         <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
       </div>
-      {userRole !== "Cliente" ? (
+      {userRole === "Cliente" ? (
         <section className={styles.section1}>
           <div className={styles.dashboardWidgets}>
           {loading ? (

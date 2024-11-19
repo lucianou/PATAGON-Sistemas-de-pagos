@@ -16,6 +16,7 @@
   top: 0;
   left: 0;
   z-index: -1;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
 }
 
 
@@ -72,7 +73,7 @@
 }
 
 .header h1 {
-  filter: drop-shadow(5px 5px 0 #00000096);
+  filter: drop-shadow(5px 5px 3px #00000096);
   font-size: 56px;
   margin: 0;
 }

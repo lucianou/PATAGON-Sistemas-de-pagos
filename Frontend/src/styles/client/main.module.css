@@ -18,7 +18,8 @@
     height: 250px;
     .logo{
       width: auto;
-      height: 90px;  
+      height: 90px;
+      filter: drop-shadow(5px 5px 3px #00000096);  
     }
     h2{
       color: #cccccc;
@@ -28,6 +29,7 @@
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      filter: drop-shadow(5px 5px 3px #00000096);  
     }
   }
   .section1{
