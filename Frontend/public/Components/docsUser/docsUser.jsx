@@ -4,17 +4,17 @@ import styles from './docsUser.module.css';
 const DocsUser = () => {
   return (
     <>
-      <div className={styles.header}>
-      <h1>Patagon Docs</h1>
+    <div className={styles.header}>
+      <h1>Documentación</h1>
       <h3>Tu supercomputador distribuido para cálculos de alto rendimiento</h3>
     </div>
     <section className={styles.section1}>
       <div className={styles.card}>
+        <div className={styles.background}></div>
         <div className={styles.icon}><img src="https://i.imgur.com/a5OCfiR.jpg" alt="student icon"></img></div>
         <h3>Estudiantes</h3>
         <p>
-          Si eres estudiante o miembro de una
-          fundación educativa, ¡esto es para ti!
+          Si eres estudiante o miembro de la Uach, ¡esto es para ti!
           A continuación encontrarás información
           importante diseñada especialmente para
           quienes forman parte del ámbito académico.
@@ -26,6 +26,7 @@ const DocsUser = () => {
       </div>
 
       <div className={styles.card}>
+        <div className={styles.background}></div>
         <div className={styles.icon}><img src='https://i.imgur.com/a5OCfiR.jpg' alt="business icon"></img></div>
         <h3>Externos</h3>
         <p>Si eres dueño de una empresa o trabajas en una,
@@ -38,6 +39,7 @@ const DocsUser = () => {
       </div>
 
       <div className={styles.card}>
+        <div className={styles.background}></div>
         <div className={styles.icon}><img src='https://i.imgur.com/a5OCfiR.jpg' alt="tool icon"></img></div>
         <h3>Como usarlo</h3>
         <p>En esta sección podrás encontrar una documentación

@@ -19,7 +19,7 @@ const navBar = () => {
             Bolsas
           </a> */}
           <a href='/Docs' className={isActive("/Docs") ? styles.active : ''} tabIndex='-1'>  
-            Docs
+            Documentación
           </a>
         </div>
         <div className={styles.userDiv}>

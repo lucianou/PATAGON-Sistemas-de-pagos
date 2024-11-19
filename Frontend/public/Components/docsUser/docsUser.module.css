@@ -3,12 +3,26 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
-  /* background-color: #121212; */
   padding: 20px 0 25px 0;
 }
 
+.background{
+  background: linear-gradient(135deg, #524f4fcc , rgba(37, 35, 35, 0.514)); /* Degradado suave de gris oscuro a gris medio */
+  filter: blur(1px);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  border: 1px rgba(255, 255, 255, 0.6) solid;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+
+
 .card {
-  background: linear-gradient(135deg, rgb(39, 38, 38), #555555); /* Degradado suave de gris oscuro a gris medio */
+  z-index: 2;
+  position: relative;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -50,17 +64,17 @@
 .header {
   width: 100%;
   /* padding-top: 20px; */
-  color: #0f0f0f;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  color: #cccccc;
 }
 
 .header h1 {
+  filter: drop-shadow(5px 5px 0 #00000096);
   font-size: 56px;
   margin: 0;
-  color: white;
 }
 
 .header h3 {
