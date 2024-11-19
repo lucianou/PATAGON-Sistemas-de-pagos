@@ -14,6 +14,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 20px;
     /* background-color: #181A1B; */
     height: 250px;
     .logo{
@@ -68,4 +69,16 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.videoContainer {
+  margin-top: 20px; 
+  margin-bottom: 90px; 
+  display: flex;
+  justify-content: center;
+}
+
+.video {
+  width: 720px;
+  height: 480px;
 }
