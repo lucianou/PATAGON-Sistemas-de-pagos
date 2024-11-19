@@ -32,7 +32,7 @@ const MainClient = () => {
             className={styles.video}
           ></iframe>
         </div>
-      {userRole !== "Cliente" ? (
+      {userRole === "Cliente" ? (
         <section className={styles.section1}>
           <div className={styles.dashboardWidgets}>
           {loading ? (
