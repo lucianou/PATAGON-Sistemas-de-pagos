@@ -3,6 +3,7 @@ import styles from '../../styles/client/compras.module.css';
 import NavBar from "../../../public/Components/navBarClient/navBarClient";
 import useDashboardPurchaseHistory from '../../Hooks/useDashboardPurchaseHistory';
 import CartolaPDF from '../../../public/Components/CartolaPDF/Cartola';
+import { BsFileEarmarkRuled } from "react-icons/bs";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -44,6 +45,10 @@ const HistorialCompras = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
+  };
+
+  const handleDetails = () => {
+   alert("Detalles de la compra")
   };
 
   const requestSort = (key) => {
@@ -92,6 +97,9 @@ const HistorialCompras = () => {
               <div onClick={() => requestSort('id_product')}>
                 Bolsa {getSortIndicator('id_product')}
               </div>
+              <div >
+               Detalles
+              </div>
             </div>
             {currentItems.map((compra) => (
               <div className={styles['table-row']} key={compra.order_id}>
@@ -100,6 +108,7 @@ const HistorialCompras = () => {
                 <div className={styles['table-cell']}>{new Date(compra.created_at).toLocaleDateString()}</div>
                 <div className={styles['table-cell']}>${compra.amount}</div>
                 <div className={styles['table-cell']}>{compra.id_product}</div>
+                <div className={styles['table-cell']}> <BsFileEarmarkRuled title="Ver boleta"  onClick={handleDetails} style={{marginLeft: 20}} size={25}/></div> 
               </div>
             ))}
           </div>
