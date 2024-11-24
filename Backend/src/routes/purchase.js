@@ -1,6 +1,6 @@
 import express from "express";
 
-import { createPayment, confirmPayment , cancelPayment, createOrderMercadoPago, webhookMercadoPago} from "../controllers/orderControllers.js";
+import { createPayment, confirmPayment , cancelPayment, createOrderMercadoPago, webhookMercadoPago, getReceipt} from "../controllers/orderControllers.js";
 const router = express.Router();
 
 //Paypal
@@ -14,6 +14,9 @@ router.post("/create-order", createOrderMercadoPago);
 // router.get("/failure", failureMercadoPago);
 // router.get("/pending", pendingMercadoPago);
 router.post("/webhook", webhookMercadoPago);
+
+//boletas
+router.get("/receipt/:orderId", getReceipt);
 
 
 
