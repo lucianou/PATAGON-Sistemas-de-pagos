@@ -4,15 +4,19 @@ import NavBar from "../../../public/Components/navBarClient/navBarClient";
 import useDashboardPurchaseHistory from '../../Hooks/useDashboardPurchaseHistory';
 import CartolaPDF from '../../../public/Components/CartolaPDF/Cartola';
 import { BsFileEarmarkRuled } from "react-icons/bs";
+import { FaFileDownload } from "react-icons/fa";
+import Boleta from '../../../public/Components/CartolaPDF/Boleta';
 
 const ITEMS_PER_PAGE = 10;
 
 const HistorialCompras = () => {
   const { data, loading, error } = useDashboardPurchaseHistory();
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortConfig, setSortConfig] = useState({ key: 'created_at', direction: 'desc' }); 
+  const [sortConfig, setSortConfig] = useState({ key: 'created_at', direction: 'desc' });
+  const [selectedDetails, setSelectedDetails] = useState(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [boletaData, setBoletaData] = useState(null);
 
-  // Ordenar los datos
   const sortedData = React.useMemo(() => {
     if (!data) return [];
     let sortableData = [...data];
@@ -47,8 +51,22 @@ const HistorialCompras = () => {
     }
   };
 
-  const handleDetails = () => {
-   alert("Detalles de la compra")
+  const handleDownload = (details) => {
+    setBoletaData(details); 
+  };
+
+  const handleComplete = () => {
+    setBoletaData(null); 
+  };
+
+  const handleDetails = (details) => {
+    setSelectedDetails(details);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedDetails(null);
   };
 
   const requestSort = (key) => {
@@ -74,11 +92,10 @@ const HistorialCompras = () => {
         {loading && <div className={styles.spinner}></div>}
         {error && <p>Error al cargar los datos</p>}
 
-         {/* Integrar el componente de descarga de PDF */}
-         {!loading && !error && (
-          <CartolaPDF className={styles.CartolaPDF} compras={data} /> 
+        {!loading && !error && (
+          <CartolaPDF className={styles.CartolaPDF} compras={data} />
         )}
-        
+
         {!loading && !error && (
           <div className={styles['table-container']}>
             <div className={styles['table-header']}>
@@ -97,8 +114,8 @@ const HistorialCompras = () => {
               <div onClick={() => requestSort('id_product')}>
                 Bolsa {getSortIndicator('id_product')}
               </div>
-              <div >
-               Detalles
+              <div>
+                Detalles
               </div>
             </div>
             {currentItems.map((compra) => (
@@ -108,7 +125,14 @@ const HistorialCompras = () => {
                 <div className={styles['table-cell']}>{new Date(compra.created_at).toLocaleDateString()}</div>
                 <div className={styles['table-cell']}>${compra.amount}</div>
                 <div className={styles['table-cell']}>{compra.id_product}</div>
-                <div className={styles['table-cell']}> <BsFileEarmarkRuled title="Ver boleta"  onClick={handleDetails} style={{marginLeft: 20}} size={25}/></div> 
+                <div className={styles['table-cell']}>
+                  <BsFileEarmarkRuled
+                    title="Ver boleta"
+                    onClick={() => handleDetails(compra)}
+                    style={{ marginLeft: 20 }}
+                    size={25}
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -124,6 +148,55 @@ const HistorialCompras = () => {
           </button>
         </div>
       </div>
+
+      {isModalOpen && selectedDetails && (
+        <div className={styles.modal}>
+          <div className={styles.headerModal}>
+              <button onClick={closeModal} className={styles['close-button']}>X Cerrar detalles de la compra</button>
+              <div className={styles.logo}>
+                <img src="../../assets/patagon-logo-color.png" alt="Logo" />
+              </div>
+          </div>
+          <div className={styles['modal-content']}>
+            <h2>Se pagó el {new Date(selectedDetails.created_at).toLocaleDateString()}</h2>
+            <h3>RESUMEN</h3>
+            <hr />
+            <div className={styles.info}>
+              <p><strong>Para</strong> {selectedDetails.user_email}</p>
+              <p><strong>De</strong> Sistemas de pagos Patagón</p>
+              <p><strong>N° orden:</strong> {selectedDetails.order_id}</p>
+            </div>
+            <h3>PRODUCTO</h3>
+            <hr />  
+            <div className={styles.info}>
+              <p><strong>Bolsa:</strong> {selectedDetails.id_product}</p>
+              <p><strong>Tiempo:</strong></p>
+            </div>
+            <h3>PAGO</h3>
+            <hr />  
+            <div className={styles.info}>
+              <p><strong>Orden de compra:</strong> {selectedDetails.order_id}</p>
+              <p><strong>Método de pago:</strong> {selectedDetails.payment_method}</p>
+              <p><strong>Fecha:</strong> {new Date(selectedDetails.created_at).toLocaleString()}</p>
+              <p><strong>Valor:</strong> ${selectedDetails.amount} USD</p>
+            </div>
+           
+           <div className={styles.download}>
+            <h3>Descarga boleta</h3>
+            <FaFileDownload onClick={() => handleDownload(selectedDetails)} size={20}/>
+           </div>
+            {/* Renderiza la boleta solo cuando hay datos */}
+      {boletaData && (
+        <Boleta data={boletaData} onComplete={handleComplete} />
+      )}
+         
+          </div>
+          <div className={styles.footerModal}>
+              <h3>¿Tienes alguna pregunta? </h3>
+              <h3><a href='https://patagon.uach.cl/contacto'> Contáctanos</a></h3>
+            </div>
+        </div>
+      )}
     </>
   );
 };
