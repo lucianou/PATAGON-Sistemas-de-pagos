@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../RequestsUsers/AcceptRequestModal.module.css';
-
 
 const AcceptRequestModal = ({ isOpen, onClose, onAccept, solicitud }) => {
   const [formData, setFormData] = useState({
@@ -13,6 +12,19 @@ const AcceptRequestModal = ({ isOpen, onClose, onAccept, solicitud }) => {
     requestId: solicitud.ID_request,
   });
 
+  // Establecer el nombre y apellido automáticamente al abrir el modal
+  useEffect(() => {
+    if (solicitud.nombre) {
+      const [nombre, ...apellidoArray] = solicitud.nombre.split(' ');
+      const apellido = apellidoArray.join(' '); // Juntar el resto como apellido
+      setFormData((prev) => ({
+        ...prev,
+        nombre: nombre || '',
+        apellido: apellido || '',
+      }));
+    }
+  }, [solicitud]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -20,7 +32,7 @@ const AcceptRequestModal = ({ isOpen, onClose, onAccept, solicitud }) => {
 
   const handleSubmit = () => {
     onAccept(formData);
-    onClose(); 
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -71,7 +83,6 @@ const AcceptRequestModal = ({ isOpen, onClose, onAccept, solicitud }) => {
               <option value="otra">otra</option>
             </select>
           </label>
-
           <label>
             Usuario:
             <select
@@ -84,7 +95,7 @@ const AcceptRequestModal = ({ isOpen, onClose, onAccept, solicitud }) => {
               <option value="Uach">Uach</option>
             </select>
           </label>
-          
+
           <div className={styles.modalActions}>
             <button type="button" onClick={handleSubmit}>
               Enviar

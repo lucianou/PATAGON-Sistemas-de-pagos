@@ -9,8 +9,8 @@ const UsInfo = () => {
       <NavBar />
       <div className={styles.container}>
         <Nosotros />
+        <Footer />
       </div>
-      <Footer></Footer>
     </>
   );
 }

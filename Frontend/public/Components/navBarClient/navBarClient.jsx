@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./navBarClient.module.css";
+import logo from "../../../src/assets/SoloLogo_Patagon.png"
 
 const navBar = () => {
   const isActive = (path) => location.pathname === path;
@@ -9,18 +10,22 @@ const navBar = () => {
       <div className={styles.header}>
         {/* <img src={wave} alt="wave" className={styles.wave}/> */}
         <div className={styles.sectionIzq}>
+        <img src={logo} alt="logo" className={styles.logo} />
+        <div className={styles.btnGroup}>
           <a href='/mainClient' className={isActive("/mainClient") ? styles.active : ''} tabIndex='-1'>
             Home
           </a>
+        </div>
+        <div className={styles.btnGroup}>
           <a href='/UsInfo' className={isActive("/UsInfo") ? styles.active : ''} tabIndex='-1'>
             Nosotros
           </a>
-          <a href='/Bolsas' className={isActive("/Bolsas") ? styles.active : ''} tabIndex='-1'>
-            Bolsas
-          </a>
+        </div>
+        <div className={styles.btnGroup}>
           <a href='/Docs' className={isActive("/Docs") ? styles.active : ''} tabIndex='-1'>  
-            Docs
+            Documentación
           </a>
+        </div>
         </div>
         <div className={styles.userDiv}>
           <a className={styles.user}>Usuario</a>

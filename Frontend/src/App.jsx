@@ -5,7 +5,6 @@ import styles from "../src/styles/Notifications_Sonner.module.css";
 // exportaciones admins
 import Login from './Pages/admin/Login';
 import Registro from './Pages/admin/Registro';
-import Dashboard_bolsas from './Pages/admin/Dashboard_bolsas';
 import Dashboard_solicitudes from './Pages/admin/Dashboard_solicitudes';
 import Dashboard_user from './Pages/admin/Dashboard_user';
 import Dashboard_profit from './Pages/admin/Dashboard_profit';
@@ -23,13 +22,16 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css'; 
 import Dashboard from './Pages/admin/Dashboard';
 // exportaciones cliente
-
+import Estudiante from './Pages/client/Estudiante';
+import Externos from './Pages/client/Externos';
 import UsInfo from './Pages/client/UsInfo';
 import Bolsas from './Pages/client/Bolsas';
 import Docs from './Pages/client/Docs';
 import UseRequest from './Pages/client/UseRequest';
 import Profile from './Pages/client/Profile';
 import HistorialCompras from './Pages/client/historialCompras';
+import Privacy from './Pages/client/Privacy';
+import Terms from './Pages/client/Terms';
 
 
 function App() {
@@ -45,7 +47,7 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
         } />
-        <Route path="/dashboard-bolsas" element={<Dashboard_bolsas/>} />
+        
         <Route path="/dashboard-profit" element={
           <ProtectedRoute>
             <Dashboard_profit />
@@ -99,6 +101,16 @@ function App() {
             <Docs />
           </ProtectedRoute>
         } />
+        <Route path="/Estudiante" element={
+          <ProtectedRoute>
+            <Estudiante />
+          </ProtectedRoute>
+        } />
+        <Route path="/Externos" element={
+          <ProtectedRoute>
+            <Externos />
+          </ProtectedRoute>
+        } />
         <Route path="/UseRequest" element={
           <ProtectedRoute>
             <UseRequest />
@@ -112,6 +124,18 @@ function App() {
         <Route path="/Compras" element={
           <ProtectedRoute>
             <HistorialCompras />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/Privacy" element={
+          <ProtectedRoute>
+            <Privacy />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/Terms" element={
+          <ProtectedRoute>
+            <Terms />
           </ProtectedRoute>
         } />
         <Route path="/404" element={<NotFound />} />

@@ -1,0 +1,41 @@
+{
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2020": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:security/recommended"
+    ],
+    "plugins": ["security"],
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module"
+    },
+    "overrides": [
+      {
+        "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+        "rules": {
+          // Aquí puedes añadir o sobrescribir reglas específicas si lo necesitas
+        }
+      }
+    ],
+    "rules": {
+      "no-unused-vars": [
+        "warn", 
+        { 
+          "varsIgnorePattern": "^React$|^styles$" 
+        }
+      ],
+      // Otras reglas de seguridad o de estilo que desees aplicar pueden ir aquí.
+      "security/detect-object-injection": "warn",  // Ejemplo de una regla de seguridad adicional.
+      "security/detect-non-literal-fs-filename": "warn",
+      "security/detect-eval-with-expression": "warn",
+      "security/detect-new-buffer": "warn",
+      "security/detect-unsafe-regex": "warn"
+    }
+  }
+  
+//   comando para detectar erres
+// npx eslint .

@@ -5,10 +5,16 @@ import Footer from "../../../public/Components/FooterUser/Footer.jsx";
 import Card from '../../../public/Components/Tarjeta/Card.jsx';
 import logo from "../../../src/assets/patagon-logo-text-color.png";
 import DashboardBolsasUser from "../../Hooks/useDashboardBolsasUser.js";
-import Nosotros from "../../../public/Components/Nosotros/nosotros.jsx";
+import DocsUser from '../../../public/Components/docsUser/docsUser.jsx';
+import { jwtDecode } from "jwt-decode";
+
 
 const MainClient = () => {
   const { bolsas, loading, error } = DashboardBolsasUser();
+  const token = localStorage.getItem('token');
+  const decodedToken = jwtDecode(token);
+  const userRole = decodedToken.rol;
+
 
   return (
     <div className={styles.container}>
@@ -17,34 +23,48 @@ const MainClient = () => {
         <img src={logo} alt="logo" className={styles.logo} />
         <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
       </div>
-      <section className={styles.section1}>
-        <div className={styles.dashboardWidgets}>
-        {loading ? (
-            <div className={styles.spinner}></div>
-          ) : error ? (
-            <p>Error al cargar bolsas: {error}</p>
-          ) : bolsas && bolsas.length > 0 ? (  
-            bolsas.map((bolsa, index) => {
-              const delay = `${index * 100}ms`; 
-              return (
-                <Card
-                  key={index} 
-                  nombre={bolsa.nombre}
-                  tiempo={bolsa.time}
-                  precio={bolsa.precio}
-                  detalles={bolsa.detalles} 
-                  delay={delay} 
-                  ID={bolsa.ID}
-                />
-              );
-            })
-          ) : (
-            <p>No hay bolsas disponibles.</p>
-          )}
+      <div className={styles.videoContainer}>
+          <iframe 
+            src="https://www.youtube.com/embed/sEwd3iZvY3g" 
+            title="YouTube video player" 
+            frameBorder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowFullScreen
+            className={styles.video}
+          ></iframe>
         </div>
-      </section>
-      <Nosotros />
-      <Footer></Footer>
+      {userRole === "Cliente" ? (
+        <section className={styles.section1}>
+          <div className={styles.dashboardWidgets}>
+          {loading ? (
+              <div className={styles.spinner}></div>
+            ) : error ? (
+              <p>Error al cargar bolsas: {error}</p>
+            ) : bolsas && bolsas.length > 0 ? (  
+              bolsas.map((bolsa, index) => {
+                const delay = `${index * 100}ms`; 
+                return (
+                  <Card
+                    key={index} 
+                    nombre={bolsa.nombre}
+                    tiempo={bolsa.time}
+                    precio={bolsa.precio}
+                    detalles={bolsa.detalles} 
+                    delay={delay} 
+                    ID={bolsa.ID}
+                  />
+                );
+              })
+            ) : (
+              <p>No hay bolsas disponibles.</p>
+            )}
+          </div>
+        </section>
+      ) : (
+        ''
+      )}
+      <DocsUser />
+      <Footer />
     </div>
   );
 }
