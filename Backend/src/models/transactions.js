@@ -39,6 +39,10 @@ const Orders = sequelize.define('Orders', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  time:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   },{
     timestamps: false,
     tableName: "Orders",

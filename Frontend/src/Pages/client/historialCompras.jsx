@@ -7,6 +7,7 @@ import { BsFileEarmarkRuled } from "react-icons/bs";
 import { FaFileDownload } from "react-icons/fa";
 import Boleta from '../../../public/Components/CartolaPDF/Boleta';
 
+
 const ITEMS_PER_PAGE = 10;
 
 const HistorialCompras = () => {
@@ -170,7 +171,7 @@ const HistorialCompras = () => {
             <hr />  
             <div className={styles.info}>
               <p><strong>Bolsa:</strong> {selectedDetails.id_product}</p>
-              <p><strong>Tiempo:</strong></p>
+              <p><strong>Tiempo:</strong> {selectedDetails.time} horas</p>
             </div>
             <h3>PAGO</h3>
             <hr />  
@@ -182,13 +183,10 @@ const HistorialCompras = () => {
             </div>
            
            <div className={styles.download}>
-            <h3>Descarga boleta</h3>
-            <FaFileDownload onClick={() => handleDownload(selectedDetails)} size={20}/>
+            <Boleta data={selectedDetails}/>
+            <FaFileDownload size={20}> <Boleta data={selectedDetails}/></FaFileDownload>
            </div>
-            {/* Renderiza la boleta solo cuando hay datos */}
-      {boletaData && (
-        <Boleta data={boletaData} onComplete={handleComplete} />
-      )}
+            
          
           </div>
           <div className={styles.footerModal}>
