@@ -17,12 +17,12 @@ const navBar = () => {
           </a>
         </div>
         <div className={styles.btnGroup}>
-          <a href='/UsInfo' className={isActive("/UsInfo") ? styles.active : ''} tabIndex='-1'>
+          <a href='/about-us' className={isActive("/about-us") ? styles.active : ''} tabIndex='-1'>
             Nosotros
           </a>
         </div>
         <div className={styles.btnGroup}>
-          <a href='/Docs' className={isActive("/Docs") ? styles.active : ''} tabIndex='-1'>  
+          <a href='/docs' className={isActive("/docs") ? styles.active : ''} tabIndex='-1'>  
             Documentación
           </a>
         </div>
@@ -30,8 +30,8 @@ const navBar = () => {
         <div className={styles.userDiv}>
           <a className={styles.user}>Usuario</a>
           <ul>
-            <li><a href="/Profile">Mi Perfil</a></li>
-            <li><a href="/Compras">Historial de compras</a></li>
+            <li><a href="/account/profile">Mi Perfil</a></li>
+            <li><a href="/account/purchase-history">Historial de compras</a></li>
             <li><a href="/">Cerrar sesión</a></li>
           </ul>
         </div>

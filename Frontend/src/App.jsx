@@ -48,7 +48,7 @@ function App() {
           </ProtectedRoute>
         } />
         
-        <Route path="/dashboard-profit" element={
+        <Route path="/admin/dashboard-profit" element={
           <ProtectedRoute>
             <Dashboard_profit />
           </ProtectedRoute>
@@ -58,22 +58,22 @@ function App() {
             <Dashboard_config />
           </ProtectedRoute>
         } />
-        <Route path="/dashboard-user" element={<Dashboard_user />} />
-        <Route path="/dashboard-solicitudes" element={
+        <Route path="/admin/dashboard-users" element={<Dashboard_user />} />
+        <Route path="/admin/dashboard-requests" element={
           <ProtectedRoute>
             <Solicitudes />
             <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
           </ProtectedRoute>
         } />
         
-        <Route path="/dashboard-compra/:id" element={
+        <Route path="/product-details/:id" element={
           <ProtectedRoute>
             <Purchase_details />
           </ProtectedRoute>
         } />
 
         <Route path="/paymentaccept" element={<RetornoPage />} />
-        <Route path="/dashboard-admin" element={
+        <Route path="/admin/dashboard-roles" element={
           <ProtectedRoute>
             <Dashboard_admin />
             <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
@@ -86,7 +86,7 @@ function App() {
         } />
 
         {/* paginas cliente */}
-        <Route path="/UsInfo" element={
+        <Route path="/about-us" element={
           <ProtectedRoute>
             <UsInfo />
           </ProtectedRoute>
@@ -96,17 +96,17 @@ function App() {
             <Bolsas />
           </ProtectedRoute>
         } />
-        <Route path="/Docs" element={
+        <Route path="/docs" element={
           <ProtectedRoute>
             <Docs />
           </ProtectedRoute>
         } />
-        <Route path="/Estudiante" element={
+        <Route path="/students" element={
           <ProtectedRoute>
             <Estudiante />
           </ProtectedRoute>
         } />
-        <Route path="/Externos" element={
+        <Route path="/external" element={
           <ProtectedRoute>
             <Externos />
           </ProtectedRoute>
@@ -116,24 +116,24 @@ function App() {
             <UseRequest />
           </ProtectedRoute>
         } />
-        <Route path="/Profile" element={
+        <Route path="/account/profile" element={
           <ProtectedRoute>
             <Profile />
           </ProtectedRoute>
         } />
-        <Route path="/Compras" element={
+        <Route path="/account/purchase-history" element={
           <ProtectedRoute>
             <HistorialCompras />
           </ProtectedRoute>
         } />
 
-        <Route path="/Privacy" element={
+        <Route path="/privacy" element={
           <ProtectedRoute>
             <Privacy />
           </ProtectedRoute>
         } />
 
-        <Route path="/Terms" element={
+        <Route path="/terms" element={
           <ProtectedRoute>
             <Terms />
           </ProtectedRoute>

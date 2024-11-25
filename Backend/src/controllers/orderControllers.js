@@ -163,7 +163,8 @@ export const createOrderMercadoPago = async (req, res) => {
         },
       ],
       metadata: {email, order},
-      notification_url: `http://${ip_server}:3003/api/command/webhook?email=${email}&time=${time}`,
+      notification_url: `https://rx84cmhh-3003.brs.devtunnels.ms/api/command/webhook?email=${email}&time=${time}`,
+      // notification_url: `http://${ip_server}:3003/api/command/webhook?email=${email}&time=${time}`,
       back_urls: {
         success: `http://${ip_server}:4003/paymentaccept`,
         failure: `http://${ip_server}:4003/mainClient`,
@@ -183,10 +184,6 @@ export const createOrderMercadoPago = async (req, res) => {
         },
       }
     );
-
-    // Muestra en consola el objeto de respuesta completo
-    //console.log("Respuesta de Mercado Pago:", response.data);
-    // console.log(response);
 
     //guardar en la base de datos
     const orderData = {
@@ -219,31 +216,27 @@ export const webhookMercadoPago = async (req, res) => {
     const payment = req.query;
     const email = req.query.email;
     const time = req.query.time;
-    console.log("Webhook recibido:", payment);
+    //console.log("Webhook recibido:", payment);
 
     if (payment.type === "payment") {
       // Realiza una llamada a la API de MercadoPago para obtener los detalles del pago
       const paymentId = payment["data.id"];
-
       const response = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${accessToken}`, // Reemplaza con tu token de acceso
+          Authorization: `Bearer ${accessToken}`, 
         }
       });
 
       if (!response.ok) {
         throw new Error(`Error en la solicitud a MercadoPago: ${response.statusText}`);
       }
-
       const data = await response.json();
-      //console.log("Detalles del pago:", data);
-      console.log("correo", data.metadata.email);
-
+     
       //actualizar en la base de datos
       if (data.status === "approved") {
         await Orders.update(
-          { status: "Pagado", updated_at: new Date() },
+          { status: "Pagado", updated_at: new Date() , order_id: paymentId},
           { where: { order_id: data.metadata.order } },
         )
         await User.increment(
@@ -257,5 +250,55 @@ export const webhookMercadoPago = async (req, res) => {
   } catch (error) {
     console.error("Error al procesar el webhook:", error);
     return res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+
+
+//boletas para paypal
+export const getReceipt = async (req, res) => {
+  const { orderId } = req.params;
+  try {
+    const params = new URLSearchParams();
+    params.append("grant_type", "client_credentials");
+    const {
+      data: { access_token },
+    } = await axios.post(
+      "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+      params,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: PAYPAL_CLIENT_ID,
+          password: PAYPAL_API_KEY,
+        },
+      }
+    );
+    const response = await axios.get(
+      `${PAYPAL_API}/v2/checkout/orders/${orderId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    
+    const orderDetails = response.data;
+    const receipt = {
+      orderId: orderDetails.id,
+      status: orderDetails.status,
+      payer: orderDetails.payer.email_address,
+      amount: orderDetails.purchase_units[0].amount.value,
+      currency: orderDetails.purchase_units[0].amount.currency_code,
+      createdAt: orderDetails.create_time,
+      capturedAt: orderDetails.update_time,
+    };
+
+    return res.json({ receipt });
+  } catch (error) {
+    console.error("Error al obtener los detalles del pago:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };

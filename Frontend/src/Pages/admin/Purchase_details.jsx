@@ -74,12 +74,14 @@ const Purchase_details = () => {
                 <div className={styles1.header}>
                     <div className={styles1.titleLogo}>
                         {/* <img src={logo} className={styles1.menuIcon} alt="Logo" /> */}
-                        <h1>Detalles de compra</h1>
+                        {/* <h1>Detalles de compra</h1> */}
                     </div>
                 </div>
 
                 <div className={styles.purchaseContainer}>
                     <div className={styles.purchaseDetails}>
+                        <h1>Detalles de compra</h1>
+                        <hr></hr>
                         <h2>{bolsa.nombre}</h2>
                         <p>Tiempo: {bolsa.time} horas</p>
                         <p>Precio: ${bolsa.precio} USD</p>

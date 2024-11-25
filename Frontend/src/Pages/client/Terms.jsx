@@ -29,7 +29,7 @@ const Terms = () => {
           Nos reservamos el derecho de modificar estos términos en cualquier momento. Recomendamos revisarlos periódicamente.
         </p>
         <p>
-          Si tienes preguntas, <a href="/contacto">contáctanos aquí</a>.
+          Si tienes preguntas, <a href="https://patagon.uach.cl/contacto" target="_blank">Contacto</a>.
         </p>
       </div>
       <Footer />
