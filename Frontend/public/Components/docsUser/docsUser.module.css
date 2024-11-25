@@ -19,11 +19,11 @@
   box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
 }
 
-
-
 .card {
   z-index: 2;
   position: relative;
+  display: grid;
+  grid-row: auto 1fr auto;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -31,6 +31,7 @@
   margin: 10px;
   color: #333;
   transition: transform 0.3s, box-shadow 0.3s;
+  justify-items: center;
 }
 
 .card:hover {
@@ -38,21 +39,32 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.icon img {
+.icon > * {
+  color: #cccccc;
   width: 120px;
   height: 120px;
   border-radius: 25%;
 }
+.card button {
+  /* background: linear-gradient(100deg, #C29D54, #50A98D); */
+  background: rgb(43, 43, 43);
+  border: #ffffff6e 1px solid;
+  width: 50%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  height: min-content;
+}
+
+.card button:hover {
+  transform: scale(1.1);
+}
 
 .link {
-  color: #451f1f; /* Color de texto base (para navegadores que no soportan degradados en texto) */
+  color: white; /* Color de texto base (para navegadores que no soportan degradados en texto) */
   font-weight: bold;
   text-decoration: none;
-  background: linear-gradient(100deg, #b1ac21, #28c6b1); /* Degradado de izquierda a derecha */
-  background-size: 200%; 
-  background-clip: text;
-  -webkit-background-clip: text; /* Necesario para compatibilidad con algunos navegadores */
-  color: transparent; /* Hacemos el color transparente para mostrar solo el degradado */
   transition: background-position 0.5s ease; 
 }
 
@@ -81,16 +93,18 @@
 .header h3 {
   margin-top: 10px;
   font-weight: normal;
-  color: white;
+  color: #cccccc;
 }
 
 .card p{
   color: whitesmoke;
   font-size: 16px;
   text-align: justify;
+  margin-bottom: 10px;
 }
 .card h3{
   color: whitesmoke;
   font-size: 28px;
   font-weight: bold;
+  margin: 10px 0;
 }

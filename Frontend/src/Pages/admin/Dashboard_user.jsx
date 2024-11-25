@@ -20,13 +20,11 @@ const Dashboard_user = () => {
   const {
     isOpen,
     errors,
-    users,
-    deletedUsers,
     searchText,
     btnActive,
     showModal,
     selectedUser,
-    key,
+    filtredUsers,
     loading, // Obtener el estado de carga
     setIsOpen,
     setShowModal,
@@ -121,9 +119,9 @@ const Dashboard_user = () => {
           {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
 
           {btnActive ? (
-            <TableComponent columns={columnsUsers} data={users}/>
+            <TableComponent columns={columnsUsers} data={filtredUsers}/>
           ) : (
-            <TableComponent columns={columnsDeletedUsers} data={deletedUsers} />
+            <TableComponent columns={columnsDeletedUsers} data={filtredUsers} />
           )}
         </section>
       </main>

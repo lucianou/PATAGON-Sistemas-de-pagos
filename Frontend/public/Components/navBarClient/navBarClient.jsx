@@ -10,7 +10,10 @@ const navBar = () => {
       <div className={styles.header}>
         {/* <img src={wave} alt="wave" className={styles.wave}/> */}
         <div className={styles.sectionIzq}>
+        <a href="/mainClient" >
         <img src={logo} alt="logo" className={styles.logo} />
+        </a>
+
         <div className={styles.btnGroup}>
           <a href='/mainClient' className={isActive("/mainClient") ? styles.active : ''} tabIndex='-1'>
             Home
