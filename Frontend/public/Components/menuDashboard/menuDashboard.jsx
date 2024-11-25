@@ -47,8 +47,8 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
             )}
 
             {(userRole === 'Administrador' || userRole === 'Co-admin' || userRole == 'Revisor') && (
-            <li className={isActive('/dashboard-solicitudes') ? styles.active : ''} onClick={() => window.location.href = '/dashboard-solicitudes'}>
-              <a href='/dashboard-solicitudes' tabIndex='-1'>
+            <li className={isActive('/admin/dashboard-requests') ? styles.active : ''} onClick={() => window.location.href = '/admin/dashboard-requests'}>
+              <a href='/admin/dashboard-requests' tabIndex='-1'>
                 <FontAwesomeIcon icon={faClipboard} className={styles.faIcon} />
                 <span>Solicitudes</span>
               </a>
@@ -56,8 +56,8 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
             )}
 
             {(userRole === 'Administrador') && (
-            <li className={isActive('/dashboard-admin') ? styles.active : ''} onClick={() => window.location.href = '/dashboard-admin'}>
-              <a href='/dashboard-admin' tabIndex='-1'>
+            <li className={isActive('/admin/dashboard-roles') ? styles.active : ''} onClick={() => window.location.href = '/admin/dashboard-roles'}>
+              <a href='/admin/dashboard-roles' tabIndex='-1'>
                 <FontAwesomeIcon icon={faUserShield} className={styles.faIcon} />
                 <span>Administrador</span>
               </a>
@@ -65,8 +65,8 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
             )}
 
             {(userRole === 'Administrador' || userRole === 'Co-admin') && (
-            <li className={isActive('/dashboard-user') ? styles.active : ''} onClick={() => window.location.href = '/dashboard-user'}>
-              <a href='/dashboard-user' tabIndex='-1'>
+            <li className={isActive('/admin/dashboard-users') ? styles.active : ''} onClick={() => window.location.href = '/admin/dashboard-users'}>
+              <a href='/admin/dashboard-users' tabIndex='-1'>
                 <FontAwesomeIcon icon={faUsers} className={styles.faIcon} />
                 <span>Usuarios</span>
               </a>
@@ -74,8 +74,8 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
             )}
 
             {(userRole === 'Administrador' || userRole === 'Co-admin') && (
-            <li className={isActive('/dashboard-profit') ? styles.active : ''} onClick={() => window.location.href = '/dashboard-profit'}>
-              <a href='/dashboard-profit' tabIndex='-1'>
+            <li className={isActive('/admin/dashboard-profit') ? styles.active : ''} onClick={() => window.location.href = '/admin/dashboard-profit'}>
+              <a href='/admin/dashboard-profit' tabIndex='-1'>
                 <FontAwesomeIcon icon={faDollarSign} className={styles.faIcon} />
                 <span>Ganancias</span>
               </a>

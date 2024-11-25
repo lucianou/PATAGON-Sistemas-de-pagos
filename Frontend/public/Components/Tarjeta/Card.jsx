@@ -6,7 +6,7 @@ const Card = ({ nombre, tiempo, detalles, precio, ram, delay, ID }) => {
   const navigate = useNavigate();
 
   const handleBuyClick = () => {
-    navigate(`/dashboard-compra/${ID}`); 
+    navigate(`/product-details/${ID}`); 
   };
   
 
