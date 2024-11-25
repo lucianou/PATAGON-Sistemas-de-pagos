@@ -10,7 +10,7 @@ const navBar = () => {
       <div className={styles.header}>
         {/* <img src={wave} alt="wave" className={styles.wave}/> */}
         <div className={styles.sectionIzq}>
-        <a href="https://patagon.uach.cl/" target="_blank" rel="noopener noreferrer">
+        <a href="/mainClient" >
         <img src={logo} alt="logo" className={styles.logo} />
         </a>
 
