@@ -1,9 +1,12 @@
-/* Sección de tarjetas */
 .section1 {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   padding: 20px 0 25px 0;
+}
+
+.container {
+  margin-top: 20px;
 }
 
 .background{
@@ -22,12 +25,15 @@
 .card {
   z-index: 2;
   position: relative;
-  display: grid;
-  grid-row: auto 1fr auto;
+  display: flex;
+  flex-direction: column; /* Estructura vertical */
+  justify-content: space-between; /* Asegura que el header esté arriba y el botón abajo */
+  align-items: center; /* Centrar contenido horizontalmente */
   border-radius: 8px;
   padding: 20px;
   text-align: center;
   width: 30%;
+  max-width: 500px;
   margin: 10px;
   color: #333;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -35,7 +41,7 @@
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -45,7 +51,7 @@
   height: 120px;
   border-radius: 25%;
 }
-.card button {
+.card .link {
   /* background: linear-gradient(100deg, #C29D54, #50A98D); */
   background: rgb(43, 43, 43);
   border: #ffffff6e 1px solid;
@@ -53,25 +59,16 @@
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   height: min-content;
-}
-
-.card button:hover {
-  transform: scale(1.1);
-}
-
-.link {
   color: white; /* Color de texto base (para navegadores que no soportan degradados en texto) */
   font-weight: bold;
   text-decoration: none;
-  transition: background-position 0.5s ease; 
 }
 
-.link:hover {
-  background-position: -100%; 
+.card .link:hover {
+  background: rgb(77, 77, 77);
 }
-
 
 /* Encabezado */
 .header {
@@ -86,7 +83,7 @@
 
 .header h1 {
   filter: drop-shadow(5px 5px 3px #00000096);
-  font-size: 56px;
+  font-size: 50px;
   margin: 0;
 }
 
@@ -99,8 +96,9 @@
 .card p{
   color: whitesmoke;
   font-size: 16px;
-  text-align: justify;
+  text-align: center;
   margin-bottom: 10px;
+  padding: 0 20px;
 }
 .card h3{
   color: whitesmoke;

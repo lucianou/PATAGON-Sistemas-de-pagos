@@ -1,0 +1,8 @@
+.container{
+  background-color: #1D1D1D;
+  min-height: 100vh;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  grid-template-rows: auto 1fr auto;
+}
