@@ -8,12 +8,12 @@ import DashboardBolsasUser from "../../Hooks/useDashboardBolsasUser.js";
 import DocsUser from '../../../public/Components/docsUser/docsUser.jsx';
 import { jwtDecode } from "jwt-decode";
 
-const token = localStorage.getItem("token");
-const decodedToken = jwtDecode(token);
-const userRole = decodedToken.rol;
 
 const MainClient = () => {
   const { bolsas, loading, error } = DashboardBolsasUser();
+  const token = localStorage.getItem("token");
+  const decodedToken = jwtDecode(token);
+  const userRole = decodedToken.rol;
 
   return (
     <div className={styles.container}>

@@ -44,7 +44,7 @@ const useForm = (initialData) => {
           localStorage.setItem('token', data.token);
           const decodedToken = jwtDecode(data.token);
           localStorage.setItem('email', decodedToken.email);
-          console.log(decodedToken);
+          // console.log(decodedToken);
           if(decodedToken.rol == 'Administrador' || decodedToken.rol == 'Co-admin'){
             localStorage.setItem('rol', decodedToken.rol);
             localStorage.setItem('username', decodedToken.username);
