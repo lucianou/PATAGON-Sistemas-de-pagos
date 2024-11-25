@@ -3,12 +3,11 @@
     font-family: Lora;
   }
   .headerLogo{
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    display: flex;
     margin-bottom: 20px;
-    /* background-color: #181A1B; */
     height: 250px;
     .logo{
       width: auto;
@@ -67,12 +66,17 @@
 
 .videoContainer {
   margin-top: 20px; 
-  margin-bottom: 30px; 
+  margin-bottom: 50px; 
   display: flex;
   justify-content: center;
 }
 
 .video {
+  box-shadow: 5px 5px 10px #00000096;
   width: 720px;
   height: 480px;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
 }
