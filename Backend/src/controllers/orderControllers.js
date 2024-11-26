@@ -74,6 +74,7 @@ export const createPayment = async (req, res) => {
       status: "Creado",
       created_at: new Date(),
       id_product: id,
+      time: time,
     };
 
     await Orders.create(orderData);
@@ -196,6 +197,7 @@ export const createOrderMercadoPago = async (req, res) => {
       status: "Creado",
       created_at: new Date(),
       id_product: id,
+      time: time,
     };
 
     await Orders.create(orderData);

@@ -51,19 +51,19 @@ const Dashboard = () => {
             value={`$${data?.totalGanancias ?? 0} USD`} 
             change={`+${data?.totalMoneyPayed ?? 0}`} 
             icon={<FaDollarSign />} 
-            onClick={() => navigate('/dashboard-profit')}
+            onClick={() => navigate('/admin/dashboard-profit')}
           />
           <InfoCard 
             title="Usuarios registrados" 
             value={data?.totalUsers ?? 0} 
             icon={<FaUsers />} 
-            onClick={() => navigate('/dashboard-user')}
+            onClick={() => navigate('/admin/dashboard-users')}
           />
           <InfoCard 
             title="Solicitudes recibidas" 
             value={`${data?.totalRequests ?? 0}`} 
             icon={<FaChartLine />} 
-            onClick={() => navigate('/dashboard-solicitudes')}
+            onClick={() => navigate('/admin/dashboard-requests')}
           />
         </div>
 

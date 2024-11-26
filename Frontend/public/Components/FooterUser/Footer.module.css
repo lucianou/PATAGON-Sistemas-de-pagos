@@ -1,12 +1,19 @@
 /* Footer.module.css */
 .footer {
   background-color: #333;
-  position: relative;
-  color: #fff;
-  padding: 40px 0;
   width: 100%;
-  
+  position: relative;
+}
+
+.footer main {
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
+  padding: 40px 0;
+  color: #fff;
+  max-width: 1700px;
 }
 
 .footerContent {

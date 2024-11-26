@@ -41,100 +41,113 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
 
-        {/* Rutas protegidas con el nuevo layout */}
         <Route path="/dashboard" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Administrador"]}>
             <Dashboard />
           </ProtectedRoute>
         } />
         
         <Route path="/admin/dashboard-profit" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Administrador"]}>
             <Dashboard_profit />
           </ProtectedRoute>
         } />
+
         <Route path="/dashboard-config" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Administrador"]}>
             <Dashboard_config />
           </ProtectedRoute>
         } />
-        <Route path="/admin/dashboard-users" element={<Dashboard_user />} />
+
+        <Route path="/admin/dashboard-users" element={
+          <ProtectedRoute isAllowed={["Administrador"]}>
+            <Dashboard_user />
+          </ProtectedRoute>} />
+
         <Route path="/admin/dashboard-requests" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Administrador"]}>
             <Solicitudes />
             <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
           </ProtectedRoute>
         } />
         
+        <Route path="/admin/dashboard-roles" element={
+          <ProtectedRoute isAllowed={["Administrador"]}>
+            <Dashboard_admin />
+            <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
+          </ProtectedRoute>
+        } />
+
         <Route path="/product-details/:id" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <Purchase_details />
           </ProtectedRoute>
         } />
 
         <Route path="/paymentaccept" element={<RetornoPage />} />
-        <Route path="/admin/dashboard-roles" element={
-          <ProtectedRoute>
-            <Dashboard_admin />
-            <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
-          </ProtectedRoute>
-        } />
+        
         <Route path="/mainClient" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <MainClient />
           </ProtectedRoute>
         } />
 
-        {/* paginas cliente */}
         <Route path="/about-us" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]} >
             <UsInfo />
           </ProtectedRoute>
         } />
+
         <Route path="/Bolsas" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <Bolsas />
           </ProtectedRoute>
         } />
+
         <Route path="/docs" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <Docs />
           </ProtectedRoute>
         } />
+
         <Route path="/students" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <Estudiante />
           </ProtectedRoute>
         } />
+
         <Route path="/external" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <Externos />
           </ProtectedRoute>
         } />
+
         <Route path="/UseRequest" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <UseRequest />
           </ProtectedRoute>
         } />
+
         <Route path="/account/profile" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <Profile />
           </ProtectedRoute>
         } />
+        
         <Route path="/account/purchase-history" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <HistorialCompras />
           </ProtectedRoute>
         } />
 
         <Route path="/privacy" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <Privacy />
           </ProtectedRoute>
         } />
 
         <Route path="/terms" element={
-          <ProtectedRoute>
+          <ProtectedRoute isAllowed={["Cliente"]}>
             <Terms />
           </ProtectedRoute>
         } />

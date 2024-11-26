@@ -77,33 +77,6 @@ const Nosotros = () => {
               <span>Felipe Quezada</span>
             </div>
           </div>
-          <h1>Equipo de desarrollo de la pagina</h1>
-          <div className={styles.teamMembers}>
-            <div className={styles.member}>
-              <img src={fernando1} alt="Fernando Inzulza" />
-              <span>Fernando Inzulza</span>
-            </div>
-            <div className={styles.member}>
-              <img src={seba} alt="Sebastián Pangue" />
-              <span>Sebastián Pangue</span>
-            </div>
-            <div className={styles.member}>
-              <img src={miguel} alt="Miguel Ormeño" />
-              <span>Miguel Ormeño</span>
-            </div>
-            <div className={styles.member}>
-              <img src={fernando2} alt="Fernando Castillo" />
-              <span>Fernando Castillo</span>
-            </div>
-            <div className={styles.member}>
-              <img src={vicente} alt="Vicente Alves" />
-              <span>Vicente Alves</span>
-            </div>
-            <div className={styles.member}>
-              <img src={luciano} alt="Luciano Espinoza" />
-              <span>Luciano Espinoza</span>
-            </div>
-          </div>
         </section>
       </section>
   );

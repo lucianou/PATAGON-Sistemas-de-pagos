@@ -9,6 +9,7 @@ const NavBar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
+<<<<<<< HEAD
     <div className={styles.header}>
       <div className={styles.sectionIzq}>
         <img src={logo} alt="logo" className={styles.logo} />
@@ -19,6 +20,18 @@ const NavBar = () => {
         </div>
         <div className={`${styles.navMenu} ${menuOpen ? styles.show : ""}`}>
           <a href="/mainClient" className={isActive("/mainClient") ? styles.active : ""}>
+=======
+    <>
+      <div className={styles.header}>
+        {/* <img src={wave} alt="wave" className={styles.wave}/> */}
+        <div className={styles.sectionIzq}>
+        <a href="/mainClient" >
+        <img src={logo} alt="logo" className={styles.logo} />
+        </a>
+
+        <div className={styles.btnGroup}>
+          <a href='/mainClient' className={isActive("/mainClient") ? styles.active : ''} tabIndex='-1'>
+>>>>>>> 7423426b9cab12d9d046715eaf52efeebf7005e5
             Home
           </a>
           <a href="/about-us" className={isActive("/about-us") ? styles.active : ""}>

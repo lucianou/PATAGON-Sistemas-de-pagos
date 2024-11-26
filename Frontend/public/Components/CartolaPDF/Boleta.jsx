@@ -3,13 +3,10 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import logo from "../../../assets/patagon-logo-color.png";
 
-const Boleta = ({ data, onComplete }) => {
-  useEffect(() => {
-    const generatePDF = () => {
-      const doc = new jsPDF();
 
-      // Agregar el logo
-      
+const Boleta = ({ data, onComplete }) => {
+  const generatePDF = () =>{
+    const doc = new jsPDF();
       doc.addImage(logo, "PNG", 10, 10, 30, 30);
 
       // Título de la empresa
@@ -23,8 +20,8 @@ const Boleta = ({ data, onComplete }) => {
 
      // Información del cliente y detalles de la factura
      doc.setFontSize(12);
-     doc.text("Boleta", 105, 50, { align: "center" });
-     doc.text(`N° Boleta: ${data.order_id}`, 20, 60);  
+     doc.text("Detalles de compra", 105, 50, { align: "center" });
+     doc.text(`N° Orden: ${data.order_id}`, 20, 60);  
      doc.text(`Fecha: ${new Date(data.created_at).toLocaleDateString()}`, 20, 65); 
      doc.text(`Saldo adeudado $${data.amount} USD`, 20, 70);  
      doc.text(`${data.user_email}`, 150, 60); 
@@ -34,9 +31,9 @@ const Boleta = ({ data, onComplete }) => {
     
      doc.autoTable({
        startY: 90,
-       head: [["Item", "Método de pago", "Costo", "Cantidad", "Horas", "Total"]],
+       head: [["Item", "Método de pago", "Costo (USD)", "Cantidad", "Horas", "Total"]],
        body: [
-         ["bolsa"+" "+ data.id_product, data.payment_method, data.amount, "1","20", data.payment_method],
+         ["bolsa"+" "+ data.id_product, data.payment_method, data.amount, "1", data.time, data.payment_method],
        ],
        theme: "grid",
      });
@@ -59,14 +56,22 @@ const Boleta = ({ data, onComplete }) => {
       const pdfBlob = doc.output("blob");
       const pdfURL = URL.createObjectURL(pdfBlob);
       window.open(pdfURL, "_blank");
-
-      if (onComplete) onComplete();
-    };
-
-    generatePDF();
-  }, [data, onComplete]);
-
-  return null; 
+    
+  };
+  return(
+    <div>
+      <button 
+        onClick={generatePDF}
+        style={{
+          background: "none",
+          border: "none",
+          color:"white"
+        }
+        }
+        >
+        Descargar Boleta</button>
+    </div>
+  )
 };
 
 export default Boleta;

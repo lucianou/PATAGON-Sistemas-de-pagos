@@ -10,11 +10,10 @@
   color: white;
   opacity: 0;
   width: calc(33.33% - 20px); /* 3 tarjetas por línea */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5),
-              inset 0px 1px 4px rgba(255, 255, 255, 0.1);
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5);
   animation: fadeInUp 0.3s ease forwards;
   animation-delay: var(--animationDelay);
-  transition: .3s ease all;
+  transition: .3s ease all, .3s ease box-shadow;  
   /* Fondo de estrellas - primera capa */
   &::before,
   &::after {
@@ -42,12 +41,6 @@
     opacity: 0.3;
     animation-delay: 10s; /* Diferente fase de animación para variedad */
   }
-  
-  &:hover {
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5), 
-                inset 0px 1px 4px rgba(255, 255, 255, 0.1);
-  }
-
   /* Contenido interno */
   .bolsaLeft {
     width: 50%;
@@ -95,7 +88,7 @@
     }
 
     .botonCompra {
-      background: linear-gradient(145deg, #00AB8C, rgb(36, 37, 43));
+      background: linear-gradient(155deg, #00AB8C, #013d32);
       color: white;
       width: 150px;
       height: 50px;
@@ -109,7 +102,6 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
-        background-color: #1ace23;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2),
                     0 12px 40px rgba(0, 0, 0, 0.23);
       }
