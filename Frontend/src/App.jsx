@@ -86,41 +86,17 @@ function App() {
 
         <Route path="/paymentaccept" element={<RetornoPage />} />
         
-        <Route path="/mainClient" element={
-          <ProtectedRoute isAllowed={["Cliente"]}>
-            <MainClient />
-          </ProtectedRoute>
-        } />
+        <Route path="/mainClient" element={<MainClient />} />
 
-        <Route path="/about-us" element={
-          <ProtectedRoute isAllowed={["Cliente"]} >
-            <UsInfo />
-          </ProtectedRoute>
-        } />
+        <Route path="/about-us" element={ <UsInfo />} />
 
-        <Route path="/Bolsas" element={
-          <ProtectedRoute isAllowed={["Cliente"]}>
-            <Bolsas />
-          </ProtectedRoute>
-        } />
+        <Route path="/Bolsas" element={<Bolsas />} />
 
-        <Route path="/docs" element={
-          <ProtectedRoute isAllowed={["Cliente"]}>
-            <Docs />
-          </ProtectedRoute>
-        } />
+        <Route path="/docs" element={<Docs />} />
 
-        <Route path="/students" element={
-          <ProtectedRoute isAllowed={["Cliente"]}>
-            <Estudiante />
-          </ProtectedRoute>
-        } />
+        <Route path="/students" element={<Estudiante />} />
 
-        <Route path="/external" element={
-          <ProtectedRoute isAllowed={["Cliente"]}>
-            <Externos />
-          </ProtectedRoute>
-        } />
+        <Route path="/external" element={<Externos />} />
 
         <Route path="/UseRequest" element={
           <ProtectedRoute isAllowed={["Cliente"]}>
@@ -140,17 +116,9 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/privacy" element={
-          <ProtectedRoute isAllowed={["Cliente"]}>
-            <Privacy />
-          </ProtectedRoute>
-        } />
+        <Route path="/privacy" element={<Privacy />} />
 
-        <Route path="/terms" element={
-          <ProtectedRoute isAllowed={["Cliente"]}>
-            <Terms />
-          </ProtectedRoute>
-        } />
+        <Route path="/terms" element={ <Terms />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<NotFound />} /> {/* Cualquier otra ruta redirige a 404 */}
       </Routes>
