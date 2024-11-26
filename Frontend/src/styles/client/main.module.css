@@ -75,7 +75,6 @@
   box-shadow: 5px 5px 10px #00000096;
   width: 720px;
   height: 480px;
-<<<<<<< HEAD
 }
 
 @media (max-width: 768px) {
@@ -98,10 +97,3 @@
     cursor: pointer;
   }
 }
-=======
-  transition: all 0.3s ease;
-  &:hover {
-    transform: scale(1.05);
-  }
-}
->>>>>>> 7423426b9cab12d9d046715eaf52efeebf7005e5

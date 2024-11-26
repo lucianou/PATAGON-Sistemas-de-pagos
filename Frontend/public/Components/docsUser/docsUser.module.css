@@ -106,3 +106,35 @@
   font-weight: bold;
   margin: 10px 0;
 }
+
+@media (max-width: 768px) {
+  .card {
+    z-index: 2;
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Estructura vertical */
+    justify-content: space-between; /* Asegura que el header esté arriba y el botón abajo */
+    align-items: center; /* Centrar contenido horizontalmente */
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 80%;
+    margin: 10px;
+    color: #333;
+    transition: transform 0.3s, box-shadow 0.3s;
+    justify-items: center;
+  }
+
+  .section1 {
+    width: 100%;
+    display: flex;
+    align-items: center; /* Centrar contenido horizontalmente */
+    justify-content: center;
+    padding: 20px 0 25px 0;
+    flex-direction: column;
+  }
+
+
+
+
+}
