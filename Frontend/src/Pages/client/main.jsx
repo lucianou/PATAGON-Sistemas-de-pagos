@@ -13,8 +13,11 @@ import { jwtDecode } from "jwt-decode";
 const MainClient = () => {
   const { bolsas, loading, error } = DashboardBolsasUser();
   const token = localStorage.getItem('token');
-  const decodedToken = jwtDecode(token);
-  const userRole = decodedToken.rol;
+  let decodedToken, userRole;
+  if (token) {
+    decodedToken = jwtDecode(token);
+    userRole = decodedToken.rol;
+  }
 
 
   return (

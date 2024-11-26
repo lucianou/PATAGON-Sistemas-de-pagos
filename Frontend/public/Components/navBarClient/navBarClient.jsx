@@ -53,7 +53,7 @@ const NavBar = () => {
             </ul>
             </>
           ) : (
-            <a href="/login" className={styles.user}>Iniciar sesión</a>
+            <a href="/" className={styles.user}>Iniciar sesión</a>
           )
           
           }
