@@ -42,7 +42,7 @@ function App() {
         <Route path="/registro" element={<Registro />} />
 
         <Route path="/dashboard" element={
-          <ProtectedRoute isAllowed={["Administrador"]}>
+          <ProtectedRoute isAllowed={["Administrador", "Co-admin"]}>
             <Dashboard />
           </ProtectedRoute>
         } />
@@ -65,7 +65,7 @@ function App() {
           </ProtectedRoute>} />
 
         <Route path="/admin/dashboard-requests" element={
-          <ProtectedRoute isAllowed={["Administrador"]}>
+          <ProtectedRoute isAllowed={["Administrador","Revisor"]}>
             <Solicitudes />
             <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
           </ProtectedRoute>

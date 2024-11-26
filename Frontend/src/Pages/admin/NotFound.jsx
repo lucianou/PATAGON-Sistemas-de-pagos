@@ -1,9 +1,20 @@
-// NotFound.js
 import React from 'react';
 import styles from '../../styles/notfound.module.css';
 import ParticlesBG from "../../../public/Components/Particles/ParticlesBG";
+import { jwtDecode } from 'jwt-decode';
 
 const NotFound = () => {
+  const token = localStorage.getItem('token');
+  let decodedToken, userRole;
+  
+  if (token) {
+    decodedToken = jwtDecode(token);
+    userRole = decodedToken.rol;
+  }
+
+
+  const redirectTo = ['administrador', 'revisor', 'co.admin'].includes(userRole) ? '/dashboard' : '/mainClient';
+
   return (
     <>
       <ParticlesBG />
@@ -14,7 +25,8 @@ const NotFound = () => {
           <p className={styles.message}>
             No tienes permiso para acceder a esta página o la página no existe.
           </p>
-          <a href="/" className={styles.button}>Volver al Inicio</a>
+          {/* El enlace redirige según el rol del usuario */}
+          <a href={redirectTo} className={styles.button}>Volver al Inicio</a>
         </div>
       </div>
     </>
