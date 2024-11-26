@@ -4,7 +4,17 @@ import logo from "../../../src/assets/SoloLogo_Patagon.png"
 
 const navBar = () => {
   const isActive = (path) => location.pathname === path;
+  const token = localStorage.getItem('token');
   
+  const handleOut = (event) =>{
+    event.preventDefault();
+    localStorage.removeItem('rol'); // Elimina el rol del localStorage
+    localStorage.removeItem('token'); // Elimina el token del localStorage
+    localStorage.removeItem('email'); // Elimina el refreshToken del localStorage
+    localStorage.removeItem('username'); // Elimina el nombre de usuario del localStorage
+    localStorage.removeItem('refreshToken'); // Elimina el refreshToken del localStorage
+    window.location.href = event.target.href; // Redirige al usuario a la ruta especificada en el enlace
+  };
   return (
     <>
       <div className={styles.header}>
@@ -31,12 +41,21 @@ const navBar = () => {
         </div>
         </div>
         <div className={styles.userDiv}>
-          <a className={styles.user}>Usuario</a>
-          <ul>
-            <li><a href="/account/profile">Mi Perfil</a></li>
-            <li><a href="/account/purchase-history">Historial de compras</a></li>
-            <li><a href="/">Cerrar sesión</a></li>
-          </ul>
+          { token ? (
+            <>
+            <a className={styles.user}>Usuario</a>
+            <ul>
+              <li><a href="/account/profile">Mi Perfil</a></li>
+              <li><a href="/account/purchase-history">Historial de compras</a></li>
+              <li><a href="/" onClick={ handleOut }>Cerrar sesión</a></li>
+            </ul>
+            </>
+          ) : (
+            <a href="/login" className={styles.user}>Iniciar sesión</a>
+          )
+          
+          }
+          
         </div>
       </div>
     </>

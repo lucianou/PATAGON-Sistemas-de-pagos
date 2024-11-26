@@ -21,6 +21,7 @@ function Login() {
       <ParticlesBG/>
       <div className={style.body}>
         <div className={style.contenedor}>
+          <div className={style.background}></div>
           <form onSubmit={handleSubmit}>
             <h1>Iniciar Sesión</h1>
             {errors.server && <p className={style2.errorMessage}  >{errors.server}</p>}
@@ -34,9 +35,10 @@ function Login() {
               <a href="#" className={style.forgPass}>¿Olvidaste tu contraseña?</a>
             </div>
             <LoginButton text="Ingresar" disabled={loading}/>
-            <p className={style.cuentaText}>
-              ¿No tienes cuenta? <a href="/registro">Regístrate</a>
-            </p>
+            <div className={style2.linkGroup}>
+              <p>¿No tienes cuenta? <a href="/registro">Regístrate</a></p>
+              <a href="/mainClient">Entrar como invitado</a>
+            </div>
           </form>
         </div>
       </div>
