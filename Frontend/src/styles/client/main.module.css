@@ -75,7 +75,12 @@
   box-shadow: 5px 5px 10px #00000096;
   width: 720px;
   height: 480px;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
 }
+
 
 @media (max-width: 768px) {
   .videoContainer {

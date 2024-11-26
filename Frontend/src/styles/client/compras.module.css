@@ -3,10 +3,9 @@
     flex-direction: column;
     align-items: center;
     background-color: #222222;
-    height: 100vh;
     color: white;
     font-family: Arial, sans-serif;
-    padding-top: 3rem;
+    padding: 3em 0;
   }
   
   .historial-title {
