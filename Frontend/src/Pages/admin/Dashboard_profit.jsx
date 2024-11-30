@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import MenuDashboard from "../../../public/Components/menuDashboard/menuDashboard";
-import styles1 from "../../styles/DashboardGeneral.module.css";
-import styles from "../../styles/DashboardProfit.module.css";
-import LinearGraphic from "../../../public/Components/Graphics/LinearGraphic";
+import MenuDashboard from "@components/menuDashboard/menuDashboard";
+import styles from "@adminStyles/DashboardProfit.module.css";
+import styles1 from "@styles/DashboardGeneral.module.css";
+import LinearGraphic from "@components/Graphics/LinearGraphic";
+import BarGraphic from "@components/Graphics/BarGraphic";
+import useExportToExcel from '@hooks/exportExcelRequests';
+import useDashboardStats from "@hooks/useDashboardStatsProfit";
 import logo from '../../assets/SoloLogo_Patagon.png';
 import * as XLSX from 'xlsx';
-import useExportToExcel from '../../Hooks/exportExcelRequests';
-import useDashboardStats from "../../Hooks/useDashboardStatsProfit";
-import BarGraphic from "../../../public/Components/Graphics/BarGraphic";
 
 
 const Dashboard_profit = () => {

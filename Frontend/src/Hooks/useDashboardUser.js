@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { calcularDiasDesdeIngreso } from '../../public/Utils/dateUtils';
-import refreshAccessToken from '../../public/Components/RefreshToken'
+import refreshAccessToken from '../components/RefreshToken';
 // src/hooks/useDashboardUser.js
 
 const useDashboardUser = () => {

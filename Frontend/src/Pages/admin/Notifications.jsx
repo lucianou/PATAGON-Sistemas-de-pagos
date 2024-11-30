@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom'; 
-import styles from '../../styles/Notifications.module.css';
+import styles from '@styles/Notifications.module.css';
 
 const Notifications = () => {
     const [notifications, setNotifications] = useState([]);

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard.jsx';
-import styles1 from '../../styles/DashboardGeneral.module.css'; // Para Menu
-import styles from '../../styles/DashboardAdmin.module.css';
-import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard.jsx';
-import refreshAccessToken from '../../../public/Components/RefreshToken.jsx';
+import MenuDashboard from '@components/menuDashboard/menuDashboard';
+import styles from '@adminStyles/DashboardAdmin.module.css';
+import styles1 from '@styles/DashboardGeneral.module.css'; 
+import Notification_dashboard from '@components/notificaciones/notificaciones_dashboard.jsx';
+import RefreshAccessToken from '@components/RefreshToken.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faTimes, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import TableComponent from '../../../public/Components/Table/Table';
+import TableComponent from '@components/Table/Table';
 import logo from '../../assets/SoloLogo_Patagon.png';
 import { toast} from 'sonner';
 

@@ -1,20 +1,23 @@
 import React from "react";
-import styles from "../../styles/client/main.module.css";
-import styles1 from "../../styles/client/userGeneral.module.css";
-import NavBar from "../../../public/Components/navBarClient/navBarClient";
-import Footer from "../../../public/Components/FooterUser/Footer.jsx";
-import Card from '../../../public/Components/Tarjeta/Card.jsx';
+import styles from "@clientStyles/main.module.css";
+import styles1 from "@clientStyles/userGeneral.module.css";
+import NavBar from "@components/navBarClient/navBarClient";
+import Footer from "@components/FooterUser/Footer.jsx";
+import Card from '@components/Tarjeta/Card.jsx';
+import DocsUser from '@components/docsUser/docsUser.jsx';
+import DashboardBolsasUser from "@hooks/useDashboardBolsasUser.js";
 import logo from "../../../src/assets/patagon-logo-text-color.png";
-import DashboardBolsasUser from "../../Hooks/useDashboardBolsasUser.js";
-import DocsUser from '../../../public/Components/docsUser/docsUser.jsx';
 import { jwtDecode } from "jwt-decode";
 
 
 const MainClient = () => {
   const { bolsas, loading, error } = DashboardBolsasUser();
   const token = localStorage.getItem('token');
-  const decodedToken = jwtDecode(token);
-  const userRole = decodedToken.rol;
+  let decodedToken, userRole;
+  if (token) {
+    decodedToken = jwtDecode(token);
+    userRole = decodedToken.rol;
+  }
 
 
   return (

@@ -1,9 +1,9 @@
 import React from 'react';
-import NavBar from "../../../public/Components/navBarClient/navBarClient";
-import Footer from "../../../public/Components/FooterUser/Footer.jsx";
-import styles from '../../styles/client/UsInfo.module.css';
-import styles1 from '../../styles/client/userGeneral.module.css';
-import Nosotros from '../../../public/Components/Nosotros/nosotros';
+import NavBar from "@components/navBarClient/navBarClient";
+import Footer from "@components/FooterUser/Footer.jsx";
+import Nosotros from '@components/Nosotros/nosotros';
+import styles from '@clientStyles/UsInfo.module.css';
+import styles1 from '@clientStyles/userGeneral.module.css';
 const UsInfo = () => {
   return (
     <>

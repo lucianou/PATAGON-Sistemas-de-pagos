@@ -53,7 +53,7 @@ const useForm = (initialData) => {
           if(decodedToken.rol == 'Revisor'){
             localStorage.setItem('rol', decodedToken.rol);
             localStorage.setItem('username', decodedToken.username);
-            navigate('/dashboard-solicitudes');
+            navigate('/admin/dashboard-requests');
           }  
           if(decodedToken.rol == 'Cliente'){
             localStorage.setItem('rol', decodedToken.rol );
