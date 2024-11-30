@@ -1,7 +1,7 @@
 import React from "react";
-import styles from '../../styles/client/PrivacyTerms.module.css'; // Usamos los mismos estilos del contenedor
-import NavBar from "../../../public/Components/navBarClient/navBarClient";
-import Footer from "../../../public/Components/FooterUser/Footer.jsx";
+import styles from '@clientStyles/PrivacyTerms.module.css'; // Usamos los mismos estilos del contenedor
+import NavBar from "@components/navBarClient/navBarClient";
+import Footer from "@components/FooterUser/Footer.jsx";
 
 const Terms = () => {
   return (

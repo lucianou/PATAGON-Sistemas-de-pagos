@@ -1,5 +1,5 @@
 const ipserver = import.meta.env.VITE_IP;
-import refreshAccessToken from '../../public/Components/RefreshToken.jsx';
+import refreshAccessToken from '../components/RefreshToken.jsx';
 
 export const fetchSolicitudes = async () => {
     const port = import.meta.env.VITE_PORT;
