@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/retorno.module.css';
+import styles from '@styles/retorno.module.css';
 
 const RetornoPage = () => {
   const [counter, setCounter] = useState(7);

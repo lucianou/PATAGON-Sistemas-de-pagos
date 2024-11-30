@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import refreshAccessToken from '../../public/Components/RefreshToken.jsx';
+import refreshAccessToken from '../components/RefreshToken.jsx';
 
 const useFetchSolicitudes = () => {
     const [solicitudes, setSolicitudes] = useState([]);

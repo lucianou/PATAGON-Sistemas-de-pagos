@@ -1,11 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import styles from '../../styles/client/Profile.module.css';
-import NavBar from "../../../public/Components/navBarClient/navBarClient";
-import useDashBoardProfile from '../../Hooks/useDashBoardProfile';
+import { useNavigate } from 'react-router-dom'; 
+import styles from '@clientStyles/Profile.module.css';
+import styles1 from '@clientStyles/userGeneral.module.css';
+import NavBar from "@components/navBarClient/navBarClient";
+import useDashBoardProfile from '@hooks/useDashBoardProfile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import styles1 from '../../styles/client/userGeneral.module.css';
 
 const Profile = () => {
   const { data, loading, error } = useDashBoardProfile();
