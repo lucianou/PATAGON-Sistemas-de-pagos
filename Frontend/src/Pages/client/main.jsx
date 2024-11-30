@@ -26,15 +26,15 @@ const MainClient = () => {
           <h2>LA SUPERCOMPUTADORA DE LA UACH</h2>
         </div>
         <div className={styles.videoContainer}>
-            <iframe 
-              src="https://www.youtube.com/embed/sEwd3iZvY3g" 
-              title="YouTube video player" 
-              frameBorder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen
-              className={styles.video}
-            ></iframe>
-          </div>
+          <iframe 
+            src="https://www.youtube-nocookie.com/embed/sEwd3iZvY3g" 
+            title="YouTube video player" 
+            frameBorder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowFullScreen
+            className={styles.video}
+          ></iframe>
+        </div>
         {userRole === "Cliente" ? (
           <section className={styles.section1}>
             <div className={styles.dashboardWidgets}>

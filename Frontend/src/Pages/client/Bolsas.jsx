@@ -12,7 +12,6 @@ const Bolsas = ({}) => {
     <NavBar></NavBar>
     <div className={styles.gap}></div>
     <section className= {styles.section1}>
-      {/* aquí dejen las bolsaas cabroooooooos */}
       <div className={styles.dashboardWidgets}>
         {loading ? (
             <div className={styles.spinner}></div>
