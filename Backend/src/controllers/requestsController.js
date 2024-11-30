@@ -29,6 +29,8 @@ export async function requests(req, res) {
 
 
 export async function addRequest(req, res) {
+  console.log('req.body:', req.body);
+  console.log('req.files:', req.files);
   const { name, email, institution } = req.body; // Cambia institucion a institution
 
   // Asegúrate de que los nombres coincidan con los que usaste en el formulario
@@ -43,11 +45,7 @@ export async function addRequest(req, res) {
     return res.status(400).json({ error: 'Faltan archivos PDF o PUB' });
   }
 
-  // Verifica si los archivos PDF y PUB están presentes
-  if (!documento_pdf || !documento_pub) {
-    return res.status(400).json({ error: 'Faltan archivos PDF o PUB' });
-  }
-
+ 
   try {
   
     const requestDate = new Date();

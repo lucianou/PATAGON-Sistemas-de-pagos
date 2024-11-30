@@ -1,21 +1,13 @@
-.container{
-  background-color: #1D1D1D;
-  /* background: linear-gradient(to bottom, #0f0f0f, #333333); */
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+#container{
   h1,h2,h3{
     font-family: Lora;
   }
   .headerLogo{
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    display: flex;
     margin-bottom: 20px;
-    /* background-color: #181A1B; */
     height: 250px;
     .logo{
       width: auto;
@@ -52,6 +44,7 @@
       flex-wrap: wrap;
       gap: 20px;
       width: 80%;
+      max-width: 1700px;
     }
   }
 }
@@ -73,12 +66,39 @@
 
 .videoContainer {
   margin-top: 20px; 
-  margin-bottom: 90px; 
+  margin-bottom: 50px; 
   display: flex;
   justify-content: center;
 }
 
 .video {
+  box-shadow: 5px 5px 10px #00000096;
   width: 720px;
   height: 480px;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .videoContainer {
+    margin-top: 20px; 
+    margin-bottom: 30px; 
+    display: flex;
+    justify-content: center;
+  }
+  
+  .video {
+    width: 300px;
+    height: 240px;
+  }
+  .faIcon {
+    height: 25px;
+    min-width: 25px;
+    max-width: 25px;
+    color: #ffffff;
+    cursor: pointer;
+  }
 }

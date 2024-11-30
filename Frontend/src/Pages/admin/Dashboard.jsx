@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard.jsx';
-import styles1 from '../../styles/DashboardGeneral.module.css';
-import styles from '../../styles/Dashboard.module.css';
-import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard.jsx';
+import MenuDashboard from '@components/menuDashboard/menuDashboard.jsx';
+import styles from '@adminStyles/Dashboard.module.css';
+import styles1 from '@styles/DashboardGeneral.module.css';
+import Notification_dashboard from '@components/notificaciones/notificaciones_dashboard.jsx';
 import logo from '../../assets/SoloLogo_Patagon.png';
-import LinearGraphic from "../../../public/Components/Graphics/LinearGraphic.jsx";
-import CircularGraphic from "../../../public/Components/Graphics/CircularGraphic.jsx";
+import LinearGraphic from "@components/Graphics/LinearGraphic.jsx";
+import CircularGraphic from "@components/Graphics/CircularGraphic.jsx";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import { FaDollarSign, FaUsers, FaChartLine } from 'react-icons/fa';
-import useDashboardStats from '../../Hooks/useDashboardStats.js';
+import useDashboardStats from '@hooks/useDashboardStats.js';
 
 const InfoCard = ({ title, value, change, icon, onClick }) => (
   <div className={styles.infoCard} onClick={onClick} style={{ cursor: 'pointer' }}>
@@ -51,19 +51,19 @@ const Dashboard = () => {
             value={`$${data?.totalGanancias ?? 0} USD`} 
             change={`+${data?.totalMoneyPayed ?? 0}`} 
             icon={<FaDollarSign />} 
-            onClick={() => navigate('/dashboard-profit')}
+            onClick={() => navigate('/admin/dashboard-profit')}
           />
           <InfoCard 
             title="Usuarios registrados" 
             value={data?.totalUsers ?? 0} 
             icon={<FaUsers />} 
-            onClick={() => navigate('/dashboard-user')}
+            onClick={() => navigate('/admin/dashboard-users')}
           />
           <InfoCard 
             title="Solicitudes recibidas" 
             value={`${data?.totalRequests ?? 0}`} 
             icon={<FaChartLine />} 
-            onClick={() => navigate('/dashboard-solicitudes')}
+            onClick={() => navigate('/admin/dashboard-requests')}
           />
         </div>
 

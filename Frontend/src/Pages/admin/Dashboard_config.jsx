@@ -1,7 +1,7 @@
 // Pages/Dashboard_user.jsx
 import React from 'react';
-import ParticlesComponent from '../../../public/Components/Particles/ParticlesBG';
-import styles from '../../styles/DashboardConfig.module.css';
+import ParticlesComponent from '@components/Particles/ParticlesBG';
+import styles from '@adminStyles/DashboardConfig.module.css';
 
 const Dashboard_config = () => {
   return (

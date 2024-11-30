@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { calcularDiasDesdeIngreso } from '../../public/Utils/dateUtils';
-import refreshAccessToken from '../../public/Components/RefreshToken'
+import refreshAccessToken from '../components/RefreshToken';
 // src/hooks/useDashboardUser.js
 
 const useDashboardUser = () => {
@@ -15,7 +15,6 @@ const useDashboardUser = () => {
   const [btnActive, setBtnActive] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [key, setKey] = useState(0); // Clave única para el contenedor de usuarios
   const [loading, setLoading] = useState(true); // Estado de carga
 
   const port = import.meta.env.VITE_PORT;
@@ -54,6 +53,7 @@ const useDashboardUser = () => {
           console.log(data);
           setUsers(data.users);
           setDeletedUsers(data.deletedUsers);
+          setFiltredUsers(data.users);
         }
         setLoading(false); // Finalizar la carga
       })
@@ -67,7 +67,6 @@ const useDashboardUser = () => {
     setBtnActive(!btnActive);
     setFiltredUsers(btnActive ? deletedUsers : users );
     setSearchText('');
-    setKey(prevKey => prevKey + 1); // Cambiar la clave única para forzar la actualización de los usuarios
   };
 
   const handleSearchChange = (e) => {
@@ -114,13 +113,11 @@ const useDashboardUser = () => {
   return {
     isOpen,
     errors,
-    users,
-    deletedUsers,
     searchText,
     btnActive,
     showModal,
     selectedUser,
-    key,
+    filtredUsers,
     loading, // Retornar el estado de carga
     setIsOpen,
     setShowModal,

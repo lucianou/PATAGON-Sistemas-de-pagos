@@ -1,8 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import styles from '../../styles/client/Profile.module.css';
-import NavBar from "../../../public/Components/navBarClient/navBarClient";
-import useDashBoardProfile from '../../Hooks/useDashBoardProfile';
+import { useNavigate } from 'react-router-dom'; 
+import styles from '@clientStyles/Profile.module.css';
+import styles1 from '@clientStyles/userGeneral.module.css';
+import NavBar from "@components/navBarClient/navBarClient";
+import useDashBoardProfile from '@hooks/useDashBoardProfile';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const Profile = () => {
   const { data, loading, error } = useDashBoardProfile();
@@ -17,17 +20,21 @@ const Profile = () => {
   };
 
   return (
-    <>
+    <main className={styles1.container}>
       <NavBar />
       <div className={styles.ProfileContainer}>
         <header className={styles.ProfileHeader}>
           <div className={styles.ProfileImage}>
-            <img src="../../src/assets/SoloLogo_Patagon.png" alt="Logo Patagon" />
+            <FontAwesomeIcon icon={faUser} className={styles.img} />
+            {/* <img src="../../src/assets/SoloLogo_Patagon.png" alt="Logo Patagon" /> */}
           </div>
           <div className={styles.ProfileName}>
             <h1>{data?.username}</h1>
             <div className={styles.ContactIcons}>
-              <span className={styles.Icon}>✉️ {data?.email}</span>
+              <span className={styles.Icon}> 
+                <FontAwesomeIcon icon={faEnvelope} />
+                {data?.email}
+              </span>
             </div>
           </div>
         </header>
@@ -71,7 +78,7 @@ const Profile = () => {
           </div>
         </section>
       </div>
-    </>
+    </main>
   );
 };
 

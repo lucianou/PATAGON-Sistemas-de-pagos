@@ -12,6 +12,17 @@
   }
 }
 
+.linkGroup{
+  display: flex;
+  z-index: 1;
+  justify-content: space-between;
+  align-items: center;
+
+  p, a {
+    font-size: 15px;
+  }
+}
+
 .errorMessage {
   color: rgb(221, 21, 21);
   background: rgb(219, 156, 145);

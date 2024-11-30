@@ -1,15 +1,12 @@
-// src/Pages/Dashboard_user.jsx
-
 import React, { useEffect} from 'react';
-import MenuDashboard from '../../../public/Components/menuDashboard/menuDashboard';
-import styles1 from '../../styles/DashboardGeneral.module.css';
-import styles from '../../styles/DashboardUser.module.css';
-// import ItemUser from '../../../public/Components/itemUser2/itemUser';
-import ModalUser from '../../../public/Components/modalUser/modalUser';
-import useDashboardUser from '../../Hooks/useDashboardUser';
-import Notification_dashboard from '../../../public/Components/notificaciones/notificaciones_dashboard';
+import MenuDashboard from '@components/menuDashboard/menuDashboard';
+import styles from '@adminStyles/DashboardUser.module.css';
+import styles1 from '@styles/DashboardGeneral.module.css';
+import ModalUser from '@components/modalUser/modalUser';
+import TableComponent from '@components/Table/Table';
+import useDashboardUser from '@hooks/useDashboardUser';
+import Notification_dashboard from '@components/notificaciones/notificaciones_dashboard';
 import logo from '../../assets/SoloLogo_Patagon.png';
-import TableComponent from '../../../public/Components/Table/Table';
 import { jwtDecode } from 'jwt-decode';
 
 const Dashboard_user = () => {
@@ -20,13 +17,11 @@ const Dashboard_user = () => {
   const {
     isOpen,
     errors,
-    users,
-    deletedUsers,
     searchText,
     btnActive,
     showModal,
     selectedUser,
-    key,
+    filtredUsers,
     loading, // Obtener el estado de carga
     setIsOpen,
     setShowModal,
@@ -82,9 +77,7 @@ const Dashboard_user = () => {
     <div className={styles1.dashboardContainer}>
       <MenuDashboard toggleMenu={() => { setIsOpen(!isOpen) }} isOpen={isOpen} />
       {/* <Notifications /> */}
-
       <main className={`${styles1.content} ${isOpen ? styles1.open : ''}`} id={styles.content}>
-
         <div className={styles1.header}>
           <div className={styles1.titleLogo}>
             <img src={logo} className={styles1.menuIcon} />
@@ -121,9 +114,9 @@ const Dashboard_user = () => {
           {errors.server && <p className={styles.errorMessage}>{errors.server}</p>}
 
           {btnActive ? (
-            <TableComponent columns={columnsUsers} data={users}/>
+            <TableComponent columns={columnsUsers} data={filtredUsers}/>
           ) : (
-            <TableComponent columns={columnsDeletedUsers} data={deletedUsers} />
+            <TableComponent columns={columnsDeletedUsers} data={filtredUsers} />
           )}
         </section>
       </main>
