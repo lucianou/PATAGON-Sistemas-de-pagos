@@ -4,21 +4,21 @@ import NavBar from "@components/navBarClient/navBarClient";
 import Footer from "@components/FooterUser/Footer.jsx";
 
 const Externos = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndices, setActiveIndices] = useState([]);
   const [closingIndex, setClosingIndex] = useState(null);
 
   const toggleAccordion = (index) => {
-    if (activeIndex === index) {
+    if (activeIndices.includes(index)) {
       setClosingIndex(index);
       setTimeout(() => {
-        setActiveIndex(null);
+        setActiveIndices(activeIndices.filter(i => i !== index));
         setClosingIndex(null);
       }, 200); // Duración de la animación en ms
     } else {
-      setActiveIndex(index);
+      setActiveIndices([...activeIndices, index]);
     }
   };
-
+estu
   return (
     <div className={styles.pageContainer}>
       <NavBar />
@@ -27,44 +27,44 @@ const Externos = () => {
         <ol className={styles.stepsList}>
           <li className={styles.step}>
             <div onClick={() => toggleAccordion(0)} className={styles.stepTitle}>
-              Realizar Solicitud
+              1 - Realizar Solicitud
             </div>
-            <div className={`${styles.stepContent} ${activeIndex === 0 ? styles.open : ''} ${closingIndex === 0 ? styles.closing : ''}`}>
+            <div className={`${styles.stepContent} ${activeIndices.includes(0) ? styles.open : ''} ${closingIndex === 0 ? styles.closing : ''}`}>
               <p>
-                Realizar una solicitud siguiendo este <a href="https://patagon.uach.cl/contacto" target="_blank" rel="noopener noreferrer" className={styles.link}>enlace</a>.
+                Para realizar la solicitud debe ir a la pagina del patagon y dirigirse a "Contacto", o bien hacer click en este link  <a href="https://patagon.uach.cl/contacto" target="_blank" rel="noopener noreferrer" className={styles.link}>contacto</a>.
               </p>
             </div>
           </li>
           <li className={styles.step}>
             <div onClick={() => toggleAccordion(1)} className={styles.stepTitle}>
-              Una vez aceptado por el administrador, ya puedes registrarte.
+              2 - Registro
             </div>
-            <div className={`${styles.stepContent} ${activeIndex === 1 ? styles.open : ''} ${closingIndex === 1 ? styles.closing : ''}`}>
+            <div className={`${styles.stepContent} ${activeIndices.includes(1) ? styles.open : ''} ${closingIndex === 1 ? styles.closing : ''}`}>
               <p>
-                Una vez aceptado por el administrador, ya puedes registrarte en la página <a href="/registro" target="_blank" rel="noopener noreferrer" className={styles.link}>Sistemas-De-Pagos-Patagon</a>.
+                Esperar la llegada de un correo electrónico que declare que su solicitud fue aceptada. Si ya te llegó el correo electronico entonces puedes registrarte en la página a traves de este link <a href="/registro" target="_blank" rel="noopener noreferrer" className={styles.link}>Sistemas-De-Pagos-Patagon</a>.
               </p>
             </div>
           </li>
           <li className={styles.step}>
             <div onClick={() => toggleAccordion(2)} className={styles.stepTitle}>
-              Completar el formulario con los datos necesarios y enviarlo.
+              3 - Ingreso
             </div>
-            <div className={`${styles.stepContent} ${activeIndex === 2 ? styles.open : ''} ${closingIndex === 2 ? styles.closing : ''}`}>
+            <div className={`${styles.stepContent} ${activeIndices.includes(2) ? styles.open : ''} ${closingIndex === 2 ? styles.closing : ''}`}>
               <p>
-                Completar el formulario con los datos necesarios y enviarlo.
+                Una vez registrado, debes dirigirte a login para ingresar a la pagina con tu email y contraseña.
               </p>
             </div>
           </li>
-          <li className={styles.step}>
+          {/* <li className={styles.step}>
             <div onClick={() => toggleAccordion(3)} className={styles.stepTitle}>
-              Esperar la confirmación por correo electrónico o por teléfono.
+              4 - Esperar la confirmación por correo electrónico o por teléfono.
             </div>
-            <div className={`${styles.stepContent} ${activeIndex === 3 ? styles.open : ''} ${closingIndex === 3 ? styles.closing : ''}`}>
+            <div className={`${styles.stepContent} ${activeIndices.includes(3) ? styles.open : ''} ${closingIndex === 3 ? styles.closing : ''}`}>
               <p>
                 Esperar la confirmación por correo electrónico o por teléfono.
               </p>
             </div>
-          </li>
+          </li> */}
         </ol>
       </main>
       <Footer />
