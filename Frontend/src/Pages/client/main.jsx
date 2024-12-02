@@ -13,10 +13,10 @@ import { jwtDecode } from "jwt-decode";
 const MainClient = () => {
   const { bolsas, loading, error } = DashboardBolsasUser();
   const token = localStorage.getItem('token');
-  let decodedToken, userRole;
+  let decodedToken, userType;
   if (token) {
     decodedToken = jwtDecode(token);
-    userRole = decodedToken.rol;
+    userType = decodedToken.type;
   }
 
 
@@ -38,36 +38,6 @@ const MainClient = () => {
             className={styles.video}
           ></iframe>
         </div>
-        {userRole === "Cliente" ? (
-          <section className={styles.section1}>
-            <div className={styles.dashboardWidgets}>
-            {loading ? (
-                <div className={styles.spinner}></div>
-              ) : error ? (
-                <p>Error al cargar bolsas: {error}</p>
-              ) : bolsas && bolsas.length > 0 ? (  
-                bolsas.map((bolsa, index) => {
-                  const delay = `${index * 100}ms`; 
-                  return (
-                    <Card
-                      key={index} 
-                      nombre={bolsa.nombre}
-                      tiempo={bolsa.time}
-                      precio={bolsa.precio}
-                      detalles={bolsa.detalles} 
-                      delay={delay} 
-                      ID={bolsa.ID}
-                    />
-                  );
-                })
-              ) : (
-                <p>No hay bolsas disponibles.</p>
-              )}
-            </div>
-          </section>
-        ) : (
-          ''
-        )}
         <DocsUser />
       </main>
       <Footer />
