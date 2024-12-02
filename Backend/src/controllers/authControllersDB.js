@@ -3,10 +3,14 @@ import jwt from "jsonwebtoken";
 import {pool} from '../middleware/authenticateDB.js'
 import User from '../models/user.js';
 import LoginHistory from '../models/loginHistory.js';
+import { sendEmail } from "./nodeMailer.js";
 
 
 const SECRET_KEY = process.env.SECRET_KEY;
 const REFRESH_SECRET_KEY = process.env.REFRESH_SECRET_KEY;
+const FRONTEND_RECOVERY_URL = "http://patagon.uach.cl/recovery";
+const IP_SERVER = process.env.IP_SERVER
+const HOST = process.env.PORT_BACKEND
 
 //INICIO DE SESIÓN EN BASE DE DATOS
 export async function loginUserDB(req, res) {
@@ -38,14 +42,14 @@ export async function loginUserDB(req, res) {
 
         // Generar access token (login)
         const token = jwt.sign(
-            { email: user.email, username: user.username, rol: user.rol },
+            { email: user.email, username: user.username, rol: user.rol ,type: user.type},
             SECRET_KEY,
             { expiresIn: "1h" }
         );
-
+ 
         // Generar Refresh Token (largo plazo)
         const refreshToken = jwt.sign(
-            { email: user.email, username: user.username, rol: user.rol },
+            { email: user.email, username: user.username, rol: user.rol, type: user.type },
             REFRESH_SECRET_KEY,
             { expiresIn: "30d" }
         );
@@ -119,3 +123,66 @@ export async function register(req, res) {
         res.status(500).json({ error: "Error al registrar la contraseña y el username" });
     }
 }
+
+
+export async function recoveryPassword(req, res){
+    const {email} = req.body;
+    console.log(email);
+    if (!email) {
+        return res.status(400).json({ error: "El correo es requerido" });
+    }
+    
+    try {
+        const user = await User.findOne({ where: { email: email } });
+        if (!user) {
+            return res.status(400).json({ error: "El correo no está registrado" });
+        }
+
+        const recoveryToken = jwt.sign(
+            { email: user.email },
+            SECRET_KEY,
+            { expiresIn: "1h" }
+        );
+    
+        user.recovery_token = recoveryToken;
+        await user.save();
+
+       
+        const recoveryLink = `http:${IP_SERVER}:4003/newPass?token=${recoveryToken}`;
+    
+        // Configurar las opciones del correo
+        const mailOptions = {
+            to: email,
+            subject: `[Patagón] Recuperación de contraseña`,
+            message: `
+        Estimad@ ${user.username || "usuario"},
+        
+        Hemos recibido una solicitud para recuperar tu contraseña. Puedes restablecerla utilizando el siguiente enlace:
+        
+        http://${IP_SERVER}:4003/newPass?token:${recoveryToken}
+        
+        Por razones de seguridad, este enlace expirará en 1 hora.
+        
+        Si no solicitaste este cambio, puedes ignorar este mensaje. Si necesitas ayuda, por favor contáctanos.
+        
+        ---
+        Supercomputador Patagón
+        Universidad Austral de Chile
+        Website: https://patagon.uach.cl
+        Tutorials: https://patagon.uach.cl/patagon/tutoriales
+        Discord: https://discord.gg/WvFTPvvWXh
+            `,
+        };
+        
+
+        sendEmail(mailOptions, res);
+    
+        res.status(200).json({
+            message: "Correo de recuperación enviado, serás redirigido al login en breve.",
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error al generar y enviar el correo de recuperación" });
+    }
+}
+

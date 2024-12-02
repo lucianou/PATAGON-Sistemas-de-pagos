@@ -4,7 +4,7 @@ import { getProducts, getProductById, getTimeRemaining } from "../controllers/pr
 
 const router = express.Router();
 
-router.get("/get-products", authenticateToken, authorizeRoles('Administrador', 'Cliente', 'Revisor', 'Co-admin'), getProducts);
+router.get("/get-products", getProducts);
 router.get("/get-product/:id",  authenticateToken, authorizeRoles('Administrador', 'Cliente', 'Revisor', 'Co-admin'), getProductById);
 router.get("/get-time-remaining", getTimeRemaining);
 

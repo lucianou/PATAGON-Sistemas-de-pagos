@@ -46,6 +46,10 @@ const User = sequelize.define('User', {
     allowNull: false,
     defaultValue: 0,
   },
+  recovery_token:{
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   }, {
   timestamps: false,
   tableName: "Users",
