@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from '@styles/LoginGeneral.module.css';
 import style2 from '@styles/Registro.module.css';
 import useForm from '@hooks/registerForm';
 import LoginButton from '@components/loginButton/loginButton';
 import InputText from '@components/InputText/inputText';
 import ParticlesBG from '@components/Particles/ParticlesBG';
+import useNewPassword from '@hooks/newPassword'; // Importamos el hook
 
 const PassChange = () => {
   const initialData = {
@@ -38,13 +39,28 @@ const PassChange = () => {
     return isError ? errors : null;
   };
 
-  const { form, errors, loading, handleChange, handleSubmit } = useForm(initialData, onValidate);
+  const { form, errors, loading, handleChange } = useForm(initialData, onValidate);
+  const { changePassword, error: backendError, success, loading: backendLoading } = useNewPassword();
+
+  // Obtener el token de la URL
+  const queryParams = new URLSearchParams(window.location.search);
+  const token = queryParams.get('token');
+
+  // Validación adicional para asegurar que el token esté presente
+  const isTokenValid = token && token.length > 0;
 
   const handlePasswordChange = (e) => {
     e.preventDefault();
+
+    // Validamos que el token esté presente
+    if (!isTokenValid) {
+      alert("El token es requerido.");
+      return;
+    }
+
     const validationErrors = onValidate(form);
     if (!validationErrors) {
-      console.log("Password change request submitted with:", form.password);
+      changePassword(form.password, token); // Enviar la nueva contraseña y el token
     } else {
       if (validationErrors.confirmPassword) {
         alert(validationErrors.confirmPassword);
@@ -67,7 +83,7 @@ const PassChange = () => {
               value={form.password}
               label="Nueva Contraseña"
               handleChange={handleChange}
-              disabled={loading}
+              disabled={loading || backendLoading}
             />
             {errors.password && <div className={style2.errorMessage}>{errors.password}</div>}
 
@@ -77,11 +93,14 @@ const PassChange = () => {
               value={form.confirmPassword}
               label="Confirmar Contraseña"
               handleChange={handleChange}
-              disabled={loading}
+              disabled={loading || backendLoading}
             />
             {errors.confirmPassword && <div className={style2.errorMessage}>{errors.confirmPassword}</div>}
 
-            <LoginButton text="Cambiar Contraseña" disabled={loading} />
+            {backendError && <div className={style2.errorMessage}>{backendError}</div>}
+            {success && <div className={style2.successMessage}>{success}</div>}
+
+            <LoginButton text="Cambiar Contraseña" disabled={loading || backendLoading} />
           </form>
         </div>
       </div>

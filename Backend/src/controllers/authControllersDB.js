@@ -159,7 +159,7 @@ export async function recoveryPassword(req, res){
         
         Hemos recibido una solicitud para recuperar tu contraseña. Puedes restablecerla utilizando el siguiente enlace:
         
-        http://${IP_SERVER}:4003/newPass?token:${recoveryToken}
+        http://${IP_SERVER}:4003/newPass?token=${recoveryToken}
         
         Por razones de seguridad, este enlace expirará en 1 hora.
         
@@ -186,3 +186,30 @@ export async function recoveryPassword(req, res){
     }
 }
 
+export async function newPass(req, res) {
+    const { token, newPassword } = req.body; 
+  
+    if (!token || !newPassword) {
+      return res.status(400).json({ message: 'Token y nueva contraseña son requeridos' });
+    }
+  
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET);
+      const user = await User.findOne({ email: decoded.email,  recoveryToken: token});
+  
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+  
+      const hashedPassword = await bcrypt.hash(newPassword, 10); 
+  
+      user.password = hashedPassword;
+      await user.save();
+  
+    
+      return res.status(200).json({ message: 'Contraseña actualizada con éxito' });
+    } catch (error) {
+      console.error('Error al actualizar la contraseña:', error);
+      return res.status(500).json({ message: 'Error en el servidor o token inválido' });
+    }
+  }
