@@ -42,14 +42,14 @@ export async function loginUserDB(req, res) {
 
         // Generar access token (login)
         const token = jwt.sign(
-            { email: user.email, username: user.username, rol: user.rol },
+            { email: user.email, username: user.username, rol: user.rol ,type: user.type},
             SECRET_KEY,
             { expiresIn: "1h" }
         );
-
+ 
         // Generar Refresh Token (largo plazo)
         const refreshToken = jwt.sign(
-            { email: user.email, username: user.username, rol: user.rol },
+            { email: user.email, username: user.username, rol: user.rol, type: user.type },
             REFRESH_SECRET_KEY,
             { expiresIn: "30d" }
         );
@@ -126,8 +126,8 @@ export async function register(req, res) {
 
 
 export async function recoveryPassword(req, res){
-    const {email} = req.query;
-
+    const {email} = req.body;
+    console.log(email);
     if (!email) {
         return res.status(400).json({ error: "El correo es requerido" });
     }
@@ -178,10 +178,11 @@ export async function recoveryPassword(req, res){
         sendEmail(mailOptions, res);
     
         res.status(200).json({
-            message: "Correo de recuperación enviado",
+            message: "Correo de recuperación enviado, serás redirigido al login en breve.",
         });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Error al generar y enviar el correo de recuperación" });
     }
 }
+

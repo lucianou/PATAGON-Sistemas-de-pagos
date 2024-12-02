@@ -1,3 +1,4 @@
+
 import React from 'react';
 import style from '@styles/LoginGeneral.module.css';
 import style2 from '@styles/Registro.module.css';
@@ -6,6 +7,7 @@ import LoginButton from '@components/loginButton/loginButton';
 import InputText from '@components/InputText/inputText';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import ParticlesBG from '@components/Particles/ParticlesBG';
+import useNewPassword from '@hooks/newPassword'; // Importar el hook
 
 const Recovery = () => {
   const initialData = {
@@ -36,12 +38,13 @@ const Recovery = () => {
   };
 
   const { form, errors, loading, handleChange, handleSubmit } = useForm(initialData, onValidate);
+  const { recoverPassword, error, success } = useNewPassword(); // Usamos el hook aquí
 
   const handleRecovery = (e) => {
     e.preventDefault();
     const validationErrors = onValidate(form);
     if (!validationErrors) {
-      console.log("Recovery request submitted for:", form.email);
+      recoverPassword(form.email); // Llamamos al hook para enviar el correo
     }
   };
 
@@ -61,6 +64,9 @@ const Recovery = () => {
               disabled={loading} 
             />
             {errors.email && <div className={style2.errorMessage}>{errors.email}</div>}
+
+            {error && <div className={style2.errorMessage}>{error}</div>}
+            {success && <div className={style2.successMessage}>{success}</div>}
 
             <LoginButton text="Recuperar" disabled={loading} />
           </form>
