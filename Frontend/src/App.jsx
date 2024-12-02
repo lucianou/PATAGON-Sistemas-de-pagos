@@ -11,6 +11,8 @@ import Login from '@pages/Login';
 import Registro from '@pages/Registro';
 import NotFound from '@pages/NotFound';
 import RetornoPage from '@pages/PurchaseReturn';
+import Recovery from '@pages/Recovery';
+import PassChange from '@pages/PassChange';
 
 import Dashboard from '@adminPage/Dashboard';
 import Dashboard_user from '@adminPage/Dashboard_user';
@@ -34,12 +36,15 @@ import PurchaseDetails from '@clientPage/PurchaseDetails';
 
 
 
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/recovery" element={<Recovery />} />
+        <Route path="/newPass" element={<PassChange />} />
 
         <Route path="/dashboard" element={
           <ProtectedRoute isAllowed={["Administrador", "Co-admin"]}>
