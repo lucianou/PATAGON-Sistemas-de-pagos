@@ -216,6 +216,8 @@
 @media (max-width: 768px) {
   .section2{
     width: 100%;
+    display: flex;
+    flex-direction: column;
     .header{
       display: flex;
       justify-content: center;

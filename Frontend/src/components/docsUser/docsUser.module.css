@@ -134,6 +134,19 @@
     flex-direction: column;
   }
 
+  .header h1 {
+    filter: drop-shadow(5px 5px 3px #00000096);
+    font-size: 45px;
+    margin: 0;
+  }
+  
+  .header h3 {
+    margin-top: 10px;
+    font-weight: normal;
+    color: #cccccc;
+    font-size: 20px;
+    text-align: center;
+  }
 
 
 
