@@ -19,7 +19,7 @@ import Dashboard_config from '@adminPage/Dashboard_config';
 import Dashboard_admin from '@adminPage/Dashboard_admin';
 import Dashboard_requests from '@adminPage/Dashboard_requests';
 
-import MainClient from '@clientPage/Main';
+import MainClient from '@clientPage/main';
 import Student from '@clientPage/Student';
 import External from '@clientPage/External';
 import UsInfo from '@clientPage/UsInfo';
