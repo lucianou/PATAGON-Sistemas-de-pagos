@@ -40,7 +40,7 @@ const Notification_dashboard = () => {
     };
 
     const handleNavigate = () => {
-        navigate('/dashboard-solicitudes'); // Reemplaza '/ruta-deseada' con la ruta deseada
+        navigate('/admin/dashboard-requests'); // Reemplaza '/ruta-deseada' con la ruta deseada
     };
 
     return (
