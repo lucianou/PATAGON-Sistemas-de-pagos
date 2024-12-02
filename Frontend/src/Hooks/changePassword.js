@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
 const useNewPassword = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const navigate = useNavigate(); // Usar useNavigate aquí
 
   const changePassword = async (password, token) => {
     setLoading(true);
@@ -22,7 +24,10 @@ const useNewPassword = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess(data.message || 'Contraseña cambiada con éxito');
+        setSuccess('Contraseña cambiada con éxito, redirigiendo...');
+        setTimeout(() => {
+          navigate('/'); // Redirigir aquí
+        }, 3000);
       } else {
         setError(data.message || 'Error al cambiar la contraseña');
       }

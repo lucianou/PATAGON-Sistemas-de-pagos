@@ -25,8 +25,6 @@ const useNewPassword = () => {
 
       if (response.ok) {
         setSuccess(data.message || 'Correo de recuperación enviado');
-        
- 
         setTimeout(() => {
           navigate('/');  
         }, 3000);  

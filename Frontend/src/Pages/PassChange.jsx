@@ -5,7 +5,7 @@ import useForm from '@hooks/registerForm';
 import LoginButton from '@components/loginButton/loginButton';
 import InputText from '@components/InputText/inputText';
 import ParticlesBG from '@components/Particles/ParticlesBG';
-import useNewPassword from '@hooks/newPassword'; // Importamos el hook
+import useNewPassword from '@hooks/changePassword.js'; 
 
 const PassChange = () => {
   const initialData = {
@@ -46,6 +46,7 @@ const PassChange = () => {
   const queryParams = new URLSearchParams(window.location.search);
   const token = queryParams.get('token');
 
+
   // Validación adicional para asegurar que el token esté presente
   const isTokenValid = token && token.length > 0;
 
@@ -57,7 +58,6 @@ const PassChange = () => {
       alert("El token es requerido.");
       return;
     }
-
     const validationErrors = onValidate(form);
     if (!validationErrors) {
       changePassword(form.password, token); // Enviar la nueva contraseña y el token
