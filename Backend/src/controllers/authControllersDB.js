@@ -148,7 +148,7 @@ export async function recoveryPassword(req, res){
         await user.save();
 
        
-        const recoveryLink = `http:${IP_SERVER}:${HOST}/newPass?token=${recoveryToken}`;
+        const recoveryLink = `http:${IP_SERVER}:4003/newPass?token=${recoveryToken}`;
     
         // Configurar las opciones del correo
         const mailOptions = {
@@ -159,7 +159,7 @@ export async function recoveryPassword(req, res){
         
         Hemos recibido una solicitud para recuperar tu contraseña. Puedes restablecerla utilizando el siguiente enlace:
         
-        ${recoveryLink}
+        http://${IP_SERVER}:4003/newPass?token:${recoveryToken}
         
         Por razones de seguridad, este enlace expirará en 1 hora.
         
