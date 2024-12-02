@@ -101,4 +101,57 @@
     color: #ffffff;
     cursor: pointer;
   }
+
+  #container{
+    h1,h2,h3{
+      font-family: Lora;
+    }
+    .headerLogo{
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      display: flex;
+      margin-bottom: 20px;
+      height: 250px;
+      .logo{
+        width: auto;
+        height: 70px;
+        filter: drop-shadow(5px 5px 3px #00000096);  
+      }
+      h2{
+        color: #cccccc;
+        text-align: center;
+        margin-top: 10px;
+        width: 90%;
+        font-size: 30px;
+        background: linear-gradient(to top, rgb(10, 179, 108), rgb(45, 199, 171), rgb(224, 213, 213));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(5px 5px 3px #00000096);  
+      }
+    }
+    .section1{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      /* h1{
+        font-size: 40px;
+        color: #cccccc;
+        margin-bottom: 20px;
+      } */
+      .dashboardWidgets{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 80%;
+        max-width: 1700px;
+      }
+    }
+  }
 }
