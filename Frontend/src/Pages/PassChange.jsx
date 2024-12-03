@@ -4,7 +4,7 @@ import style2 from '@styles/Registro.module.css';
 import useForm from '@hooks/registerForm';
 import LoginButton from '@components/loginButton/loginButton';
 import ParticlesBG from '@components/Particles/ParticlesBG';
-import InputPassword from '../components/InputPassword/inputPassword';
+import InputPassword from '@components/InputPassword/inputPassword';
 import useNewPassword from '@hooks/changePassword.js'; 
 
 const PassChange = () => {

@@ -19,9 +19,8 @@ const Bolsas = ({}) => {
   return (
   <div className= {styles.container}>
     <NavBar />
-    <div className={styles.dashboardWidgets}>
+    <div className={styles.section1}>
       {!token || token && userType === "Pagado" ? (
-          <section className={styles.section1}>
             <div className={styles.dashboardWidgets}>
             {loading ? (
                 <div className={styles.spinner}></div>
@@ -46,14 +45,12 @@ const Bolsas = ({}) => {
                 <p>No hay bolsas disponibles.</p>
               )}
             </div>
-          </section>
         ) : (
           ''
         )}
       </div>
     <section className={styles.section2}></section>
-    <div className={styles.gap}></div>
-    <Footer></Footer>
+    <Footer />
   </div>
   )
 }

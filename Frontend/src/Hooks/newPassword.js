@@ -29,7 +29,7 @@ const useNewPassword = () => {
           navigate('/');  
         }, 3000);  
       } else {
-        setError(data.message || 'Hubo un error al enviar el correo');
+        setError(data.error);
       }
     } catch (error) {
       setError('Error de red, por favor intente de nuevo.');

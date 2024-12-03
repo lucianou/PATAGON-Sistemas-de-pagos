@@ -68,10 +68,11 @@
   .footerLogo{
     position: absolute;
     left: 3%;
-    top: 70%;
+    top: 50%;
     transform: translateY(-50%);
-  
+    
     img{
+      display: none;
       height: 50px;
       width: auto;
       margin-top: 10px;
