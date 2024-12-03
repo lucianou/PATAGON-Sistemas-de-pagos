@@ -3,8 +3,8 @@ import style from '@styles/LoginGeneral.module.css';
 import style2 from '@styles/Registro.module.css';
 import useForm from '@hooks/registerForm';
 import LoginButton from '@components/loginButton/loginButton';
-import InputText from '@components/InputText/inputText';
 import ParticlesBG from '@components/Particles/ParticlesBG';
+import InputPassword from '../components/InputPassword/inputPassword';
 
 const PassChange = () => {
   const initialData = {
@@ -61,7 +61,7 @@ const PassChange = () => {
         <div className={style.contenedor}>
           <form onSubmit={handlePasswordChange}>
             <h1>Cambiar Contraseña</h1>
-            <InputText 
+            <InputPassword 
               type="password"
               id="password"
               value={form.password}
@@ -71,7 +71,7 @@ const PassChange = () => {
             />
             {errors.password && <div className={style2.errorMessage}>{errors.password}</div>}
 
-            <InputText 
+            <InputPassword
               type="password"
               id="confirmPassword"
               value={form.confirmPassword}

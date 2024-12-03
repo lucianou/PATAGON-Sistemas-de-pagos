@@ -1,4 +1,3 @@
-
 import React from 'react';
 import style from '@styles/LoginGeneral.module.css';
 import style2 from '@styles/Registro.module.css';
