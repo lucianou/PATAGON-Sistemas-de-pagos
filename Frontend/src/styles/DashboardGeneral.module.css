@@ -53,3 +53,25 @@ html, body {
     } */
   }
 }
+
+@media (max-width: 768px) {
+  .dashboardContainer .content {
+    margin-left: 0;
+  }
+  .dashboardContainer .content.open {
+    margin-left: 290px;
+  }
+  .dashboardContainer .header .titleLogo {
+    display: none;
+  }
+  .dashboardContainer .requestsList {
+    overflow-x: auto;
+  }
+  .dashboardContainer .charts {
+    width: calc(100% - 65px);
+    overflow-x: auto;
+  }
+  .dashboardContainer .content.open .charts {
+    width: calc(100% - 290px);
+  }
+}
