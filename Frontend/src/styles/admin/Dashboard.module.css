@@ -3,6 +3,7 @@
   gap: 20px;
   padding-top: 40px;
   width: 100%;
+  flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en varias filas */
 }
 
 .infoCard {
@@ -62,6 +63,7 @@
   gap: 20px;
   justify-content: center;
   padding-top: 40px;
+  flex-wrap: wrap; /* Permite que los gráficos se envuelvan en varias filas */
 }
 
 .graph1 {
@@ -85,11 +87,9 @@
   transition: transform 0.2s;
 }
 
-
 .graph1:hover, .graph2:hover {
   transform: translateY(-2px); 
 }
-
 
 .infoTableContainer {
   margin-top: 40px;
@@ -125,6 +125,18 @@
   background-color: #2a2a2a;
 }
 
+/* Para pantallas de tabletas (ancho máximo de 1024px) */
+@media (max-width: 1024px) {
+  .graph1, .graph2 {
+    width: 100%;
+    height: auto;
+  }
+  .infoTableContainer {
+    padding: 15px;
+    overflow-x: auto; 
+  }
+}
+
 /* Para pantallas de tabletas (ancho máximo de 768px) */
 @media (max-width: 768px) {
   .cardContainer {
@@ -141,9 +153,16 @@
     flex-direction: column;
     gap: 20px;
   }
-  .graph1{
+
+  .graph1 {
     height: 400px;
   }
+
+  .infoTableContainer {
+    padding: 15px;
+    overflow-x: auto; 
+  }
+
   .graph1, .graph2 {
     width: 100%;
     height: auto;
@@ -170,9 +189,9 @@
   .textContainer > p {
     font-size: 1.2rem;
   }
-
   .infoTableContainer {
     padding: 15px;
+    overflow-x: auto; 
   }
 
   .infoTable th, .infoTable td {
@@ -180,3 +199,5 @@
     font-size: 0.9rem;
   }
 }
+
+
