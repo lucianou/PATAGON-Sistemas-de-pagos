@@ -93,7 +93,15 @@ const Solicitudes = () => {
         () => [
             { Header: 'Nombre', accessor: 'nombre' , id: 'nombre'},
             { Header: 'Email', accessor: 'email' },
-            { Header: 'Institución', accessor: 'institucion' },
+            {
+                Header: 'Institución',
+                accessor: 'institucion',
+                Cell: ({ value }) => (
+                    <div className={styles.institutionColumn} title={value}>
+                        {value}
+                    </div>
+                ),
+            },
             { Header: 'Estado', accessor: 'estado' },
             { Header: 'Fecha', accessor: 'fecha' },
             {

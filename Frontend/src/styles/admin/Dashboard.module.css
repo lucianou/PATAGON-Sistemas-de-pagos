@@ -3,6 +3,7 @@
   gap: 20px;
   padding-top: 40px;
   width: 100%;
+
 }
 
 .infoCard {
@@ -85,11 +86,9 @@
   transition: transform 0.2s;
 }
 
-
 .graph1:hover, .graph2:hover {
   transform: translateY(-2px); 
 }
-
 
 .infoTableContainer {
   margin-top: 40px;
@@ -125,6 +124,18 @@
   background-color: #2a2a2a;
 }
 
+/* Para pantallas de tabletas (ancho máximo de 1024px) */
+@media (max-width: 1024px) {
+  .graph1, .graph2 {
+    width: 100%;
+    height: auto;
+  }
+  .infoTableContainer {
+    padding: 15px;
+    overflow-x: auto; 
+  }
+}
+
 /* Para pantallas de tabletas (ancho máximo de 768px) */
 @media (max-width: 768px) {
   .cardContainer {
@@ -141,9 +152,16 @@
     flex-direction: column;
     gap: 20px;
   }
-  .graph1{
+
+  .graph1 {
     height: 400px;
   }
+
+  .infoTableContainer {
+    padding: 15px;
+    overflow-x: auto; 
+  }
+
   .graph1, .graph2 {
     width: 100%;
     height: auto;
@@ -212,3 +230,4 @@
     font-size: 0.9rem;
   }
 }
+
