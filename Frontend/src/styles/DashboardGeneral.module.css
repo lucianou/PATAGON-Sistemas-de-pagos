@@ -8,10 +8,11 @@ html, body {
 
 .dashboardContainer {
   /* background: linear-gradient(45deg, rgb(12, 17, 30), rgb(19, 31, 60)) ; */
-  background: #181a1b;
   min-height: 100vh;
+  background: #181a1b;
   width: 100%;
   .content {
+    max-width: 2150px;
     padding: 20px;
     color: white;
     margin-left: 65px;

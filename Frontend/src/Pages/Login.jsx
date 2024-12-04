@@ -32,7 +32,7 @@ function Login() {
                 <input id="check" type="checkbox" disabled={loading}/>
                 <label htmlFor="check"> Recordarme</label>
               </div>
-              <a href="#" className={style.forgPass}>¿Olvidaste tu contraseña?</a>
+              <a href="/recovery" className={style.forgPass}>¿Olvidaste tu contraseña?</a>
             </div>
             <LoginButton text="Ingresar" disabled={loading}/>
             <div className={style2.linkGroup}>

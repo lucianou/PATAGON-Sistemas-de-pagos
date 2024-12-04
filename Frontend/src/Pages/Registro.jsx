@@ -19,8 +19,8 @@ const Registro = () => {
   const onValidate = (form) => {
     let regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     let regexEmail = /^[\w.-]+@[a-zA-Z]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
-    let regexPassword = /^\S+$/;
-
+    let regexPassword = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d\W_]{8,}$/;
+    
     let errors = {};
     let isError = false;
 
@@ -38,6 +38,11 @@ const Registro = () => {
     if(form.password.trim() !== form.repPass.trim()){
       errors.repPass = "Las contraseñas no coinciden";
       isError = true;
+    } else {
+      if(!regexPassword.test(form.password)){
+        errors.password = "La contraseña debe contener al menos 8 caracteres, una mayuscula y un numero";
+        isError = true;
+      }
     }
 
     if(!regexPassword.test(form.password)){

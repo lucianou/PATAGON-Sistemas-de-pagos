@@ -84,3 +84,21 @@
     }
 }
 
+@media (max-width: 768px) {
+    .notification {
+        display: none;
+        position: fixed; /* Mantiene la notificación fija */
+        top: 15px; /* A 20px de la parte superior */
+        right: 20px; /* A 20px del borde derecho */
+        background-color: #444; /* Fondo más suave */
+        color: #fff; /* Texto blanco */
+        padding: 10px 10px; /* Más espacio interno */
+        border-radius: 10px; /* Bordes más redondeados */
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* Sombra más suave y extendida */
+        z-index: 1000; /* Sobre otros elementos */
+        align-items: center; /* Centra el contenido verticalmente */
+        gap: 15px; /* Espacio entre el icono y el texto */
+        animation: slideIn 0.5s ease-out; /* Animación de entrada y salida */
+        transition: width 0.3s ease; /* Transición suave */
+    }
+}

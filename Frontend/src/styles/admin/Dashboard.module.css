@@ -168,6 +168,38 @@
   }
 }
 
+/* Para pantallas de tabletas (ancho máximo de 768px) */
+@media (max-width: 768px) {
+  .cardContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .infoCard {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .graphContainer {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .graph1 {
+    height: 400px;
+  }
+
+  .infoTableContainer {
+    padding: 15px;
+    overflow-x: auto; 
+  }
+
+  .graph1, .graph2 {
+    width: 100%;
+    height: auto;
+  }
+}
+
 /* Para pantallas móviles (ancho máximo de 480px) */
 @media (max-width: 480px) {
   .iconContainer {
@@ -198,5 +230,4 @@
     font-size: 0.9rem;
   }
 }
-
 
