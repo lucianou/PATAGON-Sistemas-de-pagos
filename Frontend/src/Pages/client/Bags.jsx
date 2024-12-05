@@ -14,7 +14,7 @@ const Bolsas = ({}) => {
     decodedToken = jwtDecode(token);
     userType = decodedToken.type;
   }
-  console.log(decodedToken);
+  
 
   return (
   <div className= {styles.container}>

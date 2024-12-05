@@ -6,6 +6,7 @@ const useNewPassword = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate(); // Hook para la redirección
+  const IP =  import.meta.env.VITE_SERVERIP;
 
   const recoverPassword = async (email) => {
     setLoading(true);
@@ -13,7 +14,7 @@ const useNewPassword = () => {
     setSuccess(null);
 
     try {
-      const response = await fetch('http://localhost:3003/api/command/recoveryPassword', {
+      const response = await fetch(`${IP}/recoveryPassword`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

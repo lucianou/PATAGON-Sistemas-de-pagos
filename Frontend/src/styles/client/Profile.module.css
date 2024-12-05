@@ -7,9 +7,6 @@
   margin-top: 50px;
   height: fit-content;
   padding: 30px;
-  /* background: linear-gradient(145deg, #292929, #1f1f1f);
-  border: 3px solid #383838;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); */
 }
 
 .ProfileHeader {
@@ -19,6 +16,7 @@
   gap: 20px;
   width: 100%;
   margin-bottom: 30px;
+  flex-wrap: wrap; /* Para adaptarse a pantallas pequeñas */
 }
 
 .ProfileCard {
@@ -36,10 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #f0f0f0; */
-  /* border: 2px solid #444; */
   overflow: hidden;
-  /* border: #9e9191 3px solid; */
 }
 
 .ProfileImage .img {
@@ -58,12 +53,13 @@
 
 .ContactIcons {
   display: flex;
+  flex-wrap: wrap; /* Permite que los íconos se acomoden en filas si no caben */
   gap: 15px;
   margin-top: 10px;
+  justify-content: center;
 }
 
 .Icon {
-  width: 100%;
   font-size: 24px;
   color: #ccc;
   cursor: pointer;
@@ -80,6 +76,7 @@
 
 .ProfileDetails {
   display: flex;
+  flex-wrap: wrap; /* Adaptación para pantallas pequeñas */
   justify-content: space-between;
   margin-top: 30px;
   gap: 20px;
@@ -87,19 +84,20 @@
 
 .Section {
   flex: 1;
-  border: #5c5c5c8c solid 1px;
+  min-width: 250px; /* Asegura que las secciones no sean demasiado pequeñas */
   text-align: center;
   background-color: #2b2b2b;
   padding: 15px;
   border-radius: 12px;
+  border: #5c5c5c8c solid 1px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .Section > h2 {
   font-size: 20px;
   color: #ffeb3b;
-  filter: drop-shadow(3px 3px 3px #00000096);
   margin-bottom: 10px;
+  filter: drop-shadow(3px 3px 3px #00000096);
 }
 
 .Section > p {
@@ -140,9 +138,9 @@
   color: #ffeb3b;
 }
 
-
 .ButtonContainer {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 20px;
   justify-content: center;
@@ -165,4 +163,57 @@
 
 .Button:active {
   background-color: #3e8e41;
+}
+
+/* Media Queries para hacer el diseño responsivo */
+@media (max-width: 768px) {
+  .ProfileHeader {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .ProfileCard {
+    width: 95%;
+  }
+
+  .ProfileDetails {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .Section {
+    width: 100%;
+  }
+
+  .ProfileName {
+    font-size: 20px;
+  }
+
+  .BatteryContainer .BatteryPercentage {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ProfileName {
+    font-size: 18px;
+  }
+
+  .Section > h2 {
+    font-size: 18px;
+  }
+
+  .Section > p {
+    font-size: 14px;
+  }
+
+  .BatteryContainer .BatteryLabel {
+    font-size: 16px;
+  }
+
+  .Button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 }

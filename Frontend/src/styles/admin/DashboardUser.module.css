@@ -142,8 +142,8 @@
     width: 100px;
     color: white;
     border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 3px;
+    padding: 1px 7px;
     cursor: pointer;
   }
 }
