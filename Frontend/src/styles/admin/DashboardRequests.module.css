@@ -181,3 +181,64 @@
   text-overflow: ellipsis; 
   white-space: nowrap; 
 }
+
+
+/* Para dispositivos con un ancho máximo de 768px (tablets y móviles) */
+@media (max-width: 768px) {
+  .SolicitudesContainer {
+    padding: 10px;
+  }
+  .content {
+    margin-left: 0; /* Oculta el espacio lateral si el menú está cerrado */
+    padding: 15px;
+  }
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .filterButtons{
+    font-size: 14px;
+    padding: 1px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    
+  }
+  .files {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .actionButtonsContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Para dispositivos con un ancho máximo de 480px (móviles pequeños) */
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.2rem;
+  }
+  .filterButtons{
+    font-size: 14px;
+    padding: 1px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    
+  }
+  .excel img {
+    width: 16px; /* Ajusta el tamaño del ícono */
+  }
+  .actionButtonsAccept,
+  .actionButtonsReject {
+    font-size: 12px;
+    padding: 5px;
+  }
+}

@@ -109,41 +109,48 @@
     width: 100%;
   }
 }
-/* Media query para pantallas más pequeñas */
-@media (max-width: 1325px) {
-  .searchSection {
-    min-width: 600px;
-    width: 100%;
-  }
-  .userSection {
-    min-width: 600px;
-    width: 100%;
-  }
+
+
+
+@media (max-width: 768px) {
   .userSection .itemSection {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr; 
+    gap: 15px;
+  }
+
+  .searchSection {
+    min-height: auto;
+    padding: 15px;
+    margin-top: 5rem;
+  }
+  .searchSection .sectionBtn button {
+    width: 100%;
+  }
+  .actions {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .actions .btnAccion {
+    width: 100%; 
   }
 }
 
-.errorMessage {
-  color: rgb(221, 21, 21);
-  background: rgb(219, 156, 145);
-  padding: 10px 45px;
-  font-size: 18px;
-  width: fit-content;
-  border-radius: 5px;
-  margin-top: 0 !important;
-}
-.actions{
-  display: flex;
-  justify-self: center;
-  gap: 10px;
-  .btnAccion{
-    background-color: #c29d52;
-    width: 100px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
+@media (max-width: 480px) {
+  .searchSection {
+    padding: 10px;
+    gap: 10px;
+  }
+  .searchSection .sectionBtn button {
+    font-size: 14px;
+    height: auto;
+  }
+  .errorMessage {
+    padding: 8px 20px;
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+  }
+  .userSection .itemSection {
+    gap: 10px;
   }
 }
