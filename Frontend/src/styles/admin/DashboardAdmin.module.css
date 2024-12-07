@@ -213,3 +213,134 @@
     transform: translate(-50%, -50%) scale(.9);
   }
 }
+
+
+/* Estilos generales para dispositivos pequeños (móviles) */
+@media (max-width: 480px) {
+  .titleSectionAdmins{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+  }
+  .titleSectionAdmins > h1{
+    margin-bottom: 20px;
+  }
+  .btnCrear {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    flex-direction: column;
+    justify-content: center;
+    .iconUser {
+      margin: 0 0 5px 0;
+    }
+    span {
+      font-size: small;
+    }
+  }
+
+  .modal .modalContent {
+    width: 100%;
+    height: auto;
+    padding: 0px;
+    h2 {
+      font-size: large;
+      margin-bottom: 20px;
+    }
+    .inputGroup input {
+      font-size: medium;
+      height: 50px;
+    }
+    .passInput input {
+      font-size: medium;
+      height: 50px;
+    }
+    .randomPassword {
+      width: 100%;
+    }
+    .btnModal {
+      width: 100%;
+      margin: 5px 0;
+    }
+  }
+}
+
+/* Estilos para dispositivos medianos (tabletas) */
+@media (max-width: 768px) {
+  .titleSectionAdmins{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+  }
+  .btnCrear {
+    width: fit-content;
+    padding: 0 15px;
+    .iconUser {
+      width: 18px;
+      height: 18px;
+    }
+    span {
+      font-size: medium;
+    }
+  }
+
+  .modalContent {
+    width: 70%;
+    padding: 15px;
+    h2 {
+      font-size: larger;
+    }
+    .inputGroup input {
+      font-size: large;
+      height: 55px;
+    }
+    .passInput input {
+      font-size: large;
+      height: 55px;
+    }
+    .randomPassword {
+      font-size: medium;
+    }
+    .btnModal {
+      font-size: medium;
+    }
+  }
+}
+
+/* Estilos para pantallas grandes (escritorio) */
+@media (min-width: 1024px) {
+  .btnCrear {
+    width: fit-content;
+    padding: 0 20px;
+    height: 35px;
+    .iconUser {
+      width: 20px;
+      height: 20px;
+    }
+    span {
+      font-size: medium;
+    }
+  }
+
+  .modalContent {
+    width: 600px;
+    padding: 20px;
+    h2 {
+      font-size: xx-large;
+    }
+    .inputGroup input {
+      font-size: x-large;
+      height: 60px;
+    }
+    .passInput input {
+      font-size: x-large;
+      height: 60px;
+    }
+    .randomPassword {
+      font-size: large;
+    }
+    .btnModal {
+      font-size: large;
+    }
+  }
+}
