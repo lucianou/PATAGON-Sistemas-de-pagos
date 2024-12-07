@@ -6,6 +6,7 @@ const useNewPassword = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate(); // Usar useNavigate aquí
+  const IP =  import.meta.env.VITE_SERVERIP;
 
   const changePassword = async (password, token) => {
     setLoading(true);
@@ -13,12 +14,12 @@ const useNewPassword = () => {
     setSuccess(null);
 
     try {
-      const response = await fetch('http://localhost:3003/api/command/newPass', {
+      const response = await fetch(`${IP}/newPass`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ password, token }), // Enviamos la contraseña y el token
+        body: JSON.stringify({ password, token }), 
       });
 
       const data = await response.json();

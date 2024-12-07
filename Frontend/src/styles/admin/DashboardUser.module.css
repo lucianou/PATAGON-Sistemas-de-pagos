@@ -112,6 +112,7 @@
 
 
 
+
 @media (max-width: 768px) {
   .userSection .itemSection {
     grid-template-columns: 1fr; 
@@ -154,3 +155,4 @@
     gap: 10px;
   }
 }
+
