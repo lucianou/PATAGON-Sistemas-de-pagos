@@ -3,13 +3,14 @@ import { useState } from 'react';
 const useConfirmPayment = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const IP =  import.meta.env.VITE_SERVERIP;
 
     const confirmPayment = async (token) => {
         setLoading(true);
         setError(null);
 
         try {
-            const response = await fetch(`http://localhost:3003/api/command/confirm-payment?token=${token}`, {
+            const response = await fetch(`${IP}/confirm-payment?token=${token}`, {
                 method: 'POST',
             });
 

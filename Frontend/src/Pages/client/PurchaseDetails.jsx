@@ -78,8 +78,28 @@ const Purchase_details = () => {
                 </div>
 
                 <div className={styles.purchaseContainer}>
+                    
                     <div className={styles.purchaseDetails}>
-                        <h1>Detalles de compra</h1>
+                    <div style={{ position: 'relative' }}>
+                            <h1>
+                                Detalles de compra
+                                <a
+                                    href="/bags"
+                                    style={{
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                        cursor: 'pointer',
+                                        fontSize: '0.8rem',
+                                        position: 'absolute',
+                                        right: '0',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                    }}
+                                >
+                                    &lt;&lt; Volver
+                                </a>
+                            </h1>
+                        </div>
                         <hr></hr>
                         <h2>{bolsa.nombre}</h2>
                         <p>Tiempo: {bolsa.time} horas</p>

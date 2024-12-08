@@ -1,12 +1,14 @@
 import axios from "axios";
 import Orders from "../models/transactions.js";
 import User from "../models/user.js";
+import jwt from "jsonwebtoken";
 
 const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const PAYPAL_API_KEY = process.env.PAYPAL_API_KEY;
 const PAYPAL_API = "https://api-m.sandbox.paypal.com";
 const ip_server = process.env.IP_SERVER;
 const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 
 // Controlador para crear un pago PayPal
@@ -93,6 +95,8 @@ export const confirmPayment = async (req, res) => {
   const { token } = req.query;
   const email = req.query.email;
   const time = req.query.time;
+  const verifyToken = jwt.sign({ email, time }, SECRET_KEY, { expiresIn: '5m' });
+
   
   try {
     const response = await axios.post(
@@ -120,7 +124,8 @@ export const confirmPayment = async (req, res) => {
         { where: { email } }
       );
     };
-    res.redirect(`http://${ip_server}:4003/paymentaccept`)
+    
+    res.redirect(`http://${ip_server}:4003/paymentaccept?verifyToken=${verifyToken}`);
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Internal Server error" });
@@ -302,5 +307,16 @@ export const getReceipt = async (req, res) => {
   } catch (error) {
     console.error("Error al obtener los detalles del pago:", error.message);
     return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
+export const validateToken = (req, res) => {
+  const { token } = req.query;
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    res.json({ isValid: true, data: decoded });
+  } catch (error) {
+    res.json({ isValid: false });
   }
 };
