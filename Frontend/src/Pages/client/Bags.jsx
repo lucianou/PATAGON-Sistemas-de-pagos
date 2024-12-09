@@ -20,6 +20,7 @@ const Bolsas = ({}) => {
   <div className= {styles.container}>
     <NavBar />
     <div className={styles.section1}>
+      <h1>BOLSAS DE TIEMPO</h1>
       {!token || token && userType === "Pagado" ? (
             <div className={styles.dashboardWidgets}>
             {loading ? (

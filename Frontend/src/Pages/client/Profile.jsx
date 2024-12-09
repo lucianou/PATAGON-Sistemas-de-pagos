@@ -29,16 +29,22 @@ const Profile = () => {
             {/* <img src="../../src/assets/SoloLogo_Patagon.png" alt="Logo Patagon" /> */}
           </div>
           <div className={styles.ProfileName}>
-            <h1>{data?.username}</h1>
-            <div className={styles.ContactIcons}>
-              <span className={styles.Icon}> 
-                <FontAwesomeIcon icon={faEnvelope} />
-                {data?.email}
-              </span>
-            </div>
+            {loading ? (
+              <div className={styles.spinner}></div> 
+            ) : (
+              <>
+                <h1>{data?.username}</h1>
+                <div className={styles.ContactIcons}>
+                  <span className={styles.Icon}>
+                    <FontAwesomeIcon icon={faEnvelope} />
+                    {data?.email}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         </header>
-        
+      
         <section className={styles.ProfileDetails}>
           <div className={styles.Section}>
             <h2>Sobre mí</h2>

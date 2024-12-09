@@ -95,7 +95,11 @@ function App() {
 
         <Route path="/about-us" element={ <UsInfo />} />
 
-        <Route path="/bags" element={<Bags />} />
+        <Route path="/bags" element={
+          <ProtectedRoute isAllowed={["Cliente"]} onlyPaidClients={true}>
+            <Bags />
+          </ProtectedRoute>
+        } />
 
         <Route path="/docs" element={<Docs />} />
 
@@ -103,10 +107,11 @@ function App() {
 
         <Route path="/external" element={<External />} />
 
-        <Route path="/UseRequest" element={
-          <ProtectedRoute isAllowed={["Cliente"]}>
-            <UseRequest />
-          </ProtectedRoute>
+        <Route path="/patagon/solicitud" element={ 
+          <>
+          <UseRequest />
+          <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
+          </>
         } />
 
         <Route path="/account/profile" element={
