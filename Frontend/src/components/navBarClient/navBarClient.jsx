@@ -3,6 +3,7 @@ import styles from "./navBarClient.module.css";
 import logo from "../../../src/assets/SoloLogo_Patagon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { jwtDecode } from 'jwt-decode';
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,6 +11,11 @@ const NavBar = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const isActive = (path) => location.pathname === path;
   const token = localStorage.getItem('token');
+  let decodedToken;
+  if(token){
+    decodedToken = jwtDecode(token);
+  }
+  console.log(decodedToken);
   
   const handleOut = (event) =>{
     event.preventDefault();
@@ -34,9 +40,14 @@ const NavBar = () => {
           <a href="/mainClient" className={isActive("/mainClient") ? styles.active : ""}>
             Home
           </a>
-          <a href="/bags" className={isActive("/bags") ? styles.active : ""}>
-            Productos
-          </a>
+
+          { token && decodedToken.type === "UACh" ? (
+            ''
+          ) : (
+            <a href="/bags" className={isActive("/bags") ? styles.active : ""}>
+              Productos
+            </a>
+          )}
           <a href="/about-us" className={isActive("/about-us") ? styles.active : ""}>
             Nosotros
           </a>

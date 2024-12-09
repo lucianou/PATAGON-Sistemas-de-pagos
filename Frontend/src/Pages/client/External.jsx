@@ -35,26 +35,26 @@ const Externos = () => {
                 className={styles.stepTitle}
               >
                 {activeIndices.includes(0) ? <FaChevronDown /> : <FaChevronRight />}
-                <span>Realizar Solicitud</span>
+                <span>Ingresar al Sistema de Pagos Patagon</span>
               </div>
               <div className={`${styles.stepContent} ${activeIndices.includes(0) ? styles.open : ''} ${closingIndex === 0 ? styles.closing : ''}`}>
                 <ul>
                   <li>
                     <span>1</span>
                     <span>
-                      Para realizar la solicitud debe ir a la pagina del patagon y dirigirse a "Contacto", o bien hacer click en este link  <a href="https://patagon.uach.cl/contacto" target="_blank" rel="noopener noreferrer" className={styles.link}>contacto</a>.
+                      Para poder ingresar al sistema primero debes realizar la solicitud de ingreso. Para hacer esto debes ir a la pagina del patagon y dirigirse a "Contacto", o bien hacer click en este link  <a href="https://patagon.uach.cl/contacto" target="_blank" rel="noopener noreferrer" className={styles.link}>contacto</a>.
                     </span>
                   </li>
                   <li>
                     <span>2</span>
                     <span>
-                      Esperar la llegada de un correo electrónico que declare que su solicitud fue aceptada. Si ya te llegó el correo electronico entonces puedes registrarte en la página a través de este link <a href="/registro" target="_blank" rel="noopener noreferrer" className={styles.link}>Sistemas-De-Pagos-Patagon</a>.
+                      Espera la llegada de un correo electrónico que declare que su solicitud fue aceptada, en ella se encontran los datos para poder ingresar a la supercomputadora <b>(recuerde que hasta que no compre una bolsa de tiempo estos datos no le serviran)</b>. Si ya te llegó el correo electronico entonces puedes registrarte en la página a través de este link <a href="/registro" target="_blank" rel="noopener noreferrer" className={styles.link}>Sistemas-De-Pagos-Patagon</a>.
                     </span>
                   </li>
                   <li>
                     <span>3</span>
                     <span>
-                      Una vez registrado, debes dirigirte a login para ingresar a la página con tu email y contraseña.
+                      Una vez registrado, debes dirigirte a login para ingresar a la página con tu email y contraseña. 
                     </span>
                   </li>
                 </ul>
@@ -66,15 +66,32 @@ const Externos = () => {
                 className={styles.stepTitle}
               >
                 {activeIndices.includes(1) ? <FaChevronDown /> : <FaChevronRight />}
-                <span>Registro</span>
+                <span>Compra de bolsas para usar el Patagon</span>
               </div>
               <div className={`${styles.stepContent} ${activeIndices.includes(1) ? styles.open : ''} ${closingIndex === 1 ? styles.closing : ''}`}>
-                <p>
-                  
-                </p>
+                <ul>
+                  <li>
+                    <span>1</span>
+                    <span>
+                      Para poder ingresar a la supercomputadora se deben comprar unas bolsas de tiempo que determinaran cuanto tiempo puede estar usando el Patagon. Puede ver las opciones de bolsas que hay en la sección de "Productos"
+                    </span>
+                  </li>
+                  <li>
+                    <span>2</span>
+                    <span>
+                      Segun las descripciones de cada bolsa, elige la que más te convenga y haz click en "Comprar". Luego de esto, seleccionas tu metodo de pago, aceptas los terminos y condiciones, y haces click en "comprar ahora". 
+                    </span>
+                  </li>
+                  <li>
+                    <span>3</span>
+                    <span>
+                      Serás redireccionado a la pagina correspondiente de tu metodo de compra, ahí rellenas los datos necesarios y haces click en "pagar". Si todo sale bien, tendras acceso a la supercomputadora y podras ver el tiempo restante de tu bolsa en tu perfil.
+                    </span>
+                  </li>
+                </ul>
               </div>
             </li>
-            <li className={styles.step}>
+            {/* <li className={styles.step}>
               <div 
                 onClick={() => toggleAccordion(2)} 
                 className={styles.stepTitle}
@@ -87,7 +104,7 @@ const Externos = () => {
                   
                 </p>
               </div>
-            </li>
+            </li> */}
           </ol>
         </div>
 
