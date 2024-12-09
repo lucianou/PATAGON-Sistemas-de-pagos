@@ -95,7 +95,11 @@ function App() {
 
         <Route path="/about-us" element={ <UsInfo />} />
 
-        <Route path="/bags" element={<Bags />} />
+        <Route path="/bags" element={
+          <ProtectedRoute isAllowed={["Cliente"]} onlyPaidClients={true}>
+            <Bags />
+          </ProtectedRoute>
+          } />
 
         <Route path="/docs" element={<Docs />} />
 
