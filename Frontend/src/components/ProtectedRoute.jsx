@@ -31,7 +31,6 @@ const ProtectedRoute = ({ children, isAllowed, onlyPaidClients = false}) => {
   
   return children;
 
- 
 };
 
 export default ProtectedRoute;
