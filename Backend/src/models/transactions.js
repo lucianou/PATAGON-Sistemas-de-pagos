@@ -9,7 +9,7 @@ const Orders = sequelize.define('Orders', {
   },
   user_email: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   amount: {
     type: DataTypes.NUMERIC(10, 2),

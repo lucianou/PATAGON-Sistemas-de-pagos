@@ -12,7 +12,8 @@ export const fetchRequest = async (url, method, data) => {
       });
 
       if (!response.ok) {
-          throw new Error('Error en la solicitud');
+            const result = await response.json();
+            return { success: false, error: result.error };
       }
 
       const result = await response.json();

@@ -4,6 +4,7 @@ import { sendEmail } from "./nodeMailer.js";
 import bcrypt from "bcrypt";
 import User from "../models/user.js";
 import DeletedUser from "../models/deletedUser.js";
+import Orders from "../models/transactions.js";
 import sequelize from "../config/sequelize.js";
 import Requests from "../models/requests.js";
 import LoginHistory from "../models/loginHistory.js";
@@ -262,6 +263,14 @@ export async function deletedUser(req, res) {
             { user: null },  
             {
                 where: { user: user.ID }
+            }
+        );
+
+       //desvincular todos los registros en Orders
+        await Orders.update(
+            { user_email: null },  
+            {
+                where: { user_email: user.email }
             }
         );
 
