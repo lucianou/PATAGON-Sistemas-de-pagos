@@ -11,28 +11,32 @@ import useExportToExcel from '@hooks/exportExcelRequests';
 import useFetchSolicitudes from '@hooks/useDashBoardSolicitudes';
 import { jwtDecode } from 'jwt-decode';
 import logo from '../../assets/SoloLogo_Patagon.png';
-import { toast} from 'sonner';
+import { toast } from 'sonner';
 import refreshAccessToken from '@components/RefreshToken';
+import DuplicateUserModal from '@components/DuplicateUsers/DuplicateUserModal';
 
 const Solicitudes = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { solicitudes, loading,  error } = useFetchSolicitudes();
+    const { solicitudes, loading, error } = useFetchSolicitudes();
     const [filter, setFilter] = useState('pendiente');
     const [selectedSolicitud, setSelectedSolicitud] = useState(null);
     const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
     const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
     const { exportToExcel } = useExportToExcel();
+    const [isDuplicateModalOpen, setIsDuplicateModalOpen] = useState(false);
+    const [duplicateEmail, setDuplicateEmail] = useState('');
     const { viewFile } = useFileViewer();
     const ipserver = import.meta.env.VITE_IP;
     const port = import.meta.env.VITE_PORT;
     const token = localStorage.getItem('token');
     const decodedToken = jwtDecode(token);
     const userRole = decodedToken.rol;
+    const IP = import.meta.env.VITE_SERVERIP;
 
-    
+
 
     const handleViewPDF = async (id) => {
-       viewFile(id, 'pdf');
+        viewFile(id, 'pdf');
     };
 
     const handleViewPUB = async (id, nombre) => {
@@ -42,7 +46,7 @@ const Solicitudes = () => {
 
     const handleAcceptClick = (solicitud) => {
         setSelectedSolicitud(solicitud);
-        setIsAcceptModalOpen(true); 
+        setIsAcceptModalOpen(true);
     };
 
     const handleRejectClick = (solicitud) => {
@@ -52,24 +56,30 @@ const Solicitudes = () => {
 
     const handleAccept = async (formData) => {
         const { success, data, error } = await fetchRequest(
-            `http://${ipserver}:${port}/api/command/new-user-creation-patagon`,'POST',formData);
-    
+            `${IP}/new-user-creation-patagon`, 'POST', formData
+        );
+
         if (success) {
             window.location.reload();
             toast.success('Solicitud aceptada exitosamente!');
             setIsAcceptModalOpen(false);
         } else {
-            console.error('Error al aceptar la solicitud:', error);
-            toast.error('Error al aceptar la solicitud');
+            if (error === 'El correo ya está registrado') {
+                setDuplicateEmail(formData.email);
+                setIsDuplicateModalOpen(true);
+            } else {
+                console.error('Error al aceptar la solicitud:', error);
+                toast.error('Error al aceptar la solicitud');
+            }
         }
     };
-    
+
 
     const handleReject = async (reasonData) => {
         console.log(reasonData);
         const { success, data, error } = await fetchRequest(
-            `http://${ipserver}:${port}/api/command/reject-request`,'POST',reasonData);
-            
+            `${IP}/reject-request`, 'POST', reasonData);
+
         if (success) {
             window.location.reload();
             setIsRejectModalOpen(false);
@@ -80,18 +90,22 @@ const Solicitudes = () => {
         }
     };
 
-    
+
     const handleExport = () => {
         exportToExcel(
-          `http://${ipserver}:${port}/api/command/requests`,   
-          'Solicitudes_Historico'
+            `http://${ipserver}:${port}/api/command/requests`,
+            'Solicitudes_Historico'
         );
-      };
-    
+    };
+
+    const handleNavigateToUsers = () => {
+        window.location.href = '/admin/dashboard-users';
+    };
+
 
     const columns = React.useMemo(
         () => [
-            { Header: 'Nombre', accessor: 'nombre' , id: 'nombre'},
+            { Header: 'Nombre', accessor: 'nombre', id: 'nombre' },
             { Header: 'Email', accessor: 'email' },
             {
                 Header: 'Institución',
@@ -158,11 +172,11 @@ const Solicitudes = () => {
                 )
             );
         }
-    
+
         return 'Sin acciones';
     };
-    
-      
+
+
     const filteredSolicitudes = solicitudes.filter(solicitud => {
         switch (filter) {
             case 'pendiente':
@@ -188,23 +202,23 @@ const Solicitudes = () => {
                 </div>
 
                 <div className={styles.filterButtons}>
-                    <button 
-                        className={filter === 'pendiente' ? styles.active : ''} 
-                        id={styles.btn} 
+                    <button
+                        className={filter === 'pendiente' ? styles.active : ''}
+                        id={styles.btn}
                         onClick={() => setFilter('pendiente')}
                     >
                         Pendientes
                     </button>
-                    <button 
-                        className={filter === 'aceptado' ? styles.active : ''} 
-                        id={styles.btn} 
+                    <button
+                        className={filter === 'aceptado' ? styles.active : ''}
+                        id={styles.btn}
                         onClick={() => setFilter('aceptado')}
                     >
                         Aceptadas
                     </button>
-                    <button 
-                        className={filter === 'rechazado' ? styles.active : ''} 
-                        id={styles.btn} 
+                    <button
+                        className={filter === 'rechazado' ? styles.active : ''}
+                        id={styles.btn}
                         onClick={() => setFilter('rechazado')}
                     >
                         Rechazadas
@@ -217,16 +231,16 @@ const Solicitudes = () => {
                 </button>
 
                 <div className={styles.solicitudesList}>
-                {loading ? (
+                    {loading ? (
                         <div className={styles.spinnerContainer}>
-                            <div className={styles.spinner}></div> 
+                            <div className={styles.spinner}></div>
                             <p>Cargando solicitudes...</p>
                         </div>
                     ) : filteredSolicitudes.length > 0 ? (
                         <TableComponent
                             key={solicitudes.length}
-                            columns={columns} 
-                            data={filteredSolicitudes} 
+                            columns={columns}
+                            data={filteredSolicitudes}
                         />
                     ) : (
                         <p>No hay solicitudes disponibles.</p>
@@ -248,6 +262,15 @@ const Solicitudes = () => {
                         onClose={() => setIsRejectModalOpen(false)}
                         onReject={handleReject}
                         solicitud={selectedSolicitud}
+                    />
+                )}
+
+                {isDuplicateModalOpen && (
+                    <DuplicateUserModal
+                        isOpen={isDuplicateModalOpen}
+                        onClose={() => setIsDuplicateModalOpen(false)}
+                        email={duplicateEmail}
+                        onNavigate={handleNavigateToUsers} // Llamada a la función de navegación
                     />
                 )}
             </main>
