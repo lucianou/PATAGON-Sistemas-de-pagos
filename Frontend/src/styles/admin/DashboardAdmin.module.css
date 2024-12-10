@@ -213,3 +213,40 @@
     transform: translate(-50%, -50%) scale(.9);
   }
 }
+
+@media (max-width: 768px) {
+  .modal .modalContent {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .modal .modalContent h2 {
+    font-size: large;
+    margin-bottom: 20px;
+  }
+
+  .modal .modalContent .inputGroup input {
+    height: 50px;
+    font-size: medium;
+    padding: 10px;
+  }
+
+  .modal .modalContent .buttons .btnModal {
+    height: 40px;
+    font-size: small;
+  }
+
+  .modal .modalContent .rolGroup .optionsAdmin {
+    font-size: large;
+  }
+
+  .titleSectionAdmins {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .actions .btnEliminar {
+    padding: 5px 10px;
+  }
+}

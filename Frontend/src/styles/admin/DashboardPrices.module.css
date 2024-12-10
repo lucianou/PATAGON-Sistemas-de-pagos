@@ -266,65 +266,70 @@
       min-height: auto;
       margin-top: 20px;
       flex-direction: column; 
+      align-items: center; /* Centrar contenido horizontalmente */
     }
-  
+
     .div1, .div2, .div3 {
       position: relative;
       width: 100%; 
       height: 300px; 
       margin-bottom: 20px; 
     }
-  
+
     .expanded {
       width: 100%;
       height: 500px; 
     }
-  
+
     .CardContainer {
       flex-direction: column; 
       gap: 20px; 
+      align-items: center;
+      width: 100%;
+       /* Centrar contenido horizontalmente */
     }
-  
+
     .CardGanancias, .CardIngresos {
       width: 100%; 
       padding: 20px;
     }
-  
+
     .topProducts {
       max-width: 100%;
     }
   }
-  
+
   @media (max-width: 480px) {
     .contenedor {
       margin-top: 5px;
       width: 100%;
+      align-items: center; /* Centrar contenido horizontalmente */
     }
-  
+
     .div1, .div2, .div3 {
       display: none; /* Oculta los gráficos */
     }
-  
+
     .graphicMethodPayment {
       display: none;
     }
-  
+
     .CardGananciasValue {
       font-size: 1.5rem; 
     }
-  
+
     .CardGananciasTitle h2, .CardIngresosTitle h2 {
       font-size: 1.2rem;
     }
-  
+
     .CardGananciasTitle p, .CardIngresosTitle p {
       font-size: 0.8rem;
     }
-  
+
     .excel img {
       width: 10px; 
     }
-  
+
     .topProducts {
       padding: 10px;
       font-size: 0.8rem;
@@ -333,7 +338,7 @@
       flex-direction: column;
       align-content: center;
     }
-  
+
     .topProductsContainer {
       gap: 5px;
       align-items: center;
@@ -341,12 +346,11 @@
       height: 100%;
       width: 100%;
     }
-  
+
     .topProduct {
       font-size: 0.7rem;
     }
   }
-  
   /* Estilo general de la tabla */
 table {
     width: 100%;
