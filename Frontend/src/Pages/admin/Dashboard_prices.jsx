@@ -4,7 +4,7 @@ import styles from "@adminStyles/DashboardPrices.module.css";
 import styles1 from "@styles/DashboardGeneral.module.css";
 import useExportToExcel from '@hooks/exportExcelRequests';
 import logo from '../../assets/SoloLogo_Patagon.png';
-import Table from "@components/Table/table";  // Asegúrate de importar tu componente de tabla
+import Table from "@components/Table/Table";  // Asegúrate de importar tu componente de tabla
 
 const Dashboard_prices = () => {
   const [isOpen, setIsOpen] = useState(false);
