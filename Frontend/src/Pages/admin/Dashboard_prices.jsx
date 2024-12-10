@@ -77,10 +77,10 @@ const Dashboard_prices = () => {
         <div className={styles.contenedor}>
           <div className={styles.topProducts}>
             {/* Botón para agregar una nueva bolsa */}
+            <h2>Bolsas</h2>
             <button className={styles.addProduct} onClick={handleAddProduct}>
               Agregar Bolsa
             </button>
-            <h2>Productos</h2>
             <table className={styles.productTable}>
               <thead>
                 <tr>
