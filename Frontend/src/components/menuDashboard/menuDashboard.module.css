@@ -4,7 +4,7 @@
   border: none;
   cursor: pointer;
   transition: left 0.3s ease;
-  margin-left: 0.3rem;
+  margin-left: 1.2rem;
   margin-top: 20px;
   &:hover{
     transition: all 0.1s ease;

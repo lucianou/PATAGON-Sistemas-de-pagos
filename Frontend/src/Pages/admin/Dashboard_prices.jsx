@@ -107,7 +107,7 @@ const Dashboard_prices = () => {
               Agregar Bolsa
             </button>
             {/* Aquí se agrega el componente Table */}
-            <Table columns={columns} data={data} />
+            <Table className={styles.tabla} columns={columns} data={data} />
           </div>
         </div>
       </main>

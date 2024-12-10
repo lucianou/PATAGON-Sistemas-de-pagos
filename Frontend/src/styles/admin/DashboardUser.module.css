@@ -110,6 +110,19 @@
   }
 }
 
+.actions{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actions .btnAccion {
+  background-color: #c29d52;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 1px 5px;
+}
 
 
 

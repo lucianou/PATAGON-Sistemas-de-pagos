@@ -352,7 +352,7 @@
     }
   }
   /* Estilo general de la tabla */
-table {
+  .tabla {
     width: 100%;
     border-collapse: collapse;
     margin-top: 30px;
@@ -362,7 +362,7 @@ table {
   }
   
   /* Cabeceras de la tabla */
-  th {
+  .tabla > * th {
     background-color: #1e1e1e;
     color: #fff;
     padding: 12px;
@@ -371,7 +371,7 @@ table {
   }
   
   /* Filas de la tabla */
-  td {
+  .tabla > * td {
     background-color: #333;
     color: #fff;
     padding: 10px;
@@ -380,13 +380,13 @@ table {
   }
   
   /* Efecto de hover en las filas */
-  tr:hover {
+  .tabla > * tr:hover {
     background-color: #444;
     cursor: pointer;
   }
   
   /* Botón de acción (expandir) */
-  button {
+  .contenedor > * button {
     background-color: #00796b;
     color: white;
     border: none;
@@ -398,7 +398,7 @@ table {
   }
   
   /* Efecto de hover en los botones */
-  button:hover {
+  .contenedor > * button:hover {
     background-color: #004d40;
   }
   
