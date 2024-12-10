@@ -54,24 +54,37 @@ html, body {
   }
 }
 
+
 @media (max-width: 768px) {
   .dashboardContainer .content {
     margin-left: 0;
+    margin-top: 30px;
+    overflow-x: auto; /* Evitar el desbordamiento horizontal */
+    overflow-y: auto; /* Evitar el desbordamiento horizontal */
   }
+
   .dashboardContainer .content.open {
     margin-left: 290px;
   }
-  .dashboardContainer .header .titleLogo {
+
+  .dashboardContainer .header  {
     display: none;
   }
+
   .dashboardContainer .requestsList {
     overflow-x: auto;
+    padding-bottom: 20px; /* Evitar que el contenido se sobreponga al fondo */
   }
+
   .dashboardContainer .charts {
     width: calc(100% - 65px);
-    overflow-x: auto;
+    overflow-y: hidden; /* Evitar el desbordamiento horizontal */
+    margin-left: 65px; /* Asegurar que el contenido no se sobreponga al sidebar */
   }
+
   .dashboardContainer .content.open .charts {
     width: calc(100% - 290px);
   }
 }
+
+

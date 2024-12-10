@@ -275,13 +275,13 @@
   justify-items: center;
 }
 
-
 @media (max-width: 768px) {
   .contenedor {
     width: 100%;
     min-height: auto;
     margin-top: 20px;
     flex-direction: column; 
+    align-items: center; /* Centrar contenido */
   }
 
   .div1, .div2, .div3 {
@@ -299,6 +299,7 @@
   .CardContainer {
     flex-direction: column; 
     gap: 20px; 
+    align-items: center; /* Centrar contenido */
   }
 
   .CardGanancias, .CardIngresos {
@@ -311,22 +312,31 @@
   }
 }
 
-
-
 /* Para pantallas más pequeñas (480px o menos) */
 @media (max-width: 480px) {
   .contenedor {
     margin-top: 5px;
     width: 100%;
+    align-items: center; /* Centrar contenido */
   }
 
   .div1, .div2, .div3 {
     display: none; /* Oculta los gráficos */
   }
 
-  .graphicMethodPayment{
+  .graphicMethodPayment {
     display: none;
   }
+
+  .CardContainer {
+    flex-direction: column; 
+    gap: 20px; 
+    align-items: center; /* Centrar contenido */
+    justify-content: center; /* Centrar contenido verticalmente */
+    width: 100%; /* Asegurar que ocupe todo el ancho disponible */
+  }
+
+
 
   .CardGananciasValue {
     font-size: 1.5rem; 
@@ -340,8 +350,6 @@
     font-size: 0.8rem;
   }
 
-  
-
   .excel img {
     width: 10px; 
   }
@@ -353,6 +361,7 @@
     display: flex;
     flex-direction: column;
     align-content: center;
+    margin: 0 auto; /* Centrar horizontalmente */
   }
 
   .topProductsContainer {
@@ -361,8 +370,10 @@
     align-content: center;
     height: 100%;
     width: 100%;
-
+    display: flex;
+    justify-content: center; /* Centrar contenido verticalmente */
   }
+
 
   .topProduct {
     font-size: 0.7rem;
