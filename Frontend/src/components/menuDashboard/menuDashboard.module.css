@@ -222,33 +222,63 @@
   .sidebar {
     width: 100%;
     height: 65px;
+    position: fixed;
+    display: flex;
+    flex-direction: row; /* Cambiar a fila */
+    justify-content: space-around; /* Distribuir iconos a lo largo de la barra */
+    align-items: center; /* Centrar los iconos verticalmente */
     top: 0;
     left: 0;
-    flex-direction: row;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior del div */
-    ul {
-      display: flex;
-      flex-direction: row;
-      li {
-        padding: 10px;
-        &:hover {
-          padding-left: 10px;
-          padding-right: 10px;
-        }
-      }
-    }
-    .profile {
-      display: none;
-    }
-    &:after, &:before {
-      display: none;
-    }
+    background-color: #2b2e30;
+    padding: 0 0px; /* Añadir padding para que los iconos no toquen los bordes */
+    overflow-x: auto; /* Agregar scroll horizontal */
+    z-index: 5; /* Asegura que el sidebar se muestre por encima de otros elementos */
   }
 
-  .sidebar.open {
-    height: auto;
-    ul {
-      flex-direction: column;
-    }
+  .sidebar:after,
+  .sidebar:before {
+    display: none; /* Ocultar los elementos after y before */
+  }
+
+  .hamburger {
+    display: none; /* Asegúrate de que la hamburguesa esté oculta en esta pantalla */
+  }
+
+  .profile, .menu ul li a span {
+    display: none; /* Ocultar el perfil y el texto de los enlaces */
+  }
+
+  .sidebar .menu {
+    display: flex; /* Aseguramos que los elementos de la lista estén en fila */
+    justify-content: flex-start;
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    padding: 0; /* Eliminar margen/padding por defecto de la lista */
+    margin: 0; /* Eliminar margen */
+  }
+
+  .sidebar .menu ul {
+    display: flex; /* Aseguramos que la lista se muestre como una fila */
+    padding: 0; /* Eliminar margen/padding por defecto de la lista */
+    margin: 0; /* Eliminar margen */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    justify-content: space-between; /* Distribuir los elementos a lo largo de la fila */
+  }
+
+  .sidebar .menu li {
+    list-style: none; /* Eliminar los puntos de la lista */
+  }
+
+  .faIcon {
+    height: 25px;
+    min-width: 5px;
+    max-width: 30px;
+    color: #ffffff;
+    font-size: 25px; /* Ajustar tamaño de los iconos */
+    cursor: pointer;
   }
 }
+
+
+
+
+
