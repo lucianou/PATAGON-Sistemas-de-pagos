@@ -95,7 +95,7 @@ export const confirmPayment = async (req, res) => {
   const { token } = req.query;
   const email = req.query.email;
   const time = req.query.time;
-  const verifyToken = jwt.sign({ email, time }, SECRET_KEY, { expiresIn: '5m' });
+  const verifyToken = jwt.sign({ email, time }, SECRET_KEY, { expiresIn: '1m' });
 
   
   try {
@@ -156,6 +156,7 @@ export const cancelPayment = async (req, res) => {
 export const createOrderMercadoPago = async (req, res) => {
   const {email, precio, id, time} = req.body;
   const order = new Date().getTime();
+  const verifyToken = jwt.sign({ email, time }, SECRET_KEY, { expiresIn: '1m' });
 
   try {
     const payload = {
@@ -172,7 +173,7 @@ export const createOrderMercadoPago = async (req, res) => {
       notification_url: `https://rx84cmhh-3003.brs.devtunnels.ms/api/command/webhook?email=${email}&time=${time}`,
       // notification_url: `http://${ip_server}:3003/api/command/webhook?email=${email}&time=${time}`,
       back_urls: {
-        success: `http://${ip_server}:4003/paymentaccept`,
+        success: `http://${ip_server}:4003/paymentaccept?verifyToken=${verifyToken}`,
         failure: `http://${ip_server}:4003/mainClient`,
         //pending: "http://localhost:3000//api/commmand/pending",
       },
