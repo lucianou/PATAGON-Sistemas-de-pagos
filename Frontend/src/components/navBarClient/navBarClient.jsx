@@ -67,7 +67,7 @@ const NavBar = () => {
         <div className={styles.userDiv}>
           { token ? (
             <>
-            <a className={styles.user}>Usuario</a>
+            <a className={styles.user}>{decodedToken.username ? decodedToken.username  : 'Usuario'}</a>
             <ul>
               <li><a href="/account/profile">Mi Perfil</a></li>
               <li><a href="/account/purchase-history">Historial de compras</a></li>

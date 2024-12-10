@@ -17,10 +17,7 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
 
   const logout = (event) => {
     event.preventDefault();
-    localStorage.removeItem('rol'); // Elimina el rol del localStorage
     localStorage.removeItem('token'); // Elimina el token del localStorage
-    localStorage.removeItem('email'); // Elimina el refreshToken del localStorage
-    localStorage.removeItem('username'); // Elimina el nombre de usuario del localStorage
     localStorage.removeItem('refreshToken'); // Elimina el refreshToken del localStorage
     window.location.href = event.target.href; // Redirige al usuario a la ruta especificada en el enlace
   };
@@ -33,7 +30,7 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
         </button>
         <div className={styles.profile}>
           <img className={styles.profilePic} src='../../src/assets/perro.png' alt='Profile'></img>
-          <h2>{decodedToken.username !== '' ? decodedToken.username : 'Administrador' }</h2>
+          <h2>{decodedToken.username ? decodedToken.username : 'Administrador' }</h2>
         </div>
         <nav className={styles.menu}>
           <ul>
