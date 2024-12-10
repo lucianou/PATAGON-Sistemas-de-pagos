@@ -4,13 +4,14 @@ const paypalOrder = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const HOST = import.meta.env.VITE_IP;
+    const IP =  import.meta.env.VITE_SERVERIP;
 
     const paypal = async (orderData) => {
         setLoading(true);
         setError(null);
 
         try {
-            const response = await fetch(`http://${HOST}:3003/api/command/create-payment`, {	
+            const response = await fetch(`${IP}/create-payment`, {	
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

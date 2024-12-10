@@ -238,3 +238,58 @@
   
 }
 
+
+
+/* Pequeños dispositivos (pantallas menores a 480px) */
+@media (max-width: 480px) {
+  .historial-container {
+    padding: 0.5em 0;
+  }
+
+  .historial-title {
+    font-size: 20px;
+  }
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto; /* Habilita el scroll horizontal */
+  }
+
+  .table {
+    min-width: 600px; /* Define un ancho mínimo para que la tabla no se comprima demasiado */
+    border-collapse: collapse;
+  }
+
+  .table-header, .table-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Mantén el diseño en filas */
+    font-size: 12px;
+    text-align: left;
+  }
+
+  .pagination {
+    font-size: 12px;
+  }
+
+  .modal {
+    width: 95%;
+    padding: 5px;
+  }
+
+  .modal-content > h2 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  .info {
+    font-size: 10px;
+  }
+
+  .close-button {
+    font-size: 10px;
+  }
+
+  .footerModal h3 {
+    font-size: 10px;
+  }
+}

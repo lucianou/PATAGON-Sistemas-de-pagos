@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import NavBar from '@components/navBarClient/navBarClient';
 import paypalOrder from '@hooks/paypalOrder'; // Asegúrate de que la ruta sea correcta
@@ -6,18 +6,19 @@ import mercadopagoOrder from '@hooks/mercadopagoOrder';
 import useFetchBolsa from '@hooks/bolsas';
 import styles1 from '@styles/DashboardGeneral.module.css';
 import styles from '@clientStyles/Purchase.module.css';
-import logo from '../../assets/SoloLogo_Patagon.png';
+import { jwtDecode } from 'jwt-decode';
 
 const Purchase_details = () => {
     const { pathname } = useLocation();
     const id = pathname.split('/').pop(); 
-    const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [loading, setLoading] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState('paypal'); // Estado para el método de pago
     const { bolsa } = useFetchBolsa(id);
     const { paypal } = paypalOrder(); 
     const { mercadopago } = mercadopagoOrder();
+    const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
 
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
@@ -36,7 +37,7 @@ const Purchase_details = () => {
         setLoading(true); // Mostrar el spinner
         const orderData = {
             precio: bolsa.precio,
-            email: localStorage.getItem("email"),
+            email: decodedToken.email,
             id: bolsa.ID,
             time: bolsa.time,
         };
@@ -78,8 +79,28 @@ const Purchase_details = () => {
                 </div>
 
                 <div className={styles.purchaseContainer}>
+                    
                     <div className={styles.purchaseDetails}>
-                        <h1>Detalles de compra</h1>
+                    <div style={{ position: 'relative' }}>
+                            <h1>
+                                Detalles de compra
+                                <a
+                                    href="/bags"
+                                    style={{
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                        cursor: 'pointer',
+                                        fontSize: '0.8rem',
+                                        position: 'absolute',
+                                        right: '0',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                    }}
+                                >
+                                    &lt;&lt; Volver
+                                </a>
+                            </h1>
+                        </div>
                         <hr></hr>
                         <h2>{bolsa.nombre}</h2>
                         <p>Tiempo: {bolsa.time} horas</p>

@@ -38,8 +38,8 @@
   background: #5ba165;
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
+  border-radius: 3px;
+  padding: 1px 6px;
   cursor: pointer;
 }
 
@@ -47,8 +47,8 @@
   background: #c29d52;
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
+  border-radius: 3px;
+  padding: 1px 6px;
   cursor: pointer;
 }
 
@@ -172,6 +172,91 @@
 .pagination button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+
+.institutionColumn {
+  max-width: 150px; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
+}
+
+
+/* Para dispositivos con un ancho máximo de 768px (tablets y móviles) */
+@media (max-width: 768px) {
+  .SolicitudesContainer {
+    padding: 10px;
+  }
+  .content {
+    margin-left: 0; /* Oculta el espacio lateral si el menú está cerrado */
+    padding: 15px;
+  }
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .filterButtons{
+    font-size: 14px;
+    padding: 1px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    
+  }
+  .files {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .actionButtonsContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3); 
+  border-top: 4px solid #3498db; 
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Para dispositivos con un ancho máximo de 480px (móviles pequeños) */
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.2rem;
+  }
+  .filterButtons{
+    font-size: 14px;
+    padding: 1px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    
+  }
+  .excel img {
+    width: 16px; /* Ajusta el tamaño del ícono */
+  }
+  .actionButtonsAccept,
+  .actionButtonsReject {
+    font-size: 12px;
+    padding: 5px;
+  }
 }
 
 @media (max-width: 768px) {

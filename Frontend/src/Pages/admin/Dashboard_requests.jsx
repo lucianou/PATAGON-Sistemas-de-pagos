@@ -16,12 +16,12 @@ import refreshAccessToken from '@components/RefreshToken';
 
 const Solicitudes = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { solicitudes, error } = useFetchSolicitudes();
+    const { solicitudes, loading,  error } = useFetchSolicitudes();
     const [filter, setFilter] = useState('pendiente');
     const [selectedSolicitud, setSelectedSolicitud] = useState(null);
     const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
     const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
-    const { exportToExcel, loading } = useExportToExcel();
+    const { exportToExcel } = useExportToExcel();
     const { viewFile } = useFileViewer();
     const ipserver = import.meta.env.VITE_IP;
     const port = import.meta.env.VITE_PORT;
@@ -93,7 +93,15 @@ const Solicitudes = () => {
         () => [
             { Header: 'Nombre', accessor: 'nombre' , id: 'nombre'},
             { Header: 'Email', accessor: 'email' },
-            { Header: 'Institución', accessor: 'institucion' },
+            {
+                Header: 'Institución',
+                accessor: 'institucion',
+                Cell: ({ value }) => (
+                    <div className={styles.institutionColumn} title={value}>
+                        {value}
+                    </div>
+                ),
+            },
             { Header: 'Estado', accessor: 'estado' },
             { Header: 'Fecha', accessor: 'fecha' },
             {
@@ -209,7 +217,12 @@ const Solicitudes = () => {
                 </button>
 
                 <div className={styles.solicitudesList}>
-                    {filteredSolicitudes.length > 0 ? (
+                {loading ? (
+                        <div className={styles.spinnerContainer}>
+                            <div className={styles.spinner}></div> 
+                            <p>Cargando solicitudes...</p>
+                        </div>
+                    ) : filteredSolicitudes.length > 0 ? (
                         <TableComponent
                             key={solicitudes.length}
                             columns={columns} 

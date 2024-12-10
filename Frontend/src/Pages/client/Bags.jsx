@@ -14,12 +14,13 @@ const Bolsas = ({}) => {
     decodedToken = jwtDecode(token);
     userType = decodedToken.type;
   }
-  console.log(decodedToken);
+  
 
   return (
   <div className= {styles.container}>
     <NavBar />
     <div className={styles.section1}>
+      <h1>BOLSAS DE TIEMPO</h1>
       {!token || token && userType === "Pagado" ? (
             <div className={styles.dashboardWidgets}>
             {loading ? (

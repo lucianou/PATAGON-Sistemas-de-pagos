@@ -17,7 +17,7 @@ import PassChange from '@pages/PassChange';
 import Dashboard from '@adminPage/Dashboard';
 import Dashboard_user from '@adminPage/Dashboard_user';
 import Dashboard_profit from '@adminPage/Dashboard_profit';
-import Dashboard_config from '@adminPage/Dashboard_config';
+import Dashboard_prices from '@adminPage/Dashboard_prices';
 import Dashboard_admin from '@adminPage/Dashboard_admin';
 import Dashboard_requests from '@adminPage/Dashboard_requests';
 
@@ -58,9 +58,9 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/dashboard-config" element={
+        <Route path="/dashboard-prices" element={
           <ProtectedRoute isAllowed={["Administrador"]}>
-            <Dashboard_config />
+            <Dashboard_prices />
           </ProtectedRoute>
         } />
 
@@ -95,7 +95,11 @@ function App() {
 
         <Route path="/about-us" element={ <UsInfo />} />
 
-        <Route path="/bags" element={<Bags />} />
+        <Route path="/bags" element={
+          <ProtectedRoute isAllowed={["Cliente"]} onlyPaidClients={true}>
+            <Bags />
+          </ProtectedRoute>
+        } />
 
         <Route path="/docs" element={<Docs />} />
 
@@ -103,10 +107,11 @@ function App() {
 
         <Route path="/external" element={<External />} />
 
-        <Route path="/UseRequest" element={
-          <ProtectedRoute isAllowed={["Cliente"]}>
-            <UseRequest />
-          </ProtectedRoute>
+        <Route path="/patagon/solicitud" element={ 
+          <>
+          <UseRequest />
+          <Toaster position="top-right" toastOptions={{className: styles.customToast, duration: 3000,}}/>
+          </>
         } />
 
         <Route path="/account/profile" element={

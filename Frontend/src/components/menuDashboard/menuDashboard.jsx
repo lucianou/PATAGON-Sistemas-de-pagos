@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom'; // Importa useLocation para obtener la URL actual
 import styles from '../menuDashboard/menuDashboard.module.css'; // Importa tu archivo de estilos como módulo
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faClipboard, faUsers, faDollarSign, faCog, faSignOutAlt, faTimes, faBars, faUserShield} from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faClipboard, faUsers, faDollarSign, faSackDollar , faSignOutAlt, faTimes, faBars, faUserShield} from '@fortawesome/free-solid-svg-icons';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -17,10 +17,7 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
 
   const logout = (event) => {
     event.preventDefault();
-    localStorage.removeItem('rol'); // Elimina el rol del localStorage
     localStorage.removeItem('token'); // Elimina el token del localStorage
-    localStorage.removeItem('email'); // Elimina el refreshToken del localStorage
-    localStorage.removeItem('username'); // Elimina el nombre de usuario del localStorage
     localStorage.removeItem('refreshToken'); // Elimina el refreshToken del localStorage
     window.location.href = event.target.href; // Redirige al usuario a la ruta especificada en el enlace
   };
@@ -33,7 +30,7 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
         </button>
         <div className={styles.profile}>
           <img className={styles.profilePic} src='../../src/assets/perro.png' alt='Profile'></img>
-          <h2>{decodedToken.username !== '' ? decodedToken.username : 'Administrador' }</h2>
+          <h2>{decodedToken.username ? decodedToken.username : 'Administrador' }</h2>
         </div>
         <nav className={styles.menu}>
           <ul>
@@ -84,9 +81,9 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
             )}
 
             {(userRole === 'Administrador' || userRole === 'Co-admin') && (
-            <li className={isActive('/dashboard-config') ? styles.active : ''} onClick={() => window.location.href = '/dashboard-config'}>
-              <a href='/dashboard-config' tabIndex='-1'>
-                <FontAwesomeIcon icon={faCog} className={styles.faIcon} />
+            <li className={isActive('/dashboard-prices') ? styles.active : ''} onClick={() => window.location.href = '/dashboard-prices'}>
+              <a href='/dashboard-prices' tabIndex='-1'>
+                <FontAwesomeIcon icon={faSackDollar } className={styles.faIcon} />
                 <span>Configuración</span>
               </a>
             </li>

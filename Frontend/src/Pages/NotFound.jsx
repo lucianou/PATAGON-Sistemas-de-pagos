@@ -13,7 +13,7 @@ const NotFound = () => {
   }
 
 
-  const redirectTo = ['administrador', 'revisor', 'co.admin'].includes(userRole) ? '/dashboard' : '/mainClient';
+  const redirectTo = ['Administrador', 'Revisor', 'Co-admin'].includes(userRole) ? '/dashboard' : '/mainClient';
 
   return (
     <>

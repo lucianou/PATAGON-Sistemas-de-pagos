@@ -44,7 +44,7 @@ const particleConfig = {
       },
     },
     color: {
-      value: ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF"], // Colores variados
+      value: ["#8190ff", "#006600", "#0000FF", "#973d78", "#ffffff", "##eeedff"], // Colores variados
     },
     shape: {
       type: "circle",

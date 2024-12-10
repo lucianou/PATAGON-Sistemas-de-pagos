@@ -109,134 +109,49 @@
     width: 100%;
   }
 }
-/* Media query para pantallas más pequeñas */
-@media (max-width: 1325px) {
-  .searchSection {
-    min-width: 600px;
-    width: 100%;
-  }
-  .userSection {
-    min-width: 600px;
-    width: 100%;
-  }
-  .userSection .itemSection {
-    grid-template-columns: 1fr 1fr;
-  }
-}
 
-.errorMessage {
-  color: rgb(221, 21, 21);
-  background: rgb(219, 156, 145);
-  padding: 10px 45px;
-  font-size: 18px;
-  width: fit-content;
-  border-radius: 5px;
-  margin-top: 0 !important;
-}
-.actions{
-  display: flex;
-  justify-self: center;
-  gap: 10px;
-  .btnAccion{
-    background-color: #c29d52;
-    width: 100px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-}
+
+
 
 @media (max-width: 768px) {
-  /* Contenedor principal de la búsqueda */
-  .searchSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box; /* Asegura que los bordes/paddings no afecten el ancho total */
-    padding: 0 10px; /* Añadir un poco de padding para asegurar que los elementos no toquen los bordes */
-  }
-
-  .searchFill_container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .searchFill_container input {
-    margin-left: 0;
-    margin-bottom: 10px;
-    width: 100%;
-    max-width: 100%; /* Asegura que el input no se desborde */
-    padding: 10px;
-  }
-
-  .searchFill_container .contFill {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .searchFill_container .contFill .labelFill {
-    margin-left: 0;
-    margin-bottom: 5px;
-  }
-
-  .searchFill_container .contFill .filter {
-    margin: 0;
-    margin-bottom: 10px;
-    width: 100%;
-    max-width: 100%; /* Asegura que el filtro no se desborde */
-    padding: 10px;
-  }
-
-  /* Sección de botones */
-  .sectionBtn {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    box-sizing: border-box;
-  }
-
-  .sectionBtn button {
-    width: 100%;
-    max-width: 100%; /* Asegura que el botón no se desborde */
-    padding: 10px;
-  }
-
-  /* Sección de usuario */
-  .userSection {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
   .userSection .itemSection {
-    display: grid;
-    grid-template-columns: 1fr;
-    width: 100%;
-    justify-items: center;
-    box-sizing: border-box;
+    grid-template-columns: 1fr; 
+    gap: 15px;
   }
 
-  /* Sección de acciones */
+  .searchSection {
+    min-height: auto;
+    padding: 15px;
+    margin-top: 5rem;
+  }
+  .searchSection .sectionBtn button {
+    width: 100%;
+  }
   .actions {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
+    gap: 5px;
   }
-
   .actions .btnAccion {
-    width: 100%;
-    max-width: 100%; /* Asegura que los botones de acción no se desborden */
-    margin-bottom: 10px;
+    width: 100%; 
+  }
+}
+
+@media (max-width: 480px) {
+  .searchSection {
     padding: 10px;
+    gap: 10px;
+  }
+  .searchSection .sectionBtn button {
+    font-size: 14px;
+    height: auto;
+  }
+  .errorMessage {
+    padding: 8px 20px;
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+  }
+  .userSection .itemSection {
+    gap: 10px;
   }
 }

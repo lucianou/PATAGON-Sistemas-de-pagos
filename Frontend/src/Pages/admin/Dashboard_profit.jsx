@@ -20,6 +20,8 @@ const Dashboard_profit = () => {
   const { data } = useDashboardStats();
   const ip_server = import.meta.env.VITE_IP;
   const port = import.meta.env.VITE_PORT;
+  const IP = import.meta.env.VITE_SERVERIP;
+  
 
   const labels = data?.weeklyStats ? data.weeklyStats.map(item => item.date) : [];
   const dataPoints = data?.weeklyStats ? data.weeklyStats.map(item => item.count) : [];
@@ -28,7 +30,7 @@ const Dashboard_profit = () => {
   useEffect(() => {
     const fetchData3Months = async () => {
       try {
-        const response = await fetch(`http://${ip_server}:3003/api/command/get-users-stats-3months`);
+        const response = await fetch(`${IP}/get-users-stats-3months`);
         const result = await response.json();
 
         const newLabels2 = result.map(item => item.month); 
@@ -52,7 +54,7 @@ const Dashboard_profit = () => {
 
   const handleExport = () => {
     exportToExcel(
-      `http://${ip_server}:${port}/api/command/get-ingresos`,
+      `${IP}/get-ingresos`,
       'Transacciones_Historico'
     );
   };
