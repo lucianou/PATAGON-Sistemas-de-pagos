@@ -43,20 +43,14 @@ const useForm = (initialData) => {
           localStorage.setItem('refreshToken',data.refreshToken);
           localStorage.setItem('token', data.token);
           const decodedToken = jwtDecode(data.token);
-          localStorage.setItem('email', decodedToken.email);
           // console.log(decodedToken);
           if(decodedToken.rol == 'Administrador' || decodedToken.rol == 'Co-admin'){
-            localStorage.setItem('rol', decodedToken.rol);
-            localStorage.setItem('username', decodedToken.username);
             navigate('/dashboard');
           }
           if(decodedToken.rol == 'Revisor'){
-            localStorage.setItem('rol', decodedToken.rol);
-            localStorage.setItem('username', decodedToken.username);
             navigate('/admin/dashboard-requests');
           }  
           if(decodedToken.rol == 'Cliente'){
-            localStorage.setItem('rol', decodedToken.rol );
             navigate('/mainClient');
           }
         }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const DasboardProfile = () => {
   const [data, setData] = useState(null);
@@ -7,7 +8,8 @@ const DasboardProfile = () => {
   const ip_server = import.meta.env.VITE_IP;
   const port = import.meta.env.VITE_PORT;
   const token = localStorage.getItem('token');
-  const email = localStorage.getItem('email');
+  const decodedToken = jwtDecode(token);
+  const email = decodedToken.email;
 
   useEffect(() => {
     const fetchData = async () => {
