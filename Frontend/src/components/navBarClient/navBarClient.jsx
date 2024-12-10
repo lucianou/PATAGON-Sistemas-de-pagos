@@ -54,6 +54,14 @@ const NavBar = () => {
           <a href="/docs" className={isActive("/docs") ? styles.active : ""}>
             Documentación
           </a>
+
+          { token && (decodedToken.type === "Pagado" || decodedToken.type === "UACh")? (
+            ''
+          ) : (
+          <a href="/patagon/solicitud" className={isActive("/patagon/solicitud") ? styles.active : ""}>
+            Solicitud de uso
+          </a>
+        )}
         </div>
         </div>
         <div className={styles.userDiv}>
