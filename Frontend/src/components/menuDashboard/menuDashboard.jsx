@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom'; // Importa useLocation para obtener la URL actual
 import styles from '../menuDashboard/menuDashboard.module.css'; // Importa tu archivo de estilos como módulo
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faClipboard, faUsers, faDollarSign, faCog, faSignOutAlt, faTimes, faBars, faUserShield} from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faClipboard, faUsers, faDollarSign, faSackDollar , faSignOutAlt, faTimes, faBars, faUserShield} from '@fortawesome/free-solid-svg-icons';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -84,9 +84,9 @@ const MenuDashboard = ({ toggleMenu, isOpen }) => {
             )}
 
             {(userRole === 'Administrador' || userRole === 'Co-admin') && (
-            <li className={isActive('/dashboard-config') ? styles.active : ''} onClick={() => window.location.href = '/dashboard-config'}>
-              <a href='/dashboard-config' tabIndex='-1'>
-                <FontAwesomeIcon icon={faCog} className={styles.faIcon} />
+            <li className={isActive('/dashboard-prices') ? styles.active : ''} onClick={() => window.location.href = '/dashboard-prices'}>
+              <a href='/dashboard-prices' tabIndex='-1'>
+                <FontAwesomeIcon icon={faSackDollar } className={styles.faIcon} />
                 <span>Configuración</span>
               </a>
             </li>

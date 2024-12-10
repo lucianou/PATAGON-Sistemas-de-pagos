@@ -1,3 +1,4 @@
+/* LoginGeneral.module.css */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -54,4 +55,16 @@
       }
     }
   }
+}
+
+/* Para evitar el color de fondo del autocompletado */
+input:-webkit-autofill {
+  background-color: transparent !important;
+  -webkit-text-fill-color: #000 !important; /* Cambia el color del texto si es necesario */
+  transition: background-color 5000s ease-in-out 0s; /* Para que no se cambie el fondo al completar */
+}
+
+/* Para cambiar el color del texto al autocompletar */
+input:-webkit-autofill::first-line {
+  color: #000 !important;  /* Cambia el color del texto si es necesario */
 }
