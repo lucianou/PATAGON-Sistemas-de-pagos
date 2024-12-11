@@ -16,7 +16,7 @@ const Profile = () => {
   const navigate = useNavigate(); // Define navigate para redireccionar
 
   const handleBuyBag = () => {
-    navigate('/mainClient'); // Redirecciona a la página de cliente
+    navigate('/bags'); // Redirecciona a la página de cliente
   };
 
   return (

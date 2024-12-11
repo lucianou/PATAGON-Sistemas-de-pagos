@@ -18,35 +18,51 @@ export async function getPublicKeyFromDatabase(requestId) {
   }
 }
 
+// Función auxiliar para realizar la llamada a la API externa
+async function callExternalApi({ nombre, apellido, institucion, email, key, username, account }) {
+  try {
+      const apiResponse = await axios.post('https://api.externaservicio.com/endpoint', {
+          nombre,
+          apellido,
+          institucion,
+          email,
+          key,
+          username,
+          account
+      });
+      return apiResponse.data;
+  } catch (error) {
+      console.error('Error al llamar a la API externa:', error);
+      throw new Error('Error al contactar con la API externa');
+  }
+}
 
-//Nuevo usuario en patagón, llamada a api
+
+// Controlador principal
 export async function newUserCreationPatagon(req, res) {
-
- 
   const { nombre, apellido, institucion, email, requestId, username, account, type } = req.body;
   console.log(req.body);
+
   try {
-
-      //verificar si el usuario con el email ya existe
       const existingUser = await User.findOne({ where: { email: email } });
-      if (existingUser) { 
-          return res.status(400).json({ error: "El correo ya está registrado" });
-      }
-
-      // Usar la función auxiliar para obtener la clave pública en texto
+      if (existingUser) {
+        return res.status(400).json({ error: "El correo ya está registrado", email });
+    }
+    
       const key = await getPublicKeyFromDatabase(requestId);
 
-      // const apiExternal = await axios.post('https://api.externaservicio.com/endpoint', {
+      // Llamar a la API externa utilizando la función auxiliar
+      // const externalApiResponse = await callExternalApi({
       //     nombre,
       //     apellido,
       //     institucion,
       //     email,
-      //     key, // Incluye la clave pública extraída
+      //     key,
       //     username,
       //     account
       // });
 
-      //registar el nuevo usuario y obtener su ID
+      // Registrar el nuevo usuario en la base de datos
       const newUser = await User.create({
           email: email,
           nombre: nombre + ' ' + apellido,
@@ -54,22 +70,26 @@ export async function newUserCreationPatagon(req, res) {
           username: username,
           type: type,
       });
-      
+
+      // Actualizar la solicitud en la base de datos
       await Requests.update(
-          { user_id: newUser.ID, estado: 'aceptado' },  
+          { user_id: newUser.ID, estado: 'aceptado' },
           {
               where: {
-                  email: email,          
-                  estado: 'pendiente',  
+                  email: email,
+                  estado: 'pendiente',
               },
           }
       );
-      //res.status(200).json(apiExternal.data);
-      console.log(key);
-      res.status(200).json({ mensaje: 'Clave pública obtenida correctamente', publicKey: key });
+
+      // Enviar respuesta con los datos de la API externa
+      res.status(200).json({
+          mensaje: 'Usuario creado exitosamente y API externa contactada'
+          //externalApiResponse
+      });
   } catch (error) {
-      console.error('Error llamando a la API externa:', error);
-      res.status(500).json({ mensaje: 'Error al contactar con la API externa' });
+      console.error('Error en la creación del usuario:', error);
+      res.status(500).json({ mensaje: error.message });
   }
 };
 

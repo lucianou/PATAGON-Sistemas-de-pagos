@@ -29,11 +29,7 @@ export async function requests(req, res) {
 
 
 export async function addRequest(req, res) {
-  console.log('req.body:', req.body);
-  console.log('req.files:', req.files);
-  const { name, email, institution } = req.body; // Cambia institucion a institution
-
-  // Asegúrate de que los nombres coincidan con los que usaste en el formulario
+  const { name, email, institution } = req.body; 
   const documento_pdf = req.files && req.files['upload-application']
     ? req.files['upload-application'][0].buffer
     : null;
@@ -41,16 +37,9 @@ export async function addRequest(req, res) {
     ? req.files['upload-public-key'][0].buffer
     : null;
 
-  if (!documento_pdf || !documento_pub) {
-    return res.status(400).json({ error: 'Faltan archivos PDF o PUB' });
-  }
-
  
   try {
-  
     const requestDate = new Date();
-
-    // Crea la nueva solicitud
     const newRequest = await Resquests.create({
       nombre: name,
       email,
@@ -61,10 +50,6 @@ export async function addRequest(req, res) {
       estado: 'pendiente',
       fecha: requestDate,
     });
-
-    // Emite el evento para notificar la nueva solicitud
-    //solicitud guardada correctamente mostrar en consola
-    //console.log(newRequest);
     req.app.get('io').emit('newRequest', newRequest);
     res.status(201).json({ message: 'Solicitud guardada correctamente' });
     
