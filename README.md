@@ -28,9 +28,9 @@ Este proyecto implementa un sistema de pagos, que incluye la autenticación de u
     ```
     bash
 
-    cd backend
+    cd Backend
     npm install
-    cd ../frontend
+    cd ../Frontend
     npm install
     ```
 
@@ -38,10 +38,10 @@ Este proyecto implementa un sistema de pagos, que incluye la autenticación de u
     ```
     bash
 
-    cd backend
+    cd Backend
     npm run dev
 
-    cd ../frontend
+    cd ../Frontend
     npm run dev
     ```
 
